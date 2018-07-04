@@ -2,11 +2,13 @@ import { get as getConfig } from 'config';
 import * as express from 'express';
 
 // route imports
-import { assigning } from './assigning';
+import { auth } from './auth';
 
+// create router
 export const apis = express.Router();
 
-apis.use('/assigning', assigning);
+// define route navigation
+apis.use('/auth', auth);
 
 // load docs if requested
 if (getConfig('app.docs')) {
