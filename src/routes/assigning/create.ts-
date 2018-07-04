@@ -1,0 +1,207 @@
+import { Promise as BluePromise } from 'bluebird';
+import { RequestHandler } from 'express';
+
+import {
+  RequestError,
+  RequestErrorType,
+} from '../../error-handler/RequestError';
+
+import {
+  EmailSignatures,
+  EmailTemplates,
+  sendEmail,
+} from '../../email/send-email';
+import { getWholeLink } from '../../utils/authenticated-redirections';
+
+import { assigning as Assigning } from '../../models/assigning';
+import { company as Company } from '../../models/company';
+import { countries as Countries } from '../../models/countries';
+import { specialities as Specialities } from '../../models/specialities';
+import { user as User } from '../../models/user';
+
+interface IAssignings {
+  manufacturer_id: number;
+  target_id: number;
+  specialities: number[];
+  suggested_distributors: number[];
+  status: string;
+}
+
+export const create: RequestHandler = async (req, res, next) => {
+  try {
+    const assignings: IAssignings[] = [];
+
+    // create assigning data to bulk create
+    req.body.specialityDistributions.forEach(
+      (distribution: { specialities: number[]; distributors: number[] }) => {
+        // create an assigning entry for each suggested distributors
+        distribution.distributors.forEach(distributor => {
+          assignings.push({
+            manufacturer_id: req.body.manufacturer_id,
+            target_id: req.body.target_id,
+            specialities: distribution.specialities,
+            suggested_distributors: [distributor], // this is kept array for backward compatibility
+            status: 'suggested',
+          });
+        });
+      },
+    );
+
+    await BluePromise.all([
+      Assigning.bulkCreate(assignings),
+      expandAndSendMail(assignings),
+    ]);
+
+    return res.status(202).send({
+      status: 'success',
+      message: 'Assigned distributors',
+    });
+  } catch (err) {
+    return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
+  }
+};
+
+// WARNING!! un-optimized function, cz I'm angry now 😠
+async function expandAndSendMail(assignings: IAssignings[]) {
+  await BluePromise.map(assignings, async ass => {
+    const manuUserInfo: any = await User.findOne({
+      where: {
+        id: ass.manufacturer_id,
+      },
+      attributes: ['firstName', 'companyId', 'email'],
+      raw: true,
+    });
+
+    if (!manuUserInfo) {
+      return `no manuUserInfo for id ${
+        ass.manufacturer_id
+      }. hence mail not sent`;
+    }
+
+    const manuCompanyInfo: any = await Company.findOne({
+      where: {
+        id: manuUserInfo.companyId,
+      },
+      attributes: ['name', 'countryId'],
+      raw: true,
+    });
+
+    if (!manuCompanyInfo) {
+      return `no manuCompanyInfo for id ${
+        manuUserInfo.companyId
+      }. hence mail not sent`;
+    }
+
+    const manuCountryInfo: any = await Countries.findOne({
+      where: {
+        id: manuCompanyInfo.countryId,
+      },
+      attributes: ['country'],
+      raw: true,
+    });
+
+    if (!manuCountryInfo) {
+      return `no manuCountryInfo for id ${
+        manuCompanyInfo.countryId
+      }. hence mail not sent`;
+    }
+
+    const distributorUserInfo: any = await User.findOne({
+      where: {
+        id: ass.suggested_distributors[0],
+      },
+      attributes: ['firstName', 'lastName', 'companyId'],
+      raw: true,
+    });
+
+    if (!distributorUserInfo) {
+      return `no distributorUserInfo for id ${
+        ass.suggested_distributors[0]
+      }. hence mail not sent`;
+    }
+
+    const distCompanyInfo: any = await Company.findOne({
+      where: {
+        id: distributorUserInfo.companyId,
+      },
+      attributes: ['name', 'countryId', 'annualSales'],
+      raw: true,
+    });
+
+    if (!distCompanyInfo) {
+      return `no distCompanyInfo for id ${
+        distributorUserInfo.companyId
+      }. hence mail not sent`;
+    }
+
+    const distCountryInfo: any = await Countries.findOne({
+      where: {
+        id: distCompanyInfo.countryId,
+      },
+      attributes: ['country'],
+      raw: true,
+    });
+
+    if (!distCountryInfo) {
+      return `no distCountryInfo for id ${
+        distCompanyInfo.countryId
+      }. hence mail not sent`;
+    }
+
+    const distSpecialities = await BluePromise.map(
+      ass.specialities,
+      async spl => {
+        const splInfo: any = await Specialities.findOne({
+          where: {
+            id: spl,
+          },
+          raw: true,
+          attributes: ['speciality'],
+        });
+        if (!splInfo) {
+          return '';
+        }
+        return splInfo.speciality;
+      },
+    );
+
+    const authRedDistProfileUrl = await getWholeLink({
+      targetUserIdToMakeLogin: ass.manufacturer_id,
+      redirectUrl: `manufacturer/assigning/matching`,
+    });
+
+    const manuFirstName: string = manuUserInfo.firstName;
+    const companyName = manuCompanyInfo.name;
+    const country = manuCountryInfo.country;
+    const distFirstName = distributorUserInfo.firstName;
+    const distLastName = distributorUserInfo.lastName;
+    const distCompanyName = distCompanyInfo.name;
+    const distCompanyLocation = distCountryInfo.country;
+    const distTurnOver = distCompanyInfo.annualSales;
+
+    return sendEmail({
+      toAddresses: [manuUserInfo.email],
+      bccAddresses: [
+        EmailSignatures.BUSINESS_ANALYST_SIGNATURE.email,
+        EmailSignatures.BUSINESS_ANALYST_SIGNATURE_2.email,
+      ],
+      template: EmailTemplates.NEW_DISTRIBUTOR_MATCH,
+      subject: 'We found you distributor',
+      // fromEmail: EmailSignatures.CUSTOMER_SUCCESS.email,
+      fromName: EmailSignatures.CUSTOMER_SUCCESS.name,
+      fields: {
+        manuFirstName,
+        companyName,
+        country,
+        distFirstName,
+        distLastName,
+        distCompanyName,
+        distCompanyLocation,
+        distTurnOver,
+        distSpecilaties: distSpecialities,
+        viewDistributorLink: authRedDistProfileUrl,
+        signature: EmailSignatures.CUSTOMER_SUCCESS.signature,
+      },
+    });
+  });
+}

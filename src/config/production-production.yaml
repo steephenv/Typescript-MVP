@@ -1,0 +1,11 @@
+# CLIENT SEEING CONFIG - production
+# configuration for production server (live)
+
+app:
+  logging: false
+  morgan: true
+  port: 5000
+  docs: false
+
+database:
+  url: ''

@@ -1,0 +1,47 @@
+/assigning/new:
+  post:
+    security:
+    - Bearer: []
+    summary: api to assign distributors.
+    tags:
+    - Assigning
+    description: Runs and creates list possible assign distributors.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        - specialityDistributions
+        - manufacturer_id
+        - target_id
+        properties:
+          specialityDistributions:
+            type: array
+            items:
+              type: object
+              properties:
+                specialities:
+                  type: array
+                  description: speciality IDS
+                  example: [1,2]
+                distributors:
+                  type: array
+                  description: distributors IDS
+                  example: [1,2]
+          manufacturer_id:
+            type: integer
+            example: 1
+          target_id:
+            type: integer
+            example: 1
+        
+    responses:
+      202:
+        description: "successful attempt, returns `success message`"

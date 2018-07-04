@@ -1,0 +1,46 @@
+/assigning/call-schedules:
+  get:
+    # security:
+    # - Bearer: []
+    summary: api to list call-schedules
+    tags:
+    - Assigning
+    description: '**Key search** to list all call schedules'
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: key
+      description: '`key` will be matched against `person_name`, `country`, `phone_number`, `email` and `company_name`'
+      in: query
+      type: string
+    - name: callMade
+      description: 'filter based on `callMade`'
+      in: query
+      type: boolean
+      example: false
+    - name: user_id
+      description: 'user_id `user who created call request`'
+      in: query
+      type: number
+      example: 2
+    - name: call_type
+      description: '`1` for firstCall, `2` for secondCall'
+      in: query
+      type: number
+      example: 2
+    - name: _limit
+      description: 'limit number of results (default 50)'
+      in: query
+      type: number
+      example: 45
+    - name: _offset
+      description: 'offset of results (default 0)'
+      in: query
+      type: number
+      example: 0
+    responses:
+      200:
+        description: "successful, returns result"

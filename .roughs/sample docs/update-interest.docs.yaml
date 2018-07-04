@@ -1,0 +1,55 @@
+/assigning/update-interest:
+  post:
+    tags:
+    - Assigning
+    security:
+    - Bearer: []
+    description: update status ( interested, pending, declined etc ) for distributor, manufacturer. Author - Nithin
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        - status
+        - assignmentId
+        - currentState
+        - nextState
+        properties:
+          status:
+            type: string
+            example: interested
+          assignmentId:
+            type: integer
+            example: 1
+          currentState:
+              type: string
+              example: /distributor/register
+          nextState:
+            type: string
+            example: /distributor/products
+          reflectOn:
+            type: array
+            example: [{ assId: 41, status: 'declined', nextState: 'll' }]
+            description: "type: Object Array. Each object has \n* `assId`(assigningId),\n* optional `status` (represents status of the assigning entry. default is `declined`)\n* `nextState` (updates nextState of the distributer associated with this assigning)"
+    responses:
+      200:
+        description: "successful operation"
+        schema:
+          type: "object"
+          properties:
+            msg:
+              type: "string"
+              example: "Your interest in the manufacturer submitted successfully!"
+            status:
+              type: "string"
+              example: "success"
+            nextState:
+              type: "string"
+              example: "/distributor/products"

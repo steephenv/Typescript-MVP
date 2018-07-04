@@ -1,0 +1,30 @@
+/assigning/distributer:
+  get:
+    security:
+    - Bearer: []
+    summary: api to list assigned distributors 
+    tags:
+    - Assigning
+    description: list assigned distributors for a specific manufacturer
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: manufacturer_id
+      description: id of manufacturer
+      in: query
+      type: number
+      required: false
+      example: 1
+    - name: basedOnLatestTargeting
+      description: "when `basedOnLatestTargeting` is set, this api returns only the result related with the manufactures's last targeting attempt."
+      in: query
+      type: boolean
+      required: false
+      default: false
+      example: 1
+    responses:
+      200:
+        description: "successful, returns result"

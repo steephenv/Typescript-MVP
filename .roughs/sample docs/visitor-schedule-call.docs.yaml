@@ -1,0 +1,42 @@
+/assigning/visitors/schedule-call/:
+  post:
+    security:
+    - Bearer: []
+    summary: api to schedule call for a visitor
+    tags:
+    - Assigning
+    description: Adds new call request for a guest
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        - phone_number
+        - name
+        - country
+        properties:
+          phone_number:
+            type: string
+            example: '9633324881'
+          name:
+            type: string
+            example: 'billy'
+          country:
+            type: string
+            example: 'ind'
+    responses:
+      200:
+        description: "successful operation"
+        schema:
+          type: "object"
+          properties:
+            msg:
+              type: "string"
+              example: 'call requested'

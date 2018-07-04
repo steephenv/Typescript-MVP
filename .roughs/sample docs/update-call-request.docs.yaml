@@ -1,0 +1,39 @@
+/assigning/call-request/{id}:
+  patch:
+    tags:
+    - Assigning
+    security:
+    - Bearer: []
+    description: update call request fields. Nithin
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: id
+      in: "path"
+      description: "call_request id"
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        - call_made
+        properties:
+          call_made:
+            type: boolean
+            example: true
+    responses:
+      200:
+        description: "successful operation"
+        schema:
+          type: "object"
+          properties:
+            message:
+              type: "string"
+              example: "call request has been updated"
+            status:
+              type: "string"
+              example: "success"

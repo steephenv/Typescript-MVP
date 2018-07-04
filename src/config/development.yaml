@@ -1,0 +1,5 @@
+# configuration for cubet pcs
+app:
+  logging: true
+  morgan: true
+

@@ -1,0 +1,30 @@
+// vivek
+src/access-control/base-authenticator.ts(14,30): error TS2307: Cannot find module '../models/user'.
+src/access-control/permissions/profile.ts(1,36): error TS2307: Cannot find module '../../routes/profile/access-control/fetch.access.control'.
+src/access-control/permissions/targeting.ts(1,36): error TS2307: Cannot find module '../../routes/targeting/access-control/patch.access.control'.
+
+// email
+src/app.ts(113,26): error TS2345: Argument of type '{ toAddresses: {}[]; template: string; fromName: string; subject: string; fields: { errCode: numb...' is not assignable to parameter of type 'MailOptions'.
+  Types of property 'toAddresses' are incompatible.
+    Type '{}[]' is not assignable to type 'string[]'.
+      Type '{}' is not assignable to type 'string'.
+
+// db
+src/db.initializer.ts(12,23): error TS2304: Cannot find name 'Sequelize'.
+
+// email
+src/email/send-email.ts(4,21): error TS2307: Cannot find module '../aws/ses'.
+src/email/send-email.ts(6,33): error TS2307: Cannot find module './signatures/index'.
+src/email/send-email.ts(7,32): error TS2307: Cannot find module './templates'.
+
+// tslint
+src/routes/auth/utils/Jwt.ts(20,6): error TS7006: Parameter 'err' implicitly has an 'any' type.
+src/routes/auth/utils/Jwt.ts(20,11): error TS7006: Parameter 'token' implicitly has an 'any' type.
+src/routes/auth/utils/Jwt.ts(33,34): error TS7006: Parameter 'err' implicitly has an 'any' type.
+src/routes/auth/utils/Jwt.ts(33,39): error TS7006: Parameter 'decoded' implicitly has an 'any' type.
+src/startup/reset.ts(15,10): error TS7006: Parameter 'err' implicitly has an 'any' type.
+tests/index.spec.ts(5,28): error TS7006: Parameter 'done' implicitly has an 'any' type.
+
+src/startup/reset.ts(6,32): error TS2307: Cannot find module './reset-database'.
+
+tests/index.spec.ts(5,1): error TS2304: Cannot find name 'test'.

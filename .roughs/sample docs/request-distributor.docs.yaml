@@ -1,0 +1,46 @@
+/assigning/requests:
+  post:
+    security:
+    - Bearer: []
+    summary: api to Request distributors.
+    tags:
+    - Assigning
+    description: Runs and Reuquest distributors.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        - assigneeDistributors
+        - currentState
+        - nextState
+        properties:
+          assigneeDistributors:
+            type: array
+            items:
+              type: object
+              properties:
+                assignee_id:
+                  type: integer
+                  description: assignee_id
+                  example: 1
+                distributor_id:
+                  type: integer
+                  description: distributor ID
+                  example: 2   
+          currentState:
+            type: text
+            example: '/assinging'
+          nextState:
+            type: text
+            example: '/list'    
+    responses:
+      202:
+        description: "successful attempt, returns `success message`"
