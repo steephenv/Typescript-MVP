@@ -10,13 +10,14 @@
     "build": "gulp build",
     "lint-noFix": "gulp lint-noFix",
     "lint": "npm run prettier && npm run tslint",
-    "compiled-test-in-gitlab-runner": "cross-env NODE_APP_INSTANCE=test cross-env NODE_CONFIG_DIR=./dist/src/config jest --config=./ci-jest.config.json --forceExit",
-    "test": "npm run reset-test-db && cross-env NODE_APP_INSTANCE=test cross-env NODE_CONFIG_DIR=./src/config jest --forceExit",
+    "compiled-test-in-gitlab-runner": "cross-env NODE_APP_INSTANCE=test cross-env NODE_CONFIG_DIR=./dist/src/config jest --config=./ci-jest.config.json --forceExit --detectOpenHandles",
+    "test": "npm run reset-test-db && NODE_APP_INSTANCE=test NODE_CONFIG_DIR=./src/config jest --forceExit --detectOpenHandles",
     "copy-assets": "gulp copy-assets && gulp replace",
     "clean-build": "gulp clean-build",
     "compile": "tsc",
     "prettier": "prettier '{src/**/*.*,typings/**/*.*,tests/**/*.*}' --write",
-    "tslint": "tslint -c tslint.json -p tsconfig.json -t stylish --fix 'src/**/*.ts'"
+    "tslint": "tslint -c tslint.json -p tsconfig.json -t stylish --fix 'src/**/*.ts'",
+    "reset-test-db": "NODE_APP_INSTANCE=test NODE_CONFIG_DIR=./src/config node tests/reset.js"
   },
   "repository": {
     "type": "git"

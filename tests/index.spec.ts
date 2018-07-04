@@ -1,6 +1,6 @@
-import { app } from '../src/app';
-
 import * as supertest from 'supertest';
+
+import { app } from '../src/app';
 
 describe('test', () => {
   test('testing for humans', done => {

@@ -48,15 +48,15 @@ export { AppEmailTemplates, EmailTemplates, EmailSignatures };
  */
 
 // sendEmail({
-// 	toAddresses: ['vajahath.ahmed@cubettech.com'],
-// 	subject: 'Verification Code',
-// 	template: EmailTemplates.VERIFICATION_CODE,
-// 	fields: { code: 5474 },
+//   toAddresses: ['vajahath.ahmed@cubettech.com'],
+//   subject: 'Verification Code',
+//   template: EmailTemplates.SAMPLE,
+//   fields: { code: 5474 },
 // })
-// 	.then(data => {
-// 		console.log(data);
-// 	})
-// 	.catch(err => console.log('ERR', err));
+//   .then(data => {
+//     console.log(data);
+//   })
+//   .catch(err => console.log('ERR', err));
 
 /**
  * ORIGINAL PARAMS:
