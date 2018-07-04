@@ -4,6 +4,7 @@ import mongoose = require('mongoose');
 
 // Connect to MongoDB
 const MONGO_URI: string = configGet('database.url');
+console.log('connecting to ' + MONGO_URI); // tslint:disable-line
 
 // Promisifying all mongoose methods
 mongoose.Promise = BluePromise;
