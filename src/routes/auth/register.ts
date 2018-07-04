@@ -51,7 +51,9 @@ export const register: RequestHandler = async (req, res, next) => {
         URL: verificationUrl,
       },
     };
-    // await sgMail.send(msg);
+
+    await sgMail.send(msg);
+
     return res.status(201).send({
       success: true,
       msg: messages.emailSent.ENG,
