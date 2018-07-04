@@ -8,7 +8,7 @@ import * as path from 'path';
 import { v4 } from 'public-ip';
 
 // init db
-import('./db.init');
+import database = require('./db.init');
 import { AppEmailTemplates, sendEmail } from './email/send-email';
 import { RequestError, RequestErrorType } from './error-handler/RequestError';
 
@@ -144,3 +144,5 @@ const requestErrHandler: express.ErrorRequestHandler = (
 };
 
 app.use(requestErrHandler);
+
+export { database };

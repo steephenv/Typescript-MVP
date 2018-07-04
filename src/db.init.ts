@@ -30,3 +30,5 @@ process.on('SIGINT', () => {
     process.exit(1);
   });
 });
+
+export default mongoose;
