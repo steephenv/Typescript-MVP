@@ -8,7 +8,8 @@ import * as path from 'path';
 import { v4 } from 'public-ip';
 
 // init db
-import { mongooseConnectionPromise } from './db.init';
+import { mongooseConnectionPromise, mongoose } from './db.init';
+export { mongoose }; // exporting for quick access in tests
 
 mongooseConnectionPromise
   .then(() => {

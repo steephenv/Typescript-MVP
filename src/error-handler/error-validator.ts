@@ -11,5 +11,5 @@ export const errValidator: RequestHandler = (req, res, next) => {
       new RequestError(RequestErrorType.UNPROCESSABLE_ENTITY, err.mapped()),
     );
   }
-  next();
+  return next();
 };
