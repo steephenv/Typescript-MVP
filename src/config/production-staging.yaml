@@ -3,7 +3,7 @@
 app:
   logging: false
   morgan: false
-  port: 7020
+  port: 6233
   docs: false
 
 database:
