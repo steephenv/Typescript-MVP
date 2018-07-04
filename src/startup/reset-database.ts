@@ -3,13 +3,7 @@ import { Promise as BluePromise } from 'bluebird';
 import * as mongoose from 'mongoose';
 import { mongooseConnectionPromise } from '../db.init';
 
-function errHandler(err: any) {
-  if (err.code !== 26) {
-    console.log(err);
-    return;
-  }
-  throw err;
-}
+import { initUsers } from './users';
 
 const resetDatabase = async () => {
   await mongooseConnectionPromise;
@@ -19,6 +13,7 @@ const resetDatabase = async () => {
       mongoose.connection.db.dropCollection('users').catch(errHandler),
       mongoose.connection.db.dropCollection('tempusers').catch(errHandler),
     ]);
+    await BluePromise.all([initUsers()]);
   } catch (err) {
     console.log(err);
   }
@@ -27,3 +22,11 @@ const resetDatabase = async () => {
 };
 
 export = resetDatabase;
+
+function errHandler(err: any) {
+  if (err.code !== 26) {
+    console.log(err);
+    return;
+  }
+  throw err;
+}

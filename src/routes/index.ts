@@ -4,6 +4,7 @@ import * as express from 'express';
 // route imports
 import { auth } from './auth';
 import { utils } from './utils';
+import { assets } from './assets';
 
 // create router
 export const apis = express.Router();
@@ -11,6 +12,7 @@ export const apis = express.Router();
 // define route navigation
 apis.use('/auth', auth);
 apis.use('/utils', utils);
+apis.use('/assets', assets);
 
 // load docs if requested
 if (getConfig('app.docs')) {

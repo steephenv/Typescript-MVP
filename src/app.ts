@@ -9,7 +9,7 @@ import { v4 } from 'public-ip';
 
 // init db
 import { mongooseConnectionPromise, mongoose } from './db.init';
-export { mongoose }; // exporting for quick access in tests
+export { mongoose, mongooseConnectionPromise }; // exporting for quick access in tests
 
 mongooseConnectionPromise
   .then(() => {
