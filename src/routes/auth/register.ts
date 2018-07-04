@@ -19,16 +19,15 @@ sgMail.setApiKey(secrets.sendGridKey);
 
 export const register: RequestHandler = async (req, res, next) => {
   try {
-    const user = await User.findOne({ email: req.body.email }).exec();
-    const temp = await TempUser.findOne({ email: req.body.email }).exec();
-
+    const [user, temp] = await BluePromise.all([
+      User.findOne({ email: req.body.email }).exec(),
+      TempUser.findOne({ email: req.body.email }).exec(),
+    ]);
     if (user || temp) {
-      return new RequestError(
-        RequestErrorType.CONFLICT,
-        messages.emailExisting.ENG,
+      return next(
+        new RequestError(RequestErrorType.CONFLICT, messages.emailExisting.ENG),
       );
     }
-
     const token = shortId.generate();
 
     req.body.role = 'User';
@@ -52,8 +51,7 @@ export const register: RequestHandler = async (req, res, next) => {
         URL: verificationUrl,
       },
     };
-    await sgMail.send(msg);
-
+    // await sgMail.send(msg);
     return res.status(201).send({
       success: true,
       msg: messages.emailSent.ENG,

@@ -30,6 +30,6 @@
  *
  */
 
-import { assigning } from './assigning';
+import { auth } from './auth';
 
-export const permissions: any = Object.assign(assigning);
+export const permissions: any = Object.assign(auth);

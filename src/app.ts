@@ -8,7 +8,21 @@ import * as path from 'path';
 import { v4 } from 'public-ip';
 
 // init db
-import database = require('./db.init');
+import { mongooseConnectionPromise, mongoose } from './db.init';
+
+mongooseConnectionPromise
+  .then(() => {
+    // tslint:disable-next-line
+    // console.log('Mongoose connected to ');
+    /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
+  })
+  .catch(err => {
+    // tslint:disable-next-line
+    console.log(
+      'MongoDB connection error. Please make sure MongoDB is running. ' + err,
+    );
+  });
+
 import { AppEmailTemplates, sendEmail } from './email/send-email';
 import { RequestError, RequestErrorType } from './error-handler/RequestError';
 
@@ -16,7 +30,7 @@ import { apis } from './routes/index';
 
 import { getRoute } from './utils/get-route';
 
-import { accessControl } from './access-control/access-control';
+// import { accessControl } from './access-control/access-control';
 import { attachTokenData } from './access-control/attach-token-data';
 
 export const app = express();
@@ -42,7 +56,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/v1', attachTokenData, accessControl, apis);
+app.use('/v1', attachTokenData, apis);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -144,5 +158,3 @@ const requestErrHandler: express.ErrorRequestHandler = (
 };
 
 app.use(requestErrHandler);
-
-export { database };
