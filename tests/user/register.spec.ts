@@ -1,15 +1,16 @@
 /* eslint no-undef: 0 */
 
 import * as supertest from 'supertest';
-import { app } from '../../src/app';
+import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
 
 const keyEmail = 'loki@marvel.com';
 const client1 = 'rdj@nnn.com';
 
 // Test
+afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
 
 describe('Test for signup functionality ===> ', () => {
-  it(
+  test(
     'Registration Functionality',
     done => {
       supertest(app)
@@ -35,7 +36,7 @@ describe('Test for signup functionality ===> ', () => {
     15000,
   );
 
-  it('Testing local register of user with invalid data ', done => {
+  test('Testing local register of user with invalid data ', done => {
     supertest(app)
       .post('/v1/auth/register')
       .send({
@@ -54,7 +55,7 @@ describe('Test for signup functionality ===> ', () => {
       });
   });
 
-  it('Testing local register of user with existing email ', done => {
+  test('Testing local register of user with existing email ', done => {
     supertest(app)
       .post('/v1/auth/register')
       .send({
@@ -73,7 +74,7 @@ describe('Test for signup functionality ===> ', () => {
       });
   });
 
-  it(
+  test(
     'Client registration ',
     async done => {
       supertest(app)
@@ -101,7 +102,7 @@ describe('Test for signup functionality ===> ', () => {
     15000,
   );
 
-  it('Client registration - Without Company name', done => {
+  test('Client registration - Without Company name', done => {
     supertest(app)
       .post('/v1/auth/register')
       .send({
@@ -123,7 +124,7 @@ describe('Test for signup functionality ===> ', () => {
       });
   });
 
-  it('Client registration - free email', done => {
+  test('Client registration - free email', done => {
     supertest(app)
       .post('/v1/auth/register')
       .send({

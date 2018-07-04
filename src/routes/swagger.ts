@@ -13,4 +13,4 @@ const options = {
   apis: ['**/*.docs.yaml'],
 };
 
-export = swaggerJSDoc(options);
+export const swaggerSpec = swaggerJSDoc(options);

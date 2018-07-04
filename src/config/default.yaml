@@ -21,3 +21,5 @@ frontEnd:
     baseUrl: 'http://localhost:7011'
   admin:
     baseUrl: 'http://localhost:7012'
+
+AWS_BUCKET_NAME: miwago-assets
