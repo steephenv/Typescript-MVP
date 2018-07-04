@@ -32,13 +32,14 @@ export const sendEmail = (mailOptions: MailOptions) => {
       Subject: { Data: mailOptions.subject },
     },
     Source: `${mailOptions.fromName ||
-      'Miwago services'} ${mailOptions.fromEmail ||
-      '<no_reply@miwago.me>'}` /* required */,
+      'Miwago Services'} ${mailOptions.fromEmail ||
+      `<${getConfig('mails.defaultFrom')}>`}` /* required */,
   };
   if (getConfig('mails.enable')) {
     return ses.sendEmail(params).promise();
   }
-  return;
+
+  return new Promise(resolve => resolve());
 };
 
 export { AppEmailTemplates, EmailTemplates, EmailSignatures };
@@ -54,9 +55,9 @@ export { AppEmailTemplates, EmailTemplates, EmailSignatures };
 //   fields: { code: 5474 },
 // })
 //   .then(data => {
-//     console.log(data);
+//     console.log('mailed', data); // tslint:disable-line
 //   })
-//   .catch(err => console.log('ERR', err));
+//   .catch(err => console.log('ERR', err)); // tslint:disable-line
 
 /**
  * ORIGINAL PARAMS:

@@ -12,6 +12,7 @@ database:
 
 mails:
   enable: false
+  defaultFrom: miwago@cubettech.com # this is the source email that is used to send emails(from address)
   admin: 'aumadmin@yopmail.com'
   errMails: vajahath.ahmed@cubettech.com
 
