@@ -1,5 +1,5 @@
 mocha-insights/
-credentials/
+# credentials/
 dist
 schema-dist
 src/config/private
