@@ -1,6 +1,8 @@
 import * as supertest from 'supertest';
 
-import { app } from '../src/app';
+import { app, mongoose, mongooseConnectionPromise } from '../src/app';
+
+afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
 
 describe('test', () => {
   test('testing for humans', done => {

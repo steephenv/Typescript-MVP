@@ -54,10 +54,7 @@ export const signForUpload: RequestHandler = async (req, res, next) => {
 };
 
 async function signForUploadCtrl(objectsToUpload: ISignForUpload[]) {
-  return await BluePromise.map(
-    objectsToUpload,
-    async obj => await signEachObjects(obj),
-  );
+  return await BluePromise.map(objectsToUpload, obj => signEachObjects(obj));
 }
 
 async function signEachObjects(objectToUpload: ISignForUpload) {

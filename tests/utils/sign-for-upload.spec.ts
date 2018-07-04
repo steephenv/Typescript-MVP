@@ -1,8 +1,10 @@
 import * as supertest from 'supertest';
 
-import { app } from '../../src/app';
+import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
 
 const obj = [{ fileName: 'fasd', fileType: 'fasdf', filePath: 'afsf/fasdf/' }];
+
+afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
 
 describe('testing sign-for-upload fn', () => {
   test('testing route with good requests', done => {
