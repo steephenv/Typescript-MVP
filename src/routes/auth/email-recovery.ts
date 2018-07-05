@@ -21,10 +21,7 @@ export const emailRecoveryFunction: RequestHandler = async (req, res, next) => {
       .exec();
     if (!user) {
       return next(
-        new RequestError(
-          RequestErrorType.UNPROCESSABLE_ENTITY,
-          messages.noUser.ENG,
-        ),
+        new RequestError(RequestErrorType.BAD_REQUEST, messages.noUser.ENG),
       );
     }
     const msg: any = {
