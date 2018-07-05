@@ -24,13 +24,12 @@ describe('testing asset recording', () => {
       .post('/v1/assets/record')
       // .set('Authorization', `Bearer ${token}`)
       .send({
-        assets: {
-          name: 'fasdf',
-          category: 'fasdf',
-          accessUrl: 'adsfasd',
-          fileName: 'fasdf',
-          fileType: 'asdf',
-        },
+        name: 'fasdf',
+        category: 'fasdf',
+        accessUrl: 'adsfasd',
+        fileName: 'fasdf',
+        fileType: 'asdf',
+        userId: 'asd',
       })
       .expect(201)
       .end(err => {

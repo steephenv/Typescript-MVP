@@ -1,0 +1,53 @@
+/assets/record:
+  post:
+    # security:
+    # - Bearer: []
+    summary: api to record an uploaded asset.
+    tags:
+    - Assets
+    description: this is usually called after uploading an asset to aws
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        - name
+        - category
+        - accessUrl
+        - fileName
+        - userId
+        properties:
+          name:
+            type: string
+            description: asset name
+            example: cato
+          category:
+            type: string
+            example: kingdom animalia
+          attributes:
+            type: string
+            example: cheetah is a part of it
+          coAuthoring:
+            type: string
+            example: tiger
+          accessUrl:
+            type: string
+            example: aws access url
+          fileName:
+            type: string
+            example: catres
+            description: name of the file
+          fileType:
+            type: string
+            example: '.png'
+        
+    responses:
+      201:
+        description: "successful attempt, returns `success message`"
