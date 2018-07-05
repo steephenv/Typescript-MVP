@@ -30,6 +30,7 @@
  *
  */
 
+import { IPermissionDefinition } from '../Roles.class';
 import { auth } from './auth';
 
-export const permissions: any = Object.assign(auth);
+export const permissions: IPermissionDefinition = Object.assign(auth);

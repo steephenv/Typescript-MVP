@@ -1,5 +1,7 @@
-export const auth = {
+import { Roles, IPermissionDefinition } from '../Roles.class';
+
+export const auth: IPermissionDefinition = {
   'GET:/auth/register': {
-    allow: ['all'],
+    allow: Roles.ALL,
   },
 };
