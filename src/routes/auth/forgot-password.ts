@@ -9,30 +9,34 @@ import { messages } from '../../config/app/messages';
 import { secrets } from '../../config/credentials/secrets';
 import { sendGTemplates } from '../../config/credentials/sendgrid-templates';
 
+import {
+  RequestError,
+  RequestErrorType,
+} from '../../error-handler/RequestError';
+
 sgMail.setApiKey(secrets.sendGridKey);
 
-export const forgotPassword: RequestHandler = async (req, res) => {
+export const forgotPassword: RequestHandler = async (req, res, next) => {
   try {
     let verificationUrl: string;
-    const user = await User.findOne({ email: res.locals.data.email })
+    const user = await User.findOne({ email: req.body.email })
       .lean()
       .exec();
     if (!user) {
-      return res.status(400).send({
-        success: false,
-        msg: 'No such User present',
-      });
+      return next(
+        new RequestError(RequestErrorType.BAD_REQUEST, messages.noUser.ENG),
+      );
     }
-    const token = shortId.generate();
-    verificationUrl = res.locals.data.url.replace(/{token}/g, token);
+    const genToken = shortId.generate();
+    verificationUrl = req.body.url.replace(/{token}/g, genToken);
     const forgot = new ResetPassword({
-      email: res.locals.data.email,
-      token: token,
+      email: req.body.email,
+      token: genToken,
       createdAt: new Date(),
     });
-    const forgotData = await forgot.save();
+    await forgot.save();
     const msg: any = {
-      to: res.locals.data.email,
+      to: req.body.email,
       from: 'miwago@cubettech.com',
       subject: 'Reset Password',
       text: 'To reset your account password, ',
@@ -44,21 +48,13 @@ export const forgotPassword: RequestHandler = async (req, res) => {
         user: user.firstName + ' ' + user.lastName,
       },
     };
-    await new Promise(resolve => {
-      sgMail.send(msg, (err: any, json: any) => {
-        return resolve();
-      });
-    });
+    await sgMail.send(msg);
     return res.status(202).send({
       success: true,
       url: verificationUrl,
       msg: messages.emailSent.ENG,
     });
   } catch (err) {
-    lme.e(err);
-    return res.status(500).send({
-      success: false,
-      msg: err,
-    });
+    return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR));
   }
 };
