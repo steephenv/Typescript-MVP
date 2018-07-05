@@ -12,12 +12,12 @@ mongoose.Promise = BluePromise;
 export const mongooseConnectionPromise = mongoose.connect(MONGO_URI);
 
 // If the Node process ends, close the Mongoose connection
-process.on('SIGINT', () => {
-  mongoose.connection.close(() => {
-    // tslint:disable-next-line
-    console.log('Mongoose connection disconnected through app termination');
-    process.exit(1);
-  });
-});
+// process.on('SIGINT', () => {
+//   mongoose.disconnect().then(() => {
+//     // tslint:disable-next-line
+//     console.log('Mongoose connection disconnected through app termination');
+//     process.exit(1);
+//   });
+// });
 
 export { mongoose };
