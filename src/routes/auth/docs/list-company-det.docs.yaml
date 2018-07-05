@@ -13,5 +13,5 @@
       required: true
       default: XMLHttpRequest
     responses:
-      202:
+      200:
         description: "successful attempt, returns `success message`"

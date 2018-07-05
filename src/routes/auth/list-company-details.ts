@@ -10,8 +10,8 @@ import {
 export const listCompanyDetails: RequestHandler = async (req, res, next) => {
   try {
     const companyDetails = await Company.find({}).exec();
-    return res.status(202).send({ success: true, data: companyDetails });
+    return res.status(200).send({ success: true, data: companyDetails });
   } catch (err) {
-    return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR));
+    return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }
 };
