@@ -27,7 +27,7 @@ describe('Login functionality ==> ', () => {
       .send({
         username: 'stark@marvel.com',
       })
-      .expect(401)
+      .expect(422)
       .end(err => {
         if (err) {
           throw err;
