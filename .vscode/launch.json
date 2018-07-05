@@ -15,7 +15,8 @@
       "protocol": "inspector",
       "env": {
         "NODE_ENV": "development",
-        "NODE_CONFIG_DIR": "./src/config"
+        "NODE_CONFIG_DIR": "./src/config",
+        "TESTING": "true"
       },
       "runtimeArgs": ["--nolazy"]
     },
@@ -31,7 +32,7 @@
       "env": {
         "NODE_ENV": "development",
         "NODE_CONFIG_DIR": "./src/config",
-        "NODE_APP_INSTANCE": "test"
+        "TESTING": "true"
       },
       "runtimeArgs": ["--nolazy"]
     }

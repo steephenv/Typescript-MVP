@@ -1,16 +1,21 @@
-import swaggerJSDoc = require('swagger-jsdoc');
+let swaggerSpec: any = null;
 
-const options = {
-  swaggerDefinition: {
-    info: {
-      title: 'Miwago API Docs',
-      version: '1.0.0',
-      description: '',
+if (process.env.TESTING !== 'true') {
+  const swaggerJSDoc = require('swagger-jsdoc'); // tslint:disable-line
+
+  const options = {
+    swaggerDefinition: {
+      info: {
+        title: 'Miwago API Docs',
+        version: '1.0.0',
+        description: '',
+      },
+      host: 'localhost:6233',
+      basePath: '/v1',
     },
-    host: 'localhost:6233',
-    basePath: '/v1',
-  },
-  apis: ['**/*.docs.yaml'],
-};
+    apis: ['**/*.docs.yaml'],
+  };
+  swaggerSpec = swaggerJSDoc(options);
+}
 
-export const swaggerSpec = swaggerJSDoc(options);
+export { swaggerSpec };
