@@ -3,7 +3,7 @@
 import * as supertest from 'supertest';
 import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
 
-const keyEmail = 'loki@marvel.com';
+const keyEmail = 'loki1@marvel.com';
 const client1 = 'rdj@nnn.com';
 
 // Test

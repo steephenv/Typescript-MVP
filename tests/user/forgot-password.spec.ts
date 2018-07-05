@@ -5,7 +5,7 @@ describe('Test for forgot-password functionality ===> ', () => {
   it('Login with incorrect credentials', async done => {
     try {
       const res = await supertest(app)
-        .post('/v1/forgot-password')
+        .post('/v1/auth/forgot-password')
         .send({
           email: 'loki@marvel.com',
           url: 'http://fasdfasd.com/token={token}',

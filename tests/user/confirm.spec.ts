@@ -1,35 +1,22 @@
 import * as supertest from 'supertest';
-import { app } from '../../src/app';
+import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
 
-describe('Test for signup functionality ===> ', () => {
-  it(
-    'Registration Functionality',
-    done => {
-      supertest(app)
-        .post('/v1/auth/register')
-        .send({
-          firstName: 'Loki',
-          lastName: 'Asgard',
-          email: 'lakshmipriya.m@cubettech.com',
-          password: 'australia',
-          appliedRole: 'User',
-          confirmPassword: 'australia',
-          url: 'dfsfsd?token={token}',
-          mobile: '0987654321',
-        })
-        .expect(201)
-        .end(err => {
-          if (err) {
-            throw err;
-          }
-          return done();
-        });
-    },
-    15000,
+import { TempUser } from '../../src/models/TempUser';
+
+beforeAll(async done => {
+  await TempUser.update(
+    { email: 'jo@marvel.com' },
+    { $set: { createdAt: new Date(), token: 'xxxxx' } },
   );
+  done();
+});
+
+afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
+
+describe('Test for confirm functionality ===> ', () => {
   it('Confirm user ', done => {
     supertest(app)
-      .post('/v1/auth/confirm?token=SJYdxLcMX')
+      .post('/v1/auth/confirm?token=xxxxx')
       .expect(201)
       .end(err => {
         if (err) {
