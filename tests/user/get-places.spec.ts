@@ -3,15 +3,10 @@ import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
 
 afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
 
-describe('Login functionality ==> ', () => {
-  it('Login with all credentials', done => {
+describe('places api  ===> ', () => {
+  it('get countries', done => {
     supertest(app)
-      .post('/v1/auth/login')
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .send({
-        username: 'stark@marvel.com',
-        password: 'password',
-      })
+      .get('/v1/auth/get-countries')
       .expect(200)
       .end(err => {
         if (err) {
@@ -20,14 +15,21 @@ describe('Login functionality ==> ', () => {
         return done();
       });
   });
-  it('Login with field missing', done => {
+  it('get states', done => {
     supertest(app)
-      .post('/v1/auth/login')
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .send({
-        username: 'stark@marvel.com',
-      })
-      .expect(422)
+      .get('/v1/auth/get-states?country=IN')
+      .expect(200)
+      .end(err => {
+        if (err) {
+          throw err;
+        }
+        return done();
+      });
+  });
+  it('get cities', done => {
+    supertest(app)
+      .get('/v1/auth/get-cities?state=IN-01')
+      .expect(200)
       .end(err => {
         if (err) {
           throw err;
