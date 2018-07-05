@@ -1,4 +1,5 @@
 /* tslint:disable:max-classes-per-file */
+import { Request, Response } from 'express';
 
 abstract class BaseUserRoles {
   /** root users (developers) has the highest priority. Access everywhere */
@@ -57,7 +58,13 @@ export class Roles extends UserGroups {
  */
 
 interface IFields {
-  allow: string[];
+  /** who are allowed to access */
+  allow?: string[];
+  /**
+   * custom access control: if `true` returns, acl passed. else failed.
+   * !IMPORTANT. avoid ending response inside this fn by calling `res.send(..)` or `.end(..)` etc.
+   */
+  customAccessControl?: (req?: Request, res?: Response) => Promise<boolean>;
 }
 export interface IPermissionDefinition {
   [key: string]: IFields;
