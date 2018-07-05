@@ -1,28 +1,21 @@
-/auth/confirm?token={token}:
+/auth/confirm:
   post:
     # security:
     # - Bearer: []
     summary: api for confirm register.
     tags:
     - Authentication
-    description: auth
+    description: api for confirm register
     parameters:
     - name: X-Requested-With
       description: set value to XMLHttpRequest if you are making an xhr request
       in: header
       required: true
       default: XMLHttpRequest
-    - name: Body
-      in: body
-      required: true
-      schema:
-        type: object
-        required:
-        - token
-        properties:
-          token:
-            type: string
-            example: bill
+    - name: token
+      description: ''
+      in: query
+      type: string
     responses:
       201:
         description: "successful attempt, returns `success message`"
