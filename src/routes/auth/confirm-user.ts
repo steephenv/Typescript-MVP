@@ -19,7 +19,6 @@ export const confirmUser: RequestHandler = async (req, res, next) => {
         $gte: new Date(twentyMinutesBefore),
       },
     };
-    console.log(criteria);
     const user: any = await TempUser.findOne(criteria)
       .lean()
       .exec();
