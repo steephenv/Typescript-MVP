@@ -1,4 +1,5 @@
 import { RequestHandler } from 'express';
+import { Promise as BluePromise } from 'bluebird';
 
 import { TempUser } from '../../models/TempUser';
 import { User } from '../../models/User';
@@ -24,10 +25,7 @@ export const confirmUser: RequestHandler = async (req, res, next) => {
       .exec();
     if (!user) {
       return next(
-        new RequestError(
-          RequestErrorType.UNPROCESSABLE_ENTITY,
-          messages.noUser.ENG,
-        ),
+        new RequestError(RequestErrorType.BAD_REQUEST, messages.noUser.ENG),
       );
     }
     const extUser = await User.findOne({ email: user.email });
@@ -38,20 +36,19 @@ export const confirmUser: RequestHandler = async (req, res, next) => {
     }
     if (!user) {
       return next(
-        new RequestError(
-          RequestErrorType.UNPROCESSABLE_ENTITY,
-          messages.noUser.ENG,
-        ),
+        new RequestError(RequestErrorType.BAD_REQUEST, messages.noUser.ENG),
       );
     }
     delete user._id;
     const newUser = new User(user);
-    const userData = await newUser.save();
-    const removedData = await TempUser.findOneAndRemove({
-      email: req.body.email,
-    });
+    await BluePromise.all([
+      newUser.save(),
+      TempUser.findOneAndRemove({
+        email: req.body.email,
+      }),
+    ]);
     return res.status(201).send({ success: true });
   } catch (err) {
-    return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR));
+    return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }
 };
