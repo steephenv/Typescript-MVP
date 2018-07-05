@@ -73,4 +73,7 @@ export const messages = {
   NotBsnsEmail: {
     ENG: 'Inavlid Business email',
   },
+  noUser: {
+    ENG: 'No User Present',
+  },
 };
