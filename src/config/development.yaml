@@ -1,4 +1,5 @@
 # configuration for cubet pcs
+# every loacal pc's should own a mongodb as its own
 app:
   logging: true
   morgan: true

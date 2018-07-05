@@ -1,5 +1,5 @@
 # configuration for production server
-# not yet used
+# used as middle layer
 
 database:
   url: mongodb://miwago_user:B34M6544VfsD4355sdftsdf54sdfgGChjuuhmjvhmr423574rcvc@192.168.200.10:27017/miwago_db

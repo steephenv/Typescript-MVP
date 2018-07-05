@@ -1,0 +1,4 @@
+# development beta in cloud
+# used for internal use
+database:
+  url: 'mongodb://localhost/miwago'

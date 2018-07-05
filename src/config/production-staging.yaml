@@ -1,4 +1,5 @@
-# ORIGINAL PRODUCTION
+# STAGING
+# This is given for client for their testing purposes
 
 app:
   logging: false
