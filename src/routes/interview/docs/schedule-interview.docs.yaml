@@ -4,7 +4,7 @@
     # - Bearer: []
     summary: api schedule interview.
     tags:
-    - Authentication
+    - Interview
     description: api schedule interview
     parameters:
     - name: X-Requested-With
