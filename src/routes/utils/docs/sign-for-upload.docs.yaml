@@ -1,0 +1,28 @@
+/utils/sign-for-upload:
+  post:
+    # security:
+    # - Bearer: []
+    summary: api to sign an upload request
+    tags:
+    - Utils
+    description: you get a signed request - with which you PUT to s3.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        - objectsToSign
+        properties:
+          objectsToSign:
+            type: array
+            example: [{"fileName": "asd", "filePath":"fsdf/fasdf", "fileType":"jpg"}]
+    responses:
+      200:
+        description: "successful attempt, returns signed request"
