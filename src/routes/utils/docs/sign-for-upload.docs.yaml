@@ -23,6 +23,7 @@
           objectsToSign:
             type: array
             example: [{"fileName": "asd", "filePath":"fsdf/fasdf", "fileType":"jpg"}]
+            description: "* `fileName`: name of the file\n* `filePath`: where this file need to be saved. default is `assets`. You can use `assets/profile-pics` etc.\n* `fileType`: type of file"
     responses:
       200:
         description: "successful attempt, returns signed request"

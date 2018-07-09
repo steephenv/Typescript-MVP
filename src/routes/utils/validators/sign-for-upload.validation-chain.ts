@@ -5,7 +5,7 @@ const objectsToSignSchema = Joi.array().items(
   Joi.object().keys({
     fileName: Joi.string().required(),
     fileType: Joi.string().required(),
-    filePath: Joi.string().required(),
+    filePath: Joi.string().optional(),
   }),
 );
 

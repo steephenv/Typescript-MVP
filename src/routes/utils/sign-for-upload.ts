@@ -59,7 +59,9 @@ async function signForUploadCtrl(objectsToUpload: ISignForUpload[]) {
 
 async function signEachObjects(objectToUpload: ISignForUpload) {
   const rand = generateShortId();
-
+  if (!objectToUpload.filePath) {
+    objectToUpload.filePath = 'assets';
+  }
   objectToUpload.fileName = `${objectToUpload.fileName}_${rand}`;
   objectToUpload.filePath = trimSlashes(objectToUpload.filePath);
 
@@ -80,5 +82,6 @@ async function signEachObjects(objectToUpload: ISignForUpload) {
     }/${objectToUpload.fileName}`,
     fileName: objectToUpload.fileName,
     fileType: objectToUpload.fileType,
+    filePath: objectToUpload.filePath,
   };
 }
