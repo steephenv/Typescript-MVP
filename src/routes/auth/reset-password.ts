@@ -4,7 +4,6 @@ import { ResetPassword } from '../../models/ResetPassword';
 import { messages } from '../../config/app/messages';
 import { RequestHandler } from 'express';
 import * as bcrypt from 'bcrypt';
-import lme from 'lme';
 
 import {
   RequestError,
@@ -40,7 +39,7 @@ export const passwordReset: RequestHandler = async (req, res, next) => {
     }
 
     const newPassword = await bcrypt.hash(req.body.password, 10);
-    const userUpdate = await User.update(
+    await User.update(
       {
         email: user.email,
       },
