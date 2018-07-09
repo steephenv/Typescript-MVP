@@ -76,4 +76,7 @@ export const messages = {
   noUser: {
     ENG: 'No User Present',
   },
+  NoInterviewer: {
+    ENG: 'No Interviewer Found',
+  },
 };
