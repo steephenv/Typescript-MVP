@@ -14,7 +14,7 @@ before_script:
 Build:
   variables:
     NODE_ENV: development
-  stage: test
+  stage: build
   retry: 0
   artifacts:
     expire_in: 50 mins
