@@ -1,0 +1,29 @@
+stages:
+  - build
+
+before_script:
+  - export NVM_DIR="$HOME/.nvm"
+  - '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'
+  - source ~/.profile
+  - source ~/.bashrc
+  - nvm install v8.11.2
+  - nvm use v8.11.2
+  - node --version
+  - yarn --version
+
+Build:
+  variables:
+    NODE_ENV: development
+  stage: test
+  retry: 0
+  artifacts:
+    expire_in: 50 mins
+    paths:
+      - node_modules/
+      - dist/
+  script:
+    - yarn install --prefer-offline
+    # unit tests should reset test-db. cz, each version expects a new db schema
+    - yarn run gulp-build
+  tags:
+    - node
