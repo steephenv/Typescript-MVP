@@ -5,7 +5,7 @@
     summary: api to sign an upload request
     tags:
     - Utils
-    description: you get a signed request - with which you PUT to s3.
+    description: you get a signed request - with which you PUT to s3 as Binary format (**Formdata will not work**).
     parameters:
     - name: X-Requested-With
       description: set value to XMLHttpRequest if you are making an xhr request

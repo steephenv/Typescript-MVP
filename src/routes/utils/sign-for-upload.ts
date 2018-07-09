@@ -62,7 +62,7 @@ async function signEachObjects(objectToUpload: ISignForUpload) {
   if (!objectToUpload.filePath) {
     objectToUpload.filePath = 'assets';
   }
-  objectToUpload.fileName = `${objectToUpload.fileName}_${rand}`;
+  objectToUpload.fileName = `${rand}_${objectToUpload.fileName}`;
   objectToUpload.filePath = trimSlashes(objectToUpload.filePath);
 
   const s3Params = {
