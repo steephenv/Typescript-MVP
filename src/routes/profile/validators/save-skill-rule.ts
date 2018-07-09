@@ -1,8 +1,6 @@
 import * as Joi from 'joi';
 import { RequestHandler } from 'express';
 
-import { messages } from '../../../config/app/messages';
-
 const objectSchema = Joi.object({
   category: Joi.string().required(),
   subCategory: Joi.string().required(),

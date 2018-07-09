@@ -10,7 +10,7 @@ import {
 
 export const saveSkills: RequestHandler = async (req, res, next) => {
   try {
-    await BluePromise.map(req.body.skills, skill => {
+    await BluePromise.map(req.body.skills, (skill: any) => {
       skill.smallTitle = skill.skillTitle.trim().toLowerCase();
       return Skills.update(
         { uniqueTitle: skill.smallTitle },
