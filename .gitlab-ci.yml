@@ -24,6 +24,6 @@ Build:
   script:
     - yarn install --prefer-offline
     # unit tests should reset test-db. cz, each version expects a new db schema
-    - yarn run gulp-build
+    - yarn run build
   tags:
     - node
