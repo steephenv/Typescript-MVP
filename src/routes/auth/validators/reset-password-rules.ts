@@ -1,7 +1,6 @@
 import * as Joi from 'joi';
 import { RequestHandler } from 'express';
 
-import { messages } from '../../../config/app/messages';
 import {
   RequestError,
   RequestErrorType,

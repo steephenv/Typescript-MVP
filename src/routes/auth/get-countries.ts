@@ -1,7 +1,6 @@
 import { country } from '../../models/Country';
 import { RequestHandler } from 'express';
 
-import { messages } from '../../config/app/messages';
 import {
   RequestError,
   RequestErrorType,

@@ -6,6 +6,7 @@ import * as express from 'express';
 import * as logger from 'morgan';
 import * as path from 'path';
 import { v4 } from 'public-ip';
+import * as lme from 'lme';
 
 // init db
 import { mongooseConnectionPromise, mongoose } from './db.init';
@@ -13,15 +14,15 @@ export { mongoose, mongooseConnectionPromise }; // exporting for quick access in
 
 mongooseConnectionPromise
   .then(() => {
-    // tslint:disable-next-line
-    // console.log('Mongoose connected to ');
+    lme.i('> database connected');
     /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
   })
   .catch(err => {
     // tslint:disable-next-line
-    console.log(
-      'MongoDB connection error. Please make sure MongoDB is running. ' + err,
+    lme.e(
+      '> MongoDB connection error. Please make sure MongoDB is running. ' + err,
     );
+    process.exit(1);
   });
 
 import { AppEmailTemplates, sendEmail } from './email/send-email';
