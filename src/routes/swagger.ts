@@ -10,7 +10,7 @@ if (process.env.TESTING !== 'true') {
         version: '1.0.0',
         description: '',
       },
-      host: 'localhost:6233',
+      host: 'localhost:7000',
       basePath: '/v1',
     },
     apis: ['**/*.docs.yaml'],
