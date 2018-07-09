@@ -1,0 +1,21 @@
+/interview/list-dates:
+  get:
+    # security:
+    # - Bearer: []
+    summary: api for list available dates.
+    tags:
+    - Interview
+    description: api for list available dates.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: token
+      description: ''
+      in: query
+      type: string
+    responses:
+      200:
+        description: "successful attempt, returns `success message`"

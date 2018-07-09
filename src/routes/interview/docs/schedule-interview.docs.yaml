@@ -1,0 +1,39 @@
+/interview/schedule-interview:
+  post:
+    # security:
+    # - Bearer: []
+    summary: api schedule interview.
+    tags:
+    - Interview
+    description: api schedule interview
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        - dateString
+        - typeOfCall
+        - slot
+        properties:
+          dateString:
+            type: string
+            example: '2018-07-03'
+          typeOfCall:
+            type: string
+            example: Video
+          slot:
+            type: string
+            example: 5b3b3b6c7a01e64d83e43ceb
+          id:
+            type: string
+            example: 5b3b3b6c7a01e64d83e43ceb      
+    responses:
+      201:
+        description: "successful attempt, returns `success message`"
