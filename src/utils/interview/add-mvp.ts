@@ -3,7 +3,7 @@ import lme from 'lme';
 import * as config from 'config';
 import { Promise as BluePromise } from 'bluebird';
 // Connect to MongoDB
-const MONGO_URI: string = config.get('db.mongo');
+const MONGO_URI: string = config.get('database.url');
 
 import { TimeSlot } from '../../models/TimeSlots';
 import { User } from '../../models/User';
