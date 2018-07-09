@@ -1,4 +1,4 @@
-/auth/get-country:
+/auth/get-countries:
   get:
     summary: api to get countries.
     tags:
