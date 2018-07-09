@@ -7,9 +7,9 @@ import { listAvailableDates } from './list-available-dates';
 
 export const interview = express.Router();
 
-interview.get('/interview/list-dates', listAvailableDates);
+interview.get('/list-dates', listAvailableDates);
 interview.post(
-  '/interview/schedule-interview',
+  '/schedule-interview',
   scheduleInterviewRules,
   scheduleInterview,
 );

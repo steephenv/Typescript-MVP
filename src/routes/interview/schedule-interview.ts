@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 import { Interview } from '../../models/Interview';
 import { AvailabilityCalender } from '../../models/AvailabilityCalender';
 
-import * as messages from '../../../config/messages.json';
+import { messages } from '../../config/app/messages';
 
 export const scheduleInterview: RequestHandler = async (req, res) => {
   try {

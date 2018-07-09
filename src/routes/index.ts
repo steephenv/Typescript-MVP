@@ -8,6 +8,7 @@ import { swaggerSpec } from './swagger';
 import { auth } from './auth';
 import { utils } from './utils';
 import { assets } from './assets';
+import { interview } from './interview';
 
 // create router
 export const apis = express.Router();
@@ -16,6 +17,7 @@ export const apis = express.Router();
 apis.use('/auth', auth);
 apis.use('/utils', utils);
 apis.use('/assets', assets);
+apis.use('/interview', interview);
 
 // load docs if requested
 if (getConfig('app.docs')) {
