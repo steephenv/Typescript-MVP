@@ -10,6 +10,8 @@ app:
 database:
   url: mongodb://localhost:27017/miwago_test
 
+docsUrl: "localhost:7000"
+
 mails:
   enable: false
   defaultFrom: miwago@cubettech.com # this is the source email that is used to send emails(from address)

@@ -2,3 +2,5 @@
 # used for internal use
 database:
   url: 'mongodb://localhost/miwago'
+
+docsUrl: ""

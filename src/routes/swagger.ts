@@ -1,3 +1,5 @@
+import { get as getConfig } from 'config';
+
 let swaggerSpec: any = null;
 
 if (process.env.TESTING !== 'true') {
@@ -10,7 +12,7 @@ if (process.env.TESTING !== 'true') {
         version: '1.0.0',
         description: '',
       },
-      host: 'localhost:7000',
+      host: getConfig('docsUrl'),
       basePath: '/v1',
     },
     apis: ['**/*.docs.yaml'],
