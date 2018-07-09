@@ -14,7 +14,7 @@ export { mongoose, mongooseConnectionPromise }; // exporting for quick access in
 
 mongooseConnectionPromise
   .then(() => {
-    lme.i('> database connected');
+    lme.i(`> database connected:${getConfig('database.url')}`);
     /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
   })
   .catch(err => {
