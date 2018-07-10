@@ -1,6 +1,6 @@
 # development beta in cloud
 # used for internal use
 database:
-  url: 'mongodb://localhost/miwago'
+  url: mongodb://miwago-dev:HKGFJBVK615qYGFUJasdf65YsadfKHGa78sd234fH5GdsfFH04323JFGHasdfYasdf4FHGsdfKsfJ@192.168.200.10:27017/miwago-dev_db
 
-docsUrl: ""
+docsUrl: "https://devapi-miwago.cubettech.in/docs"
