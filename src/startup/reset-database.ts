@@ -4,6 +4,8 @@ import * as mongoose from 'mongoose';
 import { mongooseConnectionPromise } from '../db.init';
 
 import { initUsers } from './users';
+import { createMVP } from './add-mvp';
+import { createSlot } from './set-slots';
 
 const resetDatabase = async () => {
   await mongooseConnectionPromise;
@@ -14,6 +16,8 @@ const resetDatabase = async () => {
       mongoose.connection.db.dropCollection('tempusers').catch(errHandler),
     ]);
     await BluePromise.all([initUsers()]);
+    await createSlot();
+    await createMVP();
   } catch (err) {
     console.log(err);
   }
