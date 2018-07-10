@@ -5,6 +5,8 @@ app:
   morgan: true
   port: 7000
 
+docsUrl: "localhost:7000"
+
 database:
   url: mongodb://localhost:27017/miwago_test
 
