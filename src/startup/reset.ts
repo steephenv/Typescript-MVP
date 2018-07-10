@@ -7,9 +7,9 @@ import * as resetDatabase from './reset-database';
 
 console.log(`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`);
 // prettier-ignore
-console.log(`Database selected: ${ getConfig('database.url')}`);
+console.log(`Database selected: ${ process.argv[2] || getConfig('database.url')}`);
 console.log(`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`);
 
-resetDatabase()
+resetDatabase(process.argv[2])
   .then(() => console.log('db reset complete')) // tslint:disable-line
   .catch(err => lme.e(err)); // tslint:disable-line
