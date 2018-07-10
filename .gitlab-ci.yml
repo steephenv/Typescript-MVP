@@ -1,5 +1,6 @@
 stages:
   - build
+  - deploy
 
 before_script:
   - export NVM_DIR="$HOME/.nvm"
@@ -25,5 +26,25 @@ Build:
     - yarn install --prefer-offline
     # unit tests should reset test-db. cz, each version expects a new db schema
     - yarn run build
+  tags:
+    - node
+
+Deploy to devapi-miwago:
+  stage: deploy
+  variables:
+    NODE_ENV: development
+  environment:
+    name: devapi-miwago
+    url: https://devapi-miwago.cubettech.in/
+  when: on_success
+  only:
+    - master
+  script:
+    # - yarn install
+    # - yarn run build # cz it is running in unit test
+    - ssh dev-miwago@185.148.147.4 "rm -rf ~/miwago-api"
+    - ssh dev-miwago@185.148.147.4 "mkdir ~/miwago-api"
+    - rsync -avz -e ssh ./dist/src/* dev-miwago@185.148.147.4:~/miwago-api
+    - ssh dev-miwago@185.148.147.4 "export NODE_ENV=production && export PATH=/home/dev-miwago/bin:/home/dev-miwago/.local/bin:/home/dev-miwago/.nvm/versions/node/v8.11.3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin && node --version && yarn --version && cd ~/miwago-api && yarn install && cd public && yarn install && pm2 restart miwago-api"
   tags:
     - node
