@@ -29,7 +29,7 @@ Build:
   tags:
     - node
 
-Deploy to devapi-miwago:
+Deploy(devapi-miwago):
   stage: deploy
   variables:
     NODE_ENV: development
