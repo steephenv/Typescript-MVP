@@ -1,4 +1,4 @@
-import { get as getConfig } from 'config';
+// import { get as getConfig } from 'config';
 
 let swaggerSpec: any = null;
 
