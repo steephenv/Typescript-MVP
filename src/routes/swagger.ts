@@ -12,7 +12,7 @@ if (process.env.TESTING !== 'true') {
         version: '1.0.0',
         description: '',
       },
-      host: getConfig('docsUrl'),
+      // host: getConfig('docsUrl'),
       basePath: '/v1',
     },
     apis: ['**/*.docs.yaml'],
