@@ -5,115 +5,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>API Home</title>
+    <title>Miwago API Home</title>
     <style>
         body {
             font-family: "monospace";
-            margin: 3%
+            margin: 3%;
+            background-color: #6200ee;
+            color: #FFF;
         }
 
         img {
-            width: 100px;
+            width: 150px;
         }
 
         .btn {
             text-decoration: none;
             padding: 5px 8px;
             border-radius: 4px;
-            box-shadow: 1px 1px 1px grey;
+            box-shadow: 1px 1px 1px black;
         }
 
         .btn:hover {
-            box-shadow: 1px 1px 10px grey;
+            box-shadow: 1px 1px 10px black;
         }
 
         .issue {
-            background-color: rgb(226, 136, 0);
-            color: white;
+            background-color: #03da5c;
+            color: black;
+            text-transform: uppercase;
         }
 
         .docs {
-            background-color: rgb(0, 175, 58);
-            color: white;
-        }
-
-        .deployments {
-            margin-left: 20px;
-        }
-
-        .deployments .deployment {
-            margin: 25px 0px;
-            color: grey
-        }
-
-        .deployments .deployment .img-part {
-            margin: 3px 20px auto 0px;
-            float: left;
-        }
-
-        .deployments .deployment .img-part img {
-            width: 50px;
-        }
-
-        .deployments .deployment .details {
-            display: inline-block;
-        }
-
-        .deployments .deployment .details h4 {
-            padding: 0px;
-            margin: 0px 0px 2px 0px;
-        }
-
-        .deployments .deployment .details p {
-            padding: 0px;
-            margin: 0px
-        }
-
-        .deployments .deployment .status {
-            color: white;
-            font-size: 74%;
-            padding: 3px;
-            font-weight: lighter;
-            border-radius: 3px;
-        }
-
-        .deployments .deployment .success {
-            background-color: #61af5d;
-        }
-
-        .deployments .deployment .live {
-            background-color: #3dc8ff;
-        }
-
-        .deployments .deployment .details p.info {
-            margin-bottom: 7px;
-            margin-top: 6px;
-        }
-
-        .deployments .deployment .details .commit {
-            background-color: rgb(218, 244, 255);
-            padding: 10px;
-            line-height: 21px;
-            font-size: 93%;
-            color: #346086;
-            max-width: 750px;
-        }
-
-        .deployments .deployment .details p.commit-title {
-            font-weight: bold;
-            color: #0a587d;
+            background-color: white;
+            color: #6200ee;
+            text-transform: uppercase;
         }
 
         .left {
-            width: 25%;
+            width: 50%;
             float: left;
             padding-right: 10px;
-        }
-
-        .right {
-            width: 73%;
-            display: inline-block;
-            background-color: azure;
         }
     </style>
 </head>
@@ -132,7 +63,7 @@
         </div>
         <p>Last updated at:
             <br>
-            <span style="color:#346086;background-color: azure;">only visible in builds</span>
+            <span style="color:#03da5c;">only visible in builds</span>
         </p>
     </div>
     <div class="right">
