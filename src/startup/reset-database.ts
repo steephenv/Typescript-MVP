@@ -8,6 +8,8 @@ import * as mongoose from 'mongoose';
 import { getMongooseConnectionPromise } from './db-init';
 
 import { initUsers } from './users';
+import { createMVP } from './add-mvp';
+import { createSlot } from './set-slots';
 
 const resetDatabase = async (MONGO_URI?: string) => {
   try {
@@ -18,6 +20,8 @@ const resetDatabase = async (MONGO_URI?: string) => {
       mongoose.connection.db.dropCollection('tempusers').catch(errHandler),
     ]);
     await BluePromise.all([initUsers()]);
+    await createSlot();
+    await createMVP();
   } catch (err) {
     console.log(err);
   }

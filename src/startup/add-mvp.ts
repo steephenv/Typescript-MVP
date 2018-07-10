@@ -1,20 +1,12 @@
-import mongoose = require('mongoose');
-import lme from 'lme';
-import * as config from 'config';
+import * as lme from 'lme';
 import { Promise as BluePromise } from 'bluebird';
-// Connect to MongoDB
-const MONGO_URI: string = config.get('database.url');
 
-import { TimeSlot } from '../../models/TimeSlots';
-import { User } from '../../models/User';
-import { AvailabilityCalender } from '../../models/AvailabilityCalender';
+import { TimeSlot } from '../models/TimeSlots';
+import { User } from '../models/User';
+import { AvailabilityCalender } from '../models/AvailabilityCalender';
 
-// Promisifying all mongoose methods
-mongoose.Promise = BluePromise;
-
-const createMVP = async () => {
+export const createMVP = async () => {
   try {
-    await mongoose.connect(MONGO_URI);
     const newUser = new User({
       firstName: 'Martin',
       lastName: 'Luther',
@@ -47,5 +39,3 @@ const createMVP = async () => {
     lme.e(err);
   }
 };
-
-createMVP();
