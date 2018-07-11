@@ -64,12 +64,52 @@
         </div>
         <p>Last updated at:
             <br>
-            <span style="color:#03da5c;">only visible in builds</span>
+            <span id="lastUpdatedTime" style="color:#03da5c;"></span>
         </p>
     </div>
     <div class="right">
 
     </div>
+
+    <script>
+        var dateSetByServer = '--this-will-be-set-in-builds--';
+        function setBuildTime() {
+            function timeSince(date) {
+                var seconds = Math.floor((new Date() - date) / 1000);
+
+                var interval = Math.floor(seconds / 31536000);
+
+                if (interval > 1) {
+                    return interval + ' years';
+                }
+                interval = Math.floor(seconds / 2592000);
+                if (interval > 1) {
+                    return interval + ' months';
+                }
+                interval = Math.floor(seconds / 86400);
+                if (interval > 1) {
+                    return interval + ' days';
+                }
+                interval = Math.floor(seconds / 3600);
+                if (interval > 1) {
+                    return interval + ' hours';
+                }
+                interval = Math.floor(seconds / 60);
+                if (interval > 1) {
+                    return interval + ' minutes';
+                }
+                return Math.floor(seconds) + ' seconds';
+            }
+            // hack
+            if (dateSetByServer === '--this-will-be-' + 'set-in-builds--') {
+                document.getElementById('lastUpdatedTime').innerHTML = 'only visible in builds';
+            } else {
+                var dateInfo = new Date(dateSetByServer)
+                document.getElementById('lastUpdatedTime').innerHTML = timeSince(dateInfo) + ' ago';
+            }
+        }
+        setBuildTime();
+    </script>
 </body>
 
 </html>

@@ -79,7 +79,7 @@ gulp.task('replace', () => {
 
   gulp
     .src(['./dist/src/public/index.html'])
-    .pipe(replace('only visible in builds', new Date() + ''))
+    .pipe(replace('--this-will-be-set-in-builds--', new Date() + ''))
     .pipe(gulp.dest('./dist/src/public'));
 
   // change app name package.json file in dist folder
