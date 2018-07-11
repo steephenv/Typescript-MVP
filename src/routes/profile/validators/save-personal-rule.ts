@@ -33,7 +33,6 @@ const PersonalDataSchema = Joi.object().keys({
   personalStatement: Joi.string(),
   summary: Joi.string().required(),
   maidenName: Joi.string(),
-  userId: Joi.string().required(),
 });
 
 export const savePersonalRule: RequestHandler = (req, res, next) => {

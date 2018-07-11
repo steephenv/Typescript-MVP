@@ -2,8 +2,8 @@ import * as Joi from 'joi';
 import { RequestHandler } from 'express';
 
 const objectSchema = Joi.object({
-  from: Joi.string().required(),
-  to: Joi.string().required(),
+  durationFrom: Joi.string().required(),
+  durationTo: Joi.string().required(),
   typeOfInstitution: Joi.string().required(),
   nameOfInstitution: Joi.string().required(),
   locationCountry: Joi.string().required(),
@@ -13,11 +13,12 @@ const objectSchema = Joi.object({
   grade: Joi.string().required(),
   mainSubjects: Joi.string().required(),
   gradeOfMainSubjects: Joi.string().required(),
-  activities: Joi.string().required(),
+  activities: Joi.string(),
 }).required();
-// tslint:disable-next-line
+
+// tslint:disable:variable-name
 const EducationSchema = Joi.object().keys({
-  skills: Joi.array()
+  educations: Joi.array()
     .items(objectSchema)
     .min(1)
     .required(),
@@ -35,7 +36,6 @@ export const educationValidation: RequestHandler = (req, res, next) => {
           msg: err,
         });
       }
-      req.body.createdAt = new Date();
       next();
     },
   );
