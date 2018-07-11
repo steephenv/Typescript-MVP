@@ -11,12 +11,14 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
   try {
     const where: any = {};
 
-    if (req.query.personalDetailsId) {
-      where._id = req.query.personalDetailsId;
+    if (req.query.userId) {
+      where.userId = req.query.userId;
+    } else {
+      where.userId = res.locals.userId;
     }
-
     req.body.updatedAt = new Date();
-    if (req.query && req.query.personalDetailsId) {
+    req.body.userId = where.userId;
+    if (req.query && req.query.userId) {
       await PersonalDetails.update(where, { $set: req.body });
     } else {
       req.body.createdAt = new Date();

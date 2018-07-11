@@ -10,13 +10,12 @@ import {
 
 export const saveSkills: RequestHandler = async (req, res, next) => {
   try {
+    await Skills.remove({ userId: req.query.userId });
+
     await BluePromise.map(req.body.skills, (skill: any) => {
       skill.smallTitle = skill.skillTitle.trim().toLowerCase();
-      return Skills.update(
-        { uniqueTitle: skill.smallTitle },
-        { $set: { skill } },
-        { upsert: true },
-      );
+      const savableSkill = new Skills(skill);
+      return savableSkill.save();
     });
     return res.status(200).send({ success: true });
   } catch (err) {

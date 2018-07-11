@@ -20,7 +20,7 @@ const objectSchema = Joi.object({
   }),
 }).required();
 
-// tslint:disable-next-line
+// tslint:disable:variable-name
 const SkillSchema = Joi.object().keys({
   skills: Joi.array()
     .items(objectSchema)
