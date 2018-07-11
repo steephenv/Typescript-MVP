@@ -1,5 +1,4 @@
 import { RequestHandler } from 'express';
-import lme from 'lme';
 
 import { PersonalDetails } from '../../models/PersonalDetails';
 import { customerCredentials } from '../../models/CustomerCredentials';
