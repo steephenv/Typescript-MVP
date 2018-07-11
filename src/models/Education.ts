@@ -1,3 +1,4 @@
+/* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
 
 const educationDetailsSchema = new Schema({
@@ -11,13 +12,11 @@ const educationDetailsSchema = new Schema({
   createdAt: {
     type: Date,
   },
-  duration: {
-    from: {
-      type: Date,
-    },
-    to: {
-      type: Date,
-    },
+  durationFrom: {
+    type: Date,
+  },
+  durationTo: {
+    type: Date,
   },
   typeOfInstitution: {
     type: String,
@@ -55,7 +54,4 @@ const educationDetailsSchema = new Schema({
   ],
 });
 
-export const educationDetails = mongooseModel(
-  'Education',
-  educationDetailsSchema,
-);
+export const Education = mongooseModel('Education', educationDetailsSchema);
