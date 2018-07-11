@@ -78,10 +78,8 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
             const eduData = new educationDetails({
               userId: res.locals.decoded.userId,
               nameOfInstitution: dataobj[datakey[0]],
-              duration: {
-                from: dataobj[datakey[1]],
-                to: dataobj[datakey[2]],
-              },
+              durationFrom: dataobj[datakey[1]],
+              durationTo: dataobj[datakey[2]],
               major: dataobj[datakey[3]],
               degree: dataobj[datakey[4]],
               activities: dataobj[datakey[5]],
