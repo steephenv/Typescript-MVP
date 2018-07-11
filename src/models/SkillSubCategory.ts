@@ -3,7 +3,7 @@
 import { model as mongooseModel, Schema } from 'mongoose';
 
 const SkillSubCategorySchema: Schema = new Schema({
-  category: {
+  categoryId: {
     type: Schema.Types.ObjectId,
     ref: 'SkillCategory',
   },
