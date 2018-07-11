@@ -5,6 +5,8 @@ const educationDetailsSchema = new Schema({
   userId: {
     type: String,
     ref: 'User',
+    unique: true,
+    required: true,
   },
   updatedAt: {
     type: Date,
@@ -40,18 +42,11 @@ const educationDetailsSchema = new Schema({
     type: String,
   },
   mainSubjects: {
-    type: [
-      {
-        subjectName: String,
-        grade: String,
-      },
-    ],
+    type: String,
   },
-  activities: [
-    {
-      type: String,
-    },
-  ],
+  activities: {
+    type: String,
+  },
 });
 
 export const Education = mongooseModel('Education', educationDetailsSchema);
