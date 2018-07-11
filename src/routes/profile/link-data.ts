@@ -76,7 +76,7 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
             const datakey: any = Object.keys(dataobj);
 
             const eduData = new Education({
-              userId: res.locals.decoded.userId,
+              userId: res.locals.user.userId,
               nameOfInstitution: dataobj[datakey[0]],
               durationFrom: dataobj[datakey[1]],
               durationTo: dataobj[datakey[2]],
@@ -131,7 +131,7 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
             //         console.log('the object array looped data = ', dataobj);
             const datakey: any = Object.keys(dataobj);
             const profData = new PersonalDetails({
-              userId: res.locals.decoded.userId,
+              userId: res.locals.user.userId,
               firstName: dataobj[datakey[0]],
               lastName: dataobj[datakey[1]],
               birthDate: dataobj[datakey[4]],
@@ -161,7 +161,7 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
             //         console.log('the object array looped data = ', dataobj);
             const datakey: any = Object.keys(dataobj);
             const workExData = new experiance({
-              userId: res.locals.decoded.userId,
+              userId: res.locals.user.userId,
               companyIndustryLine: dataobj[datakey[8]],
             });
             await workExData.save();
@@ -210,7 +210,7 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
               };
               // updating CostomerCredentials schema.....
               await PersonalDetails.findOneAndUpdate(
-                { userId: res.locals.decoded.userId },
+                { userId: res.locals.user.userId },
                 { $set: { primaryCriteria } },
               );
             } else if (dataobj[datakey[2]] === 'No' && flag === 0) {
@@ -220,7 +220,7 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
               flag++;
               // updating CostomerCredentials schema.....
               await PersonalDetails.findOneAndUpdate(
-                { userId: res.locals.decoded.userId },
+                { userId: res.locals.user.userId },
                 { $set: { secondaryCriteria } },
               );
             }
@@ -274,7 +274,7 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
           objArray.forEach(async (dataobj: any) => {
             const datakey: any = Object.keys(dataobj);
             const projdata = new projects({
-              userId: res.locals.decoded.userId,
+              userId: res.locals.user.userId,
               clientsCompanyName: dataobj[datakey[0]],
               engagementDuration: {
                 from: dataobj[datakey[4]],
@@ -332,7 +332,7 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
             };
             // updating PersonalData schema.....
             await PersonalDetails.findOneAndUpdate(
-              { userId: res.locals.decoded.userId },
+              { userId: res.locals.user.userId },
               { $push: { criteria } },
             );
           });
@@ -367,7 +367,7 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
             // console.log('the object array looped data = ', dataobj);
             const datakey: any = Object.keys(dataobj);
             const custdata = new customerCredentials({
-              userId: res.locals.decoded.userId,
+              userId: res.locals.user.userId,
               name: dataobj[datakey[0]],
               position: dataobj[datakey[4]],
               company: dataobj[datakey[3]],
