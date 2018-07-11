@@ -16,6 +16,7 @@ beforeAll(async () => {
   //     }
   //     token = body.accessToken;
   //   });
+  return;
 });
 
 describe('testing asset recording', () => {

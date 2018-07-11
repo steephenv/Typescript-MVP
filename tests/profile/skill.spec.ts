@@ -1,11 +1,11 @@
 /* eslint no-undef: 0 */
 
 import * as supertest from 'supertest';
-import { RequestHandler } from 'express';
-import { Promise as BluePromise } from 'bluebird';
 import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
 
 let token = '';
+
+afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
 
 describe('Test for skills  ===> ', () => {
   it('Login with all credentials', done => {

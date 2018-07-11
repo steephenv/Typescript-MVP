@@ -14,6 +14,7 @@ const resetDatabase = async (MONGO_URI?: string) => {
     console.log('connected to db');
   } catch (err) {
     console.log(err);
+    process.exit(1);
   }
 
   try {
