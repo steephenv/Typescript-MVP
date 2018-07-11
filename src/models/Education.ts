@@ -5,7 +5,6 @@ const educationDetailsSchema = new Schema({
   userId: {
     type: String,
     ref: 'User',
-    unique: true,
     required: true,
   },
   updatedAt: {
