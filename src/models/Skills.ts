@@ -19,6 +19,7 @@ const SkillsSchema: Schema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
+    required: true,
   },
   subCategory: {
     type: Schema.Types.ObjectId,
@@ -35,18 +36,16 @@ const SkillsSchema: Schema = new Schema({
   description: {
     type: String,
   },
-  proficiencyLevel: {
+  proficiency: {
     type: String,
     required: true,
   },
   certificates: {
     type: String,
-    required: true,
   },
   lastApplied: {
     type: String,
-    required: true,
   },
 });
 
-export const Skills = mongooseModel('SkillsSchema', SkillsSchema);
+export const Skills = mongooseModel('Skills', SkillsSchema);
