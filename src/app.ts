@@ -7,6 +7,7 @@ import * as logger from 'morgan';
 import * as path from 'path';
 import { v4 } from 'public-ip';
 import * as lme from 'lme';
+import * as favicon from 'serve-favicon';
 
 // init db
 import { mongooseConnectionPromise, mongoose } from './db.init';
@@ -48,7 +49,7 @@ app.use(
 );
 
 // un-comment after placing your favicon in /public
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 if (getConfig('app.morgan')) {
   app.use(logger('dev'));

@@ -1,23 +1,49 @@
 /* tslint:disable:no-console */
+
 import { Promise as BluePromise } from 'bluebird';
 import * as mongoose from 'mongoose';
-import { mongooseConnectionPromise } from '../db.init';
+import { getMongooseConnectionPromise } from './db-init';
 
 import { initUsers } from './users';
+import { createMVP } from './add-mvp';
+import { createSlot } from './set-slots';
 
-const resetDatabase = async () => {
-  await mongooseConnectionPromise;
-  console.log('connected to db');
+const resetDatabase = async (MONGO_URI?: string) => {
+  try {
+    await getMongooseConnectionPromise(MONGO_URI);
+    console.log('connected to db');
+  } catch (err) {
+    console.log(err);
+    process.exit(1);
+  }
+
   try {
     await BluePromise.all([
       mongoose.connection.db.dropCollection('users').catch(errHandler),
       mongoose.connection.db.dropCollection('tempusers').catch(errHandler),
+      mongoose.connection.db
+        .dropCollection('availabilitycalenders')
+        .catch(errHandler),
+      mongoose.connection.db.dropCollection('timeslots').catch(errHandler),
     ]);
-    await BluePromise.all([initUsers()]);
   } catch (err) {
     console.log(err);
   }
-  await mongoose.disconnect();
+
+  try {
+    await BluePromise.all([initUsers()]);
+    await createSlot();
+    await createMVP();
+  } catch (err) {
+    console.log(err);
+  }
+
+  try {
+    await mongoose.disconnect();
+  } catch (err) {
+    console.log(err);
+  }
+
   return;
 };
 

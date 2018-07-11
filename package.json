@@ -17,7 +17,8 @@
     "compile": "tsc",
     "prettier": "prettier '{src/**/*.*,typings/**/*.*,tests/**/*.*}' --write",
     "tslint": "tslint -c tslint.json -p tsconfig.json -t stylish --fix 'src/**/*.ts'",
-    "reset-test-db": "NODE_CONFIG_DIR=./src/config node tests/reset.js"
+    "reset-test-db": "NODE_CONFIG_DIR=./src/config node tests/reset.js",
+    "devapi-miwago": "export NODE_ENV=production && export NODE_APP_INSTANCE=beta && node bin/www.js"
   },
   "repository": {
     "type": "git"
@@ -48,6 +49,7 @@
     "public-ip": "^2.4.0",
     "rimraf": "^2.6.2",
     "serialize-error": "^2.1.0",
+    "serve-favicon": "^2.5.0",
     "shortid": "^2.2.8",
     "swagger-jsdoc": "^1.9.7",
     "url-pattern": "^1.0.3",
@@ -79,6 +81,7 @@
     "@types/rimraf": "2.0.2",
     "@types/run-sequence": "^0.0.30",
     "@types/serialize-error": "^2.1.0",
+    "@types/serve-favicon": "^2.2.30",
     "@types/shortid": "^0.0.29",
     "@types/supertest": "^2.0.4",
     "@types/swagger-jsdoc": "^0.0.2",
