@@ -28,7 +28,7 @@ export const scheduleInterview: RequestHandler = async (req, res) => {
         typeOfCall: req.body.typeOfCall,
         slot: req.body.slot,
         interviewer: interViewer,
-        userId: res.locals.decoded.userId,
+        userId: res.locals.user.userId,
       },
       { upsert: true },
     );

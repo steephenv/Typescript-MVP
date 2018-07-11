@@ -7,6 +7,7 @@ import { getMongooseConnectionPromise } from './db-init';
 import { initUsers } from './users';
 import { createMVP } from './add-mvp';
 import { createSlot } from './set-slots';
+import { createCat } from './add-cat-subcat';
 
 const resetDatabase = async (MONGO_URI?: string) => {
   try {
@@ -25,6 +26,12 @@ const resetDatabase = async (MONGO_URI?: string) => {
         .dropCollection('availabilitycalenders')
         .catch(errHandler),
       mongoose.connection.db.dropCollection('timeslots').catch(errHandler),
+      mongoose.connection.db
+        .dropCollection('skillsubcategories')
+        .catch(errHandler),
+      mongoose.connection.db
+        .dropCollection('skillcategories')
+        .catch(errHandler),
     ]);
   } catch (err) {
     console.log(err);
@@ -34,6 +41,12 @@ const resetDatabase = async (MONGO_URI?: string) => {
     await BluePromise.all([initUsers()]);
     await createSlot();
     await createMVP();
+  } catch (err) {
+    console.log(err);
+  }
+
+  try {
+    await createCat();
   } catch (err) {
     console.log(err);
   }

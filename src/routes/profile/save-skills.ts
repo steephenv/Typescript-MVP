@@ -10,10 +10,18 @@ import {
 
 export const saveSkills: RequestHandler = async (req, res, next) => {
   try {
-    await Skills.remove({ userId: req.query.userId });
+    let removeUserId: string;
+    if (req.query && req.query.userId) {
+      removeUserId = req.query.userId;
+    } else {
+      removeUserId = res.locals.user.userId;
+    }
+    await Skills.remove({ userId: removeUserId });
 
     await BluePromise.map(req.body.skills, (skill: any) => {
-      skill.smallTitle = skill.skillTitle.trim().toLowerCase();
+      skill.uniqueTitle = skill.skillTitle.trim().toLowerCase();
+      skill.userId = removeUserId;
+      skill.createdAt = new Date();
       const savableSkill = new Skills(skill);
       return savableSkill.save();
     });
