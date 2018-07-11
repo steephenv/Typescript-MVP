@@ -8,7 +8,7 @@ import * as userHome from 'user-home';
 
 import { PersonalDetails } from '../../models/PersonalDetails';
 import { customerCredentials } from '../../models/CustomerCredentials';
-import { educationDetails } from '../../models/Education';
+import { Education } from '../../models/Education';
 import { experiance } from '../../models/Experiance';
 import { projects } from '../../models/Projecs';
 
@@ -75,7 +75,7 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
             // lme.i(Object.keys(dataobj));
             const datakey: any = Object.keys(dataobj);
 
-            const eduData = new educationDetails({
+            const eduData = new Education({
               userId: res.locals.decoded.userId,
               nameOfInstitution: dataobj[datakey[0]],
               durationFrom: dataobj[datakey[1]],

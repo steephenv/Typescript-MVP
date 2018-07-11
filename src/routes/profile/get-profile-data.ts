@@ -2,7 +2,7 @@ import { RequestHandler } from 'express';
 
 import { PersonalDetails } from '../../models/PersonalDetails';
 import { customerCredentials } from '../../models/CustomerCredentials';
-import { educationDetails } from '../../models/Education';
+import { Education } from '../../models/Education';
 import { experiance } from '../../models/Experiance';
 import { projects } from '../../models/Projecs';
 
@@ -16,7 +16,7 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     const personalDetailsData = await PersonalDetails.findOne({
       userId: res.locals.userId,
     });
-    const educationData = await educationDetails.findOne({
+    const educationData = await Education.findOne({
       userId: res.locals.userId,
     });
     const workExperianceData = await experiance.findOne({
