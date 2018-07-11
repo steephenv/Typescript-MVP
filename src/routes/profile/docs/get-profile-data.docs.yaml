@@ -1,7 +1,7 @@
 /profile//list-data:
   get:
-    # security:
-    # - Bearer: []
+    security:
+    - Bearer: []
     summary: api for save personal details.
     tags:
     - profile updation

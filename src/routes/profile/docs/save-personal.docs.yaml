@@ -1,7 +1,7 @@
 /profile/save-personal-data:
   post:
-    # security:
-    # - Bearer: []
+    security:
+    - Bearer: []
     summary: api for save personal details.
     tags:
     - profile updation
