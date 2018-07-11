@@ -17,7 +17,7 @@ export const saveWLB: RequestHandler = async (req, res, next) => {
       location: req.body.frequency,
       workpermit: req.body.workpermit,
     });
-    const saved = await newData.save();
+    await newData.save();
     // const criteria = {
     // };
     // await personalDetails.findOneAndUpdate(req.query, {

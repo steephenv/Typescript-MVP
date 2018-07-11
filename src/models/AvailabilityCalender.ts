@@ -15,7 +15,7 @@ const AvailabilityCalenderSchema: Schema = new Schema({
   },
   slot: {
     type: Schema.Types.ObjectId,
-    ref: 'TimeSlots',
+    ref: 'TimeSlot',
     required: true,
   },
   createdAt: {
