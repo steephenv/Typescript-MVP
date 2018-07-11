@@ -4,8 +4,9 @@ import { RequestHandler } from 'express';
 const objectSchema = Joi.object({
   category: Joi.string().required(),
   subCategory: Joi.string().required(),
-  skill: Joi.string().required(),
+  skillTitle: Joi.string().required(),
   proficiency: Joi.string().required(),
+  cluster: Joi.string().required(),
   description: Joi.string().when('cluster', {
     is: 'Functional',
     then: Joi.required(),
@@ -36,7 +37,6 @@ export const skillValidation: RequestHandler = (req, res, next) => {
         msg: err,
       });
     }
-    req.body.createdAt = new Date();
     next();
   });
 };
