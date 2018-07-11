@@ -10,14 +10,12 @@ import {
 
 export const saveSkills: RequestHandler = async (req, res, next) => {
   try {
-    console.log(res.locals);
     let removeUserId: string;
     if (req.query && req.query.userId) {
       removeUserId = req.query.userId;
     } else {
       removeUserId = res.locals.user.userId;
     }
-    console.log(removeUserId);
     await Skills.remove({ userId: removeUserId });
 
     await BluePromise.map(req.body.skills, (skill: any) => {
