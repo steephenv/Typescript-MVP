@@ -9,6 +9,7 @@ const wlbSchema = Joi.object().keys({
   location: Joi.string().required(),
   workpermit: Joi.string(),
 });
+
 export const saveWLBRule: RequestHandler = (req, res, next) => {
   Joi.validate(req.body, wlbSchema, { stripUnknown: true }, (err: any) => {
     if (err) {
