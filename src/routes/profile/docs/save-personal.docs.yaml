@@ -12,8 +12,8 @@
       in: header
       required: true
       default: XMLHttpRequest
-    - name: personalDetailsId
-      description: 'personalDetailsId'
+    - name: userId
+      description: 'userId'
       in: query
       type: string
     - name: Body
@@ -51,7 +51,6 @@
         - bicNo
         - personalStatement
         - summary
-        - userId
         properties:
           firstName:
             type: string
