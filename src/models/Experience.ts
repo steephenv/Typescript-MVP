@@ -1,6 +1,7 @@
+/* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const experianceSchema = new Schema({
+const experienceSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -15,13 +16,11 @@ const experianceSchema = new Schema({
   typeOfEngagement: {
     type: String,
   },
-  duration: {
-    from: {
-      type: String,
-    },
-    to: {
-      type: String,
-    },
+  durationFrom: {
+    type: String,
+  },
+  durationTo: {
+    type: String,
   },
   jobTitle: {
     type: String,
@@ -36,7 +35,7 @@ const experianceSchema = new Schema({
     type: String,
   },
   companySize: {
-    type: Number,
+    type: String,
   },
   locationCountry: {
     type: String,
@@ -51,11 +50,11 @@ const experianceSchema = new Schema({
     type: String,
   },
   managedTeamSize: {
-    type: Number,
+    type: String,
   },
   budgetResponsibility: {
-    type: Number,
+    type: String,
   },
 });
 
-export const experiance = mongooseModel('ExperianceSchema', experianceSchema);
+export const Experience = mongooseModel('Experience', experienceSchema);

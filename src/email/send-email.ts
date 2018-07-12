@@ -3,7 +3,7 @@ import { render } from 'ejs';
 
 import { ses } from '../aws/ses';
 import { AppEmailTemplates } from './app-templates';
-import { EmailSignatures } from './signatures/index';
+import { EmailSignatures } from './signatures';
 import { EmailTemplates } from './templates';
 
 class MailOptions {

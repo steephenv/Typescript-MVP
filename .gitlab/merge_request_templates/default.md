@@ -2,6 +2,7 @@
 
 ## PR Checklist
 
+- [ ] Issue linked in PR description
 - [ ] `npm run build` passing
 - [ ] `npm start` starting without failures
 - [ ] `npm test` passing

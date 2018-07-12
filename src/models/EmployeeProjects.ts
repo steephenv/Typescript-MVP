@@ -1,3 +1,4 @@
+/* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
 
 const projectsSchema = new Schema({
@@ -14,13 +15,11 @@ const projectsSchema = new Schema({
   engagementAs: {
     type: String,
   },
-  engagementDuration: {
-    from: {
-      type: Date,
-    },
-    to: {
-      type: Date,
-    },
+  engagementFrom: {
+    type: String,
+  },
+  engagementTo: {
+    type: String,
   },
   projectName: {
     type: String,
@@ -32,7 +31,7 @@ const projectsSchema = new Schema({
     type: String,
   },
   clientsCompanySize: {
-    type: Number,
+    type: String,
   },
   locationCountry: {
     type: String,
@@ -56,21 +55,21 @@ const projectsSchema = new Schema({
     type: String,
   },
   projectComplexityTypes: {
-    type: [],
+    type: String,
   },
   projectRegionalReach: {
     type: String,
   },
-  yourRole: {
+  role: {
     type: String,
   },
   projectteamSize: {
-    type: Number,
+    type: String,
   },
   budgetResponsibility: {
     type: String,
   },
-  yourMainResults: {
+  mainResults: {
     type: String,
   },
   applicableToOtherCompanies: {
@@ -81,4 +80,7 @@ const projectsSchema = new Schema({
   },
 });
 
-export const projects = mongooseModel('ProjectsSchema', projectsSchema);
+export const EmployeeProjects = mongooseModel(
+  'EmployeeProjects',
+  projectsSchema,
+);

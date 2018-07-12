@@ -23,7 +23,6 @@
         type: object
         required:
         - firstName
-        - middleName
         - lastName
         - image
         - birthDate

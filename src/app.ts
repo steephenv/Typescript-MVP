@@ -29,7 +29,7 @@ mongooseConnectionPromise
 import { AppEmailTemplates, sendEmail } from './email/send-email';
 import { RequestError, RequestErrorType } from './error-handler/RequestError';
 
-import { apis } from './routes/index';
+import { apis } from './routes';
 
 import { getRoute } from './utils/get-route';
 
