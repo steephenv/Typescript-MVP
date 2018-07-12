@@ -1,4 +1,5 @@
 import { RequestHandler } from 'express';
+import { Promise as BluePromise } from 'bluebird';
 
 import { Experience } from '../../models/Experience';
 import { EmployeeProjects } from '../../models/EmployeeProjects';
@@ -8,60 +9,32 @@ import {
   RequestErrorType,
 } from '../../error-handler/RequestError';
 
-export const saveExperiance: RequestHandler = async (req, res, next) => {
+export const saveExperience: RequestHandler = async (req, res, next) => {
   try {
-    const criteria = {
-      updatedAt: new Date(),
-      duration: {
-        from: req.body.from,
-        to: req.body.to,
-      },
-      typeOfEngagement: req.body.typeOfEngagement,
-      jobTitle: req.body.jobTitle,
-      businessFunction: req.body.businessFunction,
-      companyName: req.body.companyName,
-      companyIndustryLine: req.body.companyIndustryLine,
-      companySize: req.body.companySize,
-      locationCountry: req.body.locationCountry,
-      locationCity: req.body.locationCity,
-      mainResponsibility: req.body.mainResponsibility,
-      peopleManagementResponsibility: req.body.peopleManagementResponsibility,
-      managedTeamSize: req.body.managedTeamSize,
-      budgetResponsibility: req.body.budgetResponsibility,
-    };
-    const criteria2 = {
-      updatedAt: new Date(),
-      engagementDuration: {
-        from: req.body.projectfrom,
-        to: req.body.projectto,
-      },
-      engagementAs: req.body.engagementAs,
-      projectName: req.body.projectName,
-      clientsCompanyName: req.body.clientsCompanyName,
-      CompanyIndustryLine: req.body.projectCompanyIndustryLine,
-      clientsCompanySize: req.body.clientsCompanySize,
-      locationCountry: req.body.projectCountry,
-      locationCity: req.body.projectCity,
-      businessFunction: req.body.businessFunction,
-      projectGoal: req.body.projectGoal,
-      projectDuration: req.body.projectDuration,
-      projectSize: req.body.projectSize,
-      projectComplexity: req.body.projectComplexity,
-      projectRegionalReach: req.body.projectRegionalReach,
-      yourRole: req.body.yourRole,
-      projectteamSize: req.body.projectteamSize,
-      budgetResponsibility: req.body.projectBudgetResponsibility,
-      yourMainResults: req.body.yourMainResults,
-      applicableToOtherCompanies: req.body.applicableToOtherCompanies,
-    };
-    await Experience.findOneAndUpdate(
-      { userId: req.body.userId },
-      { $set: { criteria } },
-    );
-    await EmployeeProjects.findOneAndUpdate(
-      { userId: req.body.userId },
-      { $set: { criteria2 } },
-    );
+    // first delete experience, then re-create it.
+    let removeUserId: string;
+    if (req.query && req.query.userId) {
+      removeUserId = req.query.userId;
+    } else {
+      removeUserId = res.locals.user.userId;
+    }
+    let projects: any[] = [];
+    await Experience.remove({ userId: removeUserId });
+    await EmployeeProjects.remove({ userId: removeUserId });
+    await BluePromise.map(req.body.experiences, async (exp: any) => {
+      projects = projects.concat(exp.projects);
+      exp.userId = removeUserId;
+      delete exp.projects;
+      const newData = new Experience(exp);
+      await newData.save();
+      return;
+    });
+    await BluePromise.map(projects, async (project: any) => {
+      project.userId = removeUserId;
+      const newData = new EmployeeProjects(project);
+      await newData.save();
+      return;
+    });
     return res.status(200).send({ success: true });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
