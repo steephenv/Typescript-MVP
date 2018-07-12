@@ -2,10 +2,10 @@
   post:
     security:
     - Bearer: []
-    summary: api for save education details.
+    summary: api for save goals details.
     tags:
     - profile updation
-    description: api for save education details.
+    description: api for save goals details.
     parameters:
     - name: X-Requested-With
       description: set value to XMLHttpRequest if you are making an xhr request
