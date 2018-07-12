@@ -16,7 +16,7 @@
     "clean-build": "gulp clean-build",
     "compile": "tsc",
     "prettier": "prettier '{src/**/*.*,typings/**/*.*,tests/**/*.*}' --write",
-    "tslint": "tslint -c tslint.json -p tsconfig.json -t stylish --fix 'src/**/*.ts,tests/**/*.ts'",
+    "tslint": "tslint -c tslint.json -p tsconfig.json -t stylish --fix '{src,tests}/**/*.ts'",
     "reset-test-db": "NODE_CONFIG_DIR=./src/config node tests/reset.js",
     "devapi-miwago": "export NODE_ENV=production && export NODE_APP_INSTANCE=beta && node bin/www.js"
   },
