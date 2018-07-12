@@ -15,6 +15,7 @@ import { saveEducation } from './save-education';
 import { getLinkedData } from './get-profile-data';
 import { saveExperiance } from './save-experiance';
 import { saveSkills } from './save-skills';
+import { getCategory } from './get-category';
 
 const upload = multer({ dest: userHome + '/uploads/' });
 
@@ -26,6 +27,7 @@ profile.post('/save-education', educationValidation, saveEducation);
 profile.post('/save-wlb', saveWLBRule, saveWLB);
 profile.post('/save-experiance', saveExperianceRule, saveExperiance);
 profile.post('/save-skills', skillValidation, saveSkills);
+profile.get('/get-skill-category', getCategory);
 profile.post(
   '/link-data',
   upload.single('file'),
