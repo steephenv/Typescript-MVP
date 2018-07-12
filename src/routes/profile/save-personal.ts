@@ -28,8 +28,8 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
       } catch (err) {
         return next(new RequestError(RequestErrorType.BAD_REQUEST, err));
       }
-      const personalDeta = new PersonalDetails(req.body);
-      await personalDeta.save();
+      const personalData = new PersonalDetails(req.body);
+      await personalData.save();
     }
     return res.status(200).send({ success: true });
   } catch (err) {
