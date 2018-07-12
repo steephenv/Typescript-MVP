@@ -47,15 +47,15 @@ describe('Test for personal data  ===> ', () => {
         street: 'kammalam',
         pinCode: '680721',
         houseNo: '13307',
-        countryDialingCode: '91',
-        cityDialingCode: '47',
+        countryDialingCode: 2632,
+        cityDialingCode: 8452,
         fixedLinePhone: '45212',
         mobilePhone: '9544529886',
         primaryEmail: 'steephenvrs3@gmail.com',
         secondaryEmail: 'steefanvrs 3@gmail.com',
         taxId: 'dfdgfjdnds',
-        vatId: 'newUserId',
-        socialInsuranceId: 'asbdasvdh',
+        vatId: 51514,
+        socialInsuranceId: 5151,
         healthInsuranceType: 'fvhdsvhdvbfgs',
         healthInsurance: 'dfshvgdshb',
         ibanNo: 'dvcbvdsahb',
@@ -65,6 +65,7 @@ describe('Test for personal data  ===> ', () => {
       })
       .expect(200)
       .end((err, res) => {
+        // console.log(res.body.msg.details);
         if (err) {
           throw err;
         }
@@ -92,15 +93,15 @@ describe('Test for personal data  ===> ', () => {
         street: 'kammalam',
         pinCode: '680721',
         houseNo: '13307',
-        countryDialingCode: '91',
-        cityDialingCode: '47',
+        countryDialingCode: 91,
+        cityDialingCode: 47,
         fixedLinePhone: '45212',
         mobilePhone: '9544529886',
         primaryEmail: 'steephenvrs3@gmail.com',
         secondaryEmail: 'steefanvrs 3@gmail.com',
         taxId: 'dfdgfjdnds',
-        vatId: 'newUserId',
-        socialInsuranceId: 'asbdasvdh',
+        vatId: 12315,
+        socialInsuranceId: 5467,
         healthInsuranceType: 'fvhdsvhdvbfgs',
         healthInsurance: 'dfshvgdshb',
         ibanNo: 'dvcbvdsahb',
@@ -110,6 +111,7 @@ describe('Test for personal data  ===> ', () => {
       })
       .expect(200)
       .end((err, res) => {
+        // console.log(res.body);
         if (err) {
           throw err;
         }
