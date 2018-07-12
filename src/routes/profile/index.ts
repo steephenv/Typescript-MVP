@@ -7,6 +7,7 @@ import { saveWLBRule } from './validators/save-wlb-rule';
 import { educationValidation } from './validators/save-education-rules';
 import { saveExperianceRule } from './validators/save-experiance-rules';
 import { skillValidation } from './validators/save-skill-rule';
+import { saveGoalRule } from './validators/save-goals-rules';
 
 import { savePersonal } from './save-personal';
 import { saveWLB } from './save-wlb';
@@ -16,6 +17,7 @@ import { getLinkedData } from './get-profile-data';
 import { saveExperiance } from './save-experiance';
 import { saveSkills } from './save-skills';
 import { getCategory } from './get-category';
+import { saveGoals } from './save-goals';
 
 const upload = multer({ dest: userHome + '/uploads/' });
 
@@ -28,6 +30,7 @@ profile.post('/save-wlb', saveWLBRule, saveWLB);
 profile.post('/save-experiance', saveExperianceRule, saveExperiance);
 profile.post('/save-skills', skillValidation, saveSkills);
 profile.get('/get-skill-category', getCategory);
+profile.post('/save-goals', saveGoalRule, saveGoals);
 profile.post(
   '/link-data',
   upload.single('file'),
