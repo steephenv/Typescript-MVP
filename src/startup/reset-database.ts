@@ -8,13 +8,14 @@ import { initUsers } from './users';
 import { createMVP } from './add-mvp';
 import { createSlot } from './set-slots';
 import { createCat } from './add-cat-subcat';
+import * as lme from 'lme';
 
 const resetDatabase = async (MONGO_URI?: string) => {
   try {
     await getMongooseConnectionPromise(MONGO_URI);
-    console.log('connected to db');
+    lme.i('> connected to db');
   } catch (err) {
-    console.log(err);
+    lme.e(err);
     process.exit(1);
   }
 
@@ -48,19 +49,20 @@ const resetDatabase = async (MONGO_URI?: string) => {
         .catch(errHandler),
     ]);
   } catch (err) {
-    console.log(err);
+    if (err.code === 26) {
+      lme.w('> ns Not Found Error occurred (code 26) #ignoring');
+    } else {
+      lme.e('err occurred');
+      console.log(err);
+      process.exit(1);
+    }
   }
 
   try {
-    await BluePromise.all([initUsers()]);
+    await BluePromise.all([initUsers(), createCat()]);
+
     await createSlot();
     await createMVP();
-  } catch (err) {
-    console.log(err);
-  }
-
-  try {
-    await createCat();
   } catch (err) {
     console.log(err);
   }
