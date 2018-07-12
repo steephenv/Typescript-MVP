@@ -1,6 +1,4 @@
 import * as supertest from 'supertest';
-import { RequestHandler } from 'express';
-import { Promise as BluePromise } from 'bluebird';
 import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
 
 let token = '';
