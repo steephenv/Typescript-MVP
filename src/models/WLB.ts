@@ -1,3 +1,4 @@
+/* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
 
 const wlbSchema = new Schema({
@@ -8,7 +9,7 @@ const wlbSchema = new Schema({
   annualAvailableCapacity: {
     type: String,
   },
-  capriconsAvailableCapacity: {
+  capricornsAvailableCapacity: {
     type: String,
   },
   frequencyOnsiteWork: {
@@ -18,9 +19,9 @@ const wlbSchema = new Schema({
     type: String,
   },
   location: [String],
-  workpermit: {
+  workPermit: {
     type: String,
   },
 });
 
-export const wlb = mongooseModel('wlbSchema', wlbSchema);
+export const Wlb = mongooseModel('Wlb', wlbSchema);
