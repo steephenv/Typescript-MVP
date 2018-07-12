@@ -6,4 +6,4 @@
 - [ ] `npm test` passing
 - [ ] Assignee added
 - [ ] **remove source branch** checked (if this branch is no more needed)
-- [ ] An apt label added
+- [ ] One or more apt label added
