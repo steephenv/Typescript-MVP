@@ -13,6 +13,9 @@ const AvailabilityCalenderSchema: Schema = new Schema({
     type: Date,
     required: true,
   },
+  dateString: {
+    type: String,
+  },
   slot: {
     type: Schema.Types.ObjectId,
     ref: 'TimeSlot',

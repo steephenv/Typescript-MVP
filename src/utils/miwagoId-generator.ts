@@ -5,6 +5,7 @@ export const generateMiwagoUserId = async (localName: string) => {
   const savableIdDetails = await Country.findOne(
     {
       local_name: localName,
+      type: 'CI',
     },
     'iso',
   ).exec();
@@ -16,7 +17,11 @@ export const generateMiwagoUserId = async (localName: string) => {
   // mirror reference of it for better typing support
   const idDetailsMirror: any = savableIdDetails;
 
-  const MIWAGO_USER_ID = `${idDetailsMirror.iso}#${generateShortId()}`;
+  const splits = idDetailsMirror.iso.split('-');
+  const countryCode = splits[0];
+  const cityCode = splits[2];
+
+  const MIWAGO_USER_ID = `${countryCode}-${cityCode}-${generateShortId()}`;
 
   return MIWAGO_USER_ID;
 };

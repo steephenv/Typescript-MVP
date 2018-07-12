@@ -4,6 +4,8 @@ import * as serializeError from 'serialize-error';
 
 import { AppEmailTemplates, sendEmail } from '../email/send-email';
 
+const ERR_EMAIL: string = getConfig('mails.errMails');
+
 // handle uncaught exception
 process.on('uncaughtException', async error => {
   if (process.env.NODE_ENV === 'development') {
@@ -17,7 +19,7 @@ process.on('uncaughtException', async error => {
     const pubIp = await v4();
 
     await sendEmail({
-      toAddresses: ['err-reports-aumet@googlegroups.com'],
+      toAddresses: [ERR_EMAIL],
       template: AppEmailTemplates.ERR_REPORTER,
       fromName: 'Aumet Err Reporter',
       subject: `App terminated on uncaughtException in ${process.env.USER}`,
