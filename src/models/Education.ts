@@ -14,10 +14,10 @@ const educationDetailsSchema = new Schema({
     type: Date,
   },
   durationFrom: {
-    type: Date,
+    type: String,
   },
   durationTo: {
-    type: Date,
+    type: String,
   },
   typeOfInstitution: {
     type: String,

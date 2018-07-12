@@ -11,7 +11,6 @@ const PersonalDataSchema = Joi.object().keys({
   countryOfBirth: Joi.string(),
   citizenship: Joi.string().required(),
   workPermit: Joi.string().required(),
-  professionalId: Joi.string().required(),
   country: Joi.string().required(),
   city: Joi.string().required(),
   street: Joi.string().required(),

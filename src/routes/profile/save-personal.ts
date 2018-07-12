@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express';
 
 import { PersonalDetails } from '../../models/PersonalDetails';
+import { generateMiwagoUserId } from '../../utils/miwagoId-generator';
 
 import {
   RequestError,
@@ -22,6 +23,7 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
       await PersonalDetails.update(where, { $set: req.body });
     } else {
       req.body.createdAt = new Date();
+      req.body.professionalId = await generateMiwagoUserId(req.body.city);
       const personalDeta = new PersonalDetails(req.body);
       await personalDeta.save();
     }

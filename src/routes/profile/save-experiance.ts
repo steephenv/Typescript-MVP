@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 
-import { experiance } from '../../models/Experiance';
-import { projects } from '../../models/Projecs';
+import { Experience } from '../../models/Experience';
+import { EmployeeProjects } from '../../models/EmployeeProjects';
 
 import {
   RequestError,
@@ -54,11 +54,11 @@ export const saveExperiance: RequestHandler = async (req, res, next) => {
       yourMainResults: req.body.yourMainResults,
       applicableToOtherCompanies: req.body.applicableToOtherCompanies,
     };
-    await experiance.findOneAndUpdate(
+    await Experience.findOneAndUpdate(
       { userId: req.body.userId },
       { $set: { criteria } },
     );
-    await projects.findOneAndUpdate(
+    await EmployeeProjects.findOneAndUpdate(
       { userId: req.body.userId },
       { $set: { criteria2 } },
     );

@@ -32,6 +32,20 @@ const resetDatabase = async (MONGO_URI?: string) => {
       mongoose.connection.db
         .dropCollection('skillcategories')
         .catch(errHandler),
+      mongoose.connection.db.dropCollection('educations').catch(errHandler),
+      mongoose.connection.db
+        .dropCollection('employeeprojects')
+        .catch(errHandler),
+      mongoose.connection.db
+        .dropCollection('personaldetails')
+        .catch(errHandler),
+      mongoose.connection.db.dropCollection('experiences').catch(errHandler),
+      mongoose.connection.db
+        .dropCollection('employeeprojects')
+        .catch(errHandler),
+      mongoose.connection.db
+        .dropCollection('customercredentials')
+        .catch(errHandler),
     ]);
   } catch (err) {
     console.log(err);

@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import lme from 'lme';
+import * as lme from 'lme';
 import * as extract from 'extract-zip';
 import * as csv from 'fast-csv';
 import * as fs from 'fs';
@@ -7,10 +7,10 @@ import * as rimraf from 'rimraf';
 import * as userHome from 'user-home';
 
 import { PersonalDetails } from '../../models/PersonalDetails';
-import { customerCredentials } from '../../models/CustomerCredentials';
+import { CustomerCredentials } from '../../models/CustomerCredentials';
 import { Education } from '../../models/Education';
-import { experiance } from '../../models/Experiance';
-import { projects } from '../../models/Projecs';
+import { Experience } from '../../models/Experience';
+import { EmployeeProjects } from '../../models/EmployeeProjects';
 
 import {
   RequestError,
@@ -19,7 +19,7 @@ import {
 
 export const linkData: RequestHandler = async (req: any, res, next) => {
   try {
-    const userDir = req.params.userId;
+    const userDir = res.locals.user.userId;
     const dir = userHome + `/zipped + ${userDir} `;
 
     const filename = req.file.filename;
@@ -39,27 +39,49 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
         }
       });
     });
-    const tempEducation = userHome + '/' + 'zipped/newuserid/Education.csv';
-    const tempEmails = userHome + '/' + 'zipped/newuserid/Email Addresses.csv';
-    const tempPositions = userHome + '/' + 'zipped/newuserid/Positions.csv';
-    const tempProfiles = userHome + '/' + 'zipped/newuserid/Profile.csv';
-    const tempConnection = userHome + '/' + 'zipped/newuserid/Connections.csv';
-    const tempSkills = userHome + '/' + 'zipped/newuserid/Skills.csv';
+
+    let tempEducation;
+    let tempEmails;
+    let tempPositions;
+    let tempProfiles;
+    let tempConnection;
+    let tempSkills;
+
+    if (userHome + '/' + `zipped/${userDir}/Education.csv`) {
+      tempEducation = userHome + '/' + `zipped/${userDir}/Education.csv`;
+    }
+    if (userHome + '/' + `zipped/${userDir}/Email Addresses.csv`) {
+      tempEmails = userHome + '/' + `zipped/${userDir}/Email Addresses.csv`;
+    }
+    if (userHome + '/' + `zipped/${userDir}/Positions.csv`) {
+      tempPositions = userHome + '/' + `zipped/${userDir}/Positions.csv`;
+    }
+    if (userHome + '/' + `zipped/${userDir}/Profile.csv`) {
+      tempProfiles = userHome + '/' + `zipped/${userDir}/Profile.csv`;
+    }
+    if (userHome + '/' + `zipped/${userDir}/Connections.csv`) {
+      tempConnection = userHome + '/' + `zipped/${userDir}/Connections.csv`;
+    }
+    if (userHome + '/' + `zipped/${userDir}/Skills.csv`) {
+      tempSkills = userHome + '/' + `zipped/${userDir}/Skills.csv`;
+    }
+
     if (tempEducation) {
       const column: any = [];
       let tempcolumn: any = [];
       csv
         .fromPath(tempEducation)
         .on('data', data => {
-          // console.log(data);
           column.push(data);
         })
         .on('end', (data: any) => {
           tempcolumn = column[0];
           const klength: any = tempcolumn.length;
-          // const remainingArray: any = column.shift();
           const objArray: any = [];
           column.forEach((arr: any, i: any) => {
+            if (i === 0) {
+              return;
+            }
             if (klength === arr.length) {
               const obj: any = {};
               tempcolumn.forEach((key: any, j: any) => {
@@ -69,12 +91,8 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
               objArray.push(obj);
             }
           });
-          // console.log(objArray);
           objArray.forEach(async (dataobj: any) => {
-            //  console.log('the object array looped data = ', dataobj);
-            // lme.i(Object.keys(dataobj));
             const datakey: any = Object.keys(dataobj);
-
             const eduData = new Education({
               userId: res.locals.user.userId,
               nameOfInstitution: dataobj[datakey[0]],
@@ -85,20 +103,6 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
               activities: dataobj[datakey[5]],
             });
             await eduData.save();
-            // const criteria = {
-            //   nameOfInstitution: dataobj[datakey[0]],
-            //   duration: {
-            //     from: dataobj[datakey[1]],
-            //     to: dataobj[datakey[2]],
-            //   },
-            //   major: dataobj[datakey[3]],
-            //   degree: dataobj[datakey[4]],
-            //   activities: dataobj[datakey[5]],
-            // };
-            // lme.i(criteria);
-            // data updation to personal details schema
-            //  const educationData: any = await Education.findOneAndUpdate(
-            //   {userId : res.locals.data.userId}, {$set: {criteria}});
           });
         });
     }
@@ -108,15 +112,16 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
       csv
         .fromPath(tempProfiles)
         .on('data', data => {
-          // console.log(data);
           column.push(data);
         })
         .on('end', () => {
           tempcolumn = column[0];
           const klength: any = tempcolumn.length;
-          // const remainingArray: any = column.shift();
           const objArray: any = [];
           column.forEach((arr: any, i: any) => {
+            if (i === 0) {
+              return;
+            }
             if (klength === arr.length) {
               const obj: any = {};
               tempcolumn.forEach((key: any, j: any) => {
@@ -126,9 +131,7 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
               objArray.push(obj);
             }
           });
-          // console.log(objArray);
           objArray.forEach(async (dataobj: any) => {
-            //         console.log('the object array looped data = ', dataobj);
             const datakey: any = Object.keys(dataobj);
             const profData = new PersonalDetails({
               userId: res.locals.user.userId,
@@ -142,36 +145,14 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
               MaidenName: dataobj[datakey[2]],
             });
             await profData.save();
-            //   const criteria = {
-            //     firstName: dataobj[datakey[0]],
-            //     lastName: dataobj[datakey[1]],
-            //     birthDate: dataobj[datakey[4]],
-            //     country: dataobj[datakey[9]],
-            //     zipCode: dataobj[datakey[10]],
-            //     PersonalStatement: dataobj[datakey[6]],
-            //     Summary: dataobj[datakey[7]],
-            //     MaidenName: dataobj[datakey[2]],
-            //   };
-            //   lme.i(criteria);
-            // updating PersonalData schema.....
-            // const PersonalData: any = await PersonalDetails.findOneAndUpdate(
-            //  {userId : res.locals.data.userId}, {$set: {criteria}});
           });
           objArray.forEach(async (dataobj: any) => {
-            //         console.log('the object array looped data = ', dataobj);
             const datakey: any = Object.keys(dataobj);
-            const workExData = new experiance({
+            const workExData = new Experience({
               userId: res.locals.user.userId,
               companyIndustryLine: dataobj[datakey[8]],
             });
             await workExData.save();
-            //   const criteria = {
-            //     companyIndustryLine: dataobj[datakey[8]],
-            //   };
-            //   lme.i(criteria);
-            // updating PersonalData schema.....
-            //  const WorkData: any = await WorkExperiance.findOneAndUpdate(
-            //   {userId : res.locals.data.userId}, {$set: {criteria}});
           });
         });
     }
@@ -181,13 +162,11 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
       csv
         .fromPath(tempEmails)
         .on('data', data => {
-          // console.log(data);
           column.push(data);
         })
         .on('end', () => {
           tempcolumn = column[0];
           const klength: any = tempcolumn.length;
-          // const remainingArray: any = column.shift();
           const objArray: any = [];
           column.forEach((arr: any, i: any) => {
             if (klength === arr.length) {
@@ -199,7 +178,6 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
               objArray.push(obj);
             }
           });
-          //  console.log(objArray);
           let flag = 0;
           objArray.forEach(async (dataobj: any) => {
             // console.log('the object array looped data = ', dataobj);
@@ -252,52 +230,18 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
               objArray.push(obj);
             }
           });
-          // console.log(objArray);
-          //           objArray.forEach( async function (dataobj: any) {
-          //     //      console.log('the object array looped data = ', dataobj);
-          //            // lme.i(Object.keys(dataobj));
-          //            const datakey: any = Object.keys(dataobj);
-          //            // lme.i(dataobj[datakey[0]]);
-          //            const criteria = {
-          //             companyName : dataobj[datakey[0]],
-          //             jobTitle : dataobj[datakey[1]],
-          //             duration : {
-          //               from : dataobj[datakey[4]],
-          //               to : dataobj[datakey[5]]
-          //             }
-          //            };
-          //  //          lme.i(criteria);
-          //            // updating Experiance schema....
-          //           //  const WorkExperianceData: any = await WorkExperiance.findOneAndUpdate(
-          //           //   {userId : res.locals.data.userId}, {$push: {criteria}});
-          //            });
+
           objArray.forEach(async (dataobj: any) => {
             const datakey: any = Object.keys(dataobj);
-            const projdata = new projects({
+            const projdata = new EmployeeProjects({
               userId: res.locals.user.userId,
               clientsCompanyName: dataobj[datakey[0]],
-              engagementDuration: {
-                from: dataobj[datakey[4]],
-                to: dataobj[datakey[5]],
-              },
+              engagementFrom: dataobj[datakey[4]],
+              engagement: dataobj[datakey[5]],
               roleDescription: dataobj[datakey[2]],
-              yourrole: dataobj[datakey[1]],
+              role: dataobj[datakey[1]],
             });
             await projdata.save();
-            // const criteria2 = {
-            //   clientsCompanyName: dataobj[datakey[0]],
-            //   engagementDuration: {
-            //     from: dataobj[datakey[4]],
-            //     to: dataobj[datakey[5]],
-            //   },
-            //   roleDescription: dataobj[datakey[2]],
-            //   yourrole: dataobj[datakey[1]],
-            // };
-            //           console.log('criteria 2 starts here....');
-            // lme.i('projects data .......', criteria2);
-            // updating project schema....
-            //  const ProjectsData: any = await Projects.findOneAndUpdate(
-            //   {userId : res.locals.data.userId}, {$push: {criteria2}});
           });
         });
     }
@@ -366,7 +310,7 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
           objArray.forEach(async (dataobj: any) => {
             // console.log('the object array looped data = ', dataobj);
             const datakey: any = Object.keys(dataobj);
-            const custdata = new customerCredentials({
+            const custdata = new CustomerCredentials({
               userId: res.locals.user.userId,
               name: dataobj[datakey[0]],
               position: dataobj[datakey[4]],
@@ -386,7 +330,7 @@ export const linkData: RequestHandler = async (req: any, res, next) => {
         });
     }
     await rimraf(dir, () => {
-      lme.i('removed');
+      lme.i('Removed');
     });
     // await rimraf(`/home/dev286/projects/personal-management-api/uploads/${filename}`, function () {
     //   console.log('deleted folder uploads');

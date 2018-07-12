@@ -45,7 +45,7 @@ describe('Test for personal data  ===> ', () => {
         workPermit: 'dshjvdshv',
         professionalId: 'sdfbcshd',
         country: 'india',
-        city: 'chalakudy',
+        city: 'Kottayam',
         street: 'kammalam',
         pinCode: '680721',
         houseNo: '13307',

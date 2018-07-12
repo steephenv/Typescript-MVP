@@ -1,10 +1,10 @@
 import { RequestHandler } from 'express';
 
 import { PersonalDetails } from '../../models/PersonalDetails';
-import { customerCredentials } from '../../models/CustomerCredentials';
+import { CustomerCredentials } from '../../models/CustomerCredentials';
 import { Education } from '../../models/Education';
-import { experiance } from '../../models/Experiance';
-import { projects } from '../../models/Projecs';
+import { Experience } from '../../models/Experience';
+import { EmployeeProjects } from '../../models/EmployeeProjects';
 
 import {
   RequestError,
@@ -19,13 +19,13 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     const educationData = await Education.findOne({
       userId: res.locals.userId,
     });
-    const workExperianceData = await experiance.findOne({
+    const workExperianceData = await Experience.findOne({
       userId: res.locals.userId,
     });
-    const projectsData = await projects.findOne({
+    const projectsData = await EmployeeProjects.findOne({
       userId: res.locals.userId,
     });
-    const customerCredentialsData = await customerCredentials.findOne({
+    const customerCredentialsData = await CustomerCredentials.findOne({
       userId: res.locals.userId,
     });
     res.json({
