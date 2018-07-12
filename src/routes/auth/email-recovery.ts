@@ -39,6 +39,6 @@ export const emailRecoveryFunction: RequestHandler = async (req, res, next) => {
     await sgMail.send(msg);
     return res.status(202).send({ success: true });
   } catch (err) {
-    return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR));
+    return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }
 };

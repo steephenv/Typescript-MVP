@@ -179,7 +179,7 @@ gulp.task('tslint-noFix', () => {
    * this pipe is exit code ready
    */
   return gulp
-    .src(['src/**/*.ts', ...PRETTIER_IGNORE])
+    .src(['src/**/*.ts', 'tests/**/*.ts', ...PRETTIER_IGNORE])
     .pipe(
       gulpTslint({
         program: lintProgram,

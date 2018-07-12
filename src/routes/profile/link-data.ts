@@ -17,7 +17,7 @@ import {
   RequestErrorType,
 } from '../../error-handler/RequestError';
 
-export const linkData: RequestHandler = async (req: any, res, next) => {
+export const linkData: RequestHandler = async (req, res, next) => {
   try {
     const userDir = res.locals.user.userId;
     const dir = userHome + `/zipped + ${userDir} `;

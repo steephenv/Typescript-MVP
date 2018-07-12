@@ -38,6 +38,8 @@ import { attachTokenData } from './access-control/attach-token-data';
 
 export const app = express();
 
+const morganEnabled: boolean = getConfig('app.morgan');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -51,7 +53,7 @@ app.use(
 // un-comment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
-if (getConfig('app.morgan')) {
+if (morganEnabled) {
   app.use(logger('dev'));
 }
 app.use(bodyParser.json());

@@ -1,10 +1,11 @@
 import { Promise as BluePromise } from 'bluebird';
 import { get as configGet } from 'config';
 import mongoose = require('mongoose');
+import * as lme from 'lme';
 
 // Connect to MongoDB
 const MONGO_URI: string = configGet('database.url');
-console.log('connecting to ' + MONGO_URI); // tslint:disable-line
+lme.i('> connecting to ' + MONGO_URI); // tslint:disable-line
 
 // Promisifying all mongoose methods
 mongoose.Promise = BluePromise;
