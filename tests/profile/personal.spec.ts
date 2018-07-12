@@ -45,7 +45,7 @@ describe('Test for personal data  ===> ', () => {
         country: 'india',
         city: 'Kottayam',
         street: 'kammalam',
-        pinCode: '680721',
+        zipCode: '680721',
         houseNo: '13307',
         countryDialingCode: 2632,
         cityDialingCode: 8452,
@@ -55,9 +55,6 @@ describe('Test for personal data  ===> ', () => {
         secondaryEmail: 'steefanvrs 3@gmail.com',
         taxId: 'dfdgfjdnds',
         vatId: 51514,
-        socialInsuranceId: 5151,
-        healthInsuranceType: 'fvhdsvhdvbfgs',
-        healthInsurance: 'dfshvgdshb',
         ibanNo: 'dvcbvdsahb',
         bicNo: 'bfghbdf',
         summary: 'sdehfsjhdfh',
@@ -65,7 +62,6 @@ describe('Test for personal data  ===> ', () => {
       })
       .expect(200)
       .end((err, res) => {
-        // console.log(res.body.msg.details);
         if (err) {
           throw err;
         }
@@ -91,7 +87,7 @@ describe('Test for personal data  ===> ', () => {
         country: 'india',
         city: 'chalakudy',
         street: 'kammalam',
-        pinCode: '680721',
+        zipCode: '680721',
         houseNo: '13307',
         countryDialingCode: 91,
         cityDialingCode: 47,
@@ -111,7 +107,6 @@ describe('Test for personal data  ===> ', () => {
       })
       .expect(200)
       .end((err, res) => {
-        // console.log(res.body);
         if (err) {
           throw err;
         }
@@ -136,7 +131,7 @@ describe('Test for personal data  ===> ', () => {
         country: 'india',
         city: 'chalakudy',
         street: 'kammalam',
-        pinCode: '680721',
+        zipCode: '680721',
         houseNo: '13307',
         countryDialingCode: '91',
         cityDialingCode: '47',

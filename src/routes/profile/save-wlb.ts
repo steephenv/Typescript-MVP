@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 
-import { wlb } from '../../models/WLB';
+import { Wlb } from '../../models/WLB';
 
 import {
   RequestError,
@@ -15,16 +15,9 @@ export const saveWLB: RequestHandler = async (req, res, next) => {
     } else {
       removeUserId = res.locals.user.userId;
     }
-    await wlb.remove({ userId: removeUserId });
-    const newData = new wlb({
-      userId: removeUserId,
-      annualAvailableCapacity: req.body.annualAvailableCapacity,
-      capriconsAvailableCapacity: req.body.capriconsAvailableCapacity,
-      frequencyOnsiteWork: req.body.frequencyOnsiteWork,
-      frequencyHomeOfficeWork: req.body.frequencyHomeOfficeWork,
-      location: req.body.location,
-      workpermit: req.body.workpermit,
-    });
+    (req.body.userId = removeUserId),
+      await Wlb.remove({ userId: removeUserId });
+    const newData = new Wlb(req.body);
     await newData.save();
     return res.status(200).send({ success: true });
   } catch (err) {

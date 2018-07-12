@@ -4,11 +4,11 @@ import { RequestHandler } from 'express';
 // tslint:disable:variable-name
 const wlbDataSchema = Joi.object().keys({
   annualAvailableCapacity: Joi.string().required(),
-  capriconsAvailableCapacity: Joi.string().required(),
+  capricornsAvailableCapacity: Joi.string().required(),
   frequencyOnsiteWork: Joi.string().required(),
   frequencyHomeOfficeWork: Joi.string().required(),
   location: Joi.array().required(),
-  workpermit: Joi.string(),
+  workPermit: Joi.string(),
 });
 
 export const saveWLBRule: RequestHandler = (req, res, next) => {
