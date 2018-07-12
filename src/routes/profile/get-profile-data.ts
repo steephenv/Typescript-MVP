@@ -28,7 +28,7 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     const customerCredentialsData = await CustomerCredentials.findOne({
       userId: res.locals.user.userId,
     });
-    res.json({
+    res.status(200).json({
       PersonalDetails: personalDetailsData,
       Education: educationData,
       WorkExperiance: workExperianceData,
