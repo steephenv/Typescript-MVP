@@ -18,17 +18,21 @@ export const createMVP = async () => {
     });
     const user = await newUser.save();
     const slots = await TimeSlot.find({}).exec();
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const dateStrings = `${tomorrow.getFullYear()}-${tomorrow.getMonth() +
+      1}-${tomorrow.getDate()}`;
     const cal1 = new AvailabilityCalender({
       userId: [user._id],
-      date: new Date(),
+      date: tomorrow,
       slot: slots[1],
-      dateString: '2018-07-04',
+      dateString: dateStrings,
     });
     const cal2 = new AvailabilityCalender({
       userId: [user._id],
-      date: new Date(),
+      date: tomorrow,
       slot: slots[2],
-      dateString: '2018-07-04',
+      dateString: dateStrings,
     });
     const cls = [cal1, cal2];
     await BluePromise.map(cls, cl => {
