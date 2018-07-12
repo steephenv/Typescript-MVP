@@ -40,7 +40,7 @@ describe('Test for forgot-password functionality ===> ', () => {
   });
   it('reset password api - field missing', async done => {
     try {
-      const res = await supertest(app)
+      await supertest(app)
         .post('/v1/auth/reset-password')
         .send({
           token: tokenNew,
