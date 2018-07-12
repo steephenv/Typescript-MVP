@@ -58,10 +58,10 @@ const personalDetailsSchema = new Schema({
     type: String,
   },
   countryDialingCode: {
-    type: String,
+    type: Number,
   },
   cityDialingCode: {
-    type: String,
+    type: Number,
   },
   fixedLinePhone: {
     type: String,
@@ -79,10 +79,10 @@ const personalDetailsSchema = new Schema({
     type: String,
   },
   vatId: {
-    type: String,
+    type: Number,
   },
   socialInsuranceId: {
-    type: String,
+    type: Number,
   },
   healthInsuranceType: {
     type: String,
