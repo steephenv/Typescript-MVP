@@ -33,11 +33,11 @@ describe('Test for saving wlb data  ===> ', () => {
       .set({ Authorization: `Bearer ${token}` })
       .send({
         annualAvailableCapacity: 'dshfvhsdvf',
-        capriconsAvailableCapacity: 'dsbfhjsdfds',
+        capricornsAvailableCapacity: 'dsbfhjsdfds',
         frequencyOnsiteWork: 'dgsvgdsvc',
         frequencyHomeOfficeWork: 'sdhfhjsdvf',
         location: ['dsfhhjsd', 'sdfbhsd', 'dbfhbd'],
-        workpermit: 'dsfdshj',
+        workPermit: 'dsfdshj',
       })
       .expect(200)
       .end((err, res) => {
