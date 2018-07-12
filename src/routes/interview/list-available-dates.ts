@@ -1,8 +1,11 @@
 import { RequestHandler } from 'express';
-
+import {
+  RequestError,
+  RequestErrorType,
+} from '../../error-handler/RequestError';
 import { AvailabilityCalender } from '../../models/AvailabilityCalender';
 
-export const listAvailableDates: RequestHandler = async (req, res) => {
+export const listAvailableDates: RequestHandler = async (req, res, next) => {
   try {
     const dates = await AvailabilityCalender.aggregate([
       { $match: { date: { $gt: new Date() } } },
@@ -22,9 +25,6 @@ export const listAvailableDates: RequestHandler = async (req, res) => {
       data: dates,
     });
   } catch (err) {
-    return res.status(500).send({
-      success: false,
-      msg: err,
-    });
+    return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }
 };

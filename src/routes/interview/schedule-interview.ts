@@ -1,13 +1,17 @@
 /* tslint:disable:no-var-requires */
 import { RequestHandler } from 'express';
-const mongoose = require('mongoose');
+import * as mongoose from 'mongoose';
 
 import { Interview } from '../../models/Interview';
 import { AvailabilityCalender } from '../../models/AvailabilityCalender';
+import {
+  RequestError,
+  RequestErrorType,
+} from '../../error-handler/RequestError';
 
 import { messages } from '../../config/app/messages';
 
-export const scheduleInterview: RequestHandler = async (req, res) => {
+export const scheduleInterview: RequestHandler = async (req, res, next) => {
   try {
     const query = { dateString: req.body.dateString, slot: req.body.slot };
     const freePersons: any = await AvailabilityCalender.findOne(query).exec();
@@ -38,9 +42,6 @@ export const scheduleInterview: RequestHandler = async (req, res) => {
       msg: messages.interviewScheduled.ENG,
     });
   } catch (err) {
-    return res.status(500).send({
-      success: false,
-      msg: err,
-    });
+    return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }
 };
