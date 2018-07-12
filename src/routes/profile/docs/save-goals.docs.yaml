@@ -1,0 +1,74 @@
+/profile/save-goals:
+  post:
+    security:
+    - Bearer: []
+    summary: api for save goals details.
+    tags:
+    - profile updation
+    description: api for save goals details.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: userId
+      description: 'userId'
+      in: query
+      type: string
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+          -clientRating
+          -teamRating
+        properties:
+          clientRating:
+             type: string
+          teamRating:
+             type: string
+          personalStatement:
+           type: string
+          annualAvailableCapacity:
+             type: string
+          capricornsAvailableCapacity:
+             type: string
+          income:
+             type: string
+          incomeUnit:
+             type: string
+          startDate:
+             type: string
+          daysLeftInYear:
+             type: string
+          daysLeftInCapricorns:
+             type: string
+          targetAnnualIncome:
+             type: string
+          targetAnnualIncomeCapricorns:
+             type: string 
+          industryExperience:
+             type: array
+          functionalExperience:
+             type: array
+          subjectMatter:
+             type: array
+          taskExperience:
+             type: array
+          certifications:
+             type: array
+          assets:
+             type: array
+          educationalTarget:
+             type: array
+          socialSkills:
+             type: array
+          peopleDevelopment:
+             type: array
+          businessDevelopment:
+             type: array        
+    responses:
+      200:
+        description: "successful attempt, returns `success message`"
