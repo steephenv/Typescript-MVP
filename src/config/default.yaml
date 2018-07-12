@@ -2,7 +2,7 @@ app:
   port: 6233
   docs: true
   logging: true # for logging stuffs out
-  morgan: true # for request logging
+  morgan: false # for request logging
   jwt:
     SecretKey: lovemelikeyoudo
     accessTokenExpiryTime: 7d
