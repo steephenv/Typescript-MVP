@@ -14,7 +14,7 @@ const PersonalDataSchema = Joi.object().keys({
   country: Joi.string().required(),
   city: Joi.string().required(),
   street: Joi.string().required(),
-  pinCode: Joi.string().required(),
+  zipCode: Joi.string().required(),
   houseNo: Joi.string().required(),
   countryDialingCode: Joi.number().required(),
   cityDialingCode: Joi.number().required(),
