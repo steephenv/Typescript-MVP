@@ -35,7 +35,7 @@ describe('Test for personal data  ===> ', () => {
       .set({ Authorization: `Bearer ${token}` })
       .send({
         firstName: 'steephen',
-        middleName: 'maliekkal',
+        middleName: '',
         maidenName: 'maiden',
         lastName: 'varghese',
         image: 'dsacfcbcsa',

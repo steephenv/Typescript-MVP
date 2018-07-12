@@ -4,11 +4,11 @@ import { RequestHandler } from 'express';
 // tslint:disable:variable-name
 const PersonalDataSchema = Joi.object().keys({
   firstName: Joi.string().required(),
-  middleName: Joi.string(),
+  middleName: Joi.string().allow(''),
   lastName: Joi.string().required(),
-  image: Joi.string(),
+  image: Joi.string().allow(''),
   birthDate: Joi.date().required(),
-  countryOfBirth: Joi.string(),
+  countryOfBirth: Joi.string().allow(''),
   citizenship: Joi.string().required(),
   workPermit: Joi.string().required(),
   country: Joi.string().required(),
@@ -31,7 +31,7 @@ const PersonalDataSchema = Joi.object().keys({
   bicNo: Joi.string().required(),
   personalStatement: Joi.string(),
   summary: Joi.string().required(),
-  maidenName: Joi.string(),
+  maidenName: Joi.string().allow(''),
 });
 
 export const savePersonalRule: RequestHandler = (req, res, next) => {
