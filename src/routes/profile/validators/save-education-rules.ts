@@ -1,6 +1,10 @@
 import * as Joi from 'joi';
 import { RequestHandler } from 'express';
 
+const subObjectSchema = Joi.object({
+  Subject: Joi.string().required(),
+  grade: Joi.string().required(),
+});
 const objectSchema = Joi.object({
   durationFrom: Joi.string().required(),
   durationTo: Joi.string().required(),
@@ -11,8 +15,7 @@ const objectSchema = Joi.object({
   major: Joi.string().required(),
   degree: Joi.string().required(),
   grade: Joi.string().required(),
-  mainSubjects: Joi.string().required(),
-  gradeOfMainSubjects: Joi.string().required(),
+  mainSubjects: Joi.array().items(subObjectSchema),
   activities: Joi.string(),
 }).required();
 
@@ -23,6 +26,12 @@ const EducationSchema = Joi.object().keys({
     .min(1)
     .required(),
 });
+// const SubjectSchema = Joi.object().keys({
+//   subjects: Joi.array()
+//     .items(subObjectSchema)
+//     .min(1)
+//     .required(),
+// });
 
 export const educationValidation: RequestHandler = (req, res, next) => {
   Joi.validate(

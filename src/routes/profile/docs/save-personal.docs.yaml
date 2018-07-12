@@ -33,7 +33,7 @@
         - country
         - city
         - street
-        - pinCode
+        - zipCode
         - houseNo
         - countryDialingCode
         - cityDialingCode

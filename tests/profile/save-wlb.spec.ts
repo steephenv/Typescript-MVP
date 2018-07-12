@@ -25,40 +25,23 @@ beforeAll(done => {
     });
 });
 
-describe('Test for saving education data  ===> ', () => {
-  it('Saving education details api', done => {
+describe('Test for saving wlb data  ===> ', () => {
+  it('Saving wlb details api', done => {
     supertest(app)
-      .post(`/v1/profile/save-education`)
+      .post(`/v1/profile/save-wlb`)
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
       .send({
-        educations: [
-          {
-            durationFrom: '2005',
-            durationTo: '2010',
-            typeOfInstitution: 'degree',
-            nameOfInstitution: 'hjhj',
-            locationCountry: 'India',
-            locationCity: 'gfhdsgh',
-            major: 'daf',
-            degree: 'sefge',
-            grade: 'esfe',
-            mainSubjects: [
-              {
-                subject: 'maths',
-                grade: 'E',
-              },
-              {
-                subject: 'english',
-                grade: 'D',
-              },
-            ],
-            activities: 'gsdgsd',
-          },
-        ],
+        annualAvailableCapacity: 'dshfvhsdvf',
+        capriconsAvailableCapacity: 'dsbfhjsdfds',
+        frequencyOnsiteWork: 'dgsvgdsvc',
+        frequencyHomeOfficeWork: 'sdhfhjsdvf',
+        location: ['dsfhhjsd', 'sdfbhsd', 'dbfhbd'],
+        workpermit: 'dsfdshj',
       })
       .expect(200)
       .end((err, res) => {
+        // console.log(res.body.msg.details);
         if (err) {
           throw err;
         }

@@ -8,12 +8,16 @@ const wlbSchema = new Schema({
   annualAvailableCapacity: {
     type: String,
   },
-  frequency: {
+  capriconsAvailableCapacity: {
     type: String,
   },
-  location: {
-    type: [String],
+  frequencyOnsiteWork: {
+    type: String,
   },
+  frequencyHomeOfficeWork: {
+    type: String,
+  },
+  location: [String],
   workpermit: {
     type: String,
   },
