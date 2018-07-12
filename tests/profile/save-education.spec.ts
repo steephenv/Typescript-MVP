@@ -26,7 +26,7 @@ beforeAll(done => {
 });
 
 describe('Test for saving education data  ===> ', () => {
-  it('Saving personal details api', done => {
+  it('Saving education details api', done => {
     supertest(app)
       .post(`/v1/profile/save-education`)
       .set('X-Requested-With', 'XMLHttpRequest')
@@ -43,39 +43,16 @@ describe('Test for saving education data  ===> ', () => {
             major: 'daf',
             degree: 'sefge',
             grade: 'esfe',
-            mainSubjects: 'dfsfrews',
-            gradeOfMainSubjects: 'fsdfgs',
-            activities: 'gsdgsd',
-          },
-        ],
-      })
-      .expect(200)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
-      });
-  });
-  it('Saving personal details api - same data', done => {
-    supertest(app)
-      .post(`/v1/profile/save-education`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
-        educations: [
-          {
-            durationFrom: '2005',
-            durationTo: '2010',
-            typeOfInstitution: 'degree',
-            nameOfInstitution: 'hjhj',
-            locationCountry: 'India',
-            locationCity: 'gfhdsgh',
-            major: 'daf',
-            degree: 'sefge',
-            grade: 'esfe',
-            mainSubjects: 'dfsfrews',
-            gradeOfMainSubjects: 'fsdfgs',
+            mainSubjects: [
+              {
+                subject: 'maths',
+                grade: 'E',
+              },
+              {
+                subject: 'english',
+                grade: 'D',
+              },
+            ],
             activities: 'gsdgsd',
           },
         ],

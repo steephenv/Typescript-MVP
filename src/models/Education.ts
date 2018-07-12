@@ -40,9 +40,12 @@ const educationDetailsSchema = new Schema({
   grade: {
     type: String,
   },
-  mainSubjects: {
-    type: String,
-  },
+  mainSubjects: [
+    {
+      subject: String,
+      grade: String,
+    },
+  ],
   activities: {
     type: String,
   },
