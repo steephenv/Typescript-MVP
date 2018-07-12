@@ -1,27 +1,58 @@
-import { country as Country } from '../models/Country';
-import { generate as generateShortId } from 'shortid';
+import { AppData } from '../models/AppData';
+import * as leftPad from 'left-pad';
 
 export const generateMiwagoUserId = async (localName: string) => {
-  const savableIdDetails = await Country.findOne(
+  const userCounter = await getNextId();
+  const precisionCounter = leftPad(userCounter, 5, 0);
+
+  const now = new Date();
+  const yearField = (now.getFullYear() + '').slice(-2);
+  const monthField = leftPad(now.getMonth(), 2, 0);
+
+  return yearField + monthField + precisionCounter;
+};
+
+// returns next id and update database
+async function getNextId() {
+  let idCounter: number;
+
+  const monthlyIdContent: any = await AppData.findOne(
     {
-      local_name: localName,
-      type: 'CI',
+      name: 'monthly-id',
     },
-    'iso',
+    'content',
   ).exec();
 
-  if (!savableIdDetails) {
-    throw new Error(`A code for city '${localName}' is not available`);
+  if (monthlyIdContent) {
+    idCounter = +monthlyIdContent.content.counter;
+    await updateIdCounter(idCounter + 1);
+  } else {
+    await createMonthlyIdContent();
+    idCounter = 1;
   }
+  return idCounter;
+}
 
-  // mirror reference of it for better typing support
-  const idDetailsMirror: any = savableIdDetails;
+// if monthly-id does not exist yet create one
+function createMonthlyIdContent() {
+  return AppData.create({
+    name: 'monthly-id',
+    content: {
+      counter: 2,
+    },
+  });
+}
 
-  const splits = idDetailsMirror.iso.split('-');
-  const countryCode = splits[0];
-  const cityCode = splits[2];
-
-  const MIWAGO_USER_ID = `${countryCode}-${cityCode}-${generateShortId()}`;
-
-  return MIWAGO_USER_ID;
-};
+// if monthly-id does not exist yet create one
+function updateIdCounter(val: number) {
+  return AppData.updateOne(
+    {
+      name: 'monthly-id',
+    },
+    {
+      content: {
+        counter: val,
+      },
+    },
+  );
+}
