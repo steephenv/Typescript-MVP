@@ -23,7 +23,11 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
       await PersonalDetails.update(where, { $set: req.body });
     } else {
       req.body.createdAt = new Date();
-      req.body.professionalId = await generateMiwagoUserId(req.body.city);
+      try {
+        req.body.professionalId = await generateMiwagoUserId(req.body.city);
+      } catch (err) {
+        return next(new RequestError(RequestErrorType.BAD_REQUEST, err));
+      }
       const personalDeta = new PersonalDetails(req.body);
       await personalDeta.save();
     }
