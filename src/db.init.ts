@@ -5,7 +5,7 @@ import * as lme from 'lme';
 
 // Connect to MongoDB
 const MONGO_URI: string = configGet('database.url');
-lme.i('> connecting to ' + MONGO_URI); // tslint:disable-line
+lme.i('> connecting to ' + MONGO_URI);
 
 // Promisifying all mongoose methods
 mongoose.Promise = BluePromise;
