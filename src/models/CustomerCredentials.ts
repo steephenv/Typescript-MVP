@@ -1,9 +1,9 @@
+/* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
 
 const customerCredentialsSchema = new Schema({
   name: {
     type: String,
-    required: true,
   },
   consultantId: {
     type: Schema.Types.ObjectId,
@@ -11,11 +11,9 @@ const customerCredentialsSchema = new Schema({
   },
   position: {
     type: String,
-    required: true,
   },
   company: {
     type: String,
-    required: true,
   },
   address: {
     type: String,
@@ -34,7 +32,7 @@ const customerCredentialsSchema = new Schema({
   },
 });
 
-export const customerCredentials = mongooseModel(
-  'customerCredentials',
+export const CustomerCredentials = mongooseModel(
+  'CustomerCredentials',
   customerCredentialsSchema,
 );
