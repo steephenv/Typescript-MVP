@@ -16,7 +16,6 @@ export const saveEducation: RequestHandler = async (req, res, next) => {
     } else {
       removeUserId = res.locals.user.userId;
     }
-    console.log(removeUserId);
     await Education.remove({ userId: removeUserId });
     await BluePromise.map(req.body.educations, async (education: any) => {
       education.userId = removeUserId;
@@ -26,7 +25,6 @@ export const saveEducation: RequestHandler = async (req, res, next) => {
     });
     return res.status(200).send({ success: true });
   } catch (err) {
-    console.log(err);
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }
 };
