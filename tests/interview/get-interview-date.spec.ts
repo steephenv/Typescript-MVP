@@ -28,6 +28,7 @@ describe('Get interview date', () => {
     supertest(app)
       .get('/v1/interview/get-date')
       .set({ Authorization: `Bearer ${token}` })
+      .set('X-Requested-With', 'XMLHttpRequest')
       .expect(200)
       .end(err => {
         if (err) {
