@@ -2,7 +2,7 @@ import { model as mongooseModel, Schema } from 'mongoose';
 
 const personalDetailsSchema = new Schema({
   userId: {
-    type: String,
+    type: Schema.Types.ObjectId,
     ref: 'User',
     unique: true,
   },

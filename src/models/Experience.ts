@@ -59,7 +59,7 @@ const experienceSchema = new Schema({
   projects: [
     {
       type: Schema.Types.ObjectId,
-      ref: EmployeeProjects,
+      ref: 'EmployeeProjects',
     },
   ],
 });
