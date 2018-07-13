@@ -28,6 +28,7 @@
           -nameOfInstitution
           -locationCountry
           -locationCity
+          -locationState
           -major
           -degree
           -grade
@@ -47,6 +48,8 @@
              type: string
           locationCity:
              type: string
+          locationState:
+             type: string   
           major:
              type: string
           degree:

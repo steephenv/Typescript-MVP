@@ -31,6 +31,9 @@ const educationDetailsSchema = new Schema({
   locationCity: {
     type: String,
   },
+  locationState: {
+    type: String,
+  },
   major: {
     type: String,
   },
