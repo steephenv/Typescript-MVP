@@ -12,11 +12,7 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
   try {
     const where: any = {};
 
-    if (req.query.userId) {
-      where.userId = req.query.userId;
-    } else {
-      where.userId = res.locals.userId;
-    }
+    where.userId = req.query.userId ? req.query.userId : res.locals.user.userId;
     req.body.updatedAt = new Date();
     req.body.userId = where.userId;
     if (req.query && req.query.userId) {
