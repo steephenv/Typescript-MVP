@@ -57,4 +57,30 @@ describe('Test fetching Skills category data  ===> ', () => {
         return done();
       });
   });
+  it('fetching skill category data api', done => {
+    supertest(app)
+      .get(`/v1/profile/get-skill-category`)
+      .set('X-Requested-With', 'XMLHttpRequest')
+      .set({ Authorization: `Bearer ${token}` })
+      .expect(422)
+      .end((err, res) => {
+        if (err) {
+          throw err;
+        }
+        return done();
+      });
+  });
+  it('fetching skill sub category data api', done => {
+    supertest(app)
+      .get(`/v1/profile/get-sub-category`)
+      .set('X-Requested-With', 'XMLHttpRequest')
+      .set({ Authorization: `Bearer ${token}` })
+      .expect(422)
+      .end((err, res) => {
+        if (err) {
+          throw err;
+        }
+        return done();
+      });
+  });
 });
