@@ -13,19 +13,19 @@ import {
 
 export const getLinkedData: RequestHandler = async (req, res, next) => {
   try {
-    const personalDetailsData = await PersonalDetails.findOne({
+    const personalDetailsData = await PersonalDetails.find({
       userId: res.locals.user.userId,
     });
-    const educationData = await Education.findOne({
+    const educationData = await Education.find({
       userId: res.locals.user.userId,
     });
-    const workExperianceData = await Experience.findOne({
+    const workExperianceData = await Experience.find({
       userId: res.locals.user.userId,
     });
-    const projectsData = await EmployeeProjects.findOne({
+    const projectsData = await EmployeeProjects.find({
       userId: res.locals.user.userId,
     });
-    const customerCredentialsData = await CustomerCredentials.findOne({
+    const customerCredentialsData = await CustomerCredentials.find({
       userId: res.locals.user.userId,
     });
     res.status(200).json({
