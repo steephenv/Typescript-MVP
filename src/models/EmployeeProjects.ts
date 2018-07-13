@@ -63,7 +63,7 @@ const projectsSchema = new Schema({
   role: {
     type: String,
   },
-  projectteamSize: {
+  projectTeamSize: {
     type: String,
   },
   budgetResponsibility: {

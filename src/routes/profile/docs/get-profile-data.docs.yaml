@@ -1,4 +1,4 @@
-/profile//list-data:
+/profile/list-data:
   get:
     security:
     - Bearer: []

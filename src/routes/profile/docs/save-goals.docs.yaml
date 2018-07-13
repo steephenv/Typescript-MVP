@@ -42,13 +42,13 @@
           startDate:
              type: string
           daysLeftInYear:
-             type: string
+             type: number
           daysLeftInCapricorns:
-             type: string
+             type: number
           targetAnnualIncome:
-             type: string
+             type: number
           targetAnnualIncomeCapricorns:
-             type: string 
+             type: number 
           industryExperience:
              type: array
           functionalExperience:
