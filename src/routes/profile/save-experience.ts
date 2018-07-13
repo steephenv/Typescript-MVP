@@ -18,18 +18,15 @@ export const saveExperience: RequestHandler = async (req, res, next) => {
     } else {
       removeUserId = res.locals.user.userId;
     }
-    let projects: any[] = [];
     await Experience.remove({ userId: removeUserId });
     await EmployeeProjects.remove({ userId: removeUserId });
     await BluePromise.map(req.body.experiences, async (exp: any) => {
-      projects = projects.concat(exp.projects);
       exp.userId = removeUserId;
-      delete exp.projects;
       const newData = new Experience(exp);
       await newData.save();
       return;
     });
-    await BluePromise.map(projects, async (project: any) => {
+    await BluePromise.map(req.body.projects, async (project: any) => {
       project.userId = removeUserId;
       const newData = new EmployeeProjects(project);
       await newData.save();

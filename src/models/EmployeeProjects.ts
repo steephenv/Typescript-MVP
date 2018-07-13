@@ -31,7 +31,7 @@ const projectsSchema = new Schema({
     type: String,
   },
   clientsCompanySize: {
-    type: String,
+    type: Number,
   },
   locationCountry: {
     type: String,
@@ -49,7 +49,7 @@ const projectsSchema = new Schema({
     type: String,
   },
   projectSize: {
-    type: String,
+    type: Number,
   },
   projectComplexity: {
     type: String,
@@ -64,7 +64,7 @@ const projectsSchema = new Schema({
     type: String,
   },
   projectTeamSize: {
-    type: String,
+    type: Number,
   },
   budgetResponsibility: {
     type: String,
@@ -77,6 +77,10 @@ const projectsSchema = new Schema({
   },
   roleDescription: {
     type: String,
+  },
+  experience: {
+    type: Schema.Types.ObjectId,
+    ref: 'Experience',
   },
 });
 

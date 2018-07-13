@@ -9,7 +9,7 @@ const ProjectSchema = Joi.object().keys({
   projectName: Joi.string().required(),
   clientsCompanyName: Joi.string().required(),
   projectCompanyIndustryLine: Joi.string().required(),
-  clientsCompanySize: Joi.string().required(),
+  clientsCompanySize: Joi.number().required(),
   projectCountry: Joi.string().required(),
   projectCity: Joi.string().required(),
   projectBusinessFunction: Joi.string().required(),
@@ -18,10 +18,10 @@ const ProjectSchema = Joi.object().keys({
   projectSize: Joi.string().required(),
   projectComplexity: Joi.string().required(),
   projectRegionalReach: Joi.string().required(),
-  yourRole: Joi.string().required(),
+  role: Joi.string().required(),
   projectTeamSize: Joi.string().required(),
   projectBudgetResponsibility: Joi.string().required(),
-  yourMainResults: Joi.string().required(),
+  mainResults: Joi.string().required(),
   applicableToOtherCompanies: Joi.string().required(),
 });
 const ExperienceDataSchema = Joi.object().keys({
@@ -32,21 +32,25 @@ const ExperienceDataSchema = Joi.object().keys({
   businessFunction: Joi.string().required(),
   companyName: Joi.string().required(),
   companyIndustryLine: Joi.string().required(),
-  companySize: Joi.string().required(),
+  companySize: Joi.number().required(),
   locationCountry: Joi.string().required(),
   locationCity: Joi.string().required(),
   mainResponsibility: Joi.string().required(),
   peopleManagementResponsibility: Joi.string().required(),
-  managedTeamSize: Joi.string().required(),
+  managedTeamSize: Joi.number().required(),
   budgetResponsibility: Joi.string().required(),
-  projects: Joi.array()
-    .items(ProjectSchema)
-    .required()
-    .min(1),
 });
 
+const expSchema = Joi.object().keys({
+  experiences: Joi.array()
+    .items(ExperienceDataSchema)
+    .required(),
+  projects: Joi.array()
+    .items(ProjectSchema)
+    .required(),
+});
 export const saveExperienceRule: RequestHandler = (req, res, next) => {
-  Joi.validate(req.body, ExperienceDataSchema, { stripUnknown: true }, err => {
+  Joi.validate(req.body, expSchema, { stripUnknown: true }, err => {
     // console.log();
     if (err) {
       return res.status(422).send({
