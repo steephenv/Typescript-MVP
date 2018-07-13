@@ -11,7 +11,7 @@ const PersonalDataSchema = Joi.object().keys({
   birthDate: Joi.date().required(),
   countryOfBirth: Joi.string().allow(''),
   citizenship: Joi.string().required(),
-  workPermit: Joi.string().required(),
+  workPermit: Joi.string(),
   country: Joi.string().required(),
   city: Joi.string().required(),
   street: Joi.string().required(),
@@ -48,7 +48,7 @@ const PersonalDataSchema = Joi.object().keys({
     .when('role', { is: 'Consultant', then: Joi.required() })
     .when('role', { is: 'Employee', then: Joi.required() }),
   personalStatement: Joi.string(),
-  summary: Joi.string().required(),
+  summary: Joi.string(),
   maidenName: Joi.string().allow(''),
 });
 
