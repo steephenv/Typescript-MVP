@@ -1,6 +1,5 @@
 /* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
-import { EmployeeProjects } from './EmployeeProjects';
 
 const experienceSchema = new Schema({
   userId: {
@@ -59,7 +58,7 @@ const experienceSchema = new Schema({
   projects: [
     {
       type: Schema.Types.ObjectId,
-      ref: EmployeeProjects,
+      ref: 'EmployeeProjects',
     },
   ],
 });

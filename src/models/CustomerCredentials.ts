@@ -5,7 +5,7 @@ const customerCredentialsSchema = new Schema({
   name: {
     type: String,
   },
-  consultantId: {
+  userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
