@@ -15,19 +15,19 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
   try {
     const personalDetailsData = await PersonalDetails.findOne({
       userId: res.locals.user.userId,
-    });
+    }).exec();
     const educationData = await Education.find({
       userId: res.locals.user.userId,
-    });
+    }).exec();
     const workExperianceData = await Experience.find({
       userId: res.locals.user.userId,
-    });
+    }).exec();
     const projectsData = await EmployeeProjects.find({
       userId: res.locals.user.userId,
-    });
+    }).exec();
     const customerCredentialsData = await CustomerCredentials.find({
       userId: res.locals.user.userId,
-    });
+    }).exec();
     res.status(200).json({
       PersonalDetails: personalDetailsData,
       Education: educationData,
