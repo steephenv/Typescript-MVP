@@ -1,6 +1,5 @@
 /* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
-import { EmployeeProjects } from './EmployeeProjects';
 
 const experienceSchema = new Schema({
   userId: {
