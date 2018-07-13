@@ -37,7 +37,7 @@ describe('Test for personal data  ===> ', () => {
         maidenName: 'maiden',
         lastName: 'varghese',
         image: 'dsacfcbcsa',
-        birthDate: new Date(),
+        birthDate: '31-3-4400',
         countryOfBirth: 'india',
         citizenship: 'indian',
         workPermit: 'dshjvdshv',

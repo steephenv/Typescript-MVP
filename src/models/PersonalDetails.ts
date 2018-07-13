@@ -28,7 +28,7 @@ const personalDetailsSchema = new Schema({
     type: String,
   },
   birthDate: {
-    type: Date,
+    type: String,
   },
   countryOfBirth: {
     type: String,
