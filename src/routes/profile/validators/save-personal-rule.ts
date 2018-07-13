@@ -8,7 +8,7 @@ const PersonalDataSchema = Joi.object().keys({
   lastName: Joi.string().required(),
   role: Joi.string().required(),
   image: Joi.string().allow(''),
-  birthDate: Joi.date().required(),
+  birthDate: Joi.string().required(),
   countryOfBirth: Joi.string().allow(''),
   citizenship: Joi.string().required(),
   workPermit: Joi.string(),
