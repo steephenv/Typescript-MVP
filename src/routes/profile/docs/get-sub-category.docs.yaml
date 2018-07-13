@@ -1,17 +1,20 @@
-/profile/get-skill-category:
+/profile/get-sub-category:
   get:
     security:
     - Bearer: []
-    summary: api for get skill details.
+    summary: api for get category details.
     tags:
     - profile updation
-    description: api for getting skill details.
+    description: api for get category details.
     parameters:
     - name: X-Requested-With
       description: set value to XMLHttpRequest if you are making an xhr request
       in: header
       required: true
       default: XMLHttpRequest
+    - name: category
+      in: query
+      required: true  
     responses:
       200:
         description: "successful attempt, returns `success message`"
