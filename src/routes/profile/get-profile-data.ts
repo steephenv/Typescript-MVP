@@ -1,4 +1,5 @@
 import { RequestHandler } from 'express';
+import { Promise as BluePromise } from 'bluebird';
 
 import { PersonalDetails } from '../../models/PersonalDetails';
 import { CustomerCredentials } from '../../models/CustomerCredentials';
@@ -19,30 +20,51 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     const comingUserId = req.query.userId
       ? req.query.userId
       : res.locals.userId;
-    const personalDetailsData = await PersonalDetails.findOne({
+
+    const personalDetailsDataPromise = PersonalDetails.findOne({
       userId: comingUserId,
     }).exec();
-    const educationData = await Education.find({
+    const educationDataPromise = Education.find({
       userId: comingUserId,
     }).exec();
-    const workExperienceData = await Experience.find({
+    const workExperienceDataPromise = Experience.find({
       userId: comingUserId,
     }).exec();
-    const projectsData = await EmployeeProjects.find({
+    const projectsDataPromise = EmployeeProjects.find({
       userId: comingUserId,
     }).exec();
-    const customerCredentialsData = await CustomerCredentials.find({
+    const customerCredentialsDataPromise = CustomerCredentials.find({
       userId: comingUserId,
     }).exec();
-    const goalData = await Goals.find({
+    const goalDataPromise = Goals.find({
       userId: comingUserId,
     }).exec();
-    const skillData = await Skills.find({
+    const skillDataPromise = Skills.find({
       userId: comingUserId,
     }).exec();
-    const wlbData = await Wlb.find({
+    const wlbDataPromise = Wlb.find({
       userId: comingUserId,
     }).exec();
+
+    const [
+      personalDetailsData,
+      educationData,
+      workExperienceData,
+      projectsData,
+      customerCredentialsData,
+    ] = await BluePromise.all([
+      personalDetailsDataPromise,
+      educationDataPromise,
+      workExperienceDataPromise,
+      projectsDataPromise,
+      customerCredentialsDataPromise,
+    ]);
+
+    const [goalData, skillData, wlbData] = await BluePromise.all([
+      goalDataPromise,
+      skillDataPromise,
+      wlbDataPromise,
+    ]);
 
     res.status(200).json({
       PersonalDetails: personalDetailsData,
