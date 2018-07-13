@@ -19,8 +19,7 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
   try {
     const comingUserId = req.query.userId
       ? req.query.userId
-      : res.locals.userId;
-
+      : res.locals.user.userId;
     const personalDetailsDataPromise = PersonalDetails.findOne({
       userId: comingUserId,
     }).exec();
