@@ -21,10 +21,10 @@ const GoalsSchema = Joi.object().keys({
   income: Joi.string().allow(''),
   incomeUnit: Joi.string().allow(''),
   startDate: Joi.string().allow(''),
-  daysLeftInYear: Joi.string().allow(''),
-  daysLeftInCapricorns: Joi.string().allow(''),
-  targetAnnualIncome: Joi.string().allow(''),
-  targetAnnualIncomeCapricorns: Joi.string().allow(''),
+  daysLeftInYear: Joi.number(),
+  daysLeftInCapricorns: Joi.number(),
+  targetAnnualIncome: Joi.number(),
+  targetAnnualIncomeCapricorns: Joi.number(),
 });
 
 export const saveGoalRule: RequestHandler = (req, res, next) => {

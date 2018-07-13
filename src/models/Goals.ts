@@ -32,10 +32,10 @@ const GoalSchema: Schema = new Schema({
   income: { type: String },
   incomeUnit: { type: String },
   startDate: { type: String },
-  daysLeftInYear: { type: String },
-  daysLeftInCapricorns: { type: String },
-  targetAnnualIncome: { type: String },
-  targetAnnualIncomeCapricorns: { type: String },
+  daysLeftInYear: { type: Number },
+  daysLeftInCapricorns: { type: Number },
+  targetAnnualIncome: { type: Number },
+  targetAnnualIncomeCapricorns: { type: Number },
 });
 
 export const Goals = mongooseModel('Goals', GoalSchema);
