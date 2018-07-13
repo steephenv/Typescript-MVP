@@ -5,6 +5,6 @@ app:
   docs: true
   morgan: true
 database:
-  url: mongodb://miwago-dev:HKGFJBVK615qYGFUJasdf65YsadfKHGa78sd234fH5GdsfFH04323JFGHasdfYasdf4FHGsdfKsfJ@192.168.200.10:27017/miwago-dev_db
+  url: mongodb://miwago_user:NBGVJHgjhg67uhgvjuuy5hjnv98jkhbBGbkjbhfgjhbkmjhb76hjv98bkjbnjmn@192.168.200.20:27017/miwago_db
 
 docsUrl: "devapi-miwago.cubettech.in"
