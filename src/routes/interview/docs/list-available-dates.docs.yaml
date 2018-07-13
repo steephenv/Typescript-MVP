@@ -12,10 +12,6 @@
       in: header
       required: true
       default: XMLHttpRequest
-    - name: token
-      description: ''
-      in: query
-      type: string
     responses:
       200:
         description: "successful attempt, returns `success message`"

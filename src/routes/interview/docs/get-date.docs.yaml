@@ -12,11 +12,8 @@
       in: header
       required: true
       default: XMLHttpRequest
-    - name: token
-      description: ''
-      in: query
-      type: string
     - name: userId
+      description: if not given will take it from header token
       in: query
       type: string  
     responses:
