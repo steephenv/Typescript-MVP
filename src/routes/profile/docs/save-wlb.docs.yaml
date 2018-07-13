@@ -34,9 +34,9 @@
           capricornsAvailableCapacity:
             type: string
           frequencyOnsiteWork:
-            type: string
+            type: number
           frequencyHomeOfficeWork:
-            type: string
+            type: number
           location:
             type: array
           workpermit:

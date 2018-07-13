@@ -13,10 +13,10 @@ const wlbSchema = new Schema({
     type: String,
   },
   frequencyOnsiteWork: {
-    type: String,
+    type: Number,
   },
   frequencyHomeOfficeWork: {
-    type: String,
+    type: Number,
   },
   location: [String],
   workPermit: {
