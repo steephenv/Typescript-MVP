@@ -36,7 +36,7 @@ describe('Test for saving education data  ===> ', () => {
         teamRating: 'Good',
         assets: [],
         annualAvailableCapacity: 'gftretgre',
-        daysLeftInYear: '',
+        daysLeftInYear: 22,
         educationalTarget: [],
       })
       .expect(200)
