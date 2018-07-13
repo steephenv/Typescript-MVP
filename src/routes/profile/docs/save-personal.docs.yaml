@@ -50,6 +50,7 @@
         - bicNo
         - personalStatement
         - summary
+        - state
         properties:
           firstName:
             type: string
@@ -71,6 +72,8 @@
             type: string
           country:
             type: string
+          state:
+            type: string  
           city:
             type: string
           street:
