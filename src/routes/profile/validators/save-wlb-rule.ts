@@ -5,8 +5,8 @@ import { RequestHandler } from 'express';
 const wlbDataSchema = Joi.object().keys({
   annualAvailableCapacity: Joi.string().required(),
   capricornsAvailableCapacity: Joi.string().required(),
-  frequencyOnsiteWork: Joi.string().required(),
-  frequencyHomeOfficeWork: Joi.string().required(),
+  frequencyOnsiteWork: Joi.number().required(),
+  frequencyHomeOfficeWork: Joi.number().required(),
   location: Joi.array().required(),
   workPermit: Joi.string(),
 });

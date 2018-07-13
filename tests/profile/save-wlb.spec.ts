@@ -34,8 +34,8 @@ describe('Test for saving wlb data  ===> ', () => {
       .send({
         annualAvailableCapacity: 'dshfvhsdvf',
         capricornsAvailableCapacity: 'dsbfhjsdfds',
-        frequencyOnsiteWork: 'dgsvgdsvc',
-        frequencyHomeOfficeWork: 'sdhfhjsdvf',
+        frequencyOnsiteWork: 2153,
+        frequencyHomeOfficeWork: 1265,
         location: ['dsfhhjsd', 'sdfbhsd', 'dbfhbd'],
         workPermit: 'dsfdshj',
       })
