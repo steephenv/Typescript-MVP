@@ -25,7 +25,7 @@ beforeAll(done => {
     });
 });
 
-describe('Test for saving education data  ===> ', () => {
+describe('Test for saving goals  ===> ', () => {
   it('Saving personal details api', done => {
     supertest(app)
       .post(`/v1/profile/save-goals`)
