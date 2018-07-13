@@ -1,10 +1,9 @@
 import * as supertest from 'supertest';
 import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
 
-let token = '';
-let newUserId: string;
-
 afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
+
+let token: string;
 
 beforeAll(done => {
   supertest(app)
@@ -19,28 +18,19 @@ beforeAll(done => {
       if (err) {
         throw err;
       }
-      newUserId = res.body.data._id;
       token = res.body.accessToken;
       return done();
     });
 });
 
-describe('Test for saving goals  ===> ', () => {
-  it('Saving personal details api', done => {
+describe('Get interview date', () => {
+  it('Get interview date', done => {
     supertest(app)
-      .post(`/v1/profile/save-goals`)
-      .set('X-Requested-With', 'XMLHttpRequest')
+      .get('/v1/interview/get-date')
       .set({ Authorization: `Bearer ${token}` })
-      .send({
-        clientRating: 'Good',
-        teamRating: 'Good',
-        assets: [],
-        annualAvailableCapacity: 'gftretgre',
-        daysLeftInYear: 22,
-        educationalTarget: [],
-      })
+      .set('X-Requested-With', 'XMLHttpRequest')
       .expect(200)
-      .end((err, res) => {
+      .end(err => {
         if (err) {
           throw err;
         }
