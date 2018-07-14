@@ -22,6 +22,7 @@ export const saveSkills: RequestHandler = async (req, res, next) => {
       skill.uniqueTitle = skill.skillTitle.trim().toLowerCase();
       skill.userId = removeUserId;
       skill.createdAt = new Date();
+      skill.createdBy = res.locals.user.userId;
       const savableSkill = new Skills(skill);
       return savableSkill.save();
     });
