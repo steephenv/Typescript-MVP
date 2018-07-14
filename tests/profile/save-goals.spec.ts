@@ -38,6 +38,7 @@ describe('Test for saving goals  ===> ', () => {
         annualAvailableCapacity: 'gftretgre',
         daysLeftInYear: 22,
         educationalTarget: [],
+        incomePerHour: '33',
       })
       .expect(200)
       .end((err, res) => {

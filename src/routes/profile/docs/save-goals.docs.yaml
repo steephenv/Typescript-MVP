@@ -39,6 +39,16 @@
              type: string
           incomeUnit:
              type: string
+          incomePerAnnum:
+             type: string
+          incomePerMonth:
+             type: string
+          incomePerWeek:
+             type: string
+          incomePerDay:
+             type: string
+          incomePerHour:
+             type: string               
           startDate:
              type: string
           daysLeftInYear:
