@@ -9,7 +9,7 @@ const ProjectSchema = Joi.object().keys({
   projectName: Joi.string().required(),
   clientsCompanyName: Joi.string().required(),
   projectCompanyIndustryLine: Joi.string().required(),
-  clientsCompanySize: Joi.number().required(),
+  clientsCompanySize: Joi.string().required(),
   projectCountry: Joi.string().required(),
   projectCity: Joi.string().required(),
   projectBusinessFunction: Joi.string().required(),
@@ -19,8 +19,8 @@ const ProjectSchema = Joi.object().keys({
   projectComplexity: Joi.string().required(),
   projectRegionalReach: Joi.string().required(),
   role: Joi.string().required(),
-  projectTeamSize: Joi.string().required(),
-  projectBudgetResponsibility: Joi.string().required(),
+  projectTeamSize: Joi.number().required(),
+  projectBudgetResponsibility: Joi.number().required(),
   mainResults: Joi.string().required(),
   applicableToOtherCompanies: Joi.string().required(),
 });
@@ -32,13 +32,13 @@ const ExperienceDataSchema = Joi.object().keys({
   businessFunction: Joi.string().required(),
   companyName: Joi.string().required(),
   companyIndustryLine: Joi.string().required(),
-  companySize: Joi.number().required(),
+  companySize: Joi.string().required(),
   locationCountry: Joi.string().required(),
   locationCity: Joi.string().required(),
   mainResponsibility: Joi.string().required(),
   peopleManagementResponsibility: Joi.string().required(),
   managedTeamSize: Joi.number().required(),
-  budgetResponsibility: Joi.string().required(),
+  budgetResponsibility: Joi.number().required(),
 });
 
 const expSchema = Joi.object().keys({

@@ -35,7 +35,7 @@ const experienceSchema = new Schema({
     type: String,
   },
   companySize: {
-    type: Number,
+    type: String,
   },
   locationCountry: {
     type: String,
@@ -53,7 +53,7 @@ const experienceSchema = new Schema({
     type: Number,
   },
   budgetResponsibility: {
-    type: String,
+    type: Number,
   },
   projects: [
     {
