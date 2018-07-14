@@ -23,6 +23,7 @@ const ProjectSchema = Joi.object().keys({
   budgetResponsibility: Joi.number().required(),
   mainResults: Joi.string().required(),
   applicableToOtherCompanies: Joi.string().required(),
+  locationState: Joi.string().required(),
 });
 const ExperienceDataSchema = Joi.object().keys({
   durationFrom: Joi.string().required(),
@@ -39,6 +40,7 @@ const ExperienceDataSchema = Joi.object().keys({
   peopleManagementResponsibility: Joi.string().required(),
   managedTeamSize: Joi.number().required(),
   budgetResponsibility: Joi.number().required(),
+  locationState: Joi.string().required(),
 });
 
 const expSchema = Joi.object().keys({

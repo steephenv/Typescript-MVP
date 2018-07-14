@@ -78,6 +78,9 @@ const projectsSchema = new Schema({
   roleDescription: {
     type: String,
   },
+  locationState: {
+    type: String,
+  },
 });
 
 export const EmployeeProjects = mongooseModel(

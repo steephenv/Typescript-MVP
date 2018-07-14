@@ -46,6 +46,7 @@ describe('Test for saving experience data  ===> ', () => {
             peopleManagementResponsibility: 'fsdf',
             managedTeamSize: 100,
             budgetResponsibility: 152,
+            locationState: 'sdfbsh',
           },
         ],
         projects: [
@@ -70,6 +71,7 @@ describe('Test for saving experience data  ===> ', () => {
             budgetResponsibility: 2315,
             mainResults: 'fdsds',
             applicableToOtherCompanies: 'dsfgdg',
+            locationState: 'sdbcvsgavc',
           },
         ],
       })
