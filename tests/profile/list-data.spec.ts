@@ -29,6 +29,7 @@ describe('Test fetching linked data  ===> ', () => {
   it('fetching linked data api', done => {
     supertest(app)
       .get(`/v1/profile/list-data`)
+      .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
       .expect(200)
       .end((err, res) => {
