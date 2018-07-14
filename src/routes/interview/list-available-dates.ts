@@ -8,7 +8,14 @@ import { AvailabilityCalender } from '../../models/AvailabilityCalender';
 export const listAvailableDates: RequestHandler = async (req, res, next) => {
   try {
     const dates = await AvailabilityCalender.aggregate([
-      { $match: { date: { $gt: new Date() } } },
+      {
+        $match: {
+          $and: [
+            { date: { $gt: new Date() } },
+            { 'userId.0': { $exists: true } },
+          ],
+        },
+      },
       { $limit: 3 },
       { $group: { _id: '$dateString', slots: { $addToSet: '$slot' } } },
       {
