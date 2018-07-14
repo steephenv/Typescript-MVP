@@ -31,7 +31,7 @@ const projectsSchema = new Schema({
     type: String,
   },
   clientsCompanySize: {
-    type: Number,
+    type: String,
   },
   locationCountry: {
     type: String,
@@ -49,7 +49,7 @@ const projectsSchema = new Schema({
     type: String,
   },
   projectSize: {
-    type: Number,
+    type: String,
   },
   projectComplexity: {
     type: String,
@@ -67,7 +67,7 @@ const projectsSchema = new Schema({
     type: Number,
   },
   budgetResponsibility: {
-    type: String,
+    type: Number,
   },
   mainResults: {
     type: String,

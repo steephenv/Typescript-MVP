@@ -27,8 +27,76 @@
         properties:
           experiences:
              type: array
+          engagementFrom:
+              type: string
+          engagementTo:
+              type: string
+          engagementAs:
+              type: string
+          projectName:
+              type: string
+          clientsCompanyName:
+              type: string
+          projectCompanyIndustryLine:
+              type: string
+          clientsCompanySize:
+              type: string
+          projectCountry:
+              type: string
+          projectCity:
+              type: string 
+          projectBusinessFunction:
+              type: string
+          projectGoal:
+              type: string
+          projectDuration:
+              type: string
+          projectSize: 
+              type: string
+          projectComplexity:
+              type: string 
+          projectRegionalReach:
+              type: string
+          role: 
+              type: string
+          projectTeamSize:
+              type: number 
+          projectBudgetResponsibility: 
+              type: number
+          mainResults:
+              type: string
+          applicableToOtherCompanies: 
+              type: string
           projects:
-             type: array      
+             type: array  
+          durationFrom:
+              type: string
+          durationTo: 
+              type: string
+          typeOfEngagement:
+              type: string
+          jobTitle: 
+              type: string
+          businessFunction:
+              type: string
+          companyName: 
+              type: string
+          companyIndustryLine: 
+              type: string
+          companySize:
+              type: string
+          locationCountry: 
+              type: string
+          locationCity:
+              type: string
+          mainResponsibility: 
+              type: string
+          peopleManagementResponsibility: 
+              type: string
+          managedTeamSize: 
+              type: number
+          budgetResponsibility: 
+              type: number
     responses:
       200:
         description: "successful attempt, returns `success message`"
