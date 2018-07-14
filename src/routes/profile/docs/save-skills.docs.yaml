@@ -22,28 +22,36 @@
       schema:
         type: object
         required:
-          -category
-          -subCategory
-          -skillTitle
-          -proficiency
-          -cluster
+          - skills
         properties:
-          category:
-             type: string
-          subCategory:
-             type: string
-          skillTitle:
-           type: string
-          proficiency:
-             type: string
-          cluster:
-             type: string
-          description:
-             type: string
-          certificate:
-             type: string
-          lastApplied:
-             type: string
+          skills:
+            type: array
+            items:
+              properties:
+                category:
+                  type: string
+                  example: fdsf
+                subCategory:
+                  type: string
+                  example: fdsf
+                skillTitle:
+                  type: string
+                  example: fdsf
+                proficiency:
+                  type: string
+                  example: fdsf
+                cluster:
+                  type: string
+                  example: fdsf
+                description:
+                  type: string
+                  example: fdsf
+                certificate:
+                  type: string
+                  example: fdsf
+                lastApplied:
+                  type: string
+                  example: fdsf  
     responses:
       200:
         description: "successful attempt, returns `success message`"
