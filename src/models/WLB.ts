@@ -22,6 +22,12 @@ const wlbSchema = new Schema({
   workPermit: {
     type: String,
   },
+  daysInYear: {
+    type: Number,
+  },
+  daysInCapricornsYear: {
+    type: Number,
+  },
 });
 
 export const Wlb = mongooseModel('Wlb', wlbSchema);

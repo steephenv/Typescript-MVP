@@ -9,6 +9,8 @@ const wlbDataSchema = Joi.object().keys({
   frequencyHomeOfficeWork: Joi.number().required(),
   location: Joi.array().required(),
   workPermit: Joi.string(),
+  daysInYear: Joi.number().required(),
+  daysInCapricornsYear: Joi.number().required(),
 });
 
 export const saveWLBRule: RequestHandler = (req, res, next) => {
