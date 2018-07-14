@@ -9,7 +9,9 @@ import {
 
 export const skillsSuggestions: RequestHandler = async (req, res, next) => {
   try {
-    const skillsData = await Skills.distinct('skillTitle').exec();
+    const skillsData = await Skills.find({ subCategory: req.query.subCategory })
+      .distinct('skillTitle')
+      .exec();
     return res.status(200).send({
       success: true,
       skills: skillsData,

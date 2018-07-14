@@ -12,6 +12,8 @@
       in: header
       required: true
       default: XMLHttpRequest 
+    - name: subCategory
+      in: query
     responses:
       200:
         description: "successful attempt, returns `success message`"
