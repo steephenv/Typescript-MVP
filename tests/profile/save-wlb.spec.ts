@@ -38,6 +38,8 @@ describe('Test for saving wlb data  ===> ', () => {
         frequencyHomeOfficeWork: 1265,
         location: ['dsfhhjsd', 'sdfbhsd', 'dbfhbd'],
         workPermit: 'dsfdshj',
+        daysInYear: 154,
+        daysInCapricornsYear: 412,
       })
       .expect(200)
       .end((err, res) => {

@@ -28,6 +28,8 @@
           -frequencyHomeOfficeWork
           -location
           -workpermit
+          -daysInYear
+          -daysInCapricornsYear
         properties:
           annualAvailableCapacity:
             type: string
@@ -41,6 +43,10 @@
             type: array
           workpermit:
             type: string
+          daysInYear:
+            type: number
+          daysInCapricornsYear:
+            type: number  
     responses:
       200:
         description: "successful attempt, returns `success message`"
