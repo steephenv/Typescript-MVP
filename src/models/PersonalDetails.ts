@@ -9,6 +9,10 @@ const personalDetailsSchema = new Schema({
   personalStatement: {
     type: String,
   },
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
   summary: {
     type: String,
   },

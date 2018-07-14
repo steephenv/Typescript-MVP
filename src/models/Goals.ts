@@ -17,6 +17,13 @@ const GoalSchema: Schema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  createdAt: {
+    type: Date,
+  },
   industryExperience: [{ type: String }],
   functionalExperience: [{ type: String }],
   subjectMatter: [{ type: String }],

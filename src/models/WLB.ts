@@ -6,6 +6,13 @@ const wlbSchema = new Schema({
     type: String,
     ref: 'User',
   },
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  createdAt: {
+    type: Date,
+  },
   annualAvailableCapacity: {
     type: String,
   },

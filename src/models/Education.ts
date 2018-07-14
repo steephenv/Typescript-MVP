@@ -10,6 +10,10 @@ const educationDetailsSchema = new Schema({
   updatedAt: {
     type: Date,
   },
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
   createdAt: {
     type: Date,
   },
