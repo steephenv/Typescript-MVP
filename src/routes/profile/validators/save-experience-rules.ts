@@ -3,100 +3,40 @@ import { RequestHandler } from 'express';
 
 // tslint:disable:variable-name
 const ProjectSchema = Joi.object().keys({
-  engagementFrom: Joi.string()
-    .required()
-    .allow(''),
-  engagementTo: Joi.string()
-    .required()
-    .allow(''),
-  engagementAs: Joi.string()
-    .required()
-    .allow(''),
-  projectName: Joi.string()
-    .required()
-    .allow(''),
-  clientsCompanyName: Joi.string()
-    .required()
-    .allow(''),
-  projectCompanyIndustryLine: Joi.string()
-    .required()
-    .allow(''),
-  clientsCompanySize: Joi.string()
-    .required()
-    .allow(''),
-  projectCountry: Joi.string()
-    .required()
-    .allow(''),
-  projectCity: Joi.string()
-    .required()
-    .allow(''),
-  projectBusinessFunction: Joi.string()
-    .required()
-    .allow(''),
-  projectGoal: Joi.string()
-    .required()
-    .allow(''),
-  projectDuration: Joi.string()
-    .required()
-    .allow(''),
-  projectSize: Joi.string()
-    .required()
-    .allow(''),
-  projectComplexity: Joi.string()
-    .required()
-    .allow(''),
-  projectRegionalReach: Joi.string()
-    .required()
-    .allow(''),
-  role: Joi.string()
-    .required()
-    .allow(''),
+  engagementFrom: Joi.string().required(),
+  engagementTo: Joi.string().required(),
+  engagementAs: Joi.string().required(),
+  projectName: Joi.string().required(),
+  clientsCompanyName: Joi.string().required(),
+  projectCompanyIndustryLine: Joi.string().required(),
+  clientsCompanySize: Joi.string().required(),
+  projectCountry: Joi.string().required(),
+  projectCity: Joi.string().required(),
+  projectBusinessFunction: Joi.string().required(),
+  projectGoal: Joi.string().required(),
+  projectDuration: Joi.string().required(),
+  projectSize: Joi.string().required(),
+  projectComplexity: Joi.string().required(),
+  projectRegionalReach: Joi.string().required(),
+  role: Joi.string().required(),
   projectTeamSize: Joi.number().required(),
   projectBudgetResponsibility: Joi.number().required(),
-  mainResults: Joi.string()
-    .required()
-    .allow(''),
-  applicableToOtherCompanies: Joi.string()
-    .required()
-    .allow(''),
+  mainResults: Joi.string().required(),
+  applicableToOtherCompanies: Joi.string().required(),
 });
 const ExperienceDataSchema = Joi.object().keys({
-  durationFrom: Joi.string()
-    .required()
-    .allow(''),
-  durationTo: Joi.string()
-    .required()
-    .allow(''),
-  typeOfEngagement: Joi.string()
-    .required()
-    .allow(''),
-  jobTitle: Joi.string()
-    .required()
-    .allow(''),
-  businessFunction: Joi.string()
-    .required()
-    .allow(''),
-  companyName: Joi.string()
-    .required()
-    .allow(''),
-  companyIndustryLine: Joi.string()
-    .required()
-    .allow(''),
-  companySize: Joi.string()
-    .required()
-    .allow(''),
-  locationCountry: Joi.string()
-    .required()
-    .allow(''),
-  locationCity: Joi.string()
-    .required()
-    .allow(''),
-  mainResponsibility: Joi.string()
-    .required()
-    .allow(''),
-  peopleManagementResponsibility: Joi.string()
-    .required()
-    .allow(''),
+  durationFrom: Joi.string().required(),
+  durationTo: Joi.string().required(),
+  typeOfEngagement: Joi.string().required(),
+  jobTitle: Joi.string().required(),
+  businessFunction: Joi.string().required(),
+  companyName: Joi.string().required(),
+  companyIndustryLine: Joi.string().required(),
+  companySize: Joi.string().required(),
+  locationCountry: Joi.string().required(),
+  locationCity: Joi.string().required(),
+  mainResponsibility: Joi.string().required(),
+  peopleManagementResponsibility: Joi.string().required(),
   managedTeamSize: Joi.number().required(),
   budgetResponsibility: Joi.number().required(),
 });

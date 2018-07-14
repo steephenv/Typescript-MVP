@@ -8,7 +8,7 @@ const wlbDataSchema = Joi.object().keys({
   frequencyOnsiteWork: Joi.number().required(),
   frequencyHomeOfficeWork: Joi.number().required(),
   location: Joi.array().required(),
-  workPermit: Joi.string(),
+  workPermit: Joi.string().allow(''),
   daysInYear: Joi.number().required(),
   daysInCapricornsYear: Joi.number().required(),
 });
