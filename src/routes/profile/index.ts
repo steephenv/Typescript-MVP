@@ -21,6 +21,7 @@ import { getLinkedData } from './get-profile-data';
 import { saveExperience } from './save-experience';
 import { saveSkills } from './save-skills';
 import { getCategory } from './get-category';
+import { getSubCategory } from './get-category';
 import { saveGoals } from './save-goals';
 
 const upload = multer({ dest: userHome + '/uploads/' });
@@ -38,7 +39,7 @@ profile.get(
   '/get-sub-category',
   getSubCategoryRules,
   errValidator,
-  getCategory,
+  getSubCategory,
 );
 profile.post('/save-goals', saveGoalRule, saveGoals);
 profile.post(
