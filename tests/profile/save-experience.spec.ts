@@ -46,6 +46,12 @@ describe('Test for saving experience data  ===> ', () => {
             peopleManagementResponsibility: 'fsdf',
             managedTeamSize: 100,
             budgetResponsibility: 152,
+            managementType: {
+              disciplinaryManager: 'sdgfs',
+              functionalSupervisor: 'fsdaf',
+              coach: true,
+              none: true,
+            },
           },
         ],
         projects: [
