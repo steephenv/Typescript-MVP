@@ -47,12 +47,15 @@ const projectsSchema = new Schema({
   },
   projectDuration: {
     type: String,
+    default: 'Short Term',
   },
   projectSize: {
     type: String,
+    default: 'Small',
   },
   projectComplexity: {
     type: String,
+    default: 'Simple',
   },
   projectComplexityTypes: {
     type: String,

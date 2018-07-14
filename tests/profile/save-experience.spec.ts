@@ -47,6 +47,12 @@ describe('Test for saving experience data  ===> ', () => {
             managedTeamSize: 100,
             budgetResponsibility: 152,
             locationState: 'sdfbsh',
+            managementType: {
+              disciplinaryManager: 'sdgfs',
+              functionalSupervisor: 'fsdaf',
+              coach: true,
+              none: true,
+            },
           },
         ],
         projects: [

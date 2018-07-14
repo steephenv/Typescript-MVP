@@ -27,76 +27,173 @@
         properties:
           experiences:
              type: array
-          engagementFrom:
-              type: string
-          engagementTo:
-              type: string
-          engagementAs:
-              type: string
-          projectName:
-              type: string
-          clientsCompanyName:
-              type: string
-          projectCompanyIndustryLine:
-              type: string
-          clientsCompanySize:
-              type: string
-          projectCountry:
-              type: string
-          projectCity:
-              type: string 
-          projectBusinessFunction:
-              type: string
-          projectGoal:
-              type: string
-          projectDuration:
-              type: string
-          projectSize: 
-              type: string
-          projectComplexity:
-              type: string 
-          projectRegionalReach:
-              type: string
-          role: 
-              type: string
-          projectTeamSize:
-              type: number 
-          projectBudgetResponsibility: 
-              type: number
-          mainResults:
-              type: string
-          applicableToOtherCompanies: 
-              type: string
+             items: 
+                properties:
+                    typeOfEngagement: 
+                        type: string
+                        required: true
+                        example: Manual
+                    durationFrom:
+                        type: string
+                        required: true
+                        example: '2017-Jan'
+                    durationTo: 
+                        type: string
+                        required: true
+                        example: '2018-Jan'
+                    jobTitle: 
+                        type: string
+                        required: true
+                        example: Manager
+                    businessFunction:
+                        type: string
+                        required: true
+                        example: Ethical
+                    companyName:
+                        type: string
+                        required: true
+                        example: Miwago
+                    companyIndustryLine:
+                        type: string
+                        required: true
+                        example: Line
+                    companySize: 
+                        type: '100'
+                        required: true
+                        example: '10-16'
+                    locationCountry:
+                        type: string
+                        required: true
+                        example: 'India'  
+                    locationCity:
+                        type: string
+                        required: true
+                        example: 'Kottayam'
+                    locationState: 
+                        type: string
+                        required: true
+                        example: Kerala    
+                    mainResponsibility:
+                        type: string
+                        required: true
+                        example: 'Manager'
+                    peopleManagementResponsibility:
+                        type: string
+                        required: true
+                        example: LeadlocationCountry
+                    managedTeamSize: 
+                        type: number
+                        required: true
+                        example: 200
+                    budgetResponsibility:
+                        type: number
+                        required: true
+                        example: 200
+                    managementType: 
+                        type: object
+                        properties:
+                            disciplinaryManager:
+                                type: string
+                                example: Nill
+                            functionalSupervisor:
+                                type: string
+                                example: Nill 
+                            coach: 
+                                type: boolean
+                                example: true
+                            none: 
+                                type: boolean
+                                example: true
           projects:
-             type: array  
-          durationFrom:
-              type: string
-          durationTo: 
-              type: string
-          typeOfEngagement:
-              type: string
-          jobTitle: 
-              type: string
-          businessFunction:
-              type: string
-          companyName: 
-              type: string
-          companyIndustryLine: 
-              type: string
-          companySize:
-              type: string
-          locationCountry: 
-              type: string
-          locationCity:
-              type: string
-          mainResponsibility: 
-              type: string
-          peopleManagementResponsibility: 
-              type: string
-          managedTeamSize: 
-              type: number
-          budgetResponsibility: 
-              type: number
+            type: array
+            items:
+                properties:
+                    engagementAs:
+                        type: string
+                        required: true
+                        example: Manager
+                    engagementFrom:
+                        type: string
+                        required: true
+                        example: '2018'
+                    engagementTo:
+                        type: string
+                        required: true
+                        example: '2019'
+                    projectName:
+                        type: string
+                        required: true
+                        example: Miwago
+                    clientsCompanyName:
+                        type: string
+                        required: true
+                        example: Capricorn
+                    companyIndustryLine: 
+                        type: string
+                        required: true
+                        example: Line
+                    clientsCompanySize:
+                        type: string
+                        required: true
+                        example: '20-20'
+                    locationCountry:
+                        type: string
+                        required: true
+                        example: India
+                    locationCity: 
+                        type: string
+                        required: true
+                        example: Kottayam
+                    locationState: 
+                        type: string
+                        required: true
+                        example: Kerala    
+                    businessFunction:
+                        type: string
+                        required: true
+                        example: hHH
+                    projectGoal:
+                        type: string
+                        required: true
+                        example: sdf
+                    projectDuration:
+                        type: string
+                    projectSize: 
+                        type: string
+                    projectComplexity: 
+                        type: string
+                    projectComplexityTypes:
+                        type: string
+                        required: true
+                        example: dsfgd
+                    projectRegionalReach:
+                        type: string
+                        required: true
+                        example: sf
+                    role:
+                        type: string
+                        required: true
+                        example: lead
+                    projectTeamSize:
+                        type: number
+                        required: true
+                        example: 33
+                    budgetResponsibility:
+                        type: string
+                        required: true
+                        example: sdfs
+                    mainResults:
+                        type: string
+                        required: true
+                        example: dsf
+                    applicableToOtherCompanies:
+                        type: string
+                        required: true
+                        example: fd
+                    roleDescription:
+                        type: string
+                        required: true
+                        example: sdf                                                                                                                                                                                           
     responses:
       200:
         description: "successful attempt, returns `success message`"

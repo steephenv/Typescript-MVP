@@ -41,6 +41,12 @@ const ExperienceDataSchema = Joi.object().keys({
   managedTeamSize: Joi.number().required(),
   budgetResponsibility: Joi.number().required(),
   locationState: Joi.string().required(),
+  managementType: Joi.object().keys({
+    disciplinaryManager: Joi.string(),
+    functionalSupervisor: Joi.string(),
+    coach: Joi.boolean(),
+    none: Joi.boolean(),
+  }),
 });
 
 const expSchema = Joi.object().keys({
