@@ -10,7 +10,7 @@ const SkillsSchema: Schema = new Schema({
   },
   cluster: {
     type: String,
-    enum: ['Personal', 'Leadership', 'Enterpreneuship', 'Functional'],
+    enum: ['Personal', 'Leadership', 'Entrepreneurship', 'Functional'],
   },
   category: {
     type: Schema.Types.ObjectId,

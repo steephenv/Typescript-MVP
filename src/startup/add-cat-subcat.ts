@@ -13,7 +13,7 @@ export const createCat = async () => {
   });
   const cat3 = new SkillCategory({
     category: 'Cat 3',
-    cluster: 'Enterpreneuship',
+    cluster: 'Entrepreneurship',
   });
   const cat4 = new SkillCategory({
     category: 'Cat 1',
@@ -29,7 +29,7 @@ export const createCat = async () => {
   });
   const cat7 = new SkillCategory({
     category: 'Cat 1',
-    cluster: 'Enterpreneuship',
+    cluster: 'Entrepreneurship',
   });
   const cat8 = new SkillCategory({
     category: 'Cat 1',
