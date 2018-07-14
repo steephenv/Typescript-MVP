@@ -81,9 +81,8 @@ const projectsSchema = new Schema({
   roleDescription: {
     type: String,
   },
-  experience: {
-    type: Schema.Types.ObjectId,
-    ref: 'Experience',
+  locationState: {
+    type: String,
   },
 });
 
