@@ -24,7 +24,7 @@ export const getCategory: RequestHandler = async (req, res, next) => {
 export const getSubCategory: RequestHandler = async (req, res, next) => {
   try {
     const subCats = await SkillSubCategory.find({
-      category: req.query.category,
+      categoryId: req.query.category,
     }).exec();
     return res.status(200).send({
       success: true,
