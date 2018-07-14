@@ -55,12 +55,6 @@ const experienceSchema = new Schema({
   budgetResponsibility: {
     type: Number,
   },
-  projects: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'EmployeeProjects',
-    },
-  ],
 });
 
 export const Experience = mongooseModel('Experience', experienceSchema);

@@ -68,8 +68,10 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     res.status(200).json({
       PersonalDetails: personalDetailsData,
       Education: educationData,
-      WorkExperience: workExperienceData,
-      Projects: projectsData,
+      WorkExperience: {
+        experiences: workExperienceData,
+        projects: projectsData,
+      },
       CustomerCredentials: customerCredentialsData,
       Goals: goalData,
       Skills: skillData,
