@@ -97,6 +97,17 @@
               type: number
           budgetResponsibility: 
               type: number
+          managementType:
+              type: object
+              properties:
+                disciplinaryManager: 
+                    type: string
+                functionalSupervisor:
+                    type: string
+                coach:
+                    type: boolean
+                none:
+                    type: boolean                
     responses:
       200:
         description: "successful attempt, returns `success message`"
