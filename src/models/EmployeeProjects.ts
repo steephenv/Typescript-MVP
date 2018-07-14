@@ -78,10 +78,6 @@ const projectsSchema = new Schema({
   roleDescription: {
     type: String,
   },
-  experience: {
-    type: Schema.Types.ObjectId,
-    ref: 'Experience',
-  },
 });
 
 export const EmployeeProjects = mongooseModel(
