@@ -13,6 +13,10 @@ const experienceSchema = new Schema({
   createdAt: {
     type: Date,
   },
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
   typeOfEngagement: {
     type: String,
   },

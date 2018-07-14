@@ -17,7 +17,9 @@ export const saveGoals: RequestHandler = async (req, res, next) => {
     }
     await Goals.remove({ userId: comingUserId });
     req.body.userId = comingUserId;
-    const newGoal = new Goals(req.body);
+    const newGoal: any = new Goals(req.body);
+    newGoal.createdAt = new Date();
+    newGoal.createdBy = res.locals.user.userId;
     await newGoal.save();
     return res.status(200).send({ success: true });
   } catch (err) {

@@ -12,6 +12,10 @@ const projectsSchema = new Schema({
   createdAt: {
     type: Date,
   },
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
   engagementAs: {
     type: String,
   },

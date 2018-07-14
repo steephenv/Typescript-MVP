@@ -17,7 +17,9 @@ export const saveWLB: RequestHandler = async (req, res, next) => {
     }
     (req.body.userId = removeUserId),
       await Wlb.remove({ userId: removeUserId });
-    const newData = new Wlb(req.body);
+    const newData: any = new Wlb(req.body);
+    newData.createdAt = new Date();
+    newData.createdBy = res.locals.user.userId;
     await newData.save();
     return res.status(200).send({ success: true });
   } catch (err) {

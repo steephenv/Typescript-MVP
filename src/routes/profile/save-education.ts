@@ -19,6 +19,8 @@ export const saveEducation: RequestHandler = async (req, res, next) => {
     await Education.remove({ userId: removeUserId });
     await BluePromise.map(req.body.educations, async (education: any) => {
       education.userId = removeUserId;
+      education.createdAt = new Date();
+      education.createdBy = res.locals.user.userId;
       const newData = new Education(education);
       await newData.save();
       return;

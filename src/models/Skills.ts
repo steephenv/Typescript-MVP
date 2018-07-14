@@ -8,6 +8,10 @@ const SkillsSchema: Schema = new Schema({
   createdAt: {
     type: Date,
   },
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
   cluster: {
     type: String,
     enum: ['Personal', 'Leadership', 'Entrepreneurship', 'Functional'],
