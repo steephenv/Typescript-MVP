@@ -17,7 +17,7 @@ const objectSchema = Joi.object({
   degree: Joi.string().required(),
   grade: Joi.string().required(),
   mainSubjects: Joi.array().items(subObjectSchema),
-  activities: Joi.string(),
+  activities: Joi.string().allow(''),
 }).required();
 
 // tslint:disable:variable-name
