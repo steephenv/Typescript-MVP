@@ -13,7 +13,7 @@ const InterviewSchema = new Schema({
   },
   slot: {
     type: Schema.Types.ObjectId,
-    ref: 'TimeSlots',
+    ref: 'TimeSlot',
   },
   typeOfCall: {
     type: String,
