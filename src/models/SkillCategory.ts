@@ -9,7 +9,7 @@ const SkillCategorySchema: Schema = new Schema({
   },
   cluster: {
     type: String,
-    enum: ['Personal', 'Leadership', 'Enterpreneuship', 'Functional'],
+    enum: ['Personal', 'Leadership', 'Entrepreneurship', 'Functional'],
   },
 });
 export const SkillCategory = mongooseModel(
