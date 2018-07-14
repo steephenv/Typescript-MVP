@@ -4,6 +4,8 @@ import {
   RequestErrorType,
 } from '../../error-handler/RequestError';
 import { Interview } from '../../models/Interview';
+import '../../models/TimeSlots';
+// import { TimeSlot } from '../../models/TimeSlots';
 
 export const getInterviewDate: RequestHandler = async (req, res, next) => {
   try {
@@ -13,6 +15,7 @@ export const getInterviewDate: RequestHandler = async (req, res, next) => {
     const interview = await Interview.findOne({ userId: comingUserId })
       .populate('slot')
       .exec();
+    // await TimeSlot.count({});
     return res.status(200).send({
       success: true,
       data: interview,
