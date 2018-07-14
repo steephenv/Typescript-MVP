@@ -55,6 +55,14 @@ const experienceSchema = new Schema({
   budgetResponsibility: {
     type: Number,
   },
+  managementType: {
+    type: {
+      disciplinaryManager: String,
+      functionalSupervisor: String,
+      coach: Boolean,
+      none: Boolean,
+    },
+  },
 });
 
 export const Experience = mongooseModel('Experience', experienceSchema);
