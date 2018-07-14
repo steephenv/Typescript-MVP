@@ -23,6 +23,7 @@ import { saveSkills } from './save-skills';
 import { getCategory } from './get-category';
 import { getSubCategory } from './get-category';
 import { saveGoals } from './save-goals';
+import { skillsSuggestions } from './get-skills-suggestions';
 
 const upload = multer({ dest: userHome + '/uploads/' });
 
@@ -35,6 +36,7 @@ profile.post('/save-wlb', saveWLBRule, saveWLB);
 profile.post('/save-experience', saveExperienceRule, saveExperience);
 profile.post('/save-skills', skillValidation, saveSkills);
 profile.get('/get-skill-category', getCategoryRules, errValidator, getCategory);
+profile.get('/skill-suggestions', skillsSuggestions);
 profile.get(
   '/get-sub-category',
   getSubCategoryRules,
