@@ -1,7 +1,10 @@
 import * as supertest from 'supertest';
 import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
 
+import { SkillSubCategory } from '../../src/models/SkillSubCategory';
+
 let token = '';
+let subId = '';
 
 afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
 
@@ -19,6 +22,8 @@ beforeAll(done => {
         throw err;
       }
       token = res.body.accessToken;
+      const subCats = await SkillSubCategory.find({}).exec();
+      subId = subCats[0]._id;
       return done();
     });
 });
@@ -26,7 +31,7 @@ beforeAll(done => {
 describe('Test fetching Skills category data  ===> ', () => {
   it('fetching skill category data api', done => {
     supertest(app)
-      .get(`/v1/profile/skill-suggestions`)
+      .get(`/v1/profile/skill-suggestions?subCategory=${subId}`)
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
       .expect(200)

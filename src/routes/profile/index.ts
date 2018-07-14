@@ -12,6 +12,7 @@ import { skillValidation } from './validators/save-skill-rule';
 import { saveGoalRule } from './validators/save-goals-rules';
 import { getCategoryRules } from './validators/get-category-rules';
 import { getSubCategoryRules } from './validators/get-category-rules';
+import { getSkillsRules } from './validators/skill-suggestions-rule';
 
 import { savePersonal } from './save-personal';
 import { saveWLB } from './save-wlb';
@@ -36,7 +37,12 @@ profile.post('/save-wlb', saveWLBRule, saveWLB);
 profile.post('/save-experience', saveExperienceRule, saveExperience);
 profile.post('/save-skills', skillValidation, saveSkills);
 profile.get('/get-skill-category', getCategoryRules, errValidator, getCategory);
-profile.get('/skill-suggestions', skillsSuggestions);
+profile.get(
+  '/skill-suggestions',
+  getSkillsRules,
+  errValidator,
+  skillsSuggestions,
+);
 profile.get(
   '/get-sub-category',
   getSubCategoryRules,
