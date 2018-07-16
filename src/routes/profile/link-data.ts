@@ -11,6 +11,7 @@ import { CustomerCredentials } from '../../models/CustomerCredentials';
 import { Education } from '../../models/Education';
 import { Experience } from '../../models/Experience';
 import { EmployeeProjects } from '../../models/EmployeeProjects';
+import { User } from '../../models/User';
 
 import {
   RequestError,
@@ -96,8 +97,8 @@ export const linkData: RequestHandler = async (req, res, next) => {
             const eduData = new Education({
               userId: res.locals.user.userId,
               nameOfInstitution: dataobj[datakey[0]],
-              durationFrom: dataobj[datakey[1]],
-              durationTo: dataobj[datakey[2]],
+              // durationFrom: dataobj[datakey[1]],
+              // durationTo: dataobj[datakey[2]],
               major: dataobj[datakey[3]],
               degree: dataobj[datakey[4]],
               activities: dataobj[datakey[5]],
@@ -182,17 +183,23 @@ export const linkData: RequestHandler = async (req, res, next) => {
           objArray.forEach(async (dataobj: any) => {
             // console.log('the object array looped data = ', dataobj);
             const datakey: any = Object.keys(dataobj);
-            if (dataobj[datakey[2]] === 'Yes') {
-              const primaryCriteria = {
-                primaryEmail: dataobj[datakey[0]],
-              };
-              // updating CostomerCredentials schema.....
-              await PersonalDetails.findOneAndUpdate(
-                { userId: res.locals.user.userId },
-                { $set: { primaryCriteria } },
-              );
-            } else if (dataobj[datakey[2]] === 'No' && flag === 0) {
+            // if (dataobj[datakey[2]] === 'Yes') {
+            //   const primaryCriteria = {
+            //     primaryEmail: dataobj[datakey[0]],
+            //   };
+            //   // updating CostomerCredentials schema.....
+            //   await PersonalDetails.findOneAndUpdate(
+            //     { userId: res.locals.user.userId },
+            //     { $set: { primaryCriteria } },
+            //   );
+            // } else if
+            if (dataobj[datakey[2]] === 'No' && flag === 0) {
+              // finding primary email from usermodel.......
+              const primaryData: any = await User.findOne({
+                _id: res.locals.user.userId,
+              });
               const secondaryCriteria = {
+                primaryEmail: primaryData.email,
                 secondaryEmail: dataobj[datakey[0]],
               };
               flag++;
@@ -236,7 +243,7 @@ export const linkData: RequestHandler = async (req, res, next) => {
             const projdata = new EmployeeProjects({
               userId: res.locals.user.userId,
               clientsCompanyName: dataobj[datakey[0]],
-              engagementFrom: dataobj[datakey[4]],
+              // engagementFrom: dataobj[datakey[4]],
               engagement: dataobj[datakey[5]],
               roleDescription: dataobj[datakey[2]],
               role: dataobj[datakey[1]],
