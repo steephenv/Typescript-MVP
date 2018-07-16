@@ -13,6 +13,15 @@ import { messages } from '../../config/app/messages';
 
 export const scheduleInterview: RequestHandler = async (req, res, next) => {
   try {
+    const appliedCount = await Interview.count({
+      userId: res.locals.user.userId,
+    });
+    if (appliedCount > 0) {
+      return res.status(409).send({
+        success: false,
+        msg: messages.interviewConflict.ENG,
+      });
+    }
     const query = { dateString: req.body.dateString, slot: req.body.slot };
     const freePersons: any = await AvailabilityCalender.findOne(query).exec();
     if (!freePersons || freePersons.userId.length === 0) {
