@@ -197,7 +197,7 @@ export const linkData: RequestHandler = async (req, res, next) => {
               // finding primary email from usermodel.......
               const primaryData: any = await User.findOne({
                 _id: res.locals.user.userId,
-              });
+              }).exec();
               const secondaryCriteria = {
                 primaryEmail: primaryData.email,
                 secondaryEmail: dataobj[datakey[0]],
