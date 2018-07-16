@@ -41,9 +41,9 @@ const PersonalDataSchema = Joi.object().keys({
     then: Joi.required(),
   }),
   ibanNo: Joi.string()
-    .required()
     .when('role', { is: 'Consultant', then: Joi.required() })
-    .when('role', { is: 'Employee', then: Joi.required() }),
+    .when('role', { is: 'Employee', then: Joi.required() })
+    .when('role', { is: 'User', then: Joi.required().allow('') }),
   bicNo: Joi.string()
     .required()
     .when('role', { is: 'Consultant', then: Joi.required() })
