@@ -70,13 +70,6 @@ export const linkData: RequestHandler = async (req, res, next) => {
     const primaryData: any = await User.findOne({
       _id: res.locals.user.userId,
     }).exec();
-    const usercriteria = {
-      primaryEmail: primaryData.email,
-    };
-    await User.findOneAndUpdate(
-      { userId: res.locals.user.userId },
-      { $set: { usercriteria } },
-    );
 
     if (tempEducation) {
       const column: any = [];
@@ -155,6 +148,7 @@ export const linkData: RequestHandler = async (req, res, next) => {
               PersonalStatement: dataobj[datakey[6]],
               Summary: dataobj[datakey[7]],
               MaidenName: dataobj[datakey[2]],
+              primaryEmail: primaryData.email,
             });
             await profData.save();
           });
