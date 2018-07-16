@@ -15,14 +15,16 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
     const appliedRecord: any = await Interview.findOne({
       userId: res.locals.user.userId,
       status: 'Applied',
-    });
+    })
+      .lean()
+      .exec();
     if (appliedRecord) {
       const calQuery = {
         dateString: appliedRecord.dateString,
         slot: appliedRecord.slot,
       };
       await AvailabilityCalender.update(calQuery, {
-        userId: { $push: appliedRecord.interviewer },
+        $push: { userId: appliedRecord.interviewer },
       });
       await Interview.remove({
         userId: res.locals.user.userId,
