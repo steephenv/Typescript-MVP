@@ -30,7 +30,6 @@ const userSchema = new Schema({
   },
   secondaryEmail: {
     type: String,
-    unique: true,
   },
   role: {
     type: String,
