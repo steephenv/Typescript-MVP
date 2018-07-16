@@ -14,7 +14,7 @@ export const listAvailableDates: RequestHandler = async (req, res, next) => {
           $and: [{ date: { $gt: newDate } }, { 'userId.0': { $exists: true } }],
         },
       },
-      { $sort: { date: 1 } },
+
       { $group: { _id: '$dateString', slots: { $addToSet: '$slot' } } },
       { $limit: 3 },
       {
