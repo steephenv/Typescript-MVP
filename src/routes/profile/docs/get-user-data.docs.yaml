@@ -4,7 +4,7 @@
     - Bearer: []
     summary: api for getting personal details.
     tags:
-    - get user details
+    - profile updation
     description: api for getting user details.
     parameters:
     - name: X-Requested-With
