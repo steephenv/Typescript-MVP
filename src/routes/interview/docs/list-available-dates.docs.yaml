@@ -12,6 +12,10 @@
       in: header
       required: true
       default: XMLHttpRequest
+    - name: date
+      description: last date on current listing
+      in: query
+      example: '2018-07-22'  
     responses:
       200:
         description: "successful attempt, returns `success message`"
