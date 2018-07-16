@@ -106,6 +106,10 @@ const personalDetailsSchema = new Schema({
   createdAt: {
     type: Date,
   },
+  submitted: {
+    type: Boolean,
+    default: false,
+  },
   updatedAt: {
     type: Date,
   },

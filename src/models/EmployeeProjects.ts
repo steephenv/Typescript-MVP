@@ -16,6 +16,10 @@ const projectsSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
+  submitted: {
+    type: Boolean,
+    default: false,
+  },
   engagementAs: {
     type: String,
   },

@@ -35,6 +35,10 @@ const wlbSchema = new Schema({
   daysInCapricornsYear: {
     type: Number,
   },
+  submitted: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export const Wlb = mongooseModel('Wlb', wlbSchema);

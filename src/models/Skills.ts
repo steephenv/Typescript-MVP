@@ -50,6 +50,10 @@ const SkillsSchema: Schema = new Schema({
   lastApplied: {
     type: Number,
   },
+  submitted: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export const Skills = mongooseModel('Skills', SkillsSchema);

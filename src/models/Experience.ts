@@ -13,6 +13,10 @@ const experienceSchema = new Schema({
   createdAt: {
     type: Date,
   },
+  submitted: {
+    type: Boolean,
+    default: false,
+  },
   createdBy: {
     type: Schema.Types.ObjectId,
     ref: 'User',
