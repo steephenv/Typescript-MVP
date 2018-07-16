@@ -14,6 +14,10 @@ const educationDetailsSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
+  submitted: {
+    type: Boolean,
+    default: false,
+  },
   createdAt: {
     type: Date,
   },
