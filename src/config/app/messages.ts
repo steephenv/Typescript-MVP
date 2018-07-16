@@ -79,4 +79,7 @@ export const messages = {
   NoInterviewer: {
     ENG: 'No Interviewer Found',
   },
+  interviewConflict: {
+    ENG: 'Interview Scheduled',
+  },
 };
