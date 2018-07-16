@@ -2,7 +2,7 @@ import { RequestHandler } from 'express';
 import { Promise as BluePromise } from 'bluebird';
 
 import { PersonalDetails } from '../../models/PersonalDetails';
-import { CustomerCredentials } from '../../models/CustomerCredentials';
+// import { CustomerCredentials } from '../../models/CustomerCredentials';
 import { Education } from '../../models/Education';
 import { Experience } from '../../models/Experience';
 import { EmployeeProjects } from '../../models/EmployeeProjects';
@@ -32,9 +32,9 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     const projectsDataPromise = EmployeeProjects.find({
       userId: comingUserId,
     }).exec();
-    const customerCredentialsDataPromise = CustomerCredentials.find({
-      userId: comingUserId,
-    }).exec();
+    // const customerCredentialsDataPromise = CustomerCredentials.find({
+    //   userId: comingUserId,
+    // }).exec();
     const goalDataPromise = Goals.find({
       userId: comingUserId,
     }).exec();
@@ -50,13 +50,13 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
       educationData,
       workExperienceData,
       projectsData,
-      customerCredentialsData,
+      // customerCredentialsData,
     ] = await BluePromise.all([
       personalDetailsDataPromise,
       educationDataPromise,
       workExperienceDataPromise,
       projectsDataPromise,
-      customerCredentialsDataPromise,
+      // customerCredentialsDataPromise,
     ]);
 
     const [goalData, skillData, wlbData] = await BluePromise.all([
@@ -72,7 +72,7 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
         experiences: workExperienceData,
         projects: projectsData,
       },
-      CustomerCredentials: customerCredentialsData,
+      // CustomerCredentials: customerCredentialsData,
       Goals: goalData,
       Skills: skillData,
       WLB: wlbData,
