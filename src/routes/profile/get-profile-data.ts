@@ -20,43 +20,54 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     const comingUserId = req.query.userId
       ? req.query.userId
       : res.locals.user.userId;
-    const personalDetailsDataPromise = PersonalDetails.findOne({
+
+    const personalDetailsDataPromise: any = PersonalDetails.findOne({
       userId: comingUserId,
-    }).exec();
+    })
+      .lean()
+      .exec();
     const educationDataPromise = Education.find({
       userId: comingUserId,
-    }).exec();
+    })
+      .lean()
+      .exec();
     const workExperienceDataPromise = Experience.find({
       userId: comingUserId,
-    }).exec();
+    })
+      .lean()
+      .exec();
     const projectsDataPromise = EmployeeProjects.find({
       userId: comingUserId,
-    }).exec();
-    // const customerCredentialsDataPromise = CustomerCredentials.find({
-    //   userId: comingUserId,
-    // }).exec();
+    })
+      .lean()
+      .exec();
+
     const goalDataPromise = Goals.find({
       userId: comingUserId,
-    }).exec();
+    })
+      .lean()
+      .exec();
     const skillDataPromise = Skills.find({
       userId: comingUserId,
-    }).exec();
+    })
+      .lean()
+      .exec();
     const wlbDataPromise = Wlb.find({
       userId: comingUserId,
-    }).exec();
+    })
+      .lean()
+      .exec();
 
     const [
       personalDetailsData,
       educationData,
       workExperienceData,
       projectsData,
-      // customerCredentialsData,
     ] = await BluePromise.all([
       personalDetailsDataPromise,
       educationDataPromise,
       workExperienceDataPromise,
       projectsDataPromise,
-      // customerCredentialsDataPromise,
     ]);
 
     const [goalData, skillData, wlbData] = await BluePromise.all([
@@ -65,7 +76,45 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
       wlbDataPromise,
     ]);
 
+    let educationStatus = false;
+    let experienceStatus = false;
+    let goalStatus = false;
+    let skillStatus = false;
+    let wlbStatus = false;
+
+    if (educationData.length > 0) {
+      educationStatus = educationData[0].submitted;
+    }
+
+    if (workExperienceData.length > 0) {
+      experienceStatus = educationData[0].submitted;
+    }
+
+    if (goalData.length > 0) {
+      goalStatus = goalData[0].submitted;
+    }
+
+    if (skillData.length > 0) {
+      skillStatus = skillData.submitted;
+    }
+
+    if (wlbData.length > 0) {
+      wlbStatus = wlbData[0].submitted;
+    }
+    const submittedStatusObj = {
+      personalDetails: personalDetailsData
+        ? personalDetailsData.submitted
+        : false,
+
+      education: educationStatus,
+      experience: experienceStatus,
+      goal: goalStatus,
+      skill: skillStatus,
+      wlb: wlbStatus,
+    };
+
     res.status(200).json({
+      submittedStatus: submittedStatusObj,
       PersonalDetails: personalDetailsData,
       Education: educationData,
       WorkExperience: {
