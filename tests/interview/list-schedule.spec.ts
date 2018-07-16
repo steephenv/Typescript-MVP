@@ -8,7 +8,7 @@ describe('List and schedule interviews', () => {
     'List interview dates',
     done => {
       supertest(app)
-        .get('/v1/interview/list-dates')
+        .get('/v1/interview/list-dates?date=2018-11-12')
         .set('X-Requested-With', 'XMLHttpRequest')
         .expect(200)
         .end(err => {
