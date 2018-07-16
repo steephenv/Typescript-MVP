@@ -7,15 +7,31 @@ import { AvailabilityCalender } from '../../models/AvailabilityCalender';
 
 export const listAvailableDates: RequestHandler = async (req, res, next) => {
   try {
-    const newDate = req.query.date ? new Date(req.query.date) : new Date();
+    let newDate = req.query.date ? new Date(req.query.date) : new Date();
+    if (req.query.date) {
+      newDate = new Date(req.query.date);
+      const dateCheck = await AvailabilityCalender.find({
+        $and: [{ date: { $gt: newDate } }, { 'userId.0': { $exists: true } }],
+      });
+      if (dateCheck.length <= 0) {
+        newDate = new Date();
+      }
+    }
+
     const dates = await AvailabilityCalender.aggregate([
       {
         $match: {
           $and: [{ date: { $gt: newDate } }, { 'userId.0': { $exists: true } }],
         },
       },
-
-      { $group: { _id: '$dateString', slots: { $addToSet: '$slot' } } },
+      {
+        $group: {
+          _id: '$dateString',
+          Date: { $first: '$date' },
+          slots: { $addToSet: '$slot' },
+        },
+      },
+      { $sort: { Date: 1 } },
       { $limit: 3 },
       {
         $lookup: {
