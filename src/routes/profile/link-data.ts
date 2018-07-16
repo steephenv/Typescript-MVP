@@ -66,6 +66,17 @@ export const linkData: RequestHandler = async (req, res, next) => {
     if (userHome + '/' + `zipped/${userDir}/Skills.csv`) {
       tempSkills = userHome + '/' + `zipped/${userDir}/Skills.csv`;
     }
+    // saving primary email
+    const primaryData: any = await User.findOne({
+      _id: res.locals.user.userId,
+    }).exec();
+    const usercriteria = {
+      primaryEmail: primaryData.email,
+    };
+    await User.findOneAndUpdate(
+      { userId: res.locals.user.userId },
+      { $set: { usercriteria } },
+    );
 
     if (tempEducation) {
       const column: any = [];
@@ -195,11 +206,11 @@ export const linkData: RequestHandler = async (req, res, next) => {
             // } else if
             if (dataobj[datakey[2]] === 'No' && flag === 0) {
               // finding primary email from usermodel.......
-              const primaryData: any = await User.findOne({
-                _id: res.locals.user.userId,
-              }).exec();
+              // const primaryData: any = await User.findOne({
+              //   _id: res.locals.user.userId,
+              // }).exec();
               const secondaryCriteria = {
-                primaryEmail: primaryData.email,
+                // primaryEmail: primaryData.email,
                 secondaryEmail: dataobj[datakey[0]],
               };
               flag++;
