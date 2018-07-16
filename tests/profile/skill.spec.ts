@@ -83,7 +83,7 @@ describe('Test for skills  ===> ', () => {
             skillTitle: 'assasasa',
             description: 'cccc',
             certificate: 'rerwtyetry',
-            lastAppied: 'rerwtyetry',
+            lastApplied: 2005,
           },
         ],
       })

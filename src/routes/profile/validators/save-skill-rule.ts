@@ -15,7 +15,7 @@ const objectSchema = Joi.object({
     is: 'Functional',
     then: Joi.required(),
   }),
-  lastApplied: Joi.string().when('cluster', {
+  lastApplied: Joi.number().when('cluster', {
     is: 'Functional',
     then: Joi.required(),
   }),

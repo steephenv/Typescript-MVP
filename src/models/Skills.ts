@@ -48,7 +48,7 @@ const SkillsSchema: Schema = new Schema({
     type: String,
   },
   lastApplied: {
-    type: String,
+    type: Number,
   },
 });
 
