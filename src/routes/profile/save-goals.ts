@@ -20,6 +20,7 @@ export const saveGoals: RequestHandler = async (req, res, next) => {
     const newGoal: any = new Goals(req.body);
     newGoal.createdAt = new Date();
     newGoal.createdBy = res.locals.user.userId;
+    newGoal.submitted = true;
     await newGoal.save();
     return res.status(200).send({ success: true });
   } catch (err) {

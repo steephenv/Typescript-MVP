@@ -24,6 +24,7 @@ export const saveExperience: RequestHandler = async (req, res, next) => {
       exp.userId = removeUserId;
       exp.createdAt = new Date();
       exp.createdBy = res.locals.user.userId;
+      exp.submitted = true;
       const newData = new Experience(exp);
       await newData.save();
       return;
@@ -32,6 +33,7 @@ export const saveExperience: RequestHandler = async (req, res, next) => {
       project.userId = removeUserId;
       project.createdAt = new Date();
       project.createdBy = res.locals.user.userId;
+      project.submitted = true;
       const newData = new EmployeeProjects(project);
       await newData.save();
       return;

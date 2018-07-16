@@ -21,6 +21,7 @@ export const saveEducation: RequestHandler = async (req, res, next) => {
       education.userId = removeUserId;
       education.createdAt = new Date();
       education.createdBy = res.locals.user.userId;
+      education.submitted = true;
       const newData = new Education(education);
       await newData.save();
       return;

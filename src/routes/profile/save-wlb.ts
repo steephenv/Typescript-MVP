@@ -20,6 +20,7 @@ export const saveWLB: RequestHandler = async (req, res, next) => {
     const newData: any = new Wlb(req.body);
     newData.createdAt = new Date();
     newData.createdBy = res.locals.user.userId;
+    newData.submitted = true;
     await newData.save();
     return res.status(200).send({ success: true });
   } catch (err) {

@@ -15,6 +15,7 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
     where.userId = req.query.userId ? req.query.userId : res.locals.user.userId;
     req.body.updatedAt = new Date();
     req.body.userId = where.userId;
+    req.body.submitted = true;
     if (req.query && req.query.userId) {
       await PersonalDetails.update(where, { $set: req.body });
     } else {
