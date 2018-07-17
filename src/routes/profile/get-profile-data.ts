@@ -77,17 +77,21 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     ]);
 
     let educationStatus = false;
+    let personalDetailsStatus = false;
     let experienceStatus = false;
     let goalStatus = false;
     let skillStatus = false;
     let wlbStatus = false;
 
+    if (personalDetailsData) {
+      personalDetailsStatus = personalDetailsData.submitted;
+    }
     if (educationData.length > 0) {
       educationStatus = educationData[0].submitted;
     }
 
     if (workExperienceData.length > 0) {
-      experienceStatus = educationData[0].submitted;
+      experienceStatus = workExperienceData[0].submitted;
     }
 
     if (goalData.length > 0) {
@@ -95,17 +99,15 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     }
 
     if (skillData.length > 0) {
-      skillStatus = skillData.submitted;
+      skillStatus = skillData[0].submitted;
     }
 
     if (wlbData.length > 0) {
       wlbStatus = wlbData[0].submitted;
     }
-    const submittedStatusObj = {
-      personalDetails: personalDetailsData
-        ? personalDetailsData.submitted
-        : false,
 
+    const submittedStatusObj = {
+      personalDetails: personalDetailsStatus,
       education: educationStatus,
       experience: experienceStatus,
       goal: goalStatus,
