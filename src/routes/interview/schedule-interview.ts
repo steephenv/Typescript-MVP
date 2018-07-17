@@ -24,7 +24,7 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
         slot: appliedRecord.slot,
       };
       await AvailabilityCalender.update(calQuery, {
-        $push: { userId: appliedRecord.interviewer },
+        $addToSet: { userId: appliedRecord.interviewer },
       });
       await Interview.remove({
         userId: res.locals.user.userId,
