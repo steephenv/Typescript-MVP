@@ -42,7 +42,7 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
       .lean()
       .exec();
 
-    const goalDataPromise = Goals.find({
+    const goalDataPromise = Goals.findOne({
       userId: comingUserId,
     })
       .lean()
@@ -52,7 +52,7 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     })
       .lean()
       .exec();
-    const wlbDataPromise = Wlb.find({
+    const wlbDataPromise = Wlb.findOne({
       userId: comingUserId,
     })
       .lean()
@@ -90,12 +90,18 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
       educationStatus = educationData[0].submitted;
     }
 
-    if (workExperienceData.length > 0) {
-      experienceStatus = workExperienceData[0].submitted;
+    // if (workExperienceData.length > 0) {
+    //   experienceStatus = workExperienceData[0].submitted;
+    // }
+    if (workExperienceData) {
+      experienceStatus = workExperienceData.submitted;
     }
 
-    if (goalData.length > 0) {
-      goalStatus = goalData[0].submitted;
+    // if (goalData.length > 0) {
+    //   goalStatus = goalData[0].submitted;
+    // }
+    if (goalData) {
+      goalStatus = goalData.submitted;
     }
 
     if (skillData.length > 0) {
