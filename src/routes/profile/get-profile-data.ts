@@ -86,30 +86,22 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     if (personalDetailsData) {
       personalDetailsStatus = personalDetailsData.submitted;
     }
-    if (educationData && educationData) {
-      educationStatus = educationData.submitted;
-    }
-
-    // if (workExperienceData.length > 0) {
-    //   experienceStatus = workExperienceData[0].submitted;
-    // }
-    if (workExperienceData) {
-      experienceStatus = workExperienceData.submitted;
-    }
-
-    // if (goalData.length > 0) {
-    //   goalStatus = goalData[0].submitted;
-    // }
     if (goalData) {
       goalStatus = goalData.submitted;
     }
-
-    if (skillData && skillData.length) {
-      skillStatus = skillData.submitted;
-    }
-
     if (wlbData && wlbData.length) {
       wlbStatus = wlbData.submitted;
+    }
+    if (educationData && educationData.length) {
+      educationStatus = educationData[0].submitted;
+    }
+
+    if (workExperienceData && workExperienceData.length) {
+      experienceStatus = workExperienceData[0].submitted;
+    }
+
+    if (skillData && skillData.length) {
+      skillStatus = skillData[0].submitted;
     }
 
     const submittedStatusObj = {
