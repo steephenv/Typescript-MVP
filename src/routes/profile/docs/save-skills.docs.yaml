@@ -46,7 +46,7 @@
                 description:
                   type: string
                   example: fdsf
-                certificate:
+                certificates:
                   type: string
                   example: fdsf
                 lastApplied:

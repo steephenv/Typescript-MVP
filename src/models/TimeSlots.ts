@@ -7,7 +7,7 @@ const TimeSlotSchema: Schema = new Schema({
     type: String,
   },
   timePeriod: {
-    type: 'String',
+    type: String,
   },
 });
 

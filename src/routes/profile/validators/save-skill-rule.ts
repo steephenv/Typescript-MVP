@@ -11,7 +11,7 @@ const objectSchema = Joi.object({
     is: 'Functional',
     then: Joi.required(),
   }),
-  certificate: Joi.string().when('cluster', {
+  certificates: Joi.string().when('cluster', {
     is: 'Functional',
     then: Joi.required(),
   }),
