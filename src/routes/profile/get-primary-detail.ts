@@ -17,7 +17,7 @@ export const getPrimaryUserData: RequestHandler = async (req, res, next) => {
       userId: comingUserId,
     }).exec();
 
-    res.status(200).json({
+    return res.status(200).json({
       userDetails: userData,
     });
   } catch (err) {
