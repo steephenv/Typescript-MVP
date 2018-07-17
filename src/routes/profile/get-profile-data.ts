@@ -89,7 +89,7 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     if (goalData) {
       goalStatus = goalData.submitted;
     }
-    if (wlbData && wlbData.length) {
+    if (wlbData) {
       wlbStatus = wlbData.submitted;
     }
     if (educationData && educationData.length) {
