@@ -86,8 +86,8 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     if (personalDetailsData) {
       personalDetailsStatus = personalDetailsData.submitted;
     }
-    if (educationData.length > 0) {
-      educationStatus = educationData[0].submitted;
+    if (educationData && educationData) {
+      educationStatus = educationData.submitted;
     }
 
     // if (workExperienceData.length > 0) {
@@ -104,12 +104,12 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
       goalStatus = goalData.submitted;
     }
 
-    if (skillData.length > 0) {
-      skillStatus = skillData[0].submitted;
+    if (skillData && skillData.length) {
+      skillStatus = skillData.submitted;
     }
 
-    if (wlbData.length > 0) {
-      wlbStatus = wlbData[0].submitted;
+    if (wlbData && wlbData.length) {
+      wlbStatus = wlbData.submitted;
     }
 
     const submittedStatusObj = {
