@@ -42,7 +42,7 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
       .lean()
       .exec();
 
-    const goalDataPromise = Goals.find({
+    const goalDataPromise = Goals.findOne({
       userId: comingUserId,
     })
       .lean()
@@ -52,7 +52,7 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     })
       .lean()
       .exec();
-    const wlbDataPromise = Wlb.find({
+    const wlbDataPromise = Wlb.findOne({
       userId: comingUserId,
     })
       .lean()
@@ -86,24 +86,22 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     if (personalDetailsData) {
       personalDetailsStatus = personalDetailsData.submitted;
     }
-    if (educationData.length > 0) {
+    if (goalData) {
+      goalStatus = goalData.submitted;
+    }
+    if (wlbData) {
+      wlbStatus = wlbData.submitted;
+    }
+    if (educationData && educationData.length) {
       educationStatus = educationData[0].submitted;
     }
 
-    if (workExperienceData.length > 0) {
+    if (workExperienceData && workExperienceData.length) {
       experienceStatus = workExperienceData[0].submitted;
     }
 
-    if (goalData.length > 0) {
-      goalStatus = goalData[0].submitted;
-    }
-
-    if (skillData.length > 0) {
+    if (skillData && skillData.length) {
       skillStatus = skillData[0].submitted;
-    }
-
-    if (wlbData.length > 0) {
-      wlbStatus = wlbData[0].submitted;
     }
 
     const submittedStatusObj = {
