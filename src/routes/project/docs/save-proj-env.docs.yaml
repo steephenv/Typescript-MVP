@@ -1,0 +1,43 @@
+/profile/save-proj-env:
+  post:
+    security:
+    - Bearer: []
+    summary: api for save project environment details.
+    tags:
+    - project request
+    description: api for save project environment details.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: userId
+      description: 'userId'
+      in: query
+      type: string
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+          - stakeHolders
+        properties:
+          stakeHolder:
+            type: array
+            items:
+              properties:
+                stakeHolder:
+                  type: string
+                businessFunction:
+                  type: string
+                businessFunctionRole:
+                  type: string
+                sponsorsPosition:
+                  type: string
+                managersPosition:
+                  type: string 
+    responses:
+      200:
+        description: "successful attempt, returns `success message`"
