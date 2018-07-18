@@ -16,6 +16,15 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
     req.body.updatedAt = new Date();
     req.body.userId = where.userId;
     req.body.submitted = true;
+    const secEmailCheck: any = { secondaryEmail: req.body.secondaryEmail };
+    if (req.body.userId) {
+      secEmailCheck.userId = { $ne: req.body.userId };
+    }
+    const userWithSameSecEmail = await PersonalDetails.count(secEmailCheck);
+    if (userWithSameSecEmail > 0) {
+      const err = new Error('Duplicate Secondary Email');
+      return next(new RequestError(RequestErrorType.CONFLICT, err));
+    }
     if (req.query && req.query.userId) {
       await PersonalDetails.update(where, { $set: req.body });
     } else {
