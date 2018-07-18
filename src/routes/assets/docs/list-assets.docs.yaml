@@ -1,0 +1,60 @@
+/assets:
+  get:
+    # security:
+    # - Bearer: []
+    summary: api to list any uploaded asset.
+    tags:
+    - Assets
+    description: call this api for getting recorded assets. you can combine multiple options too.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+
+    - name: name
+      type: string
+      description: name of the assets
+      in: query
+      example: profpic88
+    - name: category
+      description: category of the asset
+      type: string
+      in: query
+      example: profpics
+    - name: coAuthoring
+      description: coAuthor of the asset.
+      type: string
+      in: query
+      example: jeja
+    - name: accessUrl
+      description: you can also fetch by accessUrl
+      type: string
+      in: query
+      example: awsLink
+    - name: fileName
+      description: fetch by uploaded fileName
+      type: string
+      in: query
+      example: deer
+    - name: userId
+      description: fetch by uploaded userId
+      type: string
+      in: query
+      example: osdUy7jj
+    - name: _limit
+      description: limit by number of records. **(default:50)**
+      type: number
+      in: query
+      example: 5
+    - name: _skip
+      description: number of records to skip **(default:0)**
+      type: number
+      in: query
+      example: 0
+    
+        
+    responses:
+      201:
+        description: "successful attempt, returns `success message`"
