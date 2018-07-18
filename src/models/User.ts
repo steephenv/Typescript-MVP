@@ -49,6 +49,10 @@ const userSchema = new Schema({
       device: { type: String },
     },
   ],
+  profileDataVerified: {
+    type: Boolean,
+    default: false,
+  },
   createdAt: {
     type: Date,
   },

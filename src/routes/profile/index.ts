@@ -26,6 +26,7 @@ import { getSubCategory } from './get-category';
 import { saveGoals } from './save-goals';
 import { skillsSuggestions } from './get-skills-suggestions';
 import { getPrimaryUserData } from './get-primary-detail';
+import { saveReviewStatus } from './save-review-status';
 
 const upload = multer({ dest: userHome + '/uploads/' });
 
@@ -60,3 +61,4 @@ profile.post(
   },
   linkData,
 );
+profile.get('/save-review-status', saveReviewStatus);
