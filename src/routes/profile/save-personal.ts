@@ -22,8 +22,12 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
     }
     const userWithSameSecEmail = await PersonalDetails.count(secEmailCheck);
     if (userWithSameSecEmail > 0) {
-      const err = new Error('Duplicate Secondary Email');
-      return next(new RequestError(RequestErrorType.CONFLICT, err));
+      return next(
+        new RequestError(
+          RequestErrorType.CONFLICT,
+          'Duplicate Secondary Email',
+        ),
+      );
     }
     if (req.query && req.query.userId) {
       await PersonalDetails.update(where, { $set: req.body });
