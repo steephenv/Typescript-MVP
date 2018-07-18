@@ -101,7 +101,9 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
       wlbStatus = wlbData.submitted;
     }
     if (userData) {
-      reviewCompleted = userData.profileDataVerified;
+      reviewCompleted = userData.profileDataVerified
+        ? userData.profileDataVerified
+        : false;
     }
     if (educationData && educationData.length) {
       educationStatus = educationData[0].submitted;
