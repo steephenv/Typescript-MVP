@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import * as sgMail from '@sendgrid/mail';
 
-import { User } from '../../models/User';
+import { PersonalDetails } from '../../models/PersonalDetails';
 
 import { messages } from '../../config/app/messages';
 import { secrets } from '../../config/credentials/secrets';
@@ -16,7 +16,9 @@ sgMail.setApiKey(secrets.sendGridKey);
 
 export const emailRecoveryFunction: RequestHandler = async (req, res, next) => {
   try {
-    const user = await User.findOne({ secondaryEmail: req.body.secEmail })
+    const user = await PersonalDetails.findOne({
+      secondaryEmail: req.body.secEmail,
+    })
       .lean()
       .exec();
     if (!user) {

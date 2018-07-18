@@ -81,6 +81,8 @@ const personalDetailsSchema = new Schema({
   },
   secondaryEmail: {
     type: String,
+    required: true,
+    unique: true,
   },
   taxId: {
     type: String,
