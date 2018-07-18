@@ -14,7 +14,7 @@ export const recordAssets: RequestHandler = async (req, res, next) => {
       msg: 'asset-recorded',
     });
   } catch (err) {
-    return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR));
+    return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }
 };
 
