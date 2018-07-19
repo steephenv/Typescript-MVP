@@ -8,6 +8,8 @@ import {
   RequestErrorType,
 } from '../../error-handler/RequestError';
 
+import { messages } from '../../config/app/messages';
+
 export const savePersonal: RequestHandler = async (req, res, next) => {
   try {
     const where: any = {};
@@ -20,12 +22,14 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
     if (req.body.userId) {
       secEmailCheck.userId = { $ne: req.body.userId };
     }
-    const userWithSameSecEmail = await PersonalDetails.count(secEmailCheck);
+    const userWithSameSecEmail = await PersonalDetails.countDocuments(
+      secEmailCheck,
+    );
     if (userWithSameSecEmail > 0) {
       return next(
         new RequestError(
           RequestErrorType.CONFLICT,
-          'Duplicate Secondary Email',
+          messages.DuplicateSecondaryEmail,
         ),
       );
     }
