@@ -22,9 +22,7 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
     if (req.body.userId) {
       secEmailCheck.userId = { $ne: req.body.userId };
     }
-    const userWithSameSecEmail = await PersonalDetails.countDocuments(
-      secEmailCheck,
-    );
+    const userWithSameSecEmail = await PersonalDetails.count(secEmailCheck);
     if (userWithSameSecEmail > 0) {
       return next(
         new RequestError(
