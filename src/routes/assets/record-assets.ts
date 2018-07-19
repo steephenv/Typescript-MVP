@@ -21,7 +21,7 @@ export const recordAssets: RequestHandler = async (req, res, next) => {
         ),
       );
     }
-    await recordAssetsCtrl(req.body.assets);
+    await recordAssetsCtrl(req.body);
     return res.status(201).send({
       msg: 'asset-recorded',
     });
