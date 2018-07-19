@@ -1,10 +1,10 @@
-/interview/list-availability:
+/interview-old/list-dates:
   get:
     security:
     - Bearer: []
     summary: api for list available dates.
     tags:
-    - Interview
+    - OldInterview
     description: api for list available dates.
     parameters:
     - name: X-Requested-With
