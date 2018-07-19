@@ -9,6 +9,7 @@ import { EmployeeProjects } from '../../models/EmployeeProjects';
 import { Goals } from '../../models/Goals';
 import { Skills } from '../../models/Skills';
 import { Wlb } from '../../models/WLB';
+import { User } from '../../models/User';
 
 import {
   RequestError,
@@ -58,16 +59,22 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
       .lean()
       .exec();
 
+    const userDataPromise = await User.findOne({ _id: comingUserId })
+      .lean()
+      .exec();
+
     const [
       personalDetailsData,
       educationData,
       workExperienceData,
       projectsData,
+      userData,
     ] = await BluePromise.all([
       personalDetailsDataPromise,
       educationDataPromise,
       workExperienceDataPromise,
       projectsDataPromise,
+      userDataPromise,
     ]);
 
     const [goalData, skillData, wlbData] = await BluePromise.all([
@@ -82,6 +89,7 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     let goalStatus = false;
     let skillStatus = false;
     let wlbStatus = false;
+    let reviewCompleted = false;
 
     if (personalDetailsData) {
       personalDetailsStatus = personalDetailsData.submitted;
@@ -91,6 +99,11 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     }
     if (wlbData) {
       wlbStatus = wlbData.submitted;
+    }
+    if (userData) {
+      reviewCompleted = userData.profileDataVerified
+        ? userData.profileDataVerified
+        : false;
     }
     if (educationData && educationData.length) {
       educationStatus = educationData[0].submitted;
@@ -111,6 +124,7 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
       goal: goalStatus,
       skill: skillStatus,
       wlb: wlbStatus,
+      reviewStatus: reviewCompleted,
     };
 
     res.status(200).json({
