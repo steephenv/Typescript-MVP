@@ -1,17 +1,11 @@
 import * as express from 'express';
 
-import { scheduleInterviewRules } from './validators/schedule-interview-rules';
-
+import { saveAvailability } from './save-availability-calender';
+import { listBPMAvailability } from './list-availability';
 import { scheduleInterview } from './schedule-interview';
-import { listAvailableDates } from './list-available-dates';
-import { getInterviewDate } from './get-interview-date';
 
 export const interview = express.Router();
 
-interview.get('/list-dates', listAvailableDates);
-interview.get('/get-date', getInterviewDate);
-interview.post(
-  '/schedule-interview',
-  scheduleInterviewRules,
-  scheduleInterview,
-);
+interview.get('/save-availability-calender', saveAvailability);
+interview.get('/list-availability', listBPMAvailability);
+interview.post('/schedule-interview', scheduleInterview);
