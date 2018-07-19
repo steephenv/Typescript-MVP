@@ -1,12 +1,12 @@
 import * as express from 'express';
 
-import { projectKeyParamRule } from './validators/project-key-param-rule';
-import { projectEnvValidation } from './validators/project-env-rule';
+import { projectRequestRule } from './validators/project-request-rules';
+// import { saveProjectRule } from './validators/save-project-rules';
 
-import { saveProjectKeyParam } from './project-key-param';
-import { saveProjectEnv } from './project-env';
+import { saveProjectRequest } from './project-request';
+// import { saveProject } from './save-project';
 
 export const project = express.Router();
 
-project.post('/save-key-param', projectKeyParamRule, saveProjectKeyParam);
-project.post('/save-proj-env', projectEnvValidation, saveProjectEnv);
+project.post('/save-project-request', projectRequestRule, saveProjectRequest);
+// project.post('/save-project', saveProjectRule, saveProject);
