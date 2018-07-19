@@ -9,6 +9,18 @@ import {
 
 export const recordAssets: RequestHandler = async (req, res, next) => {
   try {
+    if (!req.body.userId) {
+      req.body.userId = res.locals.user.userId;
+    }
+
+    if (!req.body.userId) {
+      return next(
+        new RequestError(
+          RequestErrorType.UNPROCESSABLE_ENTITY,
+          'no user Id in body or token',
+        ),
+      );
+    }
     await recordAssetsCtrl(req.body.assets);
     return res.status(201).send({
       msg: 'asset-recorded',

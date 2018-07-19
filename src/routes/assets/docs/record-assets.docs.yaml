@@ -22,7 +22,6 @@
         - category
         - accessUrl
         - fileName
-        - userId
         properties:
           name:
             type: string
@@ -47,6 +46,10 @@
           fileType:
             type: string
             example: '.png'
+          userId:
+            type: string
+            example: 'asdfd'
+            description: "if `userId` is given, it will be used. Else `userId` from token will be used"
         
     responses:
       201:
