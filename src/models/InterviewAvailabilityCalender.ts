@@ -1,7 +1,6 @@
 /* tslint:disable:variable-name */
 
 import { model as mongooseModel, Schema } from 'mongoose';
-import { ObjectId, ObjectID } from 'bson';
 
 const InterviewAvailabilityCalenderSchema = new Schema({
   userId: {

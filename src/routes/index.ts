@@ -21,7 +21,7 @@ apis.use('/auth', auth);
 apis.use('/utils', utils);
 apis.use('/assets', assets);
 apis.use('/profile', profile);
-apis.use('/interview_old', interviewOld);
+apis.use('/interview-old', interviewOld);
 apis.use('/interview', interview);
 apis.use('/project', project);
 

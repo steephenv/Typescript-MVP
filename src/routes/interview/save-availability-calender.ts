@@ -36,8 +36,6 @@ export const saveToAvailabilityCalender = async (
 export const saveAvailability: RequestHandler = async (req, res, next) => {
   const d1 = new Date('2018-07-24T09:00:00.000Z');
   const d2 = new Date('2018-07-24T18:00:00.000Z');
-  const breakStartTime = new Date('2018-07-24T13:00:00.000Z');
-  const breakEndTime = new Date('2018-07-24T14:00:00.000Z');
 
   try {
     await saveToAvailabilityCalender(d1, d2, '5b4ec872a460311897f866be');
