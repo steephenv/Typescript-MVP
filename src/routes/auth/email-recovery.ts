@@ -35,7 +35,7 @@ export const emailRecoveryFunction: RequestHandler = async (req, res, next) => {
       templateId: sendGTemplates.emailRecovery,
       substitutionWrappers: ['%', '%'],
       substitutions: {
-        email: user.email,
+        email: user.primaryEmail,
       },
     };
     await sgMail.send(msg);
