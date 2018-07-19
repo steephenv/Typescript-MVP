@@ -30,7 +30,7 @@ describe('testing asset recording', () => {
         accessUrl: 'adsfasd',
         fileName: 'fasdf',
         fileType: 'asdf',
-        userId: 'asd',
+        userId: '5b4f0845a48361468f85033c',
       })
       .expect(201)
       .end(err => {
