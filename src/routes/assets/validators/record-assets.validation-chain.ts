@@ -12,7 +12,12 @@ export const recordValidationChain = [
     .withMessage('Invalid category'),
   body('attributes')
     .optional()
-    .withMessage('Invalid attributes'),
+    .custom(val => {
+      if (val.constructor.name !== 'Array' || typeof val[0] !== 'string') {
+        throw new Error('attributes must be a string array');
+      }
+      return true;
+    }),
   body('coAuthoring')
     .optional()
     .withMessage('Invalid coAuthoring'),
