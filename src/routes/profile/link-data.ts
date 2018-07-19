@@ -138,8 +138,7 @@ export const linkData: RequestHandler = async (req, res, next) => {
           });
           objArray.forEach(async (dataobj: any) => {
             const datakey: any = Object.keys(dataobj);
-            const profData = new PersonalDetails({
-              userId: res.locals.user.userId,
+            const profData = {
               firstName: dataobj[datakey[0]],
               lastName: dataobj[datakey[1]],
               birthDate: dataobj[datakey[4]],
@@ -149,8 +148,12 @@ export const linkData: RequestHandler = async (req, res, next) => {
               Summary: dataobj[datakey[7]],
               MaidenName: dataobj[datakey[2]],
               primaryEmail: primaryData.email,
-            });
-            await profData.save();
+            };
+            await PersonalDetails.findOneAndUpdate(
+              { userId: res.locals.user.userId },
+              { $set: { profData } },
+              { upsert: true },
+            );
           });
           objArray.forEach(async (dataobj: any) => {
             const datakey: any = Object.keys(dataobj);
