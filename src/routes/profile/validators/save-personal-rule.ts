@@ -10,7 +10,7 @@ const PersonalDataSchema = Joi.object().keys({
   image: Joi.string().allow(''),
   birthDate: Joi.string().required(),
   countryOfBirth: Joi.string().allow(''),
-  citizenship: Joi.string().required(),
+  citizenship: Joi.string(),
   workPermit: Joi.string().allow(''),
   country: Joi.string().required(),
   state: Joi.string().required(),
