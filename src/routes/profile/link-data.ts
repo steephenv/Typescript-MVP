@@ -119,7 +119,7 @@ export const linkData: RequestHandler = async (req, res, next) => {
         .on('data', data => {
           column.push(data);
         })
-        .on('end', () => {
+        .on('end', async () => {
           tempcolumn = column[0];
           const klength: any = tempcolumn.length;
           const objArray: any = [];
@@ -136,9 +136,10 @@ export const linkData: RequestHandler = async (req, res, next) => {
               objArray.push(obj);
             }
           });
+          let profData: any = {};
           objArray.forEach(async (dataobj: any) => {
             const datakey: any = Object.keys(dataobj);
-            const profData = {
+            profData = {
               firstName: dataobj[datakey[0]],
               lastName: dataobj[datakey[1]],
               birthDate: dataobj[datakey[4]],
@@ -149,9 +150,9 @@ export const linkData: RequestHandler = async (req, res, next) => {
               MaidenName: dataobj[datakey[2]],
               primaryEmail: primaryData.email,
             };
-            await PersonalDetails.findOneAndUpdate(
+            await PersonalDetails.update(
               { userId: res.locals.user.userId },
-              { $set: { profData } },
+              { $set: profData },
               { upsert: true },
             );
           });
