@@ -145,9 +145,9 @@ export const linkData: RequestHandler = async (req, res, next) => {
               birthDate: dataobj[datakey[4]],
               country: dataobj[datakey[9]],
               zipCode: dataobj[datakey[10]],
-              PersonalStatement: dataobj[datakey[6]],
-              Summary: dataobj[datakey[7]],
-              MaidenName: dataobj[datakey[2]],
+              personalStatement: dataobj[datakey[6]],
+              summary: dataobj[datakey[7]],
+              maidenName: dataobj[datakey[2]],
               primaryEmail: primaryData.email,
             };
             await PersonalDetails.update(
