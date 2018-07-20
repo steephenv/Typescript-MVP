@@ -6,9 +6,9 @@ import {
   RequestErrorType,
 } from '../../error-handler/RequestError';
 
-export const getAssetCategory: RequestHandler = async (req, res, next) => {
+export const listAssetCategory: RequestHandler = async (req, res, next) => {
   try {
-    const cats = await AssetCategory.find().exec();
+    const cats = await AssetCategory.find({}).exec();
     return res.status(200).send({
       success: true,
       categories: cats,
