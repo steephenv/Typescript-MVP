@@ -3,7 +3,7 @@
 import { model as mongooseModel, Schema } from 'mongoose';
 
 const AssetCategorySchema: Schema = new Schema({
-  category: {
+  name: {
     type: String,
     require: true,
   },

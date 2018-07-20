@@ -5,6 +5,7 @@ import { errValidator } from '../../error-handler/error-validator';
 
 import { recordAssets } from './record-assets';
 import { listAssets } from './list-assets';
+import { listAssetCategory } from './list-asset-category';
 
 import { recordValidationChain } from './validators/record-assets.validation-chain';
 import { listValidationChain } from './validators/list-assets.validation-chain';
@@ -18,4 +19,6 @@ assets.get(
   queryIntParser(),
   listAssets,
 );
+assets.get('/category', listAssetCategory);
+
 assets.post('/record', recordValidationChain, errValidator, recordAssets);
