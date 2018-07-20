@@ -47,11 +47,5 @@ export const saveAvailability: RequestHandler = async (req, res, next) => {
     req.body.workingTime,
     req.body.breakTime,
   );
-  console.log(periodsArray);
-  // try {
-  //   await saveToAvailabilityCalender(d1, d2, '5b50993ceccf2407704efc6d');
-  //   return res.status(200).send('Success');
-  // } catch (err) {
-  //   return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
-  // }
+  // console.log(periodsArray);
 };

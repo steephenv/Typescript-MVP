@@ -6,6 +6,7 @@ export interface ITimePeriod {
   startTime: number;
   endTime: number;
 }
+
 export const getWorkingPeriods = (
   daysArray: IDayObject[],
   workingDays: number[],
@@ -13,6 +14,7 @@ export const getWorkingPeriods = (
   breakTime: ITimePeriod,
 ) => {
   const timePeriods: IDayObject[] = [];
+
   daysArray.forEach(eachDay => {
     const dayInWeek = new Date(eachDay.startTime).getDay();
     if (dayInWeek < 6 || dayInWeek > 0 || workingDays.indexOf(dayInWeek) > 0) {
