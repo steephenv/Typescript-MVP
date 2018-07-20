@@ -1,19 +1,21 @@
 import * as express from 'express';
 
-import { projectKeyParamRule } from './validators/project-key-param-rule';
-import { projectSupportValidation } from './validators/project-support-need-rule';
-import { projectEnvValidation } from './validators/project-env-rule';
+import { projectRequestRule } from './validators/project-request-rules';
+import { saveProjectRule } from './validators/save-project-rules';
+import { getProjSubCategoryRules } from './validators/get-proj-category-rules';
 
-import { saveProjectKeyParam } from './project-key-param';
-import { saveProjectSupport } from './project-support-need';
-import { saveProjectEnv } from './project-env';
+import { saveProjectRequest } from './project-request';
+import { saveProject } from './save-project';
+import { getProjectCategory } from './get-project-category';
+import { getProjSubCategory } from './get-project-category';
 
 export const project = express.Router();
 
-project.post('/save-key-param', projectKeyParamRule, saveProjectKeyParam);
-project.post(
-  '/save-project-support',
-  projectSupportValidation,
-  saveProjectSupport,
+project.post('/save-project-request', projectRequestRule, saveProjectRequest);
+project.post('/save-project', saveProjectRule, saveProject);
+project.get('/get-project-category', getProjectCategory);
+project.get(
+  '/get-proj-sub-category',
+  getProjSubCategoryRules,
+  getProjSubCategory,
 );
-project.post('/save-proj-env', projectEnvValidation, saveProjectEnv);

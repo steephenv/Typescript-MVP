@@ -25,13 +25,46 @@ beforeAll(done => {
     });
 });
 
-describe('Test for saving education data  ===> ', () => {
-  it('Saving education details api', done => {
+describe('Test for saving project request data  ===> ', () => {
+  it('Saving project request details api', done => {
     supertest(app)
-      .post(`/v1/project/save-project-support`)
+      .post(`/v1/project/save-project-request`)
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
       .send({
+        currentStatus: 'sadsad',
+        currentSituation: 'sdfdsf',
+        challengeType: 'cvdsjhgv',
+        challenge: 'cbbxgcge',
+        degreeOfChallenge: 'nxcdshgsa',
+        goalValueAdd: 'ssdcvmnjas',
+        desiredFutureSituation: 'sdjhysgdew',
+        targetStart: 'sdhfvgnxcb',
+        expectedEnd: 'bcvhdsgftwesa',
+        mainLocation: 'tehsdkvn',
+        additionalLocations: 'nvsteddxsv',
+        location2: 'AHDGBUYHASCV',
+        location3: 'BCSYDGFYEWTC',
+        location4: 'ZXBCHSAYHBSACC',
+        communication: 'BCHSAFCAS',
+
+        stakeHolders: [
+          {
+            stakeHolder: 'ascdkdvjhbiufwe',
+            businessFunction: 'ascdkdvjhbiufwe',
+            businessFunctionRole: 'ascdkdvjhbiufwe',
+            sponsorsPosition: 'ascdkdvjhbiufwe',
+            managersPosition: 'ascdkdvjhbiufwe',
+          },
+          {
+            stakeHolder: 'vhbfdhsmchd',
+            businessFunction: 'vhbfdhsmchd',
+            businessFunctionRole: 'vhbfdhsmchd',
+            sponsorsPosition: 'vhbfdhsmchd',
+            managersPosition: 'vhbfdhsmchd',
+          },
+        ],
+
         roleAndResponsibility: [
           {
             consultant: 'dsvsdvxz',
