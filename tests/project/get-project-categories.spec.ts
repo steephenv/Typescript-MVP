@@ -1,8 +1,11 @@
 import * as supertest from 'supertest';
 import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
 
+import { ProjectCategory } from '../../src/models/ProjectCategory';
+
 let token = '';
 let newUserId: string;
+let cats: any;
 
 afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
 
@@ -15,40 +18,37 @@ beforeAll(done => {
       password: 'password',
     })
     .expect(200)
-    .end((err, res) => {
+    .end(async (err, res) => {
       if (err) {
         throw err;
       }
       newUserId = res.body.data._id;
       token = res.body.accessToken;
+
+      cats = await ProjectCategory.find({}).exec();
       return done();
     });
 });
 
-describe('Test for saving project environment data  ===> ', () => {
-  it('Saving project environment details api', done => {
+describe('Test fetching project category data  ===> ', () => {
+  it('fetching project category data api', done => {
     supertest(app)
-      .post(`/v1/project/save-proj-env`)
+      .get(`/v1/project/get-project-category`)
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
-      .send({
-        stakeHolders: [
-          {
-            stakeHolder: 'ascdkdvjhbiufwe',
-            businessFunction: 'ascdkdvjhbiufwe',
-            businessFunctionRole: 'ascdkdvjhbiufwe',
-            sponsorsPosition: 'ascdkdvjhbiufwe',
-            managersPosition: 'ascdkdvjhbiufwe',
-          },
-          {
-            stakeHolder: 'vhbfdhsmchd',
-            businessFunction: 'vhbfdhsmchd',
-            businessFunctionRole: 'vhbfdhsmchd',
-            sponsorsPosition: 'vhbfdhsmchd',
-            managersPosition: 'vhbfdhsmchd',
-          },
-        ],
-      })
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          throw err;
+        }
+        return done();
+      });
+  });
+  it('fetching project sub category data api', done => {
+    supertest(app)
+      .get(`/v1/project/get-proj-sub-category?category=` + cats[0]._id)
+      .set('X-Requested-With', 'XMLHttpRequest')
+      .set({ Authorization: `Bearer ${token}` })
       .expect(200)
       .end((err, res) => {
         if (err) {

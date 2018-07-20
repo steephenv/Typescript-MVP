@@ -8,6 +8,8 @@ import {
   RequestErrorType,
 } from '../../error-handler/RequestError';
 
+import { messages } from '../../config/app/messages';
+
 export const savePersonal: RequestHandler = async (req, res, next) => {
   try {
     const where: any = {};
@@ -25,7 +27,7 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
       return next(
         new RequestError(
           RequestErrorType.CONFLICT,
-          'Duplicate Secondary Email',
+          messages.DuplicateSecondaryEmail,
         ),
       );
     }

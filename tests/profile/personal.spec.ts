@@ -39,7 +39,6 @@ describe('Test for personal data  ===> ', () => {
         image: 'dsacfcbcsa',
         birthDate: '31-3-4400',
         countryOfBirth: 'india',
-        citizenship: 'indian',
         workPermit: 'dshjvdshv',
         professionalId: 'sdfbcshd',
         country: 'india',

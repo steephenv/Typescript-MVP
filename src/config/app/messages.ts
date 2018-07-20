@@ -71,7 +71,10 @@ export const messages = {
     ENG: 'Interview Scheduled Successfully',
   },
   NotBsnsEmail: {
-    ENG: 'Inavlid Business email',
+    ENG: 'Invalid Business email',
+  },
+  DuplicateSecondaryEmail: {
+    ENG: 'Duplicate Secondary Email',
   },
   noUser: {
     ENG: 'No User Present',

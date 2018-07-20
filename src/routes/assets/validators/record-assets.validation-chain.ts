@@ -1,4 +1,7 @@
 import { body } from 'express-validator/check';
+import { Types } from 'mongoose';
+
+const objectIdValidator = Types.ObjectId.isValid;
 
 export const recordValidationChain = [
   body('name')
@@ -23,6 +26,12 @@ export const recordValidationChain = [
     .optional()
     .withMessage('Invalid fileType'),
   body('userId')
-    .exists()
+    .optional()
+    .custom(val => {
+      if (!objectIdValidator(val)) {
+        throw new Error('Invalid userId');
+      }
+      return true;
+    })
     .withMessage('Invalid userId'),
 ];

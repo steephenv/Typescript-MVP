@@ -1,4 +1,4 @@
-import { ProjectSupportNeed } from '../../models/ProjectSupportNeed';
+import { ProjectRequest } from '../../models/ProjectRequest';
 import { RequestHandler } from 'express';
 
 import {
@@ -6,7 +6,7 @@ import {
   RequestErrorType,
 } from '../../error-handler/RequestError';
 
-export const saveProjectSupport: RequestHandler = async (req, res, next) => {
+export const saveProjectRequest: RequestHandler = async (req, res, next) => {
   try {
     const where: any = {};
 
@@ -14,20 +14,20 @@ export const saveProjectSupport: RequestHandler = async (req, res, next) => {
     req.body.updatedAt = new Date();
     req.body.userId = where.userId;
     // req.body.submitted = true;
-    const criteria = {
-      userId: req.body.userId,
-      updatedAt: req.body.updatedAt,
-      roleAndResponsibility: req.body.roleAndResponsibility,
-      skillsAndExperience: req.body.skillsAndExperience,
-      clientsMessage: req.body.clientsMessage,
-      proposalSubmissionDate: new Date(),
-    };
+    // const criteria = {
+    //   userId: req.body.userId,
+    //   updatedAt: req.body.updatedAt,
+    //   roleAndResponsibility: req.body.roleAndResponsibility,
+    //   skillsAndExperience: req.body.skillsAndExperience,
+    //   clientsMessage: req.body.clientsMessage,
+    //   proposalSubmissionDate: new Date(),
+    // };
     if (req.query && req.query.userId) {
-      await ProjectSupportNeed.update(where, { $set: criteria });
+      await ProjectRequest.update(where, { $set: req.body });
     } else {
       req.body.createdAt = new Date();
       req.body.createdBy = res.locals.user.userId;
-      const projectData = new ProjectSupportNeed(criteria);
+      const projectData = new ProjectRequest(req.body);
       await projectData.save();
     }
     return res.status(200).send({ success: true });

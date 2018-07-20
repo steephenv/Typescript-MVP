@@ -70,6 +70,10 @@ export const linkData: RequestHandler = async (req, res, next) => {
     const primaryData: any = await User.findOne({
       _id: res.locals.user.userId,
     }).exec();
+    if (primaryData) {
+      primaryData.isLinkedinFetched = true;
+      await primaryData.save();
+    }
 
     if (tempEducation) {
       const column: any = [];
@@ -119,7 +123,7 @@ export const linkData: RequestHandler = async (req, res, next) => {
         .on('data', data => {
           column.push(data);
         })
-        .on('end', () => {
+        .on('end', async () => {
           tempcolumn = column[0];
           const klength: any = tempcolumn.length;
           const objArray: any = [];
@@ -136,21 +140,25 @@ export const linkData: RequestHandler = async (req, res, next) => {
               objArray.push(obj);
             }
           });
+          let profData: any = {};
           objArray.forEach(async (dataobj: any) => {
             const datakey: any = Object.keys(dataobj);
-            const profData = new PersonalDetails({
-              userId: res.locals.user.userId,
+            profData = {
               firstName: dataobj[datakey[0]],
               lastName: dataobj[datakey[1]],
               birthDate: dataobj[datakey[4]],
               country: dataobj[datakey[9]],
               zipCode: dataobj[datakey[10]],
-              PersonalStatement: dataobj[datakey[6]],
-              Summary: dataobj[datakey[7]],
-              MaidenName: dataobj[datakey[2]],
+              personalStatement: dataobj[datakey[6]],
+              summary: dataobj[datakey[7]],
+              maidenName: dataobj[datakey[2]],
               primaryEmail: primaryData.email,
-            });
-            await profData.save();
+            };
+            await PersonalDetails.update(
+              { userId: res.locals.user.userId },
+              { $set: profData },
+              { upsert: true },
+            );
           });
           objArray.forEach(async (dataobj: any) => {
             const datakey: any = Object.keys(dataobj);

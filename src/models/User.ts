@@ -53,6 +53,10 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  isLinkedinProfileFetched: {
+    type: Boolean,
+    default: false,
+  },
   createdAt: {
     type: Date,
   },
