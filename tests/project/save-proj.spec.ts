@@ -63,7 +63,7 @@ describe('Test for project data  ===> ', () => {
         return done();
       });
   });
-  it('Updating personal details api', done => {
+  it('Updating project details api', done => {
     supertest(app)
       .post(`/v1/project/save-project?userId=${newUserId}`)
       .set('X-Requested-With', 'XMLHttpRequest')
