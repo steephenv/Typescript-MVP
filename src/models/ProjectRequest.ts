@@ -1,17 +1,77 @@
+/* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
-// import { WSAEADDRINUSE } from 'constants';
 
-const projectSupportNeedSchema = new Schema({
+const projectRequestSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    unique: true,
+    required: true,
   },
   updatedAt: {
     type: Date,
   },
   createdAt: {
     type: Date,
+  },
+  stakeHolder: {
+    type: String,
+  },
+  businessFunction: {
+    type: String,
+  },
+  businessFunctionRole: {
+    type: String,
+  },
+  sponsorsPosition: {
+    type: String,
+  },
+  managersPosition: {
+    type: String,
+  },
+  currentStatus: {
+    type: String,
+  },
+  currentSituation: {
+    type: String,
+  },
+  challengeType: {
+    type: String,
+  },
+  challenge: {
+    type: String,
+  },
+  degreeOfChallenge: {
+    type: String,
+  },
+  goalValueAdd: {
+    type: String,
+  },
+  desiredFutureSituation: {
+    type: String,
+  },
+  targetStart: {
+    type: String,
+  },
+  expectedEnd: {
+    type: String,
+  },
+  mainLocation: {
+    type: String,
+  },
+  additionalLocations: {
+    type: String,
+  },
+  location2: {
+    type: String,
+  },
+  location3: {
+    type: String,
+  },
+  location4: {
+    type: String,
+  },
+  communication: {
+    type: String,
   },
   roleAndResponsibility: [
     {
@@ -97,8 +157,7 @@ const projectSupportNeedSchema = new Schema({
   },
 });
 
-// tslint:disable:variable-name
-export const ProjectSupportNeed = mongooseModel(
-  'ProjectSupportNeed',
-  projectSupportNeedSchema,
+export const ProjectRequest = mongooseModel(
+  'ProjectRequest',
+  projectRequestSchema,
 );

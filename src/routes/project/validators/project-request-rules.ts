@@ -1,5 +1,14 @@
 import * as Joi from 'joi';
 import { RequestHandler } from 'express';
+
+// tslint:disable:variable-name
+const EnvObjectSchema = Joi.object({
+  stakeHolder: Joi.string().allow(''),
+  businessFunction: Joi.string().allow(''),
+  businessFunctionRole: Joi.string().allow(''),
+  sponsorsPosition: Joi.string().allow(''),
+  managersPosition: Joi.string().allow(''),
+}).required();
 const skillsAndExpSchema = Joi.object({
   role: Joi.string().allow(''),
   yearsOfProfessionalExp: Joi.string().allow(''),
@@ -30,21 +39,43 @@ const roleAndRespSchema = Joi.object({
   travellingToLocations: Joi.array(),
   travellingFrequency: Joi.string().allow(''),
 });
-const objectSchema = Joi.object({
+const ProjectRequestSchema = Joi.object().keys({
+  currentStatus: Joi.string().allow(''),
+  currentSituation: Joi.string().allow(''),
+  challengeType: Joi.string().allow(''),
+  challenge: Joi.string().allow(''),
+  degreeOfChallenge: Joi.string().allow(''),
+  goalValueAdd: Joi.string().allow(''),
+  desiredFutureSituation: Joi.string().allow(''),
+  targetStart: Joi.string().allow(''),
+  expectedEnd: Joi.string().allow(''),
+  mainLocation: Joi.string().allow(''),
+  additionalLocations: Joi.string().allow(''),
+  location2: Joi.string().allow(''),
+  location3: Joi.string().allow(''),
+  location4: Joi.string().allow(''),
+  communication: Joi.string().allow(''),
+
+  stakeHolders: Joi.array().items(EnvObjectSchema),
+
   roleAndResponsibility: Joi.array().items(roleAndRespSchema),
   skillsAndExperience: Joi.array().items(skillsAndExpSchema),
   clientsMessage: Joi.string().allow(''),
-}).required();
+});
+
 // tslint:disable:variable-name
-// const ProjectSupportSchema = Joi.object().keys({
-//   educations: Joi.array()
-//     .items(objectSchema)
+// const ProjectEnvSchema = Joi.object().keys({
+//   stakeHolders: Joi.array()
+//     .items(EnvObjectSchema)
 //     .min(1)
 //     .required(),
 // });
 
-export const projectSupportValidation: RequestHandler = (req, res, next) => {
-  Joi.validate(req.body, objectSchema, { stripUnknown: true }, (err: any) => {
+export const projectRequestRule: RequestHandler = (req, res, next) => {
+  //   req.body.role = res.locals.user.role;
+  Joi.validate(req.body, ProjectRequestSchema, { stripUnknown: true }, err => {
+    // console.log();
+    // delete req.body.role;
     if (err) {
       return res.status(422).send({
         success: false,
