@@ -7,10 +7,6 @@ const ProjectCategorySchema: Schema = new Schema({
     type: String,
     require: true,
   },
-  cluster: {
-    type: String,
-    enum: ['Personal', 'Leadership', 'Entrepreneurship', 'Functional'],
-  },
 });
 export const ProjectCategory = mongooseModel(
   'projectCategory',
