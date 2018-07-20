@@ -90,6 +90,7 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     let skillStatus = false;
     let wlbStatus = false;
     let reviewCompleted = false;
+    let isLinkedinProfileFetched = false;
 
     if (personalDetailsData) {
       personalDetailsStatus = personalDetailsData.submitted;
@@ -103,6 +104,9 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     if (userData) {
       reviewCompleted = userData.profileDataVerified
         ? userData.profileDataVerified
+        : false;
+      isLinkedinProfileFetched = userData.isLinkedinProfileFetched
+        ? userData.isLinkedinProfileFetched
         : false;
     }
     if (educationData && educationData.length) {
@@ -125,9 +129,10 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
       skill: skillStatus,
       wlb: wlbStatus,
       reviewStatus: reviewCompleted,
+      linkDinDataFetched: isLinkedinProfileFetched,
     };
 
-    res.status(200).json({
+    return res.status(200).json({
       submittedStatus: submittedStatusObj,
       PersonalDetails: personalDetailsData,
       Education: educationData,
