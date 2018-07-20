@@ -1,4 +1,5 @@
 import { splitTime } from '../../utils/time-management/split-time';
+import { getWorkingPeriods } from '../../utils/time-management/get-working-periods';
 import { RequestHandler } from 'express';
 import {
   RequestError,
@@ -12,7 +13,7 @@ export const saveToAvailabilityCalender = async (
   endTime: Date,
   userId: string,
 ) => {
-  const slots = splitTime(startTime, endTime);
+  const slots = splitTime(startTime, endTime, 60 * 60 * 1000);
 
   await BluePromise.map(slots, slot => {
     const startDateString = `${slot.startTime.getFullYear()}-${slot.startTime.getMonth() +
@@ -34,13 +35,23 @@ export const saveToAvailabilityCalender = async (
 };
 
 export const saveAvailability: RequestHandler = async (req, res, next) => {
-  const d1 = new Date('2018-07-24T09:00:00.000Z');
-  const d2 = new Date('2018-07-24T18:00:00.000Z');
+  const d1 = new Date(req.body.dateRange.startDate).setHours(0, 0, 0, 0);
+  const d2 = new Date(req.body.dateRange.endDate).setHours(23, 59, 59, 999);
 
-  try {
-    await saveToAvailabilityCalender(d1, d2, '5b4ec872a460311897f866be');
-    return res.status(200).send('Success');
-  } catch (err) {
-    return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
-  }
+  const startingDate = new Date(d1);
+  const endingDate = new Date(d2);
+  const availableDays = splitTime(startingDate, endingDate, 86400000);
+  const periodsArray = getWorkingPeriods(
+    availableDays,
+    req.body.workingDays,
+    req.body.workingTime,
+    req.body.breakTime,
+  );
+  console.log(periodsArray);
+  // try {
+  //   await saveToAvailabilityCalender(d1, d2, '5b50993ceccf2407704efc6d');
+  //   return res.status(200).send('Success');
+  // } catch (err) {
+  //   return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
+  // }
 };

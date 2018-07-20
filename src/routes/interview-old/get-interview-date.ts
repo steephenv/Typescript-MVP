@@ -3,7 +3,8 @@ import {
   RequestError,
   RequestErrorType,
 } from '../../error-handler/RequestError';
-import { Interview } from '../../models/Interview';
+import { InterviewDetails } from '../../models/InterviewDetails';
+import { InterviewAvailabilityCalender } from '../../models/InterviewAvailabilityCalender';
 import '../../models/TimeSlots';
 // import { TimeSlot } from '../../models/TimeSlots';
 
@@ -12,13 +13,29 @@ export const getInterviewDate: RequestHandler = async (req, res, next) => {
     const comingUserId = req.query.userId
       ? req.query.userId
       : res.locals.user.userId;
-    const interview = await Interview.findOne({ userId: comingUserId })
-      .populate('slot')
+    let interview: any = await InterviewDetails.findOne({
+      contestId: comingUserId,
+    })
+      .lean()
       .exec();
-    // await TimeSlot.count({});
+    if (interview) {
+      const selectedSlot = await InterviewAvailabilityCalender.findOne({
+        interviewId: interview._id,
+      })
+        .lean()
+        .exec();
+      interview.slot = {
+        startTime: selectedSlot.startTime,
+        endTime: selectedSlot.endTime,
+      };
+      interview.slotDayStartingTime = selectedSlot.slotDayStartingTime;
+    } else {
+      interview = {};
+    }
+
     return res.status(200).send({
       success: true,
-      data: interview,
+      inter: interview,
     });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
