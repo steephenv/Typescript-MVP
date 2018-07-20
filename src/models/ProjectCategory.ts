@@ -9,6 +9,6 @@ const ProjectCategorySchema: Schema = new Schema({
   },
 });
 export const ProjectCategory = mongooseModel(
-  'projectCategory',
+  'ProjectCategory',
   ProjectCategorySchema,
 );
