@@ -3,6 +3,7 @@ import { Promise as BluePromise } from 'bluebird';
 
 import { Experience } from '../../models/Experience';
 import { EmployeeProjects } from '../../models/EmployeeProjects';
+import { addNewCity } from '../../../src/utils/add-new-city';
 
 import {
   RequestError,
@@ -26,7 +27,9 @@ export const saveExperience: RequestHandler = async (req, res, next) => {
       exp.createdBy = res.locals.user.userId;
       exp.submitted = true;
       const newData = new Experience(exp);
-      await newData.save();
+      const expSave = newData.save();
+      const citySave = addNewCity(exp.stateIso, exp.locationCity);
+      await BluePromise.all([expSave, citySave]);
       return;
     });
     await BluePromise.map(req.body.projects, async (project: any) => {
@@ -35,7 +38,9 @@ export const saveExperience: RequestHandler = async (req, res, next) => {
       project.createdBy = res.locals.user.userId;
       project.submitted = true;
       const newData = new EmployeeProjects(project);
-      await newData.save();
+      const projSave = newData.save();
+      const citySave = addNewCity(project.stateIso, project.locationCity);
+      await BluePromise.all([projSave, citySave]);
       return;
     });
     return res.status(200).send({ success: true });

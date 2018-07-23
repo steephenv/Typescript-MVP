@@ -2,6 +2,8 @@ import { RequestHandler } from 'express';
 import { Promise as BluePromise } from 'bluebird';
 import { Education } from '../../models/Education';
 
+import { addNewCity } from '../../../src/utils/add-new-city';
+
 import {
   RequestError,
   RequestErrorType,
@@ -23,7 +25,9 @@ export const saveEducation: RequestHandler = async (req, res, next) => {
       education.createdBy = res.locals.user.userId;
       education.submitted = true;
       const newData = new Education(education);
-      await newData.save();
+      const eduSave = newData.save();
+      const citySave = addNewCity(education.stateIso, education.locationCity);
+      await BluePromise.all([eduSave, citySave]);
       return;
     });
     return res.status(200).send({ success: true });
