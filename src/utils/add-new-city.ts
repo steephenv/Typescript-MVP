@@ -1,5 +1,5 @@
 import * as shortId from 'shortid';
-import { country } from '../../src/models/Country';
+import { country } from '../models/Country';
 
 export const addNewCity = async (iso: string, cityName: string) => {
   const extCountry = await country.find({
