@@ -33,6 +33,7 @@ export const listBPMAvailability: RequestHandler = async (req, res, next) => {
       { $sort: { 'slots.startTime': 1 } },
       { $group: { _id: '$_id', slotData: { $push: '$slots' } } },
       { $sort: { _id: 1 } },
+      { $limit: 3 },
     ]).exec();
     return res.status(200).send({ success: true, data: dates });
   } catch (err) {
