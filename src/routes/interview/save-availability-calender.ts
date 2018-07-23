@@ -8,31 +8,31 @@ import {
 import { InterviewAvailabilityCalender } from '../../models/InterviewAvailabilityCalender';
 import { Promise as BluePromise } from 'bluebird';
 
-export const saveToAvailabilityCalender = async (
-  startTime: Date,
-  endTime: Date,
-  userId: string,
-) => {
-  const slots = splitTime(startTime, endTime, 60 * 60 * 1000);
+// export const saveToAvailabilityCalender = async (
+//   startTime: Date,
+//   endTime: Date,
+//   userId: string,
+// ) => {
+//   const slots = splitTime(startTime, endTime, 60 * 60 * 1000);
 
-  await BluePromise.map(slots, slot => {
-    const startDateString = `${slot.startTime.getFullYear()}-${slot.startTime.getMonth() +
-      1}-${slot.startTime.getDate()}`;
-    const slotDayStarting = new Date(
-      new Date(startDateString).setHours(0, 0, 0, 0),
-    );
-    const savableSlot = new InterviewAvailabilityCalender({
-      userId,
-      startTime: slot.startTime,
-      endTime: slot.endTime,
-      slotDayStartingTime: slotDayStarting,
-      createdAt: new Date(),
-    });
+//   await BluePromise.map(slots, slot => {
+//     const startDateString = `${slot.startTime.getFullYear()}-${slot.startTime.getMonth() +
+//       1}-${slot.startTime.getDate()}`;
+//     const slotDayStarting = new Date(
+//       new Date(startDateString).setHours(0, 0, 0, 0),
+//     );
+//     const savableSlot = new InterviewAvailabilityCalender({
+//       userId,
+//       startTime: slot.startTime,
+//       endTime: slot.endTime,
+//       slotDayStartingTime: slotDayStarting,
+//       createdAt: new Date(),
+//     });
 
-    return savableSlot.save();
-  });
-  return;
-};
+//     return savableSlot.save();
+//   });
+//   return;
+// };
 
 export const saveAvailability: RequestHandler = async (req, res, next) => {
   const d1 = new Date(req.body.dateRange.startDate).setHours(0, 0, 0, 0);
@@ -47,5 +47,29 @@ export const saveAvailability: RequestHandler = async (req, res, next) => {
     req.body.workingTime,
     req.body.breakTime,
   );
-  // console.log(periodsArray);
+
+  const slotsArray = periodsArray.map(period => {
+    return splitTime(period.startTime, period.endTime, 60 * 60 * 1000);
+  });
+  const slots = slotsArray.map(newSlot => {
+    return newSlot[0];
+  });
+
+  await BluePromise.map(slots, slot => {
+    const startDateString = `${slot.startTime.getFullYear()}-${slot.startTime.getMonth() +
+      1}-${slot.startTime.getDate()}`;
+    const slotDayStarting = new Date(
+      new Date(startDateString).setHours(0, 0, 0, 0),
+    );
+    const savableSlot = new InterviewAvailabilityCalender({
+      userId: req.body.userId,
+      startTime: slot.startTime,
+      endTime: slot.endTime,
+      slotDayStartingTime: slotDayStarting,
+      createdAt: new Date(),
+    });
+
+    return savableSlot.save();
+  });
+  return res.status(200).send({ success: true });
 };
