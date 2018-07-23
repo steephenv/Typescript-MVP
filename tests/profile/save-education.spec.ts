@@ -41,6 +41,7 @@ describe('Test for saving education data  ===> ', () => {
             locationCountry: 'India',
             locationCity: 'gfhdsgh',
             locationState: 'gfhdsgh',
+            stateIso: '222',
             major: 'daf',
             degree: 'sefge',
             grade: 'esfe',
