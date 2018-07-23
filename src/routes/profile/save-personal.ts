@@ -1,7 +1,10 @@
 import { RequestHandler } from 'express';
+import { Promise as BluePromise } from 'bluebird';
 
 import { PersonalDetails } from '../../models/PersonalDetails';
 import { generateMiwagoUserId } from '../../utils/miwagoId-generator';
+
+import { addNewCity } from '../../../src/utils/add-new-city';
 
 import {
   RequestError,
@@ -32,7 +35,9 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
       );
     }
     if (req.query && req.query.userId) {
-      await PersonalDetails.update(where, { $set: req.body });
+      const updatePersonal = PersonalDetails.update(where, { $set: req.body });
+      const citySave = addNewCity(req.body.stateIso, req.body.city);
+      await BluePromise.all([updatePersonal, citySave]);
     } else {
       req.body.createdAt = new Date();
       req.body.createdBy = res.locals.user.userId;
@@ -42,7 +47,9 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
         return next(new RequestError(RequestErrorType.BAD_REQUEST, err));
       }
       const personalData = new PersonalDetails(req.body);
-      await personalData.save();
+      const personalSave = personalData.save();
+      const citySave = addNewCity(req.body.stateIso, req.body.city);
+      await BluePromise.all([personalSave, citySave]);
     }
     return res.status(200).send({ success: true });
   } catch (err) {
