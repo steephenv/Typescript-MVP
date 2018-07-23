@@ -15,6 +15,7 @@ export const getInterviewDate: RequestHandler = async (req, res, next) => {
       : res.locals.user.userId;
     let interview: any = await InterviewDetails.findOne({
       contestId: comingUserId,
+      interviewStatus: 'Applied',
     })
       .lean()
       .exec();
