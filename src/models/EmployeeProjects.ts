@@ -47,6 +47,9 @@ const projectsSchema = new Schema({
   locationCity: {
     type: String,
   },
+  stateIso: {
+    type: String,
+  },
   businessFunction: {
     type: String,
   },

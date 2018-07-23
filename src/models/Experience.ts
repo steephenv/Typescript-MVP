@@ -54,6 +54,9 @@ const experienceSchema = new Schema({
   locationState: {
     type: String,
   },
+  stateIso: {
+    type: String,
+  },
   mainResponsibility: {
     type: String,
   },

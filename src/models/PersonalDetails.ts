@@ -91,6 +91,9 @@ const personalDetailsSchema = new Schema({
   socialInsuranceId: {
     type: Number,
   },
+  stateIso: {
+    type: String,
+  },
   healthInsuranceType: {
     type: String,
   },

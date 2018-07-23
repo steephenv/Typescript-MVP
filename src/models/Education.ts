@@ -39,6 +39,9 @@ const educationDetailsSchema = new Schema({
   locationCity: {
     type: String,
   },
+  stateIso: {
+    type: String,
+  },
   locationState: {
     type: String,
   },
