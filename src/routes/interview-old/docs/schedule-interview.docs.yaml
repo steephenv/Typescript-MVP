@@ -1,10 +1,10 @@
-/interview/schedule-interview:
+/interview-old/schedule-interview:
   post:
     security:
     - Bearer: []
     summary: api schedule interview.
     tags:
-    - Interview
+    - OldInterview
     description: api schedule interview
     parameters:
     - name: X-Requested-With
@@ -18,17 +18,22 @@
       schema:
         type: object
         required:
-        - startTime
-        - endTime
+        - dateString
         - typeOfCall
+        - slot
         properties:
-          startTime:
-            type: date
-          endTime:
-            type: date  
+          dateString:
+            type: string
+            example: '2018-07-03'
           typeOfCall:
             type: string
-            example: Video     
+            example: Video
+          slot:
+            type: string
+            example: 5b3b3b6c7a01e64d83e43ceb
+          id:
+            type: string
+            example: 5b3b3b6c7a01e64d83e43ceb      
     responses:
       201:
         description: "successful attempt, returns `success message`"

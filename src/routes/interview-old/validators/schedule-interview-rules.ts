@@ -2,12 +2,14 @@ import * as Joi from 'joi';
 import { RequestHandler } from 'express';
 
 const scheduleInterviewSchema = Joi.object().keys({
-  startTime: Joi.date().required(),
-  endTime: Joi.date().required(),
-  typeOfCall: Joi.string().required(),
-  userId: Joi.string()
+  dateString: Joi.string().required(),
+  typeOfCall: Joi.strict().required(),
+  id: Joi.string()
     .length(24)
     .optional(),
+  slot: Joi.string()
+    .length(24)
+    .required(),
 });
 
 export const scheduleInterviewRules: RequestHandler = (req, res, next) => {

@@ -1,62 +1,62 @@
-/* tslint:disable:no-var-requires */
 import { RequestHandler } from 'express';
-
-import { Interview } from '../../models/Interview';
-import { AvailabilityCalender } from '../../models/AvailabilityCalender';
 import {
   RequestError,
   RequestErrorType,
 } from '../../error-handler/RequestError';
+import { Promise as BluePromise } from 'bluebird';
 
 import { messages } from '../../config/app/messages';
 
+import { InterviewAvailabilityCalender } from '../../models/InterviewAvailabilityCalender';
+import { InterviewDetails } from '../../models/InterviewDetails';
+
 export const scheduleInterview: RequestHandler = async (req, res, next) => {
+  const givenStartTime = new Date(req.body.startTime);
+  const givenEndTime = new Date(req.body.endTime);
+  const contestant = req.body.userId ? req.body.userId : res.locals.user.userId;
+
   try {
-    const appliedRecord: any = await Interview.findOne({
-      userId: res.locals.user.userId,
-      status: 'Applied',
-    })
-      .lean()
-      .exec();
-    if (appliedRecord) {
-      const calQuery = {
-        dateString: appliedRecord.dateString,
-        slot: appliedRecord.slot,
-      };
-      await AvailabilityCalender.update(calQuery, {
-        $addToSet: { userId: appliedRecord.interviewer },
-      });
-      await Interview.remove({
-        userId: res.locals.user.userId,
-        status: 'Applied',
-      });
+    const existingInterview: any = await InterviewDetails.findOne({
+      contestId: contestant,
+      interviewStatus: 'Applied',
+    }).exec();
+
+    if (existingInterview) {
+      const updateCalender = InterviewAvailabilityCalender.update(
+        {
+          interviewId: existingInterview._id,
+        },
+        { $set: { booked: false, interviewId: null } },
+      );
+
+      existingInterview.interviewStatus = 'Cancelled';
+      const updateExistingInterview = existingInterview.save();
+
+      await BluePromise.all([updateCalender, updateExistingInterview]);
     }
 
-    const query = { dateString: req.body.dateString, slot: req.body.slot };
-    const freePersons: any = await AvailabilityCalender.findOne(query).exec();
+    const availableSlot: any = await InterviewAvailabilityCalender.findOne({
+      startTime: givenStartTime,
+      endTime: givenEndTime,
+      booked: false,
+    }).exec();
 
-    if (!freePersons || freePersons.userId.length === 0) {
-      return res.status(401).send({
-        success: false,
-        msg: messages.NoInterviewer.ENG,
-      });
+    if (!availableSlot) {
+      return next(
+        new RequestError(RequestErrorType.BAD_REQUEST, messages.NoInterviewer),
+      );
     }
 
-    const interViewer = freePersons.userId[0];
-    freePersons.userId.shift();
-    freePersons.assigned.push(interViewer);
-    await freePersons.save();
-
-    const dateVal = new Date(req.body.dateString);
-    const newInterview = new Interview({
-      interviewDate: dateVal,
+    const newInterview = new InterviewDetails({
+      contestId: contestant,
       typeOfCall: req.body.typeOfCall,
-      slot: req.body.slot,
-      dateString: req.body.dateString,
-      interviewer: interViewer,
-      userId: res.locals.user.userId,
+      interviewStatus: 'Applied',
     });
-    await newInterview.save();
+    const savedInterview = await newInterview.save();
+
+    availableSlot.booked = true;
+    availableSlot.interviewId = savedInterview._id;
+    await availableSlot.save();
 
     return res.status(201).send({
       success: true,
