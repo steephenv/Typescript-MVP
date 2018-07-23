@@ -4,7 +4,7 @@ import { Promise as BluePromise } from 'bluebird';
 import { PersonalDetails } from '../../models/PersonalDetails';
 import { generateMiwagoUserId } from '../../utils/miwagoId-generator';
 
-import { addNewCity } from '../../../src/utils/add-new-city';
+import { addNewCity } from '../../utils/add-new-city';
 
 import {
   RequestError,

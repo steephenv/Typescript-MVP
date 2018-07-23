@@ -3,7 +3,7 @@ import { Promise as BluePromise } from 'bluebird';
 
 import { Experience } from '../../models/Experience';
 import { EmployeeProjects } from '../../models/EmployeeProjects';
-import { addNewCity } from '../../../src/utils/add-new-city';
+import { addNewCity } from '../../utils/add-new-city';
 
 import {
   RequestError,
