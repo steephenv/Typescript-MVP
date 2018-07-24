@@ -4,6 +4,8 @@ import { Promise as BluePromise } from 'bluebird';
 import { Experience } from '../../models/Experience';
 import { EmployeeProjects } from '../../models/EmployeeProjects';
 import { addNewCity } from '../../utils/add-new-city';
+import { addNewBusinessFunction } from '../../utils/add-new-bus-fun-industryline';
+import { addNewIndustryLine } from '../../utils/add-new-bus-fun-industryline';
 
 import {
   RequestError,
@@ -30,6 +32,7 @@ export const saveExperience: RequestHandler = async (req, res, next) => {
       const expSave = newData.save();
       const citySave = addNewCity(exp.stateIso, exp.locationCity);
       await BluePromise.all([expSave, citySave]);
+      await addNewIndustryLine(exp.companyIndustryLine);
       return;
     });
     await BluePromise.map(req.body.projects, async (project: any) => {
@@ -41,6 +44,8 @@ export const saveExperience: RequestHandler = async (req, res, next) => {
       const projSave = newData.save();
       const citySave = addNewCity(project.stateIso, project.locationCity);
       await BluePromise.all([projSave, citySave]);
+      await addNewBusinessFunction(project.businessFunction);
+      await addNewIndustryLine(project.companyIndustryLine);
       return;
     });
     return res.status(200).send({ success: true });
