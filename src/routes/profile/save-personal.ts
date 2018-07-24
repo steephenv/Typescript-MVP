@@ -30,7 +30,7 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
       return next(
         new RequestError(
           RequestErrorType.CONFLICT,
-          messages.DuplicateSecondaryEmail,
+          messages.DuplicateSecondaryEmail.ENG,
         ),
       );
     }
