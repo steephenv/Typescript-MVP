@@ -26,7 +26,10 @@ export const saveEducation: RequestHandler = async (req, res, next) => {
       education.submitted = true;
       const newData = new Education(education);
       const eduSave = newData.save();
-      const citySave = addNewCity(education.stateIso, education.locationCity);
+      const citySave = addNewCity(
+        education.locationState,
+        education.locationCity,
+      );
       await BluePromise.all([eduSave, citySave]);
       return;
     });

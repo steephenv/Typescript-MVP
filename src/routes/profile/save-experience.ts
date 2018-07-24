@@ -28,7 +28,7 @@ export const saveExperience: RequestHandler = async (req, res, next) => {
       exp.submitted = true;
       const newData = new Experience(exp);
       const expSave = newData.save();
-      const citySave = addNewCity(exp.stateIso, exp.locationCity);
+      const citySave = addNewCity(exp.locationState, exp.locationCity);
       await BluePromise.all([expSave, citySave]);
       return;
     });
@@ -39,7 +39,7 @@ export const saveExperience: RequestHandler = async (req, res, next) => {
       project.submitted = true;
       const newData = new EmployeeProjects(project);
       const projSave = newData.save();
-      const citySave = addNewCity(project.stateIso, project.locationCity);
+      const citySave = addNewCity(project.locationState, project.locationCity);
       await BluePromise.all([projSave, citySave]);
       return;
     });
