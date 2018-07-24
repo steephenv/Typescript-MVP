@@ -1,6 +1,6 @@
-/auth/get-cities/:
+/auth/get-country-details/:
   get:
-    summary: api to get cities.
+    summary: api to get details of a country.
     tags:
     - Authentication
     description: auth
@@ -10,15 +10,11 @@
       in: header
       required: true
       default: XMLHttpRequest
-    - name: state
+    - name: countryName
       in: query
       type: string
-      description: iso code of state - optional
-      example: IN-01
-    - name: stateName
-      in: query
-      type: string
-      description: name of state - optional  
+      description: name of the country
+      example: India 
     responses:
       200:
         description: "successful attempt, returns `success message`"

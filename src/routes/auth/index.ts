@@ -19,6 +19,7 @@ import { passwordReset } from './reset-password';
 import { getCountries } from './get-countries';
 import { getStates } from './get-countries';
 import { getCities } from './get-countries';
+import { getCountryDetails } from './get-countries';
 
 export const auth = express.Router();
 
@@ -36,3 +37,4 @@ auth.post('/reset-password', resetPasswordValidation, passwordReset);
 auth.get('/get-countries', getCountries);
 auth.get('/get-states', getStates);
 auth.get('/get-cities', getCities);
+auth.get('/get-country-details', getCountryDetails);
