@@ -1,25 +1,31 @@
 /assets/industries:
-  get:
+  post:
     # security:
     # - Bearer: []
-    summary: api to list industries.
+    summary: api to create an industry.
     tags:
     - Assets
     - Industry
-    description: api to list industries. Params are optional
+    description: api to create an industry.
     parameters:
     - name: X-Requested-With
       description: set value to XMLHttpRequest if you are making an xhr request
       in: header
       required: true
       default: XMLHttpRequest
-
-    - name: name
-      type: string
-      description: name of the industry
-      in: query
-      example: dairy
-
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        - name
+        properties:
+          name:
+            type: string
+            description: industry name
+            example: grumpy
+        
     responses:
-      200:
+      201:
         description: "successful attempt, returns `success message`"
