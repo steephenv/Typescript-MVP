@@ -12,7 +12,7 @@ export const listAssetSubCategory: RequestHandler = async (req, res, next) => {
 
     return res.status(200).send({
       success: true,
-      categories: subCats,
+      subCategories: subCats,
     });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));

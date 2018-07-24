@@ -8,10 +8,10 @@ import {
 
 export const listIndustries: RequestHandler = async (req, res, next) => {
   try {
-    const cats = await Industry.find(req.query).exec();
+    const ins = await Industry.find(req.query).exec();
     return res.status(200).send({
       success: true,
-      categories: cats,
+      industries: ins,
     });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
