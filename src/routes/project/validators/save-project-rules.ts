@@ -25,6 +25,7 @@ const ProjectSchema = Joi.object().keys({
   referenceProjectDate: Joi.date(),
   referenceCountry: Joi.string().allow(''),
   referenceLanguage: Joi.string().allow(''),
+  categoryId: Joi.string().allow(''),
 });
 export const saveProjectRule: RequestHandler = (req, res, next) => {
   //   req.body.role = res.locals.user.role;

@@ -54,6 +54,7 @@ describe('Test for project data  ===> ', () => {
         referenceProjectDate: new Date(),
         referenceCountry: 'dsvbusyhv',
         referenceLanguage: 'dsvbusyhv',
+        categoryId: '5b56deb462c159350a0b1165',
       })
       .expect(200)
       .end((err, res) => {
@@ -91,6 +92,7 @@ describe('Test for project data  ===> ', () => {
         referenceProjectDate: new Date(),
         referenceCountry: 'dsvbusyhv',
         referenceLanguage: 'dsvbusyhv',
+        categoryId: '5b56deb462c159350a0b1165',
       })
       .expect(200)
       .end((err, res) => {
