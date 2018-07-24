@@ -5,6 +5,7 @@
     summary: api to list industries.
     tags:
     - Assets
+    - Industry
     description: api to list industries. Params are optional
     parameters:
     - name: X-Requested-With
