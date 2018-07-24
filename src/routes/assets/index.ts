@@ -9,6 +9,7 @@ import { listAssetCategory } from './list-asset-category';
 import { createAssetCategory } from './create-category';
 import { createAssetSubCategory } from './create-sub-category';
 import { listAssetSubCategory } from './list-sub-category';
+import { listIndustries } from './list-industries';
 
 import { recordValidationChain } from './validators/record-assets.validation-chain';
 import { listValidationChain } from './validators/list-assets.validation-chain';
@@ -45,3 +46,6 @@ assets.post(
   createAssetSubCategory,
 );
 assets.get('/sub-category', listSubCatRule, errValidator, listAssetSubCategory);
+
+// industries
+assets.get('/industries', listIndustries);
