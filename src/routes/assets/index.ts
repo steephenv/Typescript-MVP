@@ -10,12 +10,14 @@ import { createAssetCategory } from './create-category';
 import { createAssetSubCategory } from './create-sub-category';
 import { listAssetSubCategory } from './list-sub-category';
 import { listIndustries } from './list-industries';
+import { createIndustries } from './create-industries';
 
 import { recordValidationChain } from './validators/record-assets.validation-chain';
 import { listValidationChain } from './validators/list-assets.validation-chain';
 import { createCategoryValidationChain } from './validators/create-category.validation-chain';
 import { createSubCatValidationChain } from './validators/create-asset-sub-category.rule';
 import { listSubCatRule } from './validators/list-sub-category.rule';
+import { createIndustryRule } from './validators/create-industry.rule';
 
 export const assets = express.Router();
 
@@ -49,3 +51,4 @@ assets.get('/sub-category', listSubCatRule, errValidator, listAssetSubCategory);
 
 // industries
 assets.get('/industries', listIndustries);
+assets.post('/industries', createIndustryRule, errValidator, createIndustries);
