@@ -1,0 +1,29 @@
+/assets/sub-category:
+  get:
+    # security:
+    # - Bearer: []
+    summary: list sub-categories under a category.
+    tags:
+    - Assets
+    description: list sub-categories under a category.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+
+    - name: categoryId
+      type: string
+      description: id of the parent category
+      in: query
+      example: 5b4f0845b48361468f85033c
+    - name: subCategoryName
+      type: string
+      description: search by name of sub-category
+      in: query
+      example: mirabelis
+    
+    responses:
+      201:
+        description: "successful attempt, returns `success message`"
