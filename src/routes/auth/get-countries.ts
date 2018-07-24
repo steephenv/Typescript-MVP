@@ -9,7 +9,7 @@ import {
 export const getCitiesFromIso = async (stateIso: string) => {
   const regexp = new RegExp(`^${stateIso}-`);
   return await country
-    .find({ type: 'RE', iso: regexp })
+    .find({ type: 'CI', iso: regexp })
     .lean()
     .exec();
 };
@@ -58,7 +58,7 @@ export const getCities: RequestHandler = async (req, res, next) => {
       const stateDetails: any = await country
         .findOne({
           type: 'RE',
-          local_name: req.query.stateName,
+          local_name: new RegExp(`^${req.query.stateName}`),
         })
         .lean()
         .exec();
