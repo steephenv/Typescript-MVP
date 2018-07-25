@@ -11,6 +11,15 @@ const consultant = {
   password: 'password',
   mobile: '1111111',
 };
+const admin = {
+  firstName: 'Red',
+  lastName: 'Velvet',
+  appliedRole: 'Admin',
+  email: 'red@velvet.com',
+  role: 'Admin',
+  password: 'password',
+  mobile: '1111111',
+};
 const dumUser1 = {
   firstName: 'Tony',
   lastName: 'Stark',
@@ -36,9 +45,11 @@ export const initUsers = () => {
   const savableConsultant = new User(consultant);
   const savableDumUser1 = new User(dumUser1);
   const savableTemp = new TempUser(temp1);
+  const savableAdmin = new User(admin);
   return BluePromise.all([
     savableConsultant.save(),
     savableDumUser1.save(),
     savableTemp.save(),
+    savableAdmin.save(),
   ]);
 };
