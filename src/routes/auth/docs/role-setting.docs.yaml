@@ -1,0 +1,38 @@
+/auth/role-setting:
+  post:
+    security:
+    - Bearer: []
+    summary: api to role setting.
+    tags:
+    - Authentication
+    description: auth
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        - role
+        - userId
+        - isApproved
+        properties:
+          role:
+            type: string
+            example: Consultant
+            description: only roles - Consultant and Employee
+          userId:
+            type: string
+            example: id of user
+          isApproved:
+            type: boolean
+            example: true
+        
+    responses:
+      201:
+        description: "successful attempt, returns `success message`"
