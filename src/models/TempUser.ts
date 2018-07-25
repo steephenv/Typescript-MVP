@@ -13,7 +13,7 @@ const TempUserSchema: Schema = new Schema({
   },
   appliedRole: {
     type: String,
-    enum: ['User', 'Consultant', 'BPM', 'Client', 'Employee'],
+    enum: ['User', 'Consultant', 'BPM', 'Client', 'Admin', 'Employee'],
     required: true,
   },
   callTime: {
@@ -32,7 +32,7 @@ const TempUserSchema: Schema = new Schema({
   },
   role: {
     type: String,
-    enum: ['User', 'Consultant', 'BPM', 'Client', 'Employee'],
+    enum: ['User', 'Consultant', 'BPM', 'Admin', 'Client', 'Employee'],
     required: true,
   },
   password: {
