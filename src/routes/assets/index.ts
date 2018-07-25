@@ -12,6 +12,7 @@ import { listAssetSubCategory } from './list-sub-category';
 import { listIndustries } from './list-industries';
 import { createIndustries } from './create-industries';
 import { upsertBusinessFunction } from './upsert-business-fn';
+import { listBusinessFns } from './list-business-fn';
 
 import { upsertBusinessFnRule } from './validators/upsert-business-fn.rule';
 import { recordValidationChain } from './validators/record-assets.validation-chain';
@@ -61,3 +62,4 @@ assets.post(
   upsertBusinessFnRule,
   upsertBusinessFunction,
 );
+assets.get('/business-functions', listBusinessFns);
