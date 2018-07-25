@@ -11,7 +11,9 @@ import { createAssetSubCategory } from './create-sub-category';
 import { listAssetSubCategory } from './list-sub-category';
 import { listIndustries } from './list-industries';
 import { createIndustries } from './create-industries';
+import { upsertBusinessFunction } from './upsert-business-fn';
 
+import { upsertBusinessFnRule } from './validators/upsert-business-fn.rule';
 import { recordValidationChain } from './validators/record-assets.validation-chain';
 import { listValidationChain } from './validators/list-assets.validation-chain';
 import { createCategoryValidationChain } from './validators/create-category.validation-chain';
@@ -52,3 +54,10 @@ assets.get('/sub-category', listSubCatRule, errValidator, listAssetSubCategory);
 // industries
 assets.get('/industries', listIndustries);
 assets.post('/industries', createIndustryRule, errValidator, createIndustries);
+
+// business functions
+assets.post(
+  '/business-functions',
+  upsertBusinessFnRule,
+  upsertBusinessFunction,
+);
