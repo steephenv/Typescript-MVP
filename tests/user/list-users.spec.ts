@@ -27,7 +27,7 @@ describe('List users api', () => {
   it('Listing employees and consultants', done => {
     supertest(app)
       .get(
-        `/v1/auth/list-users?values=["Employee", "Consultant"]&field=appliedRole`,
+        `/v1/auth/list-users/1?values=["Employee", "Consultant"]&field=appliedRole`,
       )
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
