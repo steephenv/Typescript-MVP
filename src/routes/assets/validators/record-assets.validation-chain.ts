@@ -13,14 +13,6 @@ export const recordValidationChain = [
       }
       return true;
     }),
-  body('imageAccessUrl')
-    .optional()
-    .custom(val => {
-      if (val.constructor.name !== 'Array' || typeof val[0] !== 'string') {
-        throw new Error('imageAccessUrl must be a string array');
-      }
-      return true;
-    }),
   body('fileName').exists(),
   body('userId')
     .optional()

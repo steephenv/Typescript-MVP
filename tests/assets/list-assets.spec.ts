@@ -16,7 +16,7 @@ describe('testing asset listing', () => {
         done();
       });
   });
-  test.only('testing keyQuery search', done => {
+  test('testing keyQuery search', done => {
     supertest(app)
       .get('/v1/assets?keyQuery=a&description=lorem ipsium doller sit')
       .set('X-Requested-With', 'XMLHttpRequest')
