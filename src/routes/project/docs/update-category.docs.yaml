@@ -1,0 +1,40 @@
+/project/update-project-category:
+  post:
+    security:
+    - Bearer: []
+    summary: api for update project category and sub category.
+    tags:
+    - projects
+    description: api for update project category and sub category.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        - category
+        - subCategories
+        properties:
+          category:
+            type: string
+          _id:
+            type: string
+            description: _id of project main category  
+          subCategories:
+            type: array
+            items:
+              properties:
+                subCategory:
+                  type: string
+                _id:
+                  type: string
+                  description: _id of project sub category    
+    responses:
+      200:
+        description: "successful attempt, returns `success message`"
