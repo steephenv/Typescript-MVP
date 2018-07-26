@@ -3,7 +3,7 @@
 import { model as mongooseModel, Schema } from 'mongoose';
 
 const BusinessSubFunctionSchema: Schema = new Schema({
-  subFunctionName: {
+  name: {
     type: String,
     require: true,
   },
