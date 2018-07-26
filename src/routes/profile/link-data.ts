@@ -70,7 +70,6 @@ export const linkData: RequestHandler = async (req, res, next) => {
     const primaryData: any = await User.findOne({
       _id: res.locals.user.userId,
     }).exec();
-    console.log('dfsdf', primaryData);
     if (primaryData) {
       primaryData.isLinkedinProfileFetched = true;
       await primaryData.save();
