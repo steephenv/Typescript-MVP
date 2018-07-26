@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
 import * as sgMail from '@sendgrid/mail';
+import { Promise as BluePromise } from 'bluebird';
 import {
   RequestError,
   RequestErrorType,
@@ -11,15 +12,29 @@ import { sendGTemplates } from '../../config/credentials/sendgrid-templates';
 sgMail.setApiKey(secrets.sendGridKey);
 
 import { User } from '../../models/User';
+import { InterviewDetails } from '../../models/InterviewDetails';
 
 export const saveRole: RequestHandler = async (req, res, next) => {
   try {
     if (req.body.isApproved) {
-      await User.update(
+      const userUpdate = User.update(
         { _id: req.body.userId },
-        { $set: { role: req.body.role } },
+        { $set: { role: req.body.role, appliedRole: '' } },
       );
+      const interviewUpdate = InterviewDetails.update(
+        {
+          _id: req.body.interviewId,
+        },
+        { $set: { interviewStatus: 'Passed' } },
+      );
+      await BluePromise.all([userUpdate, interviewUpdate]);
     }
+    await InterviewDetails.update(
+      {
+        _id: req.body.interviewId,
+      },
+      { $set: { interviewStatus: 'Failed' } },
+    );
     const user = await User.findOne({ _id: req.body.userId })
       .lean()
       .exec();
