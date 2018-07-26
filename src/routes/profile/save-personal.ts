@@ -30,7 +30,7 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
       return next(
         new RequestError(
           RequestErrorType.CONFLICT,
-          messages.DuplicateSecondaryEmail,
+          messages.DuplicateSecondaryEmail.ENG,
         ),
       );
     }
@@ -48,7 +48,7 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
       }
       const personalData = new PersonalDetails(req.body);
       const personalSave = personalData.save();
-      const citySave = addNewCity(req.body.stateIso, req.body.city);
+      const citySave = addNewCity(req.body.state, req.body.city);
       await BluePromise.all([personalSave, citySave]);
     }
     return res.status(200).send({ success: true });

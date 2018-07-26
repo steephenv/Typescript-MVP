@@ -1,0 +1,20 @@
+/auth/get-country-details/:
+  get:
+    summary: api to get details of a country.
+    tags:
+    - Authentication
+    description: auth
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: countryName
+      in: query
+      type: string
+      description: name of the country
+      example: India 
+    responses:
+      200:
+        description: "successful attempt, returns `success message`"

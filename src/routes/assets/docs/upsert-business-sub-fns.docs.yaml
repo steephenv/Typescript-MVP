@@ -1,0 +1,30 @@
+/assets/business-sub-functions:
+  post:
+    # security:
+    # - Bearer: []
+    summary: create/update business sub functions.
+    tags:
+    - Assets
+    - Business Functions
+    description: "if you pass `_id`, it will update the record"
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        - content
+        properties:
+          content:
+            type: object
+            description: "the fields you need to update. passing `_id` results in update op"
+            example: [{name: 'mango', businessFunctionId: '5b4f0845b48361468f85033c'}, {name: 'apple', businessFunctionId: '5b4f0845b48361468f85033c', _id: '5b4f0845b48361468f85033c'}]
+    responses:
+      200:
+        description: "successful attempt, returns `success message`"

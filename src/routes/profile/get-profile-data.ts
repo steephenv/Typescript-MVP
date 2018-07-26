@@ -2,7 +2,6 @@ import { RequestHandler } from 'express';
 import { Promise as BluePromise } from 'bluebird';
 
 import { PersonalDetails } from '../../models/PersonalDetails';
-// import { CustomerCredentials } from '../../models/CustomerCredentials';
 import { Education } from '../../models/Education';
 import { Experience } from '../../models/Experience';
 import { EmployeeProjects } from '../../models/EmployeeProjects';

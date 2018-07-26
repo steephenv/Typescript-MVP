@@ -1,0 +1,25 @@
+/auth/list-users:
+  get:
+    security:
+    - Bearer: []
+    summary: api for listing users.
+    tags:
+    - Authentication
+    description: auth
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: field
+      description: field name for searching 
+      required: true
+      example: appliedRole
+    - name: values
+      description: values for searching 
+      required: true
+      example: '[Applicant, Consultant]'    
+    responses:
+      200:
+        description: "successful attempt, returns `success message`"

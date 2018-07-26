@@ -1,0 +1,25 @@
+/assets/industries:
+  get:
+    # security:
+    # - Bearer: []
+    summary: api to list industries.
+    tags:
+    - Assets
+    - Industry
+    description: api to list industries. Params are optional
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+
+    - name: name
+      type: string
+      description: name of the industry
+      in: query
+      example: dairy
+
+    responses:
+      200:
+        description: "successful attempt, returns `success message`"

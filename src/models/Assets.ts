@@ -20,9 +20,11 @@ const assetsSchema: Schema = new Schema({
   category: {
     type: String,
   },
-  attributes: {
-    type: String,
-  },
+  attributes: [
+    {
+      type: String,
+    },
+  ],
   coAuthoring: {
     type: String,
   },

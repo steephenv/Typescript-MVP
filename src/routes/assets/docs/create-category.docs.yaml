@@ -1,0 +1,30 @@
+/assets/category:
+  post:
+    # security:
+    # - Bearer: []
+    summary: api to create an asset category.
+    tags:
+    - Assets
+    description: api to create an asset category
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        - name
+        properties:
+          name:
+            type: string
+            description: asset category name
+            example: cato
+        
+    responses:
+      201:
+        description: "successful attempt, returns `success message`"

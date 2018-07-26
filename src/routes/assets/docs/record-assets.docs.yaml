@@ -31,8 +31,8 @@
             type: string
             example: kingdom animalia
           attributes:
-            type: string
-            example: cheetah is a part of it
+            type: array
+            example: ['cheetah is a part of it', 'and kity too']
           coAuthoring:
             type: string
             example: tiger
