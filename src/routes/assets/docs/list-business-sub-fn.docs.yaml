@@ -1,0 +1,30 @@
+/assets/business-sub-functions:
+  get:
+    # security:
+    # - Bearer: []
+    summary: list business sub functions under a category.
+    tags:
+    - Assets
+    - Business Functions
+    description: list business sub functions under a category.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+
+    - name: businessFunctionId
+      type: string
+      description: id of the parent business functions
+      in: query
+      example: 5b4f0845b48361468f85033c
+    - name: name
+      type: string
+      description: search by name of business-sub-function
+      in: query
+      example: merabelis
+    
+    responses:
+      201:
+        description: "successful attempt, returns `success message`"

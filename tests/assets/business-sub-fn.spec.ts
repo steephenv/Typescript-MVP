@@ -24,7 +24,7 @@ describe('testing business-sub-fn', () => {
         done();
       });
   });
-  test.only('testing update', done => {
+  test('testing update', done => {
     supertest(app)
       .post('/v1/assets/business-sub-functions')
       .set('X-Requested-With', 'XMLHttpRequest')
