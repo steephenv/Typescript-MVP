@@ -28,7 +28,6 @@ export const updateCollection = async (
 };
 
 export const saveProjectCategory: RequestHandler = async (req, res, next) => {
-  console.log('fsdgfsdf');
   try {
     const savedCategory = await saveCollection(ProjectCategory, {
       category: req.body.category,
