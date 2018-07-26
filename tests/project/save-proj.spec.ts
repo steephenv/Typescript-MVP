@@ -28,7 +28,7 @@ beforeAll(done => {
 describe('Test for project data  ===> ', () => {
   it('Saving project details api', done => {
     supertest(app)
-      .post(`/v1/project/save-project`)
+      .post('/v1/project/save-project?category=5b597254e72ede2d3a4941e7')
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
       .send({
@@ -38,9 +38,9 @@ describe('Test for project data  ===> ', () => {
         targetGroup: 'dsvbusyhv',
         category: 'dsvbusyhv',
         subCategory: 'dsvbusyhv',
-        industryLine: 'dsvbusyhv',
-        businessFunctions: 'dsvbusyhv',
-        businessSubFunctions: 'dsvbusyhv',
+        industryLine: 'testindustryline',
+        businessFunctions: 'TrialBusFn',
+        businessSubFunctions: 'createSubFn',
         projectStages: 'dsvbusyhv',
         technology: 'dsvbusyhv',
         projectMaturity: 'dsvbusyhv',
@@ -54,45 +54,7 @@ describe('Test for project data  ===> ', () => {
         referenceProjectDate: new Date(),
         referenceCountry: 'dsvbusyhv',
         referenceLanguage: 'dsvbusyhv',
-        categoryId: '5b56deb462c159350a0b1165',
-      })
-      .expect(200)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
-      });
-  });
-  it('Updating project details api', done => {
-    supertest(app)
-      .post(`/v1/project/save-project?userId=${newUserId}`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
-        projectTittle: 'dsvbzxvxzusyhv',
-        currentSituation: 'dsvbusyhv',
-        targetSituation: 'dsvbusyhv',
-        targetGroup: 'dsvbusyhv',
-        category: 'xzvvzzxv',
-        subCategory: 'dsvbusyhv',
-        industryLine: 'dsvbusyhv',
-        businessFunctions: 'xzvzxvdsvbusyhv',
-        businessSubFunctions: 'dsvbusxzvyhv',
-        projectStages: 'dsvbusyhv',
-        technology: 'dsvbuxzvvsyhv',
-        projectMaturity: 'dsxzvxvvbusyhv',
-        effort: 'dsvbusyhv',
-        price: 124,
-        impact: 'dsvbusyhv',
-        impactLevel: 'dsvzxvxzvbusyhv',
-        picture: 'dsvbusyhv',
-        referenceIndustry: 'dsvbusyhv',
-        referenceClientTypes: 'dsvbusyhv',
-        referenceProjectDate: new Date(),
-        referenceCountry: 'dsvbusyhv',
-        referenceLanguage: 'dsvbusyhv',
-        categoryId: '5b56deb462c159350a0b1165',
+        // categoryId: '5b586952d878f458b9b2a7ef',
       })
       .expect(200)
       .end((err, res) => {

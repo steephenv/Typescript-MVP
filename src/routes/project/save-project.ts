@@ -17,16 +17,16 @@ export const saveProject: RequestHandler = async (req, res, next) => {
     where.userId = req.query.userId ? req.query.userId : res.locals.user.userId;
     req.body.updatedAt = new Date();
     req.body.userId = where.userId;
-    if (req.query && req.query.userId) {
-      await Project.update(where, { $set: req.body });
-    } else {
-      req.body.createdAt = new Date();
-      const projectData = new Project(req.body);
-      await projectData.save();
-    }
+    // if (req.query && req.query.userId) {
+    //   await Project.update(where, { $set: req.body });
+    // } else {
+    req.body.createdAt = new Date();
+    const projectData = new Project(req.body);
+    await projectData.save();
+    // }
     await addNewBusinessFunction(req.body.businessFunctions);
     await addNewBusinessSubFunction(
-      req.body.categoryId,
+      req.query.category,
       req.body.businessSubFunctions,
     );
     await addNewIndustryLine(req.body.companyIndustryLine);
