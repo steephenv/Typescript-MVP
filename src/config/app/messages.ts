@@ -79,6 +79,10 @@ export const messages = {
   noUser: {
     ENG: 'No User Present',
   },
+  EmailVerificationPending: {
+    ENG:
+      'Email Verification Pending.We have sent an email to activate your account.Please activate your account',
+  },
   NoInterviewer: {
     ENG: 'No Interviewer Found',
   },

@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express';
 
 import { User } from '../../models/User';
+import { TempUser } from '../../models/TempUser';
 import { Jwt } from './utils/Jwt';
 
 // import { makeJwtToken } from '../../middlewares/jwt';
@@ -16,6 +17,17 @@ export const login: RequestHandler = async (req, res, next) => {
   try {
     const user: any = await User.findOne({ email: req.body.username }).exec();
     if (!user) {
+      const tempUser: any = await TempUser.findOne({
+        email: req.body.username,
+      }).exec();
+      if (tempUser) {
+        return next(
+          new RequestError(
+            RequestErrorType.LOGIN_FAILED,
+            messages.EmailVerificationPending.ENG,
+          ),
+        );
+      }
       return next(
         new RequestError(RequestErrorType.LOGIN_FAILED, messages.noUser.ENG),
       );
