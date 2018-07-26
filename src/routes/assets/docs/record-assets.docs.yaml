@@ -51,8 +51,8 @@
             type: string
             example: 5b4f0845b48361468f85033c
           imageAccessUrl:
-            type: array
-            example: ['https://img.url/png','https://img.url/jpg']
+            type: string
+            example: 'https://img.url/png'
           fileAccessUrls:
             type: array
             example: ['https://fileAccess.url/pdf','https://fileAccess.url/anything']

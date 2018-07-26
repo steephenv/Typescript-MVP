@@ -35,11 +35,10 @@ const assetsSchema: Schema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'BusinessSubFunction',
   },
-  imageAccessUrl: [
-    {
-      type: String,
-    },
-  ],
+  imageAccessUrl: {
+    type: String,
+  },
+
   fileAccessUrls: [
     {
       type: String,
