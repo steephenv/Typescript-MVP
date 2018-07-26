@@ -10,20 +10,20 @@ import { ProjectSubCategory } from '../../models/ProjectSubCategory';
 
 export const deleteCategory: RequestHandler = async (req, res, next) => {
   try {
-    if (req.query.model === 'category') {
+    if (req.body.model === 'category') {
       const deleteMainCategory = ProjectCategory.update(
-        { _id: req.query._id },
+        { _id: req.body._id },
         { $set: { isDelete: true } },
       );
       const deleteSubs = ProjectSubCategory.update(
-        { categoryId: req.query._id },
+        { categoryId: req.body._id },
         { $set: { isDelete: true } },
       );
 
       await BluePromise.all([deleteMainCategory, deleteSubs]);
     } else {
       await ProjectSubCategory.update(
-        { _id: req.query._id },
+        { _id: req.body._id },
         { $set: { isDelete: true } },
       );
     }

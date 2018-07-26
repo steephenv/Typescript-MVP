@@ -3,13 +3,15 @@ import { RequestHandler } from 'express';
 
 // tslint:disable:variable-name
 const DeleteProjectCategorySchema = Joi.object().keys({
-  model: Joi.string().required(),
+  model: Joi.string()
+    .valid('category', 'subcategory')
+    .required(),
   _id: Joi.string().required(),
 });
 
 export const deleteProjectCategoryRules: RequestHandler = (req, res, next) => {
   Joi.validate(
-    req.query,
+    req.body,
     DeleteProjectCategorySchema,
     { stripUnknown: true },
     err => {
