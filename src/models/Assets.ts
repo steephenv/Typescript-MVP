@@ -59,6 +59,9 @@ const assetsSchema: Schema = new Schema({
   size: {
     type: String,
   },
+  coAuthor: {
+    type: String,
+  },
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',

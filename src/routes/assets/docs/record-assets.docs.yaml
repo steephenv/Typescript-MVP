@@ -72,6 +72,9 @@
           size:
             type: string
             example: '38'
+          coAuthor:
+            type: string
+            example: 'someone@funevent.net'
           userId:
             type: string
             example: '5b4f0845b48361468f85033c'
