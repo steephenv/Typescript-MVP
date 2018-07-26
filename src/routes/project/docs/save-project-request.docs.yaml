@@ -1,0 +1,197 @@
+/project/save-project-request:
+  post:
+    security:
+    - Bearer: []
+    summary: api for save project request details.
+    tags:
+    - projects
+    description: api for save project request details.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: userId
+      description: 'userId'
+      in: query
+      type: string
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        - templateType
+        - currentStatus
+        - currentSituation
+        - challengeType
+        - challenge
+        - degreeOfChallenge
+        - goalValueAdd
+        - desiredFutureSituation
+        - targetStart
+        - expectedEnd
+        - mainLocation
+        - additionalLocations
+        - location2
+        - location3
+        - location4
+        - communication
+        - stakeHolders 
+        - roleAndResponsibility
+        - skillsAndExperience
+        - clientsMessage
+        - noOfExpectedDeliverables
+        - nameOfDeliverables
+        - typeOfDeliverables
+        - languageOfDeliverable
+        - briefDescriptionOfDeliverable
+        - expectedValueAddOfDeliverable
+        - expectedQualityOfDeliverable
+        - expectedDueDateOfDeliverable
+        - expectedTotalPriceForValue 
+        - expectedPricePerDeliverable 
+        - travelExpPercentageOfTotalPriceForValue
+        - proposalSubmissionDate
+        - proposalSelectionBasedOn
+        properties:
+          projectTittle:
+            type: string
+          templateType:
+            type: string
+          currentStatus:
+            type: string
+          currentSituation:
+            type: string
+          challengeType:
+            type: string
+          challenge:
+            type: string
+          degreeOfChallenge:
+            type: string
+          goalValueAdd:
+            type: string
+          desiredFutureSituation:
+            type: string
+          targetStart:
+            type: string
+          expectedEnd:
+            type: string
+          mainLocation:
+            type: string
+          additionalLocations:
+            type: string
+          location2:
+            type: string
+          location3:
+            type: string
+          location4:
+            type: string
+          communication:
+            type: string
+          stakeHolders:
+            type: array
+            items:
+              properties:
+                stakeHolder:
+                  type: string
+                businessFunction:
+                  type: string
+                businessFunctionRole:
+                  type: string
+                sponsorsPosition:
+                  type: string
+                managersPosition:
+                  type: string
+          roleAndResponsibility:
+            type: array
+            items:
+              properties:
+                consultant:
+                  type: string
+                requiredHeadCount:
+                  type: string
+                requiredRole:
+                  type: string
+                mainResponsibility:
+                  type: string
+                engagementStart:
+                  type: string
+                engagementEnd:
+                  type: string
+                reqCapacityWorkDays:
+                  type: string
+                reqCapacityInFTE:
+                  type: string
+                avgCapacityPerWeek:
+                  type: string
+                confirmAvgCapacity:
+                  type: string
+                onsiteAvailability:
+                  type: string
+                travellingRequired:
+                  type: string
+                travellingToLocations:
+                  type: array
+                travellingFrequency:
+                  type: string
+          skillsAndExperience:
+            type: array
+            items:
+              properties:
+                role:
+                  type: string
+                yearsOfProfessionalExp:
+                  type: string
+                clientsIndustryExp:
+                  type: string
+                clientsCompanyExp:
+                  type: string
+                businessFunction:
+                  type: string
+                functional:
+                  type: array
+                personal:
+                  type: array
+                leadership:
+                  type: array
+                entrepreneurship:
+                  type: array
+                desiredDailyRate:
+                  type: number
+                travellingExpensePercentage:
+                  type: string
+                proposalSelectionMode:
+                  type: string
+          clientsMessage:
+            type: string
+          noOfExpectedDeliverables:
+            type: string
+          nameOfDeliverables:
+            type: string
+          typeOfDeliverables:
+            type: string
+          languageOfDeliverable:
+            type: string
+          briefDescriptionOfDeliverable:
+            type: string
+          expectedValueAddOfDeliverable:
+            type: string
+          expectedQualityOfDeliverable:
+            type: string
+          expectedDueDateOfDeliverable:
+            type: string
+          expectedTotalPriceForValue:
+            type: string
+          expectedPricePerDeliverable:
+            type: number
+          travelExpPercentageOfTotalPriceForValue:
+            type: number
+          proposalSubmissionDate:
+            type: date
+          proposalSelectionBasedOn:
+            type: string
+    responses:
+      200:
+        description: "successful attempt, returns `success message`"
