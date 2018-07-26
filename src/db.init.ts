@@ -10,10 +10,7 @@ lme.i('> connecting to ' + MONGO_URI);
 // Promisifying all mongoose methods
 mongoose.Promise = BluePromise;
 
-export const mongooseConnectionPromise = mongoose.connect(
-  MONGO_URI,
-  { useNewUrlParser: true },
-);
+export const mongooseConnectionPromise = mongoose.connect(MONGO_URI);
 
 // If the Node process ends, close the Mongoose connection
 // process.on('SIGINT', () => {
