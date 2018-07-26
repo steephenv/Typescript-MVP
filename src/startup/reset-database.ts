@@ -43,9 +43,6 @@ const resetDatabase = async (MONGO_URI?: string) => {
         .catch(errHandler),
       mongoose.connection.db.dropCollection('experiences').catch(errHandler),
       mongoose.connection.db
-        .dropCollection('employeeprojects')
-        .catch(errHandler),
-      mongoose.connection.db
         .dropCollection('customercredentials')
         .catch(errHandler),
       mongoose.connection.db

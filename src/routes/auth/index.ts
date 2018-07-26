@@ -8,6 +8,8 @@ import { forgotPasswordRules } from './validators/forgot-rules';
 import { recoveryEmailRules } from './validators/email-recovery-rules';
 import { loginRule } from './validators/login.rule';
 import { resetPasswordValidation } from './validators/reset-password-rules';
+import { listUsersValidation } from './validators/list-users.rule';
+import { setRoleValidation } from './validators/role-setting-rules';
 
 import { register } from './register';
 import { confirmUser } from './confirm-user';
@@ -20,6 +22,8 @@ import { getCountries } from './get-countries';
 import { getStates } from './get-countries';
 import { getCities } from './get-countries';
 import { getCountryDetails } from './get-countries';
+import { listUsers } from './list-users';
+import { saveRole } from './role-setting';
 
 export const auth = express.Router();
 
@@ -38,3 +42,6 @@ auth.get('/get-countries', getCountries);
 auth.get('/get-states', getStates);
 auth.get('/get-cities', getCities);
 auth.get('/get-country-details', getCountryDetails);
+
+auth.get('/list-users', listUsersValidation, listUsers);
+auth.post('/role-setting', setRoleValidation, saveRole);

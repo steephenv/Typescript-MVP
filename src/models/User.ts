@@ -14,7 +14,7 @@ const userSchema = new Schema({
   },
   appliedRole: {
     type: String,
-    enum: ['User', 'Consultant', 'BPM', 'Client', 'Employee'],
+    enum: ['User', 'Consultant', 'BPM', 'Admin', 'Client', 'Employee'],
     required: true,
   },
   companyName: {
@@ -33,7 +33,7 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ['User', 'Consultant', 'BPM', 'Client', 'Employee'],
+    enum: ['User', 'Consultant', 'BPM', 'Admin', 'Client', 'Employee'],
     required: true,
   },
   password: {

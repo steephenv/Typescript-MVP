@@ -10,6 +10,7 @@ const ProjectSubCategorySchema: Schema = new Schema({
   subCategory: {
     type: String,
   },
+  isDelete: { type: Boolean, default: false },
 });
 export const ProjectSubCategory = mongooseModel(
   'ProjectSubCategory',

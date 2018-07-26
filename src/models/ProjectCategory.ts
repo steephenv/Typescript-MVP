@@ -7,6 +7,7 @@ const ProjectCategorySchema: Schema = new Schema({
     type: String,
     require: true,
   },
+  isDelete: { type: Boolean, default: false },
 });
 export const ProjectCategory = mongooseModel(
   'ProjectCategory',
