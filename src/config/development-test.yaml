@@ -6,3 +6,6 @@ app:
   docs: false
   logging: false # for logging stuffs out
   morgan: false # for request logging
+  
+mails:
+  enable: false
