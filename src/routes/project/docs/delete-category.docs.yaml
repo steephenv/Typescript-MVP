@@ -1,0 +1,33 @@
+/project/delete-category:
+  post:
+    security:
+    - Bearer: []
+    summary: api for soft delete project category and sub category.
+    tags:
+    - projects
+    description: api for soft delete project category and sub category.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        - model
+        - _id
+        properties:
+          model:
+            type: string
+            description: name whether it is category or sub category
+            example: category , subCategory
+          _id:
+            type: string
+            description: _id of collection     
+    responses:
+      200:
+        description: "successful attempt, returns `success message`"
