@@ -13,6 +13,11 @@
       required: true
       default: XMLHttpRequest
 
+    - name: keyQuery
+      type: string
+      description: "does fuzzy search on `title` of the categories"
+      in: query
+      example: profpic88
     - name: name
       type: string
       description: name of the assets
