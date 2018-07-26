@@ -1,19 +1,19 @@
 /* tslint:disable:variable-name */
 // import { BusinessFunction } from '../models/BusinessFunction';
-import { BusinessSubFunction } from '../models/BusinessSubFunction';
+import { TempBusSubFunction } from '../models/BusinessSubFunction';
 
 export const addNewBusinessSubFunction = async (
-  CategoryId: string,
+  categoryId: string,
   businessSubFn: string,
 ) => {
-  const extBusinessSubFunction = await BusinessSubFunction.findOne({
-    subCategory: businessSubFn,
+  const extBusinessSubFunction = await TempBusSubFunction.findOne({
+    subFunctionId: categoryId,
+    subFunction: businessSubFn,
   });
-
   if (!extBusinessSubFunction) {
-    const newBusinessSubFunction = new BusinessSubFunction({
-      subCategoryId: CategoryId,
-      subCategory: businessSubFn,
+    const newBusinessSubFunction = new TempBusSubFunction({
+      subFunctionId: categoryId,
+      subFunction: businessSubFn,
     });
     await newBusinessSubFunction.save();
   }

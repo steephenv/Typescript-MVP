@@ -3,15 +3,15 @@
 import { model as mongooseModel, Schema } from 'mongoose';
 
 const BusinessSubFunctionSchema: Schema = new Schema({
-  subCategoryId: {
+  subFunctionId: {
     type: Schema.Types.ObjectId,
     ref: 'BusinessFunction',
   },
-  subCategory: {
+  subFunction: {
     type: String,
   },
 });
-export const BusinessSubFunction = mongooseModel(
-  'BusinessSubFunction',
+export const TempBusSubFunction = mongooseModel(
+  'TempBusSubFunction',
   BusinessSubFunctionSchema,
 );

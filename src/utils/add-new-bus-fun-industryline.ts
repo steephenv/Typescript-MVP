@@ -1,13 +1,13 @@
-import { BusinessFunction } from '../models/BusinessFunction';
+import { TempBusFunction } from '../models/BusinessFunction';
 import { IndustryLine } from '../models/IndustryLine';
 
 export const addNewBusinessFunction = async (businessFn: string) => {
-  const extBusinessFunction = await BusinessFunction.findOne({
+  const extBusinessFunction = await TempBusFunction.findOne({
     businessFunction: businessFn,
   });
 
   if (!extBusinessFunction) {
-    const newBusinessFunction = new BusinessFunction({
+    const newBusinessFunction = new TempBusFunction({
       businessFunction: businessFn,
     });
     await newBusinessFunction.save();

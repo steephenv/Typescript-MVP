@@ -8,7 +8,7 @@ const BusinessFunctionSchema: Schema = new Schema({
     require: true,
   },
 });
-export const BusinessFunction = mongooseModel(
-  'BusinessFunction',
+export const TempBusFunction = mongooseModel(
+  'TempBusFunction',
   BusinessFunctionSchema,
 );

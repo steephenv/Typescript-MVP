@@ -12,7 +12,7 @@
       in: header
       required: true
       default: XMLHttpRequest
-    - name: categoryId
+    - name: subCategoryId
       in: query
       required: true  
     responses:

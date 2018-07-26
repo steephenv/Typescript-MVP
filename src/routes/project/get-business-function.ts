@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
-import { BusinessFunction } from '../../models/BusinessFunction';
-import { BusinessSubFunction } from '../../models/BusinessSubFunction';
+import { TempBusFunction } from '../../models/BusinessFunction';
+import { TempBusSubFunction } from '../../models/BusinessSubFunction';
 
 import {
   RequestError,
@@ -9,7 +9,7 @@ import {
 
 export const getBusinessFunction: RequestHandler = async (req, res, next) => {
   try {
-    const businessFn = await BusinessFunction.find({}).exec();
+    const businessFn = await TempBusFunction.find({}).exec();
     return res.status(200).send({
       success: true,
       businessFunctions: businessFn,
@@ -20,8 +20,8 @@ export const getBusinessFunction: RequestHandler = async (req, res, next) => {
 };
 export const getBusSubFunction: RequestHandler = async (req, res, next) => {
   try {
-    const subFunctions = await BusinessSubFunction.find({
-      categoryId: req.query.categoryId,
+    const subFunctions = await TempBusSubFunction.find({
+      subCategoryId: req.query.subCategoryId,
     }).exec();
     return res.status(200).send({
       success: true,
