@@ -1,0 +1,80 @@
+Things to do in asset.
+Expected required time: ~42.5 hr --rounded-to-> 50h (7 days)
+======================================
+
+[x] evaluate things to do
+[x] create category collection
+[!] verify category number to know if limits needed
+	[x] read api (2.5h)
+		[x] route frame
+		[x] validators
+		[x] actual function
+		[x] test it
+		[x] docs
+	[x] create api (2.5h)
+		[x] route frame
+		[x] validators
+		[x] actual function
+		[x] test it
+		[x] docs
+[x] create sub-category collection
+	[x] read api (2.5h)
+		[x] route frame
+		[x] validators
+		[x] actual function
+		[x] test it
+		[x] docs
+	[x] create api (2.5h)
+		[x] route frame
+		[x] validators
+		[x] actual function
+		[x] test it
+		[x] docs
+
+[x] create industry collection
+	[x] read api (2.5h)
+		[x] route frame
+		[x] validators
+		[x] actual function
+		[x] test it
+		[x] docs
+	[x] create api (2.5h)
+		[x] route frame
+		[x] validators
+		[x] actual function
+		[x] test it
+		[x] docs
+[x] create business-function collection
+	[x] read api (2.5h)
+		[x] route frame
+		[x] validators
+		[x] actual function
+		[x] test it
+		[x] docs
+	[x] create api (2.5h)
+		[x] route frame
+		[x] validators
+		[x] actual function
+		[x] test it
+		[x] docs
+[x] create business-sub-function collection
+	[x] read api (2.5h)
+		[x] route frame
+		[x] validators
+		[x] actual function
+		[x] test it
+		[x] docs
+	[x] create api (2.5h)
+		[x] route frame
+		[x] validators
+		[x] actual function
+		[x] test it
+		[x] docs
+[x] Link language (1h)
+[x] Discuss on format field (~1h)
+[x] modify asset collection (2.5h)
+	[x] remove and add required fields 
+	[x] reflect on validators
+	[x] reflect on actual function
+	[x] test it
+	[x] reflect on docs

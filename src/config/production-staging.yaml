@@ -8,4 +8,4 @@ app:
   docs: false
 
 database:
-  url: mongodb://miwago_user:B34M6544VfsD4355sdftsdf54sdfgGChjuuhmjvhmr423574rcvc@192.168.200.10:27017/miwago_db
+  url: mongodb://miwago_user:NBGVJHgjhg67uhgvjuuy5hjnv98jkhbBGbkjbhfgjhbkmjhb76hjv98bkjbnjmn@192.168.200.20:27017/miwago_db_staging
