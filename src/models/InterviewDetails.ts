@@ -16,7 +16,7 @@ const InterviewDetailsSchema = new Schema({
   endTime: { type: Date },
   interviewStatus: {
     type: String,
-    enum: ['Applied', 'Cancelled', 'Passed', 'Failed'],
+    enum: ['Applied', 'Completed', 'Cancelled', 'Passed', 'Failed'],
     default: 'Applied',
   },
   createdAt: {
