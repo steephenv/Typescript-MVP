@@ -43,5 +43,5 @@ auth.get('/get-states', getStates);
 auth.get('/get-cities', getCities);
 auth.get('/get-country-details', getCountryDetails);
 
-auth.get('/list-users', listUsersValidation, listUsers);
+auth.get('/list-users/:page', listUsersValidation, listUsers);
 auth.post('/role-setting', setRoleValidation, saveRole);
