@@ -40,7 +40,7 @@ export const saveProjectCategory: RequestHandler = async (req, res, next) => {
         });
       });
     }
-    return res.status(200).send({ success: true });
+    return res.status(201).send({ success: true });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }

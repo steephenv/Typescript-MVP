@@ -71,7 +71,7 @@ export const linkData: RequestHandler = async (req, res, next) => {
       _id: res.locals.user.userId,
     }).exec();
     if (primaryData) {
-      primaryData.isLinkedinFetched = true;
+      primaryData.isLinkedinProfileFetched = true;
       await primaryData.save();
     }
 

@@ -2,39 +2,61 @@
 
 import { model as mongooseModel, Schema } from 'mongoose';
 
-export interface IAssets {
-  name: string;
-  category: string;
-  attributes: string;
-  coAuthoring: string;
-  url: string;
-  userId: string;
-  fileName: string;
-  fileType: string;
-}
-
 const assetsSchema: Schema = new Schema({
-  name: {
+  title: {
     type: String,
   },
-  category: {
+  description: {
     type: String,
   },
-  attributes: [
+  categoryId: {
+    type: Schema.Types.ObjectId,
+    ref: 'AssetCategory',
+  },
+  subCategoryId: {
+    type: Schema.Types.ObjectId,
+    ref: 'AssetSubCategory',
+  },
+  stage: {
+    type: String,
+  },
+  type: {
+    type: String,
+  },
+  industryId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Industry',
+  },
+  businessFunctionId: {
+    type: Schema.Types.ObjectId,
+    ref: 'BusinessFunction',
+  },
+  businessSubFunctionId: {
+    type: Schema.Types.ObjectId,
+    ref: 'BusinessSubFunction',
+  },
+  imageAccessUrl: {
+    type: String,
+  },
+
+  fileAccessUrls: [
     {
       type: String,
     },
   ],
-  coAuthoring: {
-    type: String,
-  },
-  accessUrl: {
+  technologyPlatform: {
     type: String,
   },
   fileName: {
     type: String,
   },
-  fileType: {
+  lang: {
+    type: String,
+  },
+  format: {
+    type: String,
+  },
+  size: {
     type: String,
   },
   userId: {

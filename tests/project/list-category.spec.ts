@@ -10,11 +10,11 @@ beforeAll(done => {
     .post('/v1/auth/login')
     .set('X-Requested-With', 'XMLHttpRequest')
     .send({
-      username: 'red@velvet.com',
+      username: 'stark@marvel.com',
       password: 'password',
     })
     .expect(200)
-    .end((err, res) => {
+    .end(async (err, res) => {
       if (err) {
         throw err;
       }
@@ -23,16 +23,14 @@ beforeAll(done => {
     });
 });
 
-describe('List users api', () => {
-  it('Listing employees and consultants', done => {
+describe('Save project category ==> ', () => {
+  it('Save project category', done => {
     supertest(app)
-      .get(
-        `/v1/auth/list-users/1?values=["Employee", "Consultant"]&field=appliedRole`,
-      )
+      .get(`/v1/project/list-all-categories`)
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
       .expect(200)
-      .end((err, res) => {
+      .end(err => {
         if (err) {
           throw err;
         }

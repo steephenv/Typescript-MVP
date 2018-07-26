@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 
-import { Assets, IAssets } from '../../models/Assets';
+import { Assets } from '../../models/Assets';
 
 import {
   RequestError,
@@ -21,19 +21,22 @@ export const recordAssets: RequestHandler = async (req, res, next) => {
         ),
       );
     }
-    await recordAssetsCtrl(req.body);
+
+    const resp = await recordAssetsCtrl(req.body);
+
     return res.status(201).send({
       msg: 'asset-recorded',
+      response: resp,
     });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }
 };
 
-async function recordAssetsCtrl(assets: IAssets) {
+async function recordAssetsCtrl(assets: any) {
   const savable = new Assets(assets);
   await savable.validate();
-  await savable.save();
+  const resp = await savable.save();
   // need to send email
-  return;
+  return resp;
 }

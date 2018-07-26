@@ -29,7 +29,8 @@ Build:
   tags:
     - node
 
-Deploy(devapi-miwago):
+# deploy to dev
+Dev(devapi-miwago):
   stage: deploy
   variables:
     NODE_ENV: development
@@ -46,5 +47,26 @@ Deploy(devapi-miwago):
     - ssh dev-miwago@185.148.147.4 "mkdir ~/miwago-api"
     - rsync -avz -e ssh ./dist/src/* dev-miwago@185.148.147.4:~/miwago-api
     - ssh dev-miwago@185.148.147.4 "export NODE_ENV=production && export PATH=/home/dev-miwago/bin:/home/dev-miwago/.local/bin:/home/dev-miwago/.nvm/versions/node/v8.11.3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin && node --version && yarn --version && cd ~/miwago-api && yarn install && cd public && yarn install && pm2 restart miwago-api"
+  tags:
+    - node
+
+# deploy to staging
+Staging(Personal_management_API):
+  stage: deploy
+  variables:
+    NODE_ENV: development
+  environment:
+    name: Personal management API
+    url: https://personalapi-miwago.cubettech.in/
+  when: on_success
+  only:
+    - tags
+  script:
+    # - yarn install
+    # - yarn run build # cz it is running in build
+    - ssh dev-miwago@185.148.147.4 "rm -rf ~/staging-miwago-api"
+    - ssh dev-miwago@185.148.147.4 "mkdir ~/staging-miwago-api"
+    - rsync -avz -e ssh ./dist/src/* dev-miwago@185.148.147.4:~/staging-miwago-api
+    - ssh dev-miwago@185.148.147.4 "export NODE_ENV=production && export PATH=/home/dev-miwago/bin:/home/dev-miwago/.local/bin:/home/dev-miwago/.nvm/versions/node/v8.11.3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin && node --version && yarn --version && cd ~/staging-miwago-api && yarn install && cd public && yarn install && pm2 restart staging-miwago-api"
   tags:
     - node

@@ -1,4 +1,4 @@
-/auth/list-users:
+/auth/list-users/:page:
   get:
     security:
     - Bearer: []

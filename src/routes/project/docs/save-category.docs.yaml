@@ -30,5 +30,5 @@
                 subCategory:
                   type: string  
     responses:
-      200:
+      201:
         description: "successful attempt, returns `success message`"

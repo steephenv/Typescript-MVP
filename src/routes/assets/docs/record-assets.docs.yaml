@@ -18,37 +18,63 @@
       schema:
         type: object
         required:
-        - name
-        - category
-        - accessUrl
+        - title
+        - fileAccessUrls
         - fileName
         properties:
-          name:
+          title:
             type: string
             description: asset name
             example: cato
-          category:
+          description:
             type: string
-            example: kingdom animalia
-          attributes:
+            example: lorem ipsium doller sit
+          categoryId:
+            type: string
+            example: 5b4f0845b48361468f85033c
+          subCategoryId:
+            type: string
+            example: 5b4f0845b48361468f85033c
+          stage:
+            type: string
+            example: stage 5
+          type:
+            type: string
+            example: mango
+          industryId:
+            type: string
+            example: 5b4f0845b48361468f85033c
+          businessFunctionId:
+            type: string
+            example: 5b4f0845b48361468f85033c
+          businessSubFunctionId:
+            type: string
+            example: 5b4f0845b48361468f85033c
+          imageAccessUrl:
+            type: string
+            example: 'https://img.url/png'
+          fileAccessUrls:
             type: array
-            example: ['cheetah is a part of it', 'and kity too']
-          coAuthoring:
+            example: ['https://fileAccess.url/pdf','https://fileAccess.url/anything']
+          technologyPlatform:
             type: string
-            example: tiger
-          accessUrl:
-            type: string
-            example: aws access url
+            example: ng/node
           fileName:
             type: string
-            example: catres
-            description: name of the file
-          fileType:
+            example: tiger
+          lang:
+            type: string
+            example: EN
+            description: language
+          format:
             type: string
             example: '.png'
+          size:
+            type: string
+            example: '38'
           userId:
             type: string
-            example: 'asdfd'
+            example: '5b4f0845b48361468f85033c'
             description: "if `userId` is given, it will be used. Else `userId` from token will be used"
         
     responses:

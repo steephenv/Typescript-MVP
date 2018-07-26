@@ -14,7 +14,9 @@ import { createIndustries } from './create-industries';
 import { upsertBusinessFunction } from './upsert-business-fn';
 import { listBusinessFns } from './list-business-fn';
 import { upsertBusinessSubFunction } from './upsert-business-sub-fn';
+import { listBusinessSubFunction } from './list-business-sub-fn';
 
+import { listBussSubFnRule } from './validators/list-buss-sub-fn.rule';
 import { upsertBusinessSubFnRule } from './validators/upsert-business-sub-fn.rule';
 import { upsertBusinessFnRule } from './validators/upsert-business-fn.rule';
 import { recordValidationChain } from './validators/record-assets.validation-chain';
@@ -72,5 +74,9 @@ assets.post(
   upsertBusinessSubFnRule,
   upsertBusinessSubFunction,
 );
-
-// assets.get('/business-sub-functions', listBusinessFns);
+assets.get(
+  '/business-sub-functions',
+  listBussSubFnRule,
+  errValidator,
+  listBusinessSubFunction,
+);
