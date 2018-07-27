@@ -3,7 +3,7 @@
 import { model as mongooseModel, Schema } from 'mongoose';
 
 const InterviewDetailsSchema = new Schema({
-  contestId: {
+  contestantId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
@@ -19,6 +19,7 @@ const InterviewDetailsSchema = new Schema({
     enum: ['Applied', 'Completed', 'Cancelled', 'Passed', 'Failed'],
     default: 'Applied',
   },
+  comment: { type: String },
   createdAt: {
     type: Date,
   },
