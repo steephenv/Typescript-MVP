@@ -12,18 +12,18 @@ export const deleteSkillCategory: RequestHandler = async (req, res, next) => {
   try {
     if (req.body.model === 'category') {
       const deleteMainCategory = SkillCategory.update(
-        { _id: req.body._id },
+        { _id: { $in: req.body.ids } },
         { $set: { isDelete: true } },
       );
       const deleteSubs = SkillSubCategory.update(
-        { categoryId: req.body._id },
+        { categoryId: { $in: req.body.ids } },
         { $set: { isDelete: true } },
       );
 
       await BluePromise.all([deleteMainCategory, deleteSubs]);
     } else {
       await SkillCategory.update(
-        { _id: req.body._id },
+        { _id: { $in: req.body.ids } },
         { $set: { isDelete: true } },
       );
     }

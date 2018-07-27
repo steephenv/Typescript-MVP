@@ -19,15 +19,15 @@
         type: object
         required:
         - model
-        - _id
+        - ids
         properties:
           model:
             type: string
             description: name whether it is category or sub category
             example: category , subCategory
-          _id:
-            type: string
-            description: _id of collection     
+          ids:
+            type: array
+            description: array of _ids of collection     
     responses:
       200:
         description: "successful attempt, returns `success message`"
