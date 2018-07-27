@@ -3,7 +3,7 @@
 import { model as mongooseModel, Schema } from 'mongoose';
 
 const InterviewDetailsSchema = new Schema({
-  contestId: {
+  contestantId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
   },

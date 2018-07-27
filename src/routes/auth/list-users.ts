@@ -35,7 +35,7 @@ export const listUsers: RequestHandler = async (req, res, next) => {
     }
     await BluePromise.map(usersList, async (user: any) => {
       const interviewDetails = await InterviewDetails.find({
-        contestId: user._id,
+        contestantId: user._id,
       })
         .sort('-createdAt')
         .lean()
