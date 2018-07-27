@@ -8,7 +8,7 @@ import { Promise as BluePromise } from 'bluebird';
 import { SkillCategory } from '../../models/SkillCategory';
 import { SkillSubCategory } from '../../models/SkillSubCategory';
 
-export const deleteCategory: RequestHandler = async (req, res, next) => {
+export const deleteSkillCategory: RequestHandler = async (req, res, next) => {
   try {
     if (req.body.model === 'category') {
       const deleteMainCategory = SkillCategory.update(

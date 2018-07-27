@@ -8,7 +8,11 @@ import { Promise as BluePromise } from 'bluebird';
 import { SkillCategory } from '../../models/SkillCategory';
 import { SkillSubCategory } from '../../models/SkillSubCategory';
 
-export const listProjectCategories: RequestHandler = async (req, res, next) => {
+export const listAllSkillCategories: RequestHandler = async (
+  req,
+  res,
+  next,
+) => {
   try {
     const cats = await SkillCategory.find({ isDelete: false })
       .lean()
