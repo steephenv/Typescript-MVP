@@ -1,0 +1,17 @@
+/profile/list-all-categories:
+  post:
+    security:
+    - Bearer: []
+    summary: api for listing all skill category and sub category.
+    tags:
+    - projects
+    description: api for listing all skill category and sub category.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest 
+    responses:
+      200:
+        description: "successful attempt, returns `success message`"
