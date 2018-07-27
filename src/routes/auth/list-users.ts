@@ -25,6 +25,7 @@ export const listUsers: RequestHandler = async (req, res, next) => {
       .select('firstName lastName appliedRole role profileDataVerified')
       .skip(skip)
       .limit(limit)
+      .sort('-createdAt')
       .lean()
       .exec();
     if (!usersList.length) {
