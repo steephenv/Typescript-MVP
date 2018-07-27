@@ -1,5 +1,5 @@
 /project/list-all-categories:
-  post:
+  get:
     security:
     - Bearer: []
     summary: api for listing all category and sub category.
