@@ -4,7 +4,7 @@
     - Bearer: []
     summary: api for listing all skill category and sub category.
     tags:
-    - projects
+    - profile
     description: api for listing all skill category and sub category.
     parameters:
     - name: X-Requested-With
