@@ -17,7 +17,7 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
 
   try {
     const existingInterview: any = await InterviewDetails.findOne({
-      contestId: contestant,
+      contestantId: contestant,
       interviewStatus: 'Applied',
     }).exec();
 
@@ -48,7 +48,9 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
     }
 
     const newInterview = new InterviewDetails({
-      contestId: contestant,
+      contestantId: contestant,
+      startTime: availableSlot.startTime,
+      endTime: availableSlot.endTime,
       typeOfCall: req.body.typeOfCall,
       interviewStatus: 'Applied',
     });

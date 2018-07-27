@@ -35,6 +35,9 @@
           isApproved:
             type: boolean
             example: true
+          comment:
+            type: string
+            example: gregtr  
         
     responses:
       201:
