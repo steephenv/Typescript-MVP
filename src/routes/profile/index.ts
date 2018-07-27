@@ -13,6 +13,9 @@ import { saveGoalRule } from './validators/save-goals-rules';
 import { getCategoryRules } from './validators/get-category-rules';
 import { getSubCategoryRules } from './validators/get-category-rules';
 import { getSkillsRules } from './validators/skill-suggestions-rule';
+import { updateSkillCategoryRules } from './validators/add-update-skill-category-rules';
+import { saveSkillCategoryRules } from './validators/add-update-skill-category-rules';
+import { deleteSkillCategoryRules } from './validators/delete-skill-category-rules';
 
 import { savePersonal } from './save-personal';
 import { saveWLB } from './save-wlb';
@@ -27,6 +30,10 @@ import { saveGoals } from './save-goals';
 import { skillsSuggestions } from './get-skills-suggestions';
 import { getPrimaryUserData } from './get-primary-detail';
 import { saveReviewStatus } from './save-review-status';
+import { saveSkillCategory } from './add-skill-category';
+import { updateSkillCategory } from './add-skill-category';
+import { listAllSkillCategories } from './list-all-skill-categories';
+import { deleteSkillCategory } from './delete-skill-categories';
 
 const upload = multer({ dest: userHome + '/uploads/' });
 
@@ -62,3 +69,16 @@ profile.post(
   linkData,
 );
 profile.get('/save-review-status', saveReviewStatus);
+
+profile.post('/save-skill-category', saveSkillCategoryRules, saveSkillCategory);
+profile.post(
+  '/update-skill-category',
+  updateSkillCategoryRules,
+  updateSkillCategory,
+);
+profile.post(
+  '/delete-skill-category',
+  deleteSkillCategoryRules,
+  deleteSkillCategory,
+);
+profile.get('/list-all-skill-categories', listAllSkillCategories);
