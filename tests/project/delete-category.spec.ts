@@ -43,7 +43,7 @@ describe('Save project category ==> ', () => {
       .set({ Authorization: `Bearer ${token}` })
       .send({
         model: 'category',
-        _id: catSave._id,
+        ids: [catSave._id],
       })
       .expect(200)
       .end((err, res) => {
