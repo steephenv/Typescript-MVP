@@ -11,6 +11,9 @@ const InterviewAvailabilityCalenderSchema = new Schema({
     type: Date,
     required: true,
   },
+  annualAvailability: {
+    type: Number,
+  },
   startTime: {
     type: Date,
     required: true,

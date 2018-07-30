@@ -56,6 +56,7 @@ describe('Test for availability save', () => {
             endTime: 'Mon Jul 30 2018 14:00:00 GMT+0530 (India Standard Time)',
           },
           userId: '5b5ed5287630af443bcf2843',
+          annualAvailability: 20,
         })
         .expect(200)
         .end((err, { body }) => {

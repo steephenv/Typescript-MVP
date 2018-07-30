@@ -21,6 +21,7 @@
         - dateRange
         - workingDays
         - workingTime
+        - annualAvailability
         properties:
           dateRange:
             type: object
@@ -50,7 +51,9 @@
               endTime:
                 type: date
           userId:
-            type: string                                 
+            type: string
+          annualAvailability:
+            type: number                                   
     responses:
       201:
         description: "successful attempt, returns `success message`"

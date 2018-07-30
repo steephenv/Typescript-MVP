@@ -24,6 +24,7 @@ const saveAvailabilitySchema = Joi.object().keys({
     })
     .optional(),
   userId: Joi.string().optional(),
+  annualAvailability: Joi.number().required(),
 });
 
 export const saveAvailabilityRules: RequestHandler = (req, res, next) => {
