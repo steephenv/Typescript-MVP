@@ -22,7 +22,6 @@ const RegSchema = Joi.object().keys({
     .email()
     .required(),
   secondaryEmail: Joi.string().optional(),
-  mobile: Joi.string().required(),
   appliedRole: Joi.string().required(),
   companyName: Joi.string().optional(),
   role: Joi.string().optional(),

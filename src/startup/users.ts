@@ -40,6 +40,15 @@ const temp1 = {
   mobile: '545454',
   createdAt: new Date(),
 };
+const newUserBPM = new User({
+  firstName: 'Martin',
+  lastName: 'Luther',
+  email: 'mvp@marvel.com',
+  password: '123456',
+  role: 'BPM',
+  appliedRole: 'BPM',
+  mobile: '4554543',
+});
 
 export const initUsers = () => {
   const savableConsultant = new User(consultant);
@@ -51,5 +60,6 @@ export const initUsers = () => {
     savableDumUser1.save(),
     savableTemp.save(),
     savableAdmin.save(),
+    newUserBPM.save(),
   ]);
 };

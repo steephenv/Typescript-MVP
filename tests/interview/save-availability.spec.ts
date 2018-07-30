@@ -55,7 +55,7 @@ describe('Test for availability save', () => {
               'Mon Jul 30 2018 13:00:00 GMT+0530 (India Standard Time)',
             endTime: 'Mon Jul 30 2018 14:00:00 GMT+0530 (India Standard Time)',
           },
-          userId: bpm._id,
+          userId: '5b5ed5287630af443bcf2843',
         })
         .expect(200)
         .end((err, { body }) => {
