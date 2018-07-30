@@ -44,7 +44,7 @@ const projectSchema = new Schema({
   },
   businessSubFunctions: {
     type: Schema.Types.ObjectId,
-    ref: 'TempBusSubFunction',
+    ref: 'BusinessSubFunction',
   },
   projectStages: {
     type: String,
