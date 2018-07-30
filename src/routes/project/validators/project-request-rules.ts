@@ -40,6 +40,7 @@ const roleAndRespSchema = Joi.object({
   travellingFrequency: Joi.string().allow(''),
 });
 const ProjectRequestSchema = Joi.object().keys({
+  templateType: Joi.string().required(),
   currentStatus: Joi.string().allow(''),
   currentSituation: Joi.string().allow(''),
   challengeType: Joi.string().allow(''),
@@ -61,6 +62,21 @@ const ProjectRequestSchema = Joi.object().keys({
   roleAndResponsibility: Joi.array().items(roleAndRespSchema),
   skillsAndExperience: Joi.array().items(skillsAndExpSchema),
   clientsMessage: Joi.string().allow(''),
+
+  // template 3 - deliverable based
+  noOfExpectedDeliverables: Joi.string().allow(''),
+  nameOfDeliverables: Joi.string().allow(''),
+  typeOfDeliverables: Joi.string().allow(''),
+  languageOfDeliverable: Joi.string().allow(''),
+  briefDescriptionOfDeliverable: Joi.string().allow(''),
+  expectedValueAddOfDeliverable: Joi.string().allow(''),
+  expectedQualityOfDeliverable: Joi.string().allow(''),
+  expectedDueDateOfDeliverable: Joi.string().allow(''),
+  expectedTotalPriceForValue: Joi.number(),
+  expectedPricePerDeliverable: Joi.number(),
+  travelExpPercentageOfTotalPriceForValue: Joi.string().allow(''),
+  proposalSubmissionDate: Joi.date(),
+  proposalSelectionBasedOn: Joi.string().allow(''),
 });
 
 // tslint:disable:variable-name
