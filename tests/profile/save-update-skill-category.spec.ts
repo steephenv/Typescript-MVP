@@ -45,9 +45,9 @@ describe('Save skill category ==> ', () => {
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
       .send({
-        category: 'Adipoli',
+        category: 'Adipoli_new123',
         cluster: 'Personal',
-        subCategories: [{ subCategory: 'newAdiploi' }],
+        subCategories: [{ subCategory: 'newAdiploi_new' }],
       })
       .expect(201)
       .end((err, res) => {

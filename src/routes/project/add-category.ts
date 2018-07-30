@@ -29,6 +29,14 @@ export const updateCollection = async (
 
 export const saveProjectCategory: RequestHandler = async (req, res, next) => {
   try {
+    const exsCategory = await ProjectCategory.find({
+      category: req.body.category,
+    }).exec();
+    if (exsCategory.length) {
+      return next(
+        new RequestError(RequestErrorType.CONFLICT, 'Category Existing !!'),
+      );
+    }
     const savedCategory = await saveCollection(ProjectCategory, {
       category: req.body.category,
     });
@@ -48,6 +56,15 @@ export const saveProjectCategory: RequestHandler = async (req, res, next) => {
 
 export const updateProjectCategory: RequestHandler = async (req, res, next) => {
   try {
+    const exsCategory = await ProjectCategory.find({
+      _id: { $ne: req.body._id },
+      category: req.body.category,
+    }).exec();
+    if (exsCategory.length) {
+      return next(
+        new RequestError(RequestErrorType.CONFLICT, 'Category Existing !!'),
+      );
+    }
     const updatedCategory = updateCollection(ProjectCategory, req.body._id, {
       category: req.body.category,
     });
@@ -55,7 +72,14 @@ export const updateProjectCategory: RequestHandler = async (req, res, next) => {
     if (req.body.subCategories.length) {
       updateSubCategories = BluePromise.map(
         req.body.subCategories,
-        (subCat: any) => {
+        async (subCat: any) => {
+          const exsSubCategory = await ProjectSubCategory.find({
+            categoryId: req.body._id,
+            subCategory: subCat.subCategory,
+          }).exec();
+          if (exsSubCategory.length) {
+            return;
+          }
           if (subCat._id) {
             return updateCollection(ProjectSubCategory, subCat._id, {
               subCategory: subCat.subCategory,
