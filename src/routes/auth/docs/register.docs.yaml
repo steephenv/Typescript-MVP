@@ -22,7 +22,6 @@
         - lastName
         - email
         - password
-        - mobile
         - appliedRole
         properties:
           firstName:
