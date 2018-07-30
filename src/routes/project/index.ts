@@ -6,6 +6,8 @@ import { getProjSubCategoryRules } from './validators/get-proj-category-rules';
 import { saveProjectCategoryRules } from './validators/add-project-category-rules';
 import { updateProjectCategoryRules } from './validators/add-project-category-rules';
 import { deleteProjectCategoryRules } from './validators/delete-project-category-rule';
+import { createCategoryValidationChain } from './validators/save-proj-category-rule';
+import { createSubCatValidationChain } from './validators/save-proj-sub-category-rules';
 
 import { saveProjectRequest } from './project-request';
 import { saveProject } from './save-project';
@@ -20,6 +22,8 @@ import { listProjectCategories } from './list-category';
 import { deleteCategory } from './delete-category';
 import { getProjects } from './get-project-catalog-details';
 import { searchProjects } from './search-project-catalog';
+import { createProjectCategory } from './save-proj-category';
+import { createProjectSubCategory } from './save-proj-sub-category';
 
 export const project = express.Router();
 
@@ -47,6 +51,18 @@ project.post(
   '/update-project-category',
   updateProjectCategoryRules,
   updateProjectCategory,
+);
+
+project.post(
+  '/save-single-category',
+  createCategoryValidationChain,
+  createProjectCategory,
+);
+
+project.post(
+  '/save-single-sub-category',
+  createSubCatValidationChain,
+  createProjectSubCategory,
 );
 
 project.get('/list-all-categories', listProjectCategories);
