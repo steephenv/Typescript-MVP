@@ -18,6 +18,11 @@
       description: "does fuzzy search on `title` of the categories"
       in: query
       example: profpic88
+    - name: exUserId
+      type: string
+      description: "if present, it removes entries of that user"
+      in: query
+      example: profpic88
     - name: name
       type: string
       description: name of the assets

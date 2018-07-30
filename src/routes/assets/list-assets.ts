@@ -35,6 +35,11 @@ export const listAssets: RequestHandler = async (req, res, next) => {
 
 // usual query
 async function normalFind(query: any, limit: number, skip: number) {
+  // exclude user id if exUserId field is present
+  const exUserId: string = query.exUserId || null;
+  query.userId = { $ne: exUserId };
+  delete query.exUserId;
+
   const assets = await Assets.find(query)
     .skip(skip)
     .limit(limit)
@@ -45,6 +50,11 @@ async function normalFind(query: any, limit: number, skip: number) {
 
 // regex key search
 async function regexKeySearch(reqQuery: any, limit: number, skip: number) {
+  // exclude user id if exUserId field is present
+  const exUserId: string = reqQuery.exUserId || null;
+  reqQuery.userId = { $ne: exUserId };
+  delete reqQuery.exUserId;
+
   const key: string = reqQuery.keyQuery;
   delete reqQuery.keyQuery;
 

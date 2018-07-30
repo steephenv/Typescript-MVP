@@ -28,4 +28,16 @@ describe('testing asset listing', () => {
         done();
       });
   });
+  test('testing excludeUsers search', done => {
+    supertest(app)
+      .get('/v1/assets?keyQuery=a&exUserId=5b4f0845b48361468f85032c')
+      .set('X-Requested-With', 'XMLHttpRequest')
+      .expect(200)
+      .end((err, { body }) => {
+        if (err) {
+          throw err;
+        }
+        done();
+      });
+  });
 });
