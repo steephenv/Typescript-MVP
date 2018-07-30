@@ -40,7 +40,6 @@ const TempUserSchema: Schema = new Schema({
   },
   mobile: {
     type: String,
-    required: true,
   },
   token: {
     type: String,
