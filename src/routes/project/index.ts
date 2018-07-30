@@ -18,15 +18,19 @@ import { saveProjectCategory } from './add-category';
 import { updateProjectCategory } from './add-category';
 import { listProjectCategories } from './list-category';
 import { deleteCategory } from './delete-category';
+import { getProjects } from './get-project-catalog-details';
+import { searchProjects } from './search-project-catalog';
 
 export const project = express.Router();
 
 project.post('/save-project-request', projectRequestRule, saveProjectRequest);
 project.post('/save-project', saveProjectRule, saveProject);
+project.post('/search-project', searchProjects);
 project.get('/get-business-function', getBusinessFunction);
 project.get('/get-business-sub-function', getBusSubFunction);
 project.get('/get-project-category', getProjectCategory);
 project.get('/get-industry-line', getIndustryLine);
+project.get('/get-project-catalog', getProjects);
 project.get(
   '/get-proj-sub-category',
   getProjSubCategoryRules,

@@ -27,19 +27,24 @@ const projectSchema = new Schema({
     type: String,
   },
   category: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'ProjectCategory',
   },
   subCategory: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'ProjectSubCategory',
   },
   industryLine: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'IndustryLine',
   },
   businessFunctions: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'BusinessFunction',
   },
   businessSubFunctions: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'BusinessSubFunction',
   },
   projectStages: {
     type: String,
