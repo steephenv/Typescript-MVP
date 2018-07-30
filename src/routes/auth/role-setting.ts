@@ -20,7 +20,13 @@ export const saveRole: RequestHandler = async (req, res, next) => {
     if (req.body.isApproved) {
       const userUpdate = User.update(
         { _id: req.body.userId },
-        { $set: { role: req.body.role, appliedRole: '' } },
+        {
+          $set: {
+            role: req.body.role,
+            appliedRole: '',
+            interviewStatus: 'Passed',
+          },
+        },
       );
       const interviewUpdate = InterviewDetails.update(
         {
@@ -30,12 +36,21 @@ export const saveRole: RequestHandler = async (req, res, next) => {
       );
       await BluePromise.all([userUpdate, interviewUpdate]);
     } else {
-      await InterviewDetails.update(
+      const userUpdate = User.update(
+        { _id: req.body.userId },
+        {
+          $set: {
+            interviewStatus: 'Failed',
+          },
+        },
+      );
+      const interviewUpdate = InterviewDetails.update(
         {
           _id: req.body.interviewId,
         },
         { $set: { interviewStatus: 'Failed', comment: userComment } },
       );
+      await BluePromise.all([userUpdate, interviewUpdate]);
       const user = await User.findOne({ _id: req.body.userId })
         .lean()
         .exec();
