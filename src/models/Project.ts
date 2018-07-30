@@ -36,7 +36,7 @@ const projectSchema = new Schema({
   },
   industryLine: {
     type: Schema.Types.ObjectId,
-    ref: 'IndustryLine',
+    ref: 'Industry',
   },
   businessFunctions: {
     type: Schema.Types.ObjectId,
