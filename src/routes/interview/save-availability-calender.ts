@@ -44,6 +44,7 @@ export const saveAvailability: RequestHandler = async (req, res, next) => {
         endTime: slot.endTime,
         slotDayStartingTime: slotDayStarting,
         createdAt: new Date(),
+        annualAvailability: req.body.annualAvailability,
       });
 
       return savableSlot.save();
