@@ -51,6 +51,7 @@ const resetDatabase = async (MONGO_URI?: string) => {
       mongoose.connection.db
         .dropCollection('projectsubcategories')
         .catch(errHandler),
+      mongoose.connection.db.dropCollection('projects').catch(errHandler),
     ]);
   } catch (err) {
     if (err.code === 26) {
