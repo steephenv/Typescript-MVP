@@ -38,6 +38,7 @@ describe('Test for scheduling interview', () => {
       .send({
         startTime: availableSlot[0].startTime,
         endTime: availableSlot[0].endTime,
+        typeOfCall: 'Video',
       })
       .expect(201)
       .end((err, res) => {
@@ -55,6 +56,7 @@ describe('Test for scheduling interview', () => {
       .send({
         startTime: availableSlot[1].startTime,
         endTime: availableSlot[1].endTime,
+        typeOfCall: 'Video',
       })
       .expect(201)
       .end((err, res) => {

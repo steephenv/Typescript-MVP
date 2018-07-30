@@ -44,9 +44,17 @@ describe('Test for availability save', () => {
               'Mon Aug 27 2018 05:30:00 GMT+0530 (India Standard Time)',
             endDate: 'Thu Sep 27 2018 05:30:00 GMT+0530 (India Standard Time)',
           },
-          workingDays: [1, 2, 5],
-          workingTime: { startTime: 9, endTime: 18 },
-          breakTime: { startTime: 13, endTime: 14 },
+          workingDays: ['Sunday', 'Monday', 'Tuesday', 'Thursday'],
+          workingTime: {
+            startTime:
+              'Mon Jul 30 2018 09:00:00 GMT+0530 (India Standard Time)',
+            endTime: 'Mon Jul 30 2018 18:00:00 GMT+0530 (India Standard Time)',
+          },
+          breakTime: {
+            startTime:
+              'Mon Jul 30 2018 13:00:00 GMT+0530 (India Standard Time)',
+            endTime: 'Mon Jul 30 2018 14:00:00 GMT+0530 (India Standard Time)',
+          },
           userId: bpm._id,
         })
         .expect(200)
