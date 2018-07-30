@@ -2,8 +2,8 @@ import { RequestHandler } from 'express';
 import { Project } from '../../models/Project';
 import { ProjectCategory } from '../../models/ProjectCategory';
 import { ProjectSubCategory } from '../../models/ProjectSubCategory';
-import { IndustryLine } from '../../models/IndustryLine';
-import { TempBusFunction } from '../../models/BusinessFunction';
+import { Industry } from '../../models/Industries';
+import { BusinessFunction } from '../../models/Business-function';
 
 import {
   RequestError,
@@ -12,13 +12,13 @@ import {
 
 export const searchProjects: RequestHandler = async (req, res, next) => {
   try {
-    const indId = await IndustryLine.find({
-      industryLine: req.body.industryLine,
+    const indId = await Industry.find({
+      name: req.body.industryLine,
     })
       .distinct('_id')
       .exec();
-    const busFnId = await TempBusFunction.find({
-      businessFunction: req.body.businessFunctions,
+    const busFnId = await BusinessFunction.find({
+      name: req.body.businessFunctions,
     })
       .distinct('_id')
       .exec();
@@ -34,8 +34,8 @@ export const searchProjects: RequestHandler = async (req, res, next) => {
       .exec();
     const projectList = await Project.find({
       $or: [
-        { IndustryLine: { $in: indId } },
-        { TempBusFunction: { $in: busFnId } },
+        { Industry: { $in: indId } },
+        { BusinessFunction: { $in: busFnId } },
         { ProjectCategory: { $in: catId } },
         { ProjectSubCategory: { $in: subCatId } },
         { technology: req.body.technology },
