@@ -2,8 +2,8 @@ import { RequestHandler } from 'express';
 import { Project } from '../../models/Project';
 import '../../models/ProjectCategory';
 import '../../models/ProjectSubCategory';
-import '../../models/IndustryLine';
-import '../../models/BusinessFunction';
+import '../../models/Industries';
+import '../../models/Business-function';
 import '../../models/Business-sub-function';
 import {
   RequestError,
