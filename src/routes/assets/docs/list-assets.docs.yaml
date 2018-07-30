@@ -20,7 +20,7 @@
       example: profpic88
     - name: exUserId
       type: string
-      description: "if present, it removes entries of that user"
+      description: "if present, it removes entries of that user. **Note**: if this field is present, `userId` field in the query is ignored"
       in: query
       example: profpic88
     - name: name
