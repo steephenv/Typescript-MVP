@@ -5,24 +5,24 @@ import {
 } from '../../error-handler/RequestError';
 import { Promise as BluePromise } from 'bluebird';
 
-import { ProjectCategory } from '../../models/ProjectCategory';
-import { ProjectSubCategory } from '../../models/ProjectSubCategory';
+import { SkillCategory } from '../../models/SkillCategory';
+import { SkillSubCategory } from '../../models/SkillSubCategory';
 
-export const deleteCategory: RequestHandler = async (req, res, next) => {
+export const deleteSkillCategory: RequestHandler = async (req, res, next) => {
   try {
     if (req.body.model === 'category') {
-      const deleteMainCategory = ProjectCategory.update(
+      const deleteMainCategory = SkillCategory.update(
         { _id: { $in: req.body.ids } },
         { $set: { isDelete: true } },
       );
-      const deleteSubs = ProjectSubCategory.update(
+      const deleteSubs = SkillSubCategory.update(
         { categoryId: { $in: req.body.ids } },
         { $set: { isDelete: true } },
       );
 
       await BluePromise.all([deleteMainCategory, deleteSubs]);
     } else {
-      await ProjectSubCategory.update(
+      await SkillCategory.update(
         { _id: { $in: req.body.ids } },
         { $set: { isDelete: true } },
       );

@@ -41,11 +41,11 @@ describe('Test for availability save', () => {
         .send({
           dateRange: {
             startDate:
-              'Fri Jul 20 2018 09:58:32 GMT+0530 (India Standard Time)',
-            endDate: 'Sun Aug 05 2018 00:00:00 GMT+0530 (India Standard Time)',
+              'Mon Aug 27 2018 05:30:00 GMT+0530 (India Standard Time)',
+            endDate: 'Thu Sep 27 2018 05:30:00 GMT+0530 (India Standard Time)',
           },
           workingDays: [1, 2, 5],
-          workingTime: { startTime: 9, endTime: 16 },
+          workingTime: { startTime: 9, endTime: 18 },
           breakTime: { startTime: 13, endTime: 14 },
           userId: bpm._id,
         })

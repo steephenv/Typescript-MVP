@@ -57,6 +57,10 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  interviewStatus: {
+    type: String,
+    enum: ['Applied', 'Completed', 'Cancelled', 'Passed', 'Failed'],
+  },
   createdAt: {
     type: Date,
   },

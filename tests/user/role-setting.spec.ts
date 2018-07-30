@@ -35,6 +35,8 @@ describe('List users api', () => {
         userId: newUserId,
         role: 'Consultant',
         isApproved: true,
+        comment: 'fdsgf',
+        interviewId: '5b506d48e618c7361b6a3977',
       })
       .expect(200)
       .end((err, res) => {

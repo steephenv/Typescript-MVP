@@ -1,11 +1,11 @@
-/project/delete-category:
+/profile/delete-skill-category:
   post:
     security:
     - Bearer: []
-    summary: api for soft delete project category and sub category.
+    summary: api for soft delete skill category and sub category.
     tags:
-    - projects
-    description: api for soft delete project category and sub category.
+    - profile
+    description: api for soft delete skill category and sub category.
     parameters:
     - name: X-Requested-With
       description: set value to XMLHttpRequest if you are making an xhr request
@@ -27,7 +27,7 @@
             example: category , subCategory
           ids:
             type: array
-            description: array of _id of collection     
+            description: array of _ids of collection     
     responses:
       200:
         description: "successful attempt, returns `success message`"

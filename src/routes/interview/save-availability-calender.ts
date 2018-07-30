@@ -52,11 +52,10 @@ export const saveAvailability: RequestHandler = async (req, res, next) => {
     const slotsArray = periodsArray.map(period => {
       return splitTime(period.startTime, period.endTime, 60 * 60 * 1000);
     });
-    const slots = slotsArray.map(newSlot => {
-      return newSlot[0];
-    });
 
-    await BluePromise.map(slots, slot => {
+    const flattened = [].concat(...slotsArray);
+
+    await BluePromise.map(flattened, slot => {
       const startDateString = `${slot.startTime.getFullYear()}-${slot.startTime.getMonth() +
         1}-${slot.startTime.getDate()}`;
       const slotDayStarting = new Date(

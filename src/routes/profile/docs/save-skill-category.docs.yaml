@@ -1,11 +1,11 @@
-/project/delete-category:
+/profile/save-skill-category:
   post:
     security:
     - Bearer: []
-    summary: api for soft delete project category and sub category.
+    summary: api for save skill category and sub category.
     tags:
-    - projects
-    description: api for soft delete project category and sub category.
+    - profile
+    description: api for save skill category and sub category.
     parameters:
     - name: X-Requested-With
       description: set value to XMLHttpRequest if you are making an xhr request
@@ -18,16 +18,18 @@
       schema:
         type: object
         required:
-        - model
-        - ids
+        - category
+        - cluster
+        - subCategories
         properties:
-          model:
+          category:
             type: string
-            description: name whether it is category or sub category
-            example: category , subCategory
-          ids:
+          subCategories:
             type: array
-            description: array of _id of collection     
+            items:
+              properties:
+                subCategory:
+                  type: string  
     responses:
-      200:
+      201:
         description: "successful attempt, returns `success message`"

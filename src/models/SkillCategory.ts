@@ -11,6 +11,10 @@ const SkillCategorySchema: Schema = new Schema({
     type: String,
     enum: ['Personal', 'Leadership', 'Entrepreneurship', 'Functional'],
   },
+  isDelete: {
+    type: Boolean,
+    default: false,
+  },
 });
 export const SkillCategory = mongooseModel(
   'SkillCategory',

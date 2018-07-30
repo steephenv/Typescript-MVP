@@ -5,13 +5,14 @@ import {
 } from '../../error-handler/RequestError';
 import { Promise as BluePromise } from 'bluebird';
 
-import { ProjectCategory } from '../../models/ProjectCategory';
-import { ProjectSubCategory } from '../../models/ProjectSubCategory';
+import { SkillCategory } from '../../models/SkillCategory';
+import { SkillSubCategory } from '../../models/SkillSubCategory';
 
 interface ISaveFields {
   subCategory?: string;
   category?: string;
   categoryId?: string;
+  cluster?: string;
 }
 
 export const saveCollection = async (model: any, fields: ISaveFields) => {
@@ -27,22 +28,24 @@ export const updateCollection = async (
   return model.update({ _id: id }, { $set: fields });
 };
 
-export const saveProjectCategory: RequestHandler = async (req, res, next) => {
+export const saveSkillCategory: RequestHandler = async (req, res, next) => {
   try {
-    const exsCategory = await ProjectCategory.find({
+    const exsCategory = await SkillCategory.find({
       category: req.body.category,
+      cluster: req.body.cluster,
     }).exec();
     if (exsCategory.length) {
       return next(
         new RequestError(RequestErrorType.CONFLICT, 'Category Existing !!'),
       );
     }
-    const savedCategory = await saveCollection(ProjectCategory, {
+    const savedCategory = await saveCollection(SkillCategory, {
       category: req.body.category,
+      cluster: req.body.cluster,
     });
     if (req.body.subCategories.length) {
       await BluePromise.map(req.body.subCategories, (sub: any) => {
-        return saveCollection(ProjectSubCategory, {
+        return saveCollection(SkillSubCategory, {
           categoryId: savedCategory._id,
           subCategory: sub.subCategory,
         });
@@ -54,18 +57,19 @@ export const saveProjectCategory: RequestHandler = async (req, res, next) => {
   }
 };
 
-export const updateProjectCategory: RequestHandler = async (req, res, next) => {
+export const updateSkillCategory: RequestHandler = async (req, res, next) => {
   try {
-    const exsCategory = await ProjectCategory.find({
+    const exsCategory = await SkillCategory.find({
       _id: { $ne: req.body._id },
       category: req.body.category,
+      cluster: req.body.cluster,
     }).exec();
     if (exsCategory.length) {
       return next(
         new RequestError(RequestErrorType.CONFLICT, 'Category Existing !!'),
       );
     }
-    const updatedCategory = updateCollection(ProjectCategory, req.body._id, {
+    const updatedCategory = updateCollection(SkillCategory, req.body._id, {
       category: req.body.category,
     });
     let updateSubCategories;
@@ -73,7 +77,7 @@ export const updateProjectCategory: RequestHandler = async (req, res, next) => {
       updateSubCategories = BluePromise.map(
         req.body.subCategories,
         async (subCat: any) => {
-          const exsSubCategory = await ProjectSubCategory.find({
+          const exsSubCategory = await SkillCategory.find({
             categoryId: req.body._id,
             subCategory: subCat.subCategory,
           }).exec();
@@ -81,11 +85,11 @@ export const updateProjectCategory: RequestHandler = async (req, res, next) => {
             return;
           }
           if (subCat._id) {
-            return updateCollection(ProjectSubCategory, subCat._id, {
+            return updateCollection(SkillSubCategory, subCat._id, {
               subCategory: subCat.subCategory,
             });
           }
-          return saveCollection(ProjectSubCategory, {
+          return saveCollection(SkillSubCategory, {
             categoryId: req.body._id,
             subCategory: subCat.subCategory,
           });

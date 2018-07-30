@@ -29,9 +29,15 @@
           userId:
             type: string
             example: id of user
+          interviewId: 
+            type: string
+            example: interview _id  
           isApproved:
             type: boolean
             example: true
+          comment:
+            type: string
+            example: gregtr  
         
     responses:
       201:

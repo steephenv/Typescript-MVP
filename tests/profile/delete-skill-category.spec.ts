@@ -1,8 +1,8 @@
 import * as supertest from 'supertest';
 import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
 
-import { ProjectCategory } from '../../src/models/ProjectCategory';
-import { ProjectSubCategory } from '../../src/models/ProjectSubCategory';
+import { SkillCategory } from '../../src/models/SkillCategory';
+import { SkillSubCategory } from '../../src/models/SkillSubCategory';
 
 let token = '';
 let catSave: any;
@@ -24,21 +24,24 @@ beforeAll(done => {
         throw err;
       }
       token = res.body.accessToken;
-      const newCat = new ProjectCategory({ category: 'deleteProjCategory' });
+      const newCat = new SkillCategory({
+        category: 'deleteSkillCategory',
+        cluster: 'Personal',
+      });
       catSave = await newCat.save();
-      const newSubCat = new ProjectSubCategory({
+      const newSubCat = new SkillSubCategory({
         categoryId: newCat._id,
-        subCategory: 'deleteProjSubCategory',
+        subCategory: 'deleteSkillSubCategory',
       });
       subSave = await newSubCat.save();
       return done();
     });
 });
 
-describe('Save project category ==> ', () => {
-  it('Save project category', done => {
+describe('Save skill category ==> ', () => {
+  it('Save skill category', done => {
     supertest(app)
-      .post(`/v1/project/delete-category`)
+      .post(`/v1/profile/delete-skill-category`)
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
       .send({

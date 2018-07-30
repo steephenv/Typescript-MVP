@@ -1,11 +1,11 @@
-/project/list-all-categories:
-  get:
+/profile/list-all-categories:
+  post:
     security:
     - Bearer: []
-    summary: api for listing all category and sub category.
+    summary: api for listing all skill category and sub category.
     tags:
-    - projects
-    description: api for listing all category and sub category.
+    - profile
+    description: api for listing all skill category and sub category.
     parameters:
     - name: X-Requested-With
       description: set value to XMLHttpRequest if you are making an xhr request
