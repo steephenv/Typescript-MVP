@@ -30,6 +30,15 @@ export const updateCollection = async (
 
 export const saveSkillCategory: RequestHandler = async (req, res, next) => {
   try {
+    const exsCategory = await SkillCategory.find({
+      category: req.body.category,
+      cluster: req.body.cluster,
+    }).exec();
+    if (exsCategory.length) {
+      return next(
+        new RequestError(RequestErrorType.CONFLICT, 'Category Existing !!'),
+      );
+    }
     const savedCategory = await saveCollection(SkillCategory, {
       category: req.body.category,
       cluster: req.body.cluster,
@@ -50,6 +59,16 @@ export const saveSkillCategory: RequestHandler = async (req, res, next) => {
 
 export const updateSkillCategory: RequestHandler = async (req, res, next) => {
   try {
+    const exsCategory = await SkillCategory.find({
+      _id: { $ne: req.body._id },
+      category: req.body.category,
+      cluster: req.body.cluster,
+    }).exec();
+    if (exsCategory.length) {
+      return next(
+        new RequestError(RequestErrorType.CONFLICT, 'Category Existing !!'),
+      );
+    }
     const updatedCategory = updateCollection(SkillCategory, req.body._id, {
       category: req.body.category,
     });
@@ -57,7 +76,14 @@ export const updateSkillCategory: RequestHandler = async (req, res, next) => {
     if (req.body.subCategories.length) {
       updateSubCategories = BluePromise.map(
         req.body.subCategories,
-        (subCat: any) => {
+        async (subCat: any) => {
+          const exsSubCategory = await SkillCategory.find({
+            categoryId: req.body._id,
+            subCategory: subCat.subCategory,
+          }).exec();
+          if (exsSubCategory.length) {
+            return;
+          }
           if (subCat._id) {
             return updateCollection(SkillSubCategory, subCat._id, {
               subCategory: subCat.subCategory,
