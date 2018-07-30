@@ -19,3 +19,16 @@ export const createIndustries: RequestHandler = async (req, res, next) => {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }
 };
+export async function addIndLine(indLine: string) {
+  const extIndLine: any = await Industry.findOne({
+    name: indLine,
+  }).exec();
+
+  if (!extIndLine) {
+    const newIndLine = new Industry({
+      name: indLine,
+    });
+    await newIndLine.save();
+    return;
+  }
+}
