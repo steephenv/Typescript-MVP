@@ -8,14 +8,22 @@ import { InterviewAvailabilityCalender } from '../../models/InterviewAvailabilit
 export const listBPMAvailability: RequestHandler = async (req, res, next) => {
   try {
     const gettingDate = req.query.date ? new Date(req.query.date) : new Date();
+    const forward = req.query.forward ? req.query.forward : 'true';
     const givenStartTime = new Date(gettingDate.setHours(23, 59, 59, 999));
+    const givenEndTime = new Date(gettingDate.setHours(0, 0, 0, 0));
+
+    let timeQuery = {};
+
+    if (forward === 'true') {
+      timeQuery = { slotDayStartingTime: { $gt: givenStartTime } };
+    } else {
+      timeQuery = { slotDayStartingTime: { $lt: givenEndTime } };
+    }
+
     const dates = await InterviewAvailabilityCalender.aggregate([
       {
         $match: {
-          $and: [
-            { slotDayStartingTime: { $gt: givenStartTime } },
-            { booked: false },
-          ],
+          $and: [timeQuery, { booked: false }],
         },
       },
       {
