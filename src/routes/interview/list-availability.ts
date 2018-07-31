@@ -13,10 +13,11 @@ export const listBPMAvailability: RequestHandler = async (req, res, next) => {
     const givenEndTime = new Date(gettingDate.setHours(0, 0, 0, 0));
 
     let timeQuery = {};
-
+    let sortVariable = 1;
     if (forward === 'true') {
       timeQuery = { slotDayStartingTime: { $gt: givenStartTime } };
     } else {
+      sortVariable = -1;
       timeQuery = { slotDayStartingTime: { $lt: givenEndTime } };
     }
 
@@ -40,8 +41,9 @@ export const listBPMAvailability: RequestHandler = async (req, res, next) => {
       { $unwind: '$slots' },
       { $sort: { 'slots.startTime': 1 } },
       { $group: { _id: '$_id', slotData: { $push: '$slots' } } },
-      { $sort: { _id: 1 } },
+      { $sort: { _id: sortVariable } },
       { $limit: 3 },
+      { $sort: { _id: 1 } },
     ]).exec();
     return res.status(200).send({ success: true, data: dates });
   } catch (err) {
