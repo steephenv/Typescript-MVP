@@ -13,8 +13,9 @@ import {
 export const searchProjects: RequestHandler = async (req, res, next) => {
   try {
     const queryArray = [];
-    if (req.body.projectTitle) {
-      queryArray.push({ projectTittle: req.body.projectTitle });
+    if (req.body.searchKey) {
+      const regexp = new RegExp(`^${req.query.searchKey}`);
+      queryArray.push({ projectTittle: regexp });
     }
     if (req.body.industryLine) {
       queryArray.push({ industryLine: req.body.industryLine });
@@ -84,8 +85,6 @@ export const searchProjects: RequestHandler = async (req, res, next) => {
         .populate('businessFunctions')
         .exec();
     }
-
-    // console.log(projectList);
     return res.status(200).send({
       success: true,
       projects: projectList,
