@@ -5,6 +5,7 @@ import * as csv from 'fast-csv';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
 import * as userHome from 'user-home';
+import { Promise as BluePromise } from 'bluebird';
 
 import { PersonalDetails } from '../../models/PersonalDetails';
 import { CustomerCredentials } from '../../models/CustomerCredentials';
@@ -154,11 +155,21 @@ export const linkData: RequestHandler = async (req, res, next) => {
               maidenName: dataobj[datakey[2]],
               primaryEmail: primaryData.email,
             };
-            await PersonalDetails.update(
+            const updateUser = User.update(
+              { _id: res.locals.user.userId },
+              {
+                $set: {
+                  firstName: dataobj[datakey[0]],
+                  lastName: dataobj[datakey[1]],
+                },
+              },
+            );
+            const personalUpdate = PersonalDetails.update(
               { userId: res.locals.user.userId },
               { $set: profData },
               { upsert: true },
             );
+            await BluePromise.all([updateUser, personalUpdate]);
           });
           objArray.forEach(async (dataobj: any) => {
             const datakey: any = Object.keys(dataobj);
