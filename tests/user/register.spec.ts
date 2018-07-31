@@ -64,6 +64,7 @@ describe('Test for signup functionality ===> ', () => {
         lastName: 'ponding',
         email: 12345,
         password: 'australia',
+        isDirectRegistration: false,
         mobile: '1234567890',
       })
       .expect(422)
@@ -82,6 +83,7 @@ describe('Test for signup functionality ===> ', () => {
         firstName: 'ricky',
         lastName: 'ponding',
         email: 'keyEmail',
+        isDirectRegistration: false,
         password: 'australia',
         mobile: '1234567890',
       })
@@ -106,6 +108,7 @@ describe('Test for signup functionality ===> ', () => {
           password: 'iamIron',
           confirmPassword: 'iamIron',
           appliedRole: 'Client',
+          isDirectRegistration: false,
           callTime: new Date(),
           url: 'dfsfsd?token={token}',
           companyName: 'Stark Industries',
@@ -131,6 +134,7 @@ describe('Test for signup functionality ===> ', () => {
         email: client1,
         password: 'iamIron',
         confirmPassword: 'iamIron',
+        isDirectRegistration: false,
         appliedRole: 'Client',
         callTime: '8 am',
         mobile: '1234567890',
