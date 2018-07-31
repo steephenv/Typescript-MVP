@@ -3,8 +3,8 @@ import { RequestHandler } from 'express';
 
 // tslint:disable:variable-name
 const wlbDataSchema = Joi.object().keys({
-  annualAvailableCapacity: Joi.string().required(),
-  capricornsAvailableCapacity: Joi.string().required(),
+  annualAvailableCapacity: Joi.number().required(),
+  capricornsAvailableCapacity: Joi.number().required(),
   frequencyOnsiteWork: Joi.number().required(),
   frequencyHomeOfficeWork: Joi.number().required(),
   location: Joi.array().required(),

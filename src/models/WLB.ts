@@ -14,10 +14,10 @@ const wlbSchema = new Schema({
     type: Date,
   },
   annualAvailableCapacity: {
-    type: String,
+    type: Number,
   },
   capricornsAvailableCapacity: {
-    type: String,
+    type: Number,
   },
   frequencyOnsiteWork: {
     type: Number,
