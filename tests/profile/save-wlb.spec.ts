@@ -32,8 +32,8 @@ describe('Test for saving wlb data  ===> ', () => {
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
       .send({
-        annualAvailableCapacity: 'dshfvhsdvf',
-        capricornsAvailableCapacity: 'dsbfhjsdfds',
+        annualAvailableCapacity: 210,
+        capricornsAvailableCapacity: 260,
         frequencyOnsiteWork: 2153,
         frequencyHomeOfficeWork: 1265,
         location: ['dsfhhjsd', 'sdfbhsd', 'dbfhbd'],

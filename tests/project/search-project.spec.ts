@@ -32,19 +32,36 @@ describe('Test for project searching api  ===> ', () => {
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
       .send({
-        category: 'ProjCat 2',
-        // subCategory: 'ProjSub 2',
-        // industryLine: 'sdfs',
-        // businessFunctions: 'fsdefs',
+        projectTitle: 'MusicMatch',
+        category: ['5b5f02cbb19b436977beb3e1'],
+        // subCategory: [],
+        // industryLine: [],
+        businessFunctions: ['5b5f02f67fdc3a69b2a98767'],
         // technology: 'tro',
         // effort: 'Low (< 20 days)',
-        price: '20000',
+        // price: '20000',
         // impact: 'Procurement Saving',
         // referenceClientTypes: 'Small',
         // referenceProjectDate: '2018-03-31T18:30:00.000Z',
-        referenceCountry: 'Canada',
+        // referenceCountry: 'Canada',
         // referenceLanguage: 'fr',
       })
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          throw err;
+        }
+        return done();
+      });
+  });
+});
+describe('Test for project searching api with no parameters ===> ', () => {
+  it('searching project api with no parameters', done => {
+    supertest(app)
+      .post('/v1/project/search-project')
+      .set('X-Requested-With', 'XMLHttpRequest')
+      .set({ Authorization: `Bearer ${token}` })
+      .send({})
       .expect(200)
       .end((err, res) => {
         if (err) {
