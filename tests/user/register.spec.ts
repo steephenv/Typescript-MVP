@@ -3,11 +3,30 @@
 import * as supertest from 'supertest';
 import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
 
-const keyEmail = 'loki1@marvel.com';
-const client1 = 'rdj@nnn.com';
+const keyEmail = 'loki1234@marvel.com';
+const client1 = 'rdj1234@nnn.com';
+let adminToken = '';
 
 // Test
 afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
+
+beforeAll(done => {
+  supertest(app)
+    .post('/v1/auth/login')
+    .set('X-Requested-With', 'XMLHttpRequest')
+    .send({
+      username: 'red@velvet.com',
+      password: 'password',
+    })
+    .expect(200)
+    .end((err, res) => {
+      if (err) {
+        throw err;
+      }
+      adminToken = res.body.accessToken;
+      return done();
+    });
+});
 
 describe('Test for signup functionality ===> ', () => {
   test(
@@ -22,11 +41,12 @@ describe('Test for signup functionality ===> ', () => {
           password: 'australia',
           appliedRole: 'User',
           confirmPassword: 'australia',
+          isDirectRegistration: false,
           url: 'dfsfsd?token={token}',
           mobile: '0987654321',
         })
         .expect(201)
-        .end(err => {
+        .end((err, res) => {
           if (err) {
             throw err;
           }
@@ -145,4 +165,34 @@ describe('Test for signup functionality ===> ', () => {
         return done();
       });
   });
+
+  test(
+    'Client direct registration ',
+    async done => {
+      supertest(app)
+        .post('/v1/auth/register')
+        .set('X-Requested-With', 'XMLHttpRequest')
+        .set({ Authorization: `Bearer ${adminToken}` })
+        .send({
+          firstName: 'Sid',
+          lastName: 'stark',
+          email: 'sid1234@cubettech.com',
+          password: 'iamIron',
+          confirmPassword: 'iamIron',
+          role: 'Client',
+          isDirectRegistration: true,
+          callTime: new Date(),
+          companyName: 'Stark Industries',
+          mobile: '1234567890',
+        })
+        .expect(201)
+        .end(err => {
+          if (err) {
+            throw err;
+          }
+          return done();
+        });
+    },
+    15000,
+  );
 });
