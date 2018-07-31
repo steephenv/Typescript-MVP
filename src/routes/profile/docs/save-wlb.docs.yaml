@@ -32,9 +32,9 @@
           -daysInCapricornsYear
         properties:
           annualAvailableCapacity:
-            type: string
+            type: number
           capricornsAvailableCapacity:
-            type: string
+            type: number
           frequencyOnsiteWork:
             type: number
           frequencyHomeOfficeWork:
