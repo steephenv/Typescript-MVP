@@ -32,11 +32,12 @@ describe('Test for project searching api  ===> ', () => {
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
       .send({
-        projectTitle: 'MusicMatch',
-        category: ['5b5f02cbb19b436977beb3e1'],
+        searchKey: 'Music',
+        // projectTitle: 'MusicMatch',
+        // category: ['5b5f02cbb19b436977beb3e1'],
         // subCategory: [],
         // industryLine: [],
-        businessFunctions: ['5b5f02f67fdc3a69b2a98767'],
+        // businessFunctions: ['5b5f02f67fdc3a69b2a98767'],
         // technology: 'tro',
         // effort: 'Low (< 20 days)',
         // price: '20000',
