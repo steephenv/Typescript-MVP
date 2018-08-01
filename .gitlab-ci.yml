@@ -7,8 +7,8 @@ before_script:
   - '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'
   - source ~/.profile
   - source ~/.bashrc
-  - nvm install v8.11.2
-  - nvm use v8.11.2
+  # - nvm install v8.11.2
+  # - nvm use v8.11.2
   - node --version
   - yarn --version
 
