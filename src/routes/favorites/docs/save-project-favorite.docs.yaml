@@ -1,0 +1,34 @@
+/project/save-project-favorite:
+  post:
+    security:
+    - Bearer: []
+    summary: api for save project favorite.
+    tags:
+    - favorites
+    description: api for save project favorites.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    # - name: userId
+    #   description: 'userId'
+    #   in: query
+    #   type: string
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        - type
+        - collectionType
+        properties:
+          type:
+            type: String
+          collectionType:
+            type: String
+    responses:
+      200:
+        description: "successful attempt, returns `success message`"
