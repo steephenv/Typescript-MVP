@@ -32,9 +32,9 @@
           personalStatement:
            type: string
           annualAvailableCapacity:
-             type: string
+             type: number
           capricornsAvailableCapacity:
-             type: string
+             type: number
           income:
              type: string
           incomeUnit:
