@@ -1,5 +1,5 @@
-/profile/list-all-categories:
-  post:
+/profile/list-all-skill-categories:
+  get:
     security:
     - Bearer: []
     summary: api for listing all skill category and sub category.

@@ -32,7 +32,7 @@ export const listAllSkillCategories: RequestHandler = async (
         cat.subCategories = subCategories;
       });
     }
-    return res.status(200).send({ success: true, projectCategories: cats });
+    return res.status(200).send({ success: true, skillCategories: cats });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }
