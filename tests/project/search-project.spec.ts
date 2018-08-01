@@ -49,7 +49,6 @@ describe('Test for project searching api  ===> ', () => {
       })
       .expect(200)
       .end((err, { body }) => {
-        console.log(body);
         if (err) {
           throw err;
         }
