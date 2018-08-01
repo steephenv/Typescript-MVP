@@ -1,5 +1,7 @@
 import * as express from 'express';
 
+import * as queryBoolParser from 'express-query-boolean';
+
 import { errValidator } from '../../error-handler/error-validator';
 
 import { registerValidation } from './validators/register-rules';
@@ -45,7 +47,12 @@ auth.get('/get-states', getStates);
 auth.get('/get-cities', getCities);
 auth.get('/get-country-details', getCountryDetails);
 
-auth.get('/list-users/:page', listUsersValidation, listUsers);
+auth.get(
+  '/list-users/:page',
+  listUsersValidation,
+  queryBoolParser(),
+  listUsers,
+);
 auth.post('/role-setting', setRoleValidation, saveRole);
 
 auth.get('/suggest-users', userSuggestionRule, suggestUsers);
