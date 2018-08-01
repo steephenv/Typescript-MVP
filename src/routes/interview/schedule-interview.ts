@@ -53,6 +53,7 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
       endTime: availableSlot.endTime,
       typeOfCall: req.body.typeOfCall,
       interviewStatus: 'Applied',
+      createdAt: new Date(),
     });
     const savedInterview = await newInterview.save();
 
