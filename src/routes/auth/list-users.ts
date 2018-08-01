@@ -19,9 +19,16 @@ export const listUsers: RequestHandler = async (req, res, next) => {
       n = +req.params.page;
     }
     const skip = limit * (n - 1);
-    const usersList = await User.find({
+
+    const condition: any = {
       [res.locals.query.field]: { $in: res.locals.query.values },
-    })
+    };
+
+    if (req.query.profileDataVerified) {
+      condition.profileDataVerified = true;
+    }
+
+    const usersList = await User.find(condition)
       .select('firstName lastName appliedRole role profileDataVerified')
       .skip(skip)
       .limit(limit)

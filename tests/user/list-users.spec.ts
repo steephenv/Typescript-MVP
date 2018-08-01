@@ -39,4 +39,19 @@ describe('List users api', () => {
         return done();
       });
   });
+  it('profile data verified check', done => {
+    supertest(app)
+      .get(
+        `/v1/auth/list-users/1?values=["Employee", "Consultant"]&field=appliedRole&profileDataVerified=true`,
+      )
+      .set('X-Requested-With', 'XMLHttpRequest')
+      .set({ Authorization: `Bearer ${token}` })
+      .expect(200)
+      .end((err, { body }) => {
+        if (err) {
+          throw err;
+        }
+        return done();
+      });
+  });
 });
