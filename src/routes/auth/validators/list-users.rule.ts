@@ -6,27 +6,12 @@ import {
 } from '../../../error-handler/RequestError';
 
 export const listUsersValidation: RequestHandler = (req, res, next) => {
-  if (!req.query || !req.query.field || !req.query.values.length) {
-    return next(
-      new RequestError(
-        RequestErrorType.UNPROCESSABLE_ENTITY,
-        'No Given Conditions',
-      ),
-    );
-  }
-  try {
-    const queryValues = JSON.parse(req.query.values);
-    if (!queryValues.length) {
-      return next(
-        new RequestError(
-          RequestErrorType.UNPROCESSABLE_ENTITY,
-          'No Given Conditions',
-        ),
-      );
+  if (req.query.appliedRole) {
+    try {
+      req.query.appliedRole = { $in: JSON.parse(req.query.appliedRole) };
+    } catch (err) {
+      return next(new RequestError(RequestErrorType.UNPROCESSABLE_ENTITY, err));
     }
-    res.locals.query = { values: queryValues, field: req.query.field };
-    next();
-  } catch (err) {
-    return next(new RequestError(RequestErrorType.UNPROCESSABLE_ENTITY, err));
   }
+  next();
 };

@@ -1,6 +1,7 @@
 import * as express from 'express';
 
 import * as queryBoolParser from 'express-query-boolean';
+import * as queryIntParser from 'express-query-int';
 
 import { errValidator } from '../../error-handler/error-validator';
 
@@ -48,9 +49,10 @@ auth.get('/get-cities', getCities);
 auth.get('/get-country-details', getCountryDetails);
 
 auth.get(
-  '/list-users/:page',
-  listUsersValidation,
+  '/list-users',
   queryBoolParser(),
+  queryIntParser(),
+  listUsersValidation,
   listUsers,
 );
 auth.post('/role-setting', setRoleValidation, saveRole);
