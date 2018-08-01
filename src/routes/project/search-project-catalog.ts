@@ -22,16 +22,16 @@ export const searchProjects: RequestHandler = async (req, res, next) => {
 
       queryArray.push({ projectTittle: regexp || '' });
     }
-    if (req.body.industryLine.length) {
+    if (req.body.industryLine && req.body.industryLine.length) {
       queryArray.push({ industryLine: req.body.industryLine });
     }
-    if (req.body.businessFunctions.length) {
+    if (req.body.businessFunctions && req.body.businessFunctions.length) {
       queryArray.push({ businessFunctions: req.body.businessFunctions });
     }
-    if (req.body.category.length) {
+    if (req.body.category && req.body.category.length) {
       queryArray.push({ category: req.body.category });
     }
-    if (req.body.subCategory.length) {
+    if (req.body.subCategory && req.body.subCategory.length) {
       queryArray.push({ subCategory: req.body.subCategory });
     }
     if (req.body.technology) {
@@ -59,7 +59,7 @@ export const searchProjects: RequestHandler = async (req, res, next) => {
       queryArray.push({ referenceLanguage: req.body.referenceLanguage });
     }
     let projectList;
-    // if (queryArray.length === 0) {
+    // if (queryArray&&if (queryArray.length === 0) {
 
     const cond = {
       $and: queryArray,
