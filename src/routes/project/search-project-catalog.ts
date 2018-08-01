@@ -1,6 +1,8 @@
 import { RequestHandler } from 'express';
+
 import { Project } from '../../models/Project';
-// import { ProjectCategory } from '../../models/ProjectCategory';
+import { escapeRegex } from '../../utils/escape-regex';
+
 // import { ProjectSubCategory } from '../../models/ProjectSubCategory';
 // import { Industry } from '../../models/Industries';
 // import { BusinessFunction } from '../../models/Business-function';
@@ -14,7 +16,10 @@ export const searchProjects: RequestHandler = async (req, res, next) => {
   try {
     const queryArray = [];
     if (req.body.searchKey) {
-      const regexp = new RegExp(`^${req.query.searchKey}`);
+      // const regexp = new RegExp(`^${req.query.searchKey}`);
+      const text = escapeRegex(req.body.searchKey);
+      const regexp = new RegExp(text, 'gi');
+
       queryArray.push({ projectTittle: regexp });
     }
     if (req.body.industryLine) {

@@ -32,7 +32,7 @@ describe('Test for project searching api  ===> ', () => {
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
       .send({
-        searchKey: 'Music',
+        searchKey: 'sic',
         // projectTitle: 'MusicMatch',
         // category: ['5b5f02cbb19b436977beb3e1'],
         // subCategory: [],
@@ -48,7 +48,8 @@ describe('Test for project searching api  ===> ', () => {
         // referenceLanguage: 'fr',
       })
       .expect(200)
-      .end((err, res) => {
+      .end((err, { body }) => {
+        console.log(body);
         if (err) {
           throw err;
         }

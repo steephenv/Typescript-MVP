@@ -2,6 +2,7 @@ import { RequestHandler } from 'express';
 import { Promise as BluePromise } from 'bluebird';
 
 import { Assets } from '../../models/Assets';
+import { escapeRegex } from '../../utils/escape-regex';
 
 import {
   RequestError,
@@ -95,8 +96,4 @@ async function regexKeySearch(reqQuery: any, limit: number, skip: number) {
   const [assets, count] = await BluePromise.all([assetsPromise, countPromise]);
 
   return { assets, count };
-}
-
-function escapeRegex(text: string) {
-  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }
