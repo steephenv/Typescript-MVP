@@ -1,4 +1,4 @@
-/auth/list-users/:page:
+/auth/list-users:
   get:
     security:
     - Bearer: []
@@ -12,23 +12,26 @@
       in: header
       required: true
       default: XMLHttpRequest
-    - name: field
-      description: field name for searching 
-      required: true
-      type: string
-      example: appliedRole
+    - name: appliedRole
+      description: "search for appliedRole. This should be of type `Array`" 
       in: query
-    - name: values
-      description: values for searching 
       type: string
-      required: true
-      example: '["Applicant", "Consultant"]'
-      in: query
+      example: '["Applicant","Consultant"]'
     - name: profileDataVerified
       description: profileDataVerified true or false
+      in: query
       type: boolean
       example: true
+    - name: _limit
+      description: limit number of results (default 50)
       in: query
+      type: number
+      example: 12
+    - name: _skip
+      description: skip number of results (default 0)
+      in: query
+      type: number
+      example: 0
     responses:
       200:
         description: "successful attempt, returns `success message`"
