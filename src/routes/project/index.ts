@@ -8,6 +8,7 @@ import { updateProjectCategoryRules } from './validators/add-project-category-ru
 import { deleteProjectCategoryRules } from './validators/delete-project-category-rule';
 import { createCategoryValidationChain } from './validators/save-proj-category-rule';
 import { createSubCatValidationChain } from './validators/save-proj-sub-category-rules';
+import { saveFavoriteRule } from '../favorites/validators/add-favorites-rules';
 
 import { saveProjectRequest } from './project-request';
 import { saveProject } from './save-project';
@@ -21,10 +22,12 @@ import { getProjects } from './get-project-catalog-details';
 import { searchProjects } from './search-project-catalog';
 import { createProjectCategory } from './save-proj-category';
 import { createProjectSubCategory } from './save-proj-sub-category';
+import { saveFavorites } from '../favorites/add-favorites';
 
 export const project = express.Router();
 
 project.post('/save-project-request', projectRequestRule, saveProjectRequest);
+project.post('/save-project-favorite', saveFavoriteRule, saveFavorites);
 project.post('/save-project', saveProjectRule, saveProject);
 project.post('/search-project', searchProjects);
 project.get('/get-project-category', getProjectCategory);
