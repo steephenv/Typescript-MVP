@@ -14,7 +14,11 @@ export const listAllSkillCategories: RequestHandler = async (
   next,
 ) => {
   try {
-    const cats = await SkillCategory.find({ isDelete: false })
+    const givenCluster = req.query.cluster ? req.query.cluster : '';
+    const cats = await SkillCategory.find({
+      isDelete: false,
+      cluster: givenCluster,
+    })
       .lean()
       .exec();
     if (cats.length) {

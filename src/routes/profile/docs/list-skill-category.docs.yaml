@@ -12,6 +12,9 @@
       in: header
       required: true
       default: XMLHttpRequest 
+    - name: cluster
+      in: query
+      required: true  
     responses:
       200:
         description: "successful attempt, returns `success message`"

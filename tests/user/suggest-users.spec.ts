@@ -2,7 +2,6 @@ import * as supertest from 'supertest';
 import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
 
 let token = '';
-let newUserId: string;
 
 afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
 
@@ -11,7 +10,7 @@ beforeAll(done => {
     .post('/v1/auth/login')
     .set('X-Requested-With', 'XMLHttpRequest')
     .send({
-      username: 'stark@marvel.com',
+      username: 'red@velvet.com',
       password: 'password',
     })
     .expect(200)
@@ -19,28 +18,17 @@ beforeAll(done => {
       if (err) {
         throw err;
       }
-      newUserId = res.body.data._id;
       token = res.body.accessToken;
       return done();
     });
 });
 
-describe('Test for saving goals  ===> ', () => {
-  it('Saving personal details api', done => {
+describe('Suggest users api', () => {
+  it('Suggestions for consultant', done => {
     supertest(app)
-      .post(`/v1/profile/save-goals`)
+      .get(`/v1/auth/suggest-users?role=Consultant&text=steephen`)
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
-      .send({
-        clientRating: 'Good',
-        teamRating: 'Good',
-        assets: [],
-        annualAvailableCapacity: 1,
-        capricornsAvailableCapacity: 1,
-        daysLeftInYear: 22,
-        educationalTarget: [],
-        incomePerHour: '33',
-      })
       .expect(200)
       .end((err, res) => {
         if (err) {
