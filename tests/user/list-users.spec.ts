@@ -26,9 +26,7 @@ beforeAll(done => {
 describe('List users api', () => {
   it('Listing employees and consultants', done => {
     supertest(app)
-      .get(
-        `/v1/auth/list-users/1?values=["Employee", "Consultant"]&field=appliedRole`,
-      )
+      .get(`/v1/auth/list-users?appliedRole=["Employee", "Consultant"]`)
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
       .expect(200)
@@ -42,7 +40,7 @@ describe('List users api', () => {
   it('profile data verified check', done => {
     supertest(app)
       .get(
-        `/v1/auth/list-users/1?values=["Employee", "Consultant"]&field=appliedRole&profileDataVerified=true`,
+        `/v1/auth/list-users?appliedRole=["Employee", "Consultant"]&profileDataVerified=true`,
       )
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
