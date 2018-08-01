@@ -23,10 +23,12 @@ import { searchProjects } from './search-project-catalog';
 import { createProjectCategory } from './save-proj-category';
 import { createProjectSubCategory } from './save-proj-sub-category';
 import { saveFavorites } from '../favorites/add-favorites';
+import { searchCatalog } from '../project/list-project-catalog';
 
 export const project = express.Router();
 
 project.post('/save-project-request', projectRequestRule, saveProjectRequest);
+project.get('/get-catalog', searchCatalog);
 project.post('/save-project-favorite', saveFavoriteRule, saveFavorites);
 project.post('/save-project', saveProjectRule, saveProject);
 project.post('/search-project', searchProjects);
