@@ -1,0 +1,20 @@
+/project/delete-project:
+  get:
+    security:
+    - Bearer: []
+    summary: api for delete a project.
+    tags:
+    - projects
+    description: api for deleting a project.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest 
+    - name: projectId
+      type: string
+      in: query
+    responses:
+      200:
+        description: "successful attempt, returns `success message`"
