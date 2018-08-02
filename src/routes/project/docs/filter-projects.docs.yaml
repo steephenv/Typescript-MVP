@@ -1,0 +1,71 @@
+/project/filter-project:
+  post:
+    # security:
+    # - Bearer: []
+    summary: api to list projects.
+    tags:
+    - projects
+    description: call this api for getting projects. you can combine multiple options too.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        properties:
+          searchKey: 
+            type: string
+            example: 'music'
+          projectTitle:
+            type: string 
+            example: 'MusicMatch'
+          category: 
+            type: object
+            example: { $in: ['5b5f02cbb19b436977beb3e1'] }
+            description: 'You can also pass `id` here'
+          subCategory:
+            type: object
+            example: { $in: ['5b5f02cbb19b436977beb3e1'] }
+            description: 'You can also pass `id` here'
+          industryLine:
+            type: object
+            example: { $in: ['5b5f02cbb19b436977beb3e1'] }
+            description: 'You can also pass `id` here'
+          businessFunctions:
+            type: object
+            example: { $in: ['5b5f02cbb19b436977beb3e1'] }
+            description: 'You can also pass `id` here'
+          technology:
+            type: string
+            example: 'Informaton technology'
+          effort:
+            type: string 
+            example: 'Low (< 20 days)'
+          price:
+            type: number 
+            example: 20000
+          impact:
+            type: string 
+            example: 'Procurement Saving'
+          referenceClientTypes:
+            type: string
+            example: 'Small'
+          referenceProjectDate:
+            type: string 
+            example: '2018-03-31T18:30:00.000Z'
+          referenceCountry:
+            type: string 
+            example: 'Canada'
+          referenceLanguage:
+            type: string 
+            example: 'fr'
+    responses:
+      200:
+        description: "successful attempt returns `success message`"
+

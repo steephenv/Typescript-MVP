@@ -23,10 +23,18 @@ import { searchProjects } from './search-project-catalog';
 import { createProjectCategory } from './save-proj-category';
 import { createProjectSubCategory } from './save-proj-sub-category';
 import { saveFavorites } from '../favorites/add-favorites';
+import { searchCatalog } from '../project/list-project-catalog';
+import { filterProject } from '../project/filter-projects';
+import { getProjectById } from '../project/delete-view-project';
+import { deleteProjectById } from '../project/delete-view-project';
 
 export const project = express.Router();
 
+project.get('/delete-project', deleteProjectById);
+project.get('/view-project', getProjectById);
+project.post('/filter-project', filterProject);
 project.post('/save-project-request', projectRequestRule, saveProjectRequest);
+project.get('/get-catalog', searchCatalog);
 project.post('/save-project-favorite', saveFavoriteRule, saveFavorites);
 project.post('/save-project', saveProjectRule, saveProject);
 project.post('/search-project', searchProjects);

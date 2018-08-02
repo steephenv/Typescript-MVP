@@ -19,7 +19,13 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
   try {
     const comingUserId = req.query.userId
       ? req.query.userId
-      : res.locals.user.userId;
+      : res.locals.user.userId || null;
+
+    if (!comingUserId) {
+      return next(
+        new RequestError(RequestErrorType.FORBIDDEN, 'not logged in'),
+      );
+    }
 
     const personalDetailsDataPromise: any = PersonalDetails.findOne({
       userId: comingUserId,

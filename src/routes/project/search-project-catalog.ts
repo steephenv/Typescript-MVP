@@ -15,23 +15,23 @@ import {
 export const searchProjects: RequestHandler = async (req, res, next) => {
   try {
     const queryArray = [];
-    if (req.body.searchKey) {
-      // const regexp = new RegExp(`^${req.query.searchKey}`);
+    if (req.body.searchKey || true) {
+      // const regexp = new RegExp(`^${req.body.searchKey}`);
       const text = escapeRegex(req.body.searchKey);
       const regexp = new RegExp(text, 'gi');
 
-      queryArray.push({ projectTittle: regexp });
+      queryArray.push({ projectTittle: regexp || '' });
     }
-    if (req.body.industryLine) {
+    if (req.body.industryLine && req.body.industryLine.length) {
       queryArray.push({ industryLine: req.body.industryLine });
     }
-    if (req.body.businessFunctions) {
+    if (req.body.businessFunctions && req.body.businessFunctions.length) {
       queryArray.push({ businessFunctions: req.body.businessFunctions });
     }
-    if (req.body.category) {
+    if (req.body.category && req.body.category.length) {
       queryArray.push({ category: req.body.category });
     }
-    if (req.body.subCategory) {
+    if (req.body.subCategory && req.body.subCategory.length) {
       queryArray.push({ subCategory: req.body.subCategory });
     }
     if (req.body.technology) {
@@ -59,37 +59,27 @@ export const searchProjects: RequestHandler = async (req, res, next) => {
       queryArray.push({ referenceLanguage: req.body.referenceLanguage });
     }
     let projectList;
-    if (!queryArray) {
-      projectList = await Project.find({
-        $and: queryArray,
-        // $and: [
-        //   { Industry: { $in: req.body.category } },
-        //   { businessFunctions: { $in: req.body.businessFunctions } },
-        //   { ProjectCategory: { $in: req.body.category } },
-        //   { ProjectSubCategory: { $in: req.body.subCategory } },
-        //   { technology: req.body.technology },
-        //   { effort: req.body.effort },
-        //   { price: req.body.price },
-        //   { impact: req.body.impact },
-        //   { referenceClientTypes: req.body.referenceClientTypes },
-        //   { referenceProjectDate: req.body.referenceProjectDate },
-        //   { referenceCountry: req.body.referenceCountry },
-        //   { referenceLanguage: req.body.referenceLanguage },
-        // ],
-      })
-        .populate('category')
-        .populate('subcategory')
-        .populate('industryLine')
-        .populate('businessFunctions')
-        .exec();
-    } else {
-      projectList = await Project.find({})
-        .populate('category')
-        .populate('subcategory')
-        .populate('industryLine')
-        .populate('businessFunctions')
-        .exec();
-    }
+    // if (queryArray&&if (queryArray.length === 0) {
+
+    const cond = {
+      $and: queryArray,
+    };
+
+    projectList = await Project.find(cond)
+      .populate('category')
+      .populate('subcategory')
+      .populate('industryLine')
+      .populate('businessFunctions')
+      .lean()
+      .exec();
+    // } else {
+    // projectList = await Project.find({})
+    //   .populate('category')
+    //   .populate('subcategory')
+    //   .populate('industryLine')
+    //   .populate('businessFunctions')
+    //   .exec();
+    // }
     return res.status(200).send({
       success: true,
       projects: projectList,
