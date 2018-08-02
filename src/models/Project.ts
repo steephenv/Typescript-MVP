@@ -14,7 +14,7 @@ const projectSchema = new Schema({
   createdAt: {
     type: Date,
   },
-  projectTittle: {
+  projectTitle: {
     type: String,
   },
   currentSituation: {
