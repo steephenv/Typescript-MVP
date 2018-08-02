@@ -9,6 +9,7 @@ import * as glob from 'glob';
 const GRQ_PATTERN = 'graphql/**/*.{grq,gqr}.{js,ts}';
 
 export function getGRQAssets() {
+  console.log('**** Stitching GRQ files ****');
   const path = pathJoin(__dirname, '../', GRQ_PATTERN);
   const grqFiles = glob.sync(path);
 
@@ -17,7 +18,7 @@ export function getGRQAssets() {
   const resolverStore: any[] = []; // comeback here later rot type correction
 
   for (const file of grqFiles) {
-    console.log(`** applying magic on graphql${file.split('graphql')[1]}`);
+    console.log('> applying magic on ' + file.split('graphql/')[1]);
     const { querySchema, otherSchema, resolver } = require(file);
     if (querySchema) {
       querySchemaStore.push(querySchema);
@@ -33,7 +34,8 @@ export function getGRQAssets() {
   const otherSchemaString = otherSchemaStore.join('\n');
   const querySchemaString = querySchemaStore.join('\n');
   const resolvers = Object.assign({}, ...resolverStore);
-
-  console.log({ querySchemaString, otherSchemaString, resolvers });
+  console.log(
+    '----------------> grq > this log will be removed in near future',
+  );
   return { querySchemaString, otherSchemaString, resolvers };
 }
