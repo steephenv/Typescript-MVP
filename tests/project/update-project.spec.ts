@@ -25,15 +25,16 @@ beforeAll(done => {
     });
 });
 
-describe('Test for project data  ===> ', () => {
-  it('Saving project details api', done => {
+describe('Test for project update  ===> ', () => {
+  it('project update api', done => {
     supertest(app)
-      .post('/v1/project/save-project?category=5b597254e72ede2d3a4941e7')
+      .post('/v1/project/update-project')
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
       .send({
+        projectId: '5b62fe5ec99f204b21b02762',
         projectTitle: 'MusicMatch',
-        currentSituation: 'Not a plan in mind',
+        currentSituation: 'plan ind',
         targetSituation: 'Fully-fledged online music platform',
         targetGroup: 'all',
         category: '5b598e0f746364417c569061',

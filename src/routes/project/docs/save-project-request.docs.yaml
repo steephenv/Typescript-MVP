@@ -56,7 +56,7 @@
         - proposalSubmissionDate
         - proposalSelectionBasedOn
         properties:
-          projectTittle:
+          projectTitle:
             type: string
           templateType:
             type: string

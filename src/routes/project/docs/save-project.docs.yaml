@@ -22,7 +22,7 @@
       schema:
         type: object
         required:
-        - projectTittle
+        - projectTitle
         - currentSituation
         - targetSituation
         - targetGroup
@@ -46,7 +46,7 @@
         - referenceLanguage
         - categoryId
         properties:
-          projectTittle:
+          projectTitle:
             type: String
           currentSituation:
             type: String

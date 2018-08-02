@@ -20,7 +20,7 @@ export const searchProjects: RequestHandler = async (req, res, next) => {
       const text = escapeRegex(req.body.searchKey);
       const regexp = new RegExp(text, 'gi');
 
-      queryArray.push({ projectTittle: regexp || '' });
+      queryArray.push({ projectTitle: regexp || '' });
     }
     if (req.body.industryLine && req.body.industryLine.length) {
       queryArray.push({ industryLine: req.body.industryLine });

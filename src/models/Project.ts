@@ -14,7 +14,7 @@ const projectSchema = new Schema({
   createdAt: {
     type: Date,
   },
-  projectTittle: {
+  projectTitle: {
     type: String,
   },
   currentSituation: {
@@ -83,6 +83,9 @@ const projectSchema = new Schema({
     type: String,
   },
   referenceLanguage: {
+    type: String,
+  },
+  producerId: {
     type: String,
   },
 });

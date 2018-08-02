@@ -27,11 +27,13 @@ import { searchCatalog } from '../project/list-project-catalog';
 import { filterProject } from '../project/filter-projects';
 import { getProjectById } from '../project/delete-view-project';
 import { deleteProjectById } from '../project/delete-view-project';
+import { updateProject } from '../project/save-project';
 
 export const project = express.Router();
 
 project.get('/delete-project', deleteProjectById);
 project.get('/view-project', getProjectById);
+project.post('/update-project', updateProject);
 project.post('/filter-project', filterProject);
 project.post('/save-project-request', projectRequestRule, saveProjectRequest);
 project.get('/get-catalog', searchCatalog);
