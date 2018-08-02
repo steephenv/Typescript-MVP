@@ -40,7 +40,6 @@ Dev(devapi-miwago):
   when: on_success
   only:
     - master
-    - searchIssueFix
   script:
     # - yarn install
     # - yarn run build # cz it is running in unit test
