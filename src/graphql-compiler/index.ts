@@ -1,6 +1,9 @@
 import * as graphqlHTTP from 'express-graphql';
 import { buildSchema } from 'graphql';
 
+// types
+import { ObjectScalarType } from './Object-scalar-type';
+
 import { getGRQAssets } from './get-gqr-files';
 
 export function buildGraphQLRoutesGateway() {
@@ -8,6 +11,8 @@ export function buildGraphQLRoutesGateway() {
 
   // Construct a schema, using GraphQL schema language
   const schema = buildSchema(`
+    scalar Object
+
     ${otherSchemaString}
 
     type Query {
@@ -21,7 +26,13 @@ export function buildGraphQLRoutesGateway() {
   };
 
   // The root provides a resolver function for each API endpoint
-  const root = Object.assign({}, initialResolvers, resolvers);
+  const root = Object.assign(
+    {
+      Object: ObjectScalarType,
+    },
+    initialResolvers,
+    resolvers,
+  );
 
   const graphqlGateway = graphqlHTTP({
     schema,
