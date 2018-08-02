@@ -22,7 +22,16 @@ export const recordAssets: RequestHandler = async (req, res, next) => {
       );
     }
 
-    const resp = await recordAssetsCtrl(req.body);
+    let resp: any;
+
+    if (req.body._id) {
+      const _id = req.body._id;
+      delete req.body._id;
+
+      resp = await Assets.update({ _id }, req.body);
+    } else {
+      resp = await recordAssetsCtrl(req.body);
+    }
 
     return res.status(201).send({
       msg: 'asset-recorded',

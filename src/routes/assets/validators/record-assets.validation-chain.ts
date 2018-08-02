@@ -4,16 +4,16 @@ import { Types } from 'mongoose';
 const objectIdValidator = Types.ObjectId.isValid;
 
 export const recordValidationChain = [
-  body('title').exists(),
+  body('title').optional(),
   body('fileAccessUrls')
-    .exists()
+    .optional()
     .custom(val => {
       if (val.constructor.name !== 'Array' || typeof val[0] !== 'string') {
         throw new Error('fileAccessUrls must be a string array');
       }
       return true;
     }),
-  body('fileName').exists(),
+  body('fileName').optional(),
   body('userId')
     .optional()
     .custom(val => {
