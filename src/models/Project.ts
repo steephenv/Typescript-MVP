@@ -85,6 +85,9 @@ const projectSchema = new Schema({
   referenceLanguage: {
     type: String,
   },
+  producerId: {
+    type: String,
+  },
 });
 
 export const Project = mongooseModel('Project', projectSchema);
