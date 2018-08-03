@@ -5,7 +5,6 @@ import * as csv from 'fast-csv';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
 import * as userHome from 'user-home';
-import { Promise as BluePromise } from 'bluebird';
 
 import { PersonalDetails } from '../../models/PersonalDetails';
 import { CustomerCredentials } from '../../models/CustomerCredentials';
@@ -144,8 +143,13 @@ export const linkData: RequestHandler = async (req, res, next) => {
           let profData: any = {};
           objArray.forEach(async (dataobj: any) => {
             const datakey: any = Object.keys(dataobj);
+            let birthD = '';
+            try {
+              const newDateObj = new Date(dataobj[datakey[4]]); //tslint:disable-line
+              birthD = dataobj[datakey[4]];
+            } catch (err) {} //tslint:disable-line
             profData = {
-              birthDate: dataobj[datakey[4]],
+              birthDate: birthD,
               country: dataobj[datakey[9]],
               zipCode: dataobj[datakey[10]],
               personalStatement: dataobj[datakey[6]],
