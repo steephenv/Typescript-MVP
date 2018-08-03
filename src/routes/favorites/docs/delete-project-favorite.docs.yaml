@@ -1,0 +1,37 @@
+/project/delete-project-favorite:
+  post:
+    security:
+    - Bearer: []
+    summary: api for delete project favorite.
+    tags:
+    - favorites
+    description: api for delete project favorites.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    # - name: userId
+    #   description: 'userId'
+    #   in: query
+    #   type: string
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        - userId
+        - type
+        - collectionType
+        properties:
+          userId:
+            type: string
+          type:
+            type: String
+          collectionType:
+            type: String
+    responses:
+      200:
+        description: "successful attempt, returns `success message`"
