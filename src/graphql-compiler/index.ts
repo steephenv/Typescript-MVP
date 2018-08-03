@@ -1,6 +1,8 @@
 import * as graphqlHTTP from 'express-graphql';
 import { buildSchema } from 'graphql';
 
+import { formatError } from './formatError';
+
 // types
 import { ObjectScalarType } from './Object-scalar-type';
 
@@ -38,6 +40,7 @@ export function buildGraphQLRoutesGateway() {
     schema,
     rootValue: root,
     graphiql: true,
+    formatError,
   });
 
   return graphqlGateway;

@@ -11,7 +11,7 @@ export enum RequestErrorType {
   'FORBIDDEN',
 }
 
-const ERROR_DEFINITIONS = {
+export const ERROR_DEFINITIONS = {
   [RequestErrorType.NOT_FOUND]: {
     statusCode: 404,
     message: 'The requested resource is not found on server',
