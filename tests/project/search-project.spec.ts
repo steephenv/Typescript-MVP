@@ -28,11 +28,12 @@ beforeAll(done => {
 describe('Test for project searching api  ===> ', () => {
   it('searching project api', done => {
     supertest(app)
-      .post('/v1/project/search-project')
+      .post('/v1/project/filter-project')
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
       .send({
         searchKey: 'music',
+        // userId: '5b63fecaa63cbe3329b0aa7c',
         // projectTitle: 'MusicMatch',
         // category: ['5b5f02cbb19b436977beb3e1'],
         // subCategory: ['5b598e0f746364417c569066'],
