@@ -22,7 +22,6 @@ export const getProjects: RequestHandler = async (req, res, next) => {
       .populate('businessSubFunctions')
       .populate('producerId')
       .exec();
-    console.log(projectList);
     return res.status(200).send({
       success: true,
       projects: projectList,
