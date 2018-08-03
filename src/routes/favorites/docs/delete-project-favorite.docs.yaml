@@ -1,11 +1,11 @@
-/project/save-project-favorite:
+/project/delete-project-favorite:
   post:
     security:
     - Bearer: []
-    summary: api for save project favorite.
+    summary: api for delete project favorite.
     tags:
     - favorites
-    description: api for save project favorites.
+    description: api for delete project favorites.
     parameters:
     - name: X-Requested-With
       description: set value to XMLHttpRequest if you are making an xhr request
