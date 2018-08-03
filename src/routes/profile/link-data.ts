@@ -145,8 +145,6 @@ export const linkData: RequestHandler = async (req, res, next) => {
           objArray.forEach(async (dataobj: any) => {
             const datakey: any = Object.keys(dataobj);
             profData = {
-              firstName: dataobj[datakey[0]],
-              lastName: dataobj[datakey[1]],
               birthDate: dataobj[datakey[4]],
               country: dataobj[datakey[9]],
               zipCode: dataobj[datakey[10]],
@@ -155,21 +153,12 @@ export const linkData: RequestHandler = async (req, res, next) => {
               maidenName: dataobj[datakey[2]],
               primaryEmail: primaryData.email,
             };
-            const updateUser = User.update(
-              { _id: res.locals.user.userId },
-              {
-                $set: {
-                  firstName: dataobj[datakey[0]],
-                  lastName: dataobj[datakey[1]],
-                },
-              },
-            );
-            const personalUpdate = PersonalDetails.update(
+            await PersonalDetails.update(
               { userId: res.locals.user.userId },
               { $set: profData },
               { upsert: true },
             );
-            await BluePromise.all([updateUser, personalUpdate]);
+            // await BluePromise.all([updateUser, personalUpdate]);
           });
           objArray.forEach(async (dataobj: any) => {
             const datakey: any = Object.keys(dataobj);
