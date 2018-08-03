@@ -4,6 +4,9 @@ import { Project } from '../../models/Project';
 import '../../models/ProjectSubCategory';
 import '../../models/Industries';
 import '../../models/Business-function';
+import '../../models/ProjectCategory';
+import '../../models/Business-sub-function';
+import '../../models/User';
 
 import {
   RequestError,
@@ -17,6 +20,7 @@ export const searchCatalog: RequestHandler = async (req, res, next) => {
       .populate('subcategory')
       .populate('industryLine')
       .populate('businessFunctions')
+      .populate('producerId')
       .exec();
     return res.status(200).send({
       success: true,
