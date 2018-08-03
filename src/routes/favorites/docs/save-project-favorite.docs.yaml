@@ -22,9 +22,12 @@
       schema:
         type: object
         required:
+        - userId
         - type
         - collectionType
         properties:
+          userId:
+            type: string
           type:
             type: String
           collectionType:
