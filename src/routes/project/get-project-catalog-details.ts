@@ -5,6 +5,8 @@ import '../../models/ProjectSubCategory';
 import '../../models/Industries';
 import '../../models/Business-function';
 import '../../models/Business-sub-function';
+import '../../models/User';
+
 import {
   RequestError,
   RequestErrorType,
@@ -18,7 +20,9 @@ export const getProjects: RequestHandler = async (req, res, next) => {
       .populate('industryLine')
       .populate('businessFunctions')
       .populate('businessSubFunctions')
+      .populate('producerId')
       .exec();
+    console.log(projectList);
     return res.status(200).send({
       success: true,
       projects: projectList,
