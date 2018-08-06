@@ -59,26 +59,36 @@
              type: number
           targetAnnualIncomeCapricorns:
              type: number 
-          industryExperience:
+          skillTargets:
              type: array
-          functionalExperience:
-             type: array
-          subjectMatter:
-             type: array
-          taskExperience:
-             type: array
-          certifications:
-             type: array
-          assets:
-             type: array
-          educationalTarget:
-             type: array
-          socialSkills:
-             type: array
-          peopleDevelopment:
-             type: array
-          businessDevelopment:
-             type: array        
+             items:
+              properties:
+                skillId:
+                  type: string
+                targetProficiency:
+                  type: string
+          educationalTargets:
+            type: array
+            items:
+              properties:
+                durationFrom:
+                  type: string
+                durationTo:
+                  type: string
+                typeOfInstitution:
+                  type: string
+                nameOfInstitution:
+                  type: string
+                locationCountry:
+                  type: string
+                locationCity:
+                  type: string
+                locationState:
+                  type: string   
+                major:
+                  type: string
+                degree:
+                  type: string                
     responses:
       200:
         description: "successful attempt, returns `success message`"
