@@ -28,16 +28,43 @@ const GoalSchema: Schema = new Schema({
   createdAt: {
     type: Date,
   },
-  industryExperience: [{ type: String }],
-  functionalExperience: [{ type: String }],
-  subjectMatter: [{ type: String }],
-  taskExperience: [{ type: String }],
-  certifications: [{ type: String }],
-  assets: [{ type: String }],
-  educationalTarget: [{ type: String }],
-  socialSkills: [{ type: String }],
-  peopleDevelopment: [{ type: String }],
-  businessDevelopment: [{ type: String }],
+  skillTargets: [
+    {
+      skillId: { type: Schema.Types.ObjectId, ref: 'Skills' },
+      targetProficiency: String,
+    },
+  ],
+  educationalTargets: [
+    {
+      durationFrom: {
+        type: String,
+      },
+      durationTo: {
+        type: String,
+      },
+      typeOfInstitution: {
+        type: String,
+      },
+      nameOfInstitution: {
+        type: String,
+      },
+      locationCountry: {
+        type: String,
+      },
+      locationCity: {
+        type: String,
+      },
+      locationState: {
+        type: String,
+      },
+      major: {
+        type: String,
+      },
+      degree: {
+        type: String,
+      },
+    },
+  ],
   annualAvailableCapacity: { type: Number },
   capricornsAvailableCapacity: { type: Number },
   income: { type: String },
