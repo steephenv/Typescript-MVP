@@ -33,7 +33,7 @@ describe('Test for project favorite  ===> ', () => {
       .set({ Authorization: `Bearer ${token}` })
       .send({
         type: 'project',
-        collectionType: '5b6145a72a31c83e72c7fee3',
+        collectionTypeId: '5b6145a72a31c83e72c7fee3',
       })
       .expect(200)
       .end((err, res) => {

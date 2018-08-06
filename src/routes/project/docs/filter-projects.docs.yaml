@@ -18,7 +18,19 @@
       schema:
         type: object
         required:
+          -userId
+          -type
+          -collectionTypeId
         properties:
+          userId:
+            type: string
+          type:
+            type: string
+            description: type of collection ('project' keyword for project collection ) 
+            example: project
+          collectionTypeId:
+            type: string
+            description: project id
           searchKey: 
             type: string
             example: 'music'

@@ -2,6 +2,8 @@ import { RequestHandler } from 'express';
 import { Promise as BluePromise } from 'bluebird';
 
 import { Project } from '../../models/Project';
+import { Favorites } from '../../models/Favorites';
+
 import { escapeRegex } from '../../utils/escape-regex';
 
 import {
@@ -32,7 +34,17 @@ export const filterProject: RequestHandler = async (req, res, next) => {
       projects = result.projects;
       count = result.count;
     }
-    // console.log(projects);
+    const userIdForListingFavs: string = req.body.userId
+      ? req.body.userId
+      : res.locals.user
+        ? res.locals.user.userId
+        : null;
+
+    if (userIdForListingFavs) {
+      projects = await attachFavoritesFlag(projects, userIdForListingFavs);
+    }
+
+    // console.log('projects........', projects);
     return res.status(200).send({
       msg: 'success',
       count,
@@ -43,6 +55,26 @@ export const filterProject: RequestHandler = async (req, res, next) => {
   }
 };
 
+// attach favorites flag for projects
+async function attachFavoritesFlag(projects: any[], userId: string) {
+  const projectsMapped = await BluePromise.map(projects, async project => {
+    const isFavorite = await Favorites.count({
+      userId,
+      type: 'project',
+      collectionTypeId: project._id,
+    }).exec();
+
+    if (isFavorite) {
+      project.favorite = true;
+    } else {
+      project.favorite = false;
+    }
+    return project;
+  });
+
+  return projectsMapped;
+}
+
 // usual query
 async function normalFind(body: any, limit: number, skip: number) {
   const projectsPromise = Project.find(body)
@@ -52,6 +84,7 @@ async function normalFind(body: any, limit: number, skip: number) {
     .populate('businessFunctions')
     .skip(skip)
     .limit(limit)
+    .lean()
     .exec();
   const countPromise = Project.count(body).exec();
 
@@ -87,6 +120,7 @@ async function regexKeySearch(reqQuery: any, limit: number, skip: number) {
     .populate('businessFunctions')
     .skip(skip)
     .limit(limit)
+    .lean()
     .exec();
 
   const countPromise = Project.count(condition).exec();
