@@ -16,7 +16,7 @@
         }
 
         img {
-            width: 150px;
+            width: 100px;
         }
 
         .btn {
@@ -30,15 +30,21 @@
             box-shadow: 1px 1px 10px black;
         }
 
-        .issue {
+        .bGreen {
             background-color: #03da5c;
             color: black;
             text-transform: uppercase;
         }
 
-        .docs {
+        .bWhite {
             background-color: white;
             color: #6200ee;
+            text-transform: uppercase;
+        }
+
+        .graph {
+            background-color: rgb(255, 0, 140);
+            color: white;
             text-transform: uppercase;
         }
 
@@ -53,15 +59,36 @@
 <body>
     <div class="left">
         <img src="/images/api.png" alt="apis">
-        <h2>Miwago API home</h2>
+        <h2 style="margin: 10px auto">Miwago API home</h2>
         <div class="del-in-prod">
             <br>
-            <a href="/docs" class="btn docs">Docs</a>
-            <a href="http://192.168.1.55/vajahath/miwago-backend/issues" class="btn issue del-in-prod">Report an issue</a>
+            <a href="http://192.168.1.55/vajahath/miwago-backend/issues" class="btn bWhite del-in-prod">Report an issue</a>
+            <a href="/docs" class="btn bGreen">REST Docs</a>
             <br>
             <br>
-            <hr>
         </div>
+        <br>
+        <div style="border: thin dashed white; padding: 22px 22px 12px 22px;">
+            <h4 style="margin: 0px 0px 15px 0px;">NEW!
+                <img src="/images/tada.png" style="width: 25px">
+            </h4>
+            <a href="/graph" class="btn graph">Graphql (alpha
+                <img src="/images/test-tube-icon.png" style="height: 19px;
+                width: auto;
+                position: relative;
+                margin-left: -9px;
+                top: 4px;">)</a>
+
+            <p>Sending requests over
+                <a style="color: rgb(255, 0, 140)" href="http://graphql.github.io/">
+                    <strong>GraphQL</strong>
+                </a> is
+                <a style="color: rgb(255, 0, 140)" href="http://graphql.github.io/graphql-js/graphql-clients/">
+                    <strong>dead simple</strong>
+                </a>.
+            </p>
+        </div>
+        <br>
         <p>Last updated at:
             <strong>
                 <span id="lastUpdatedTime" style="color:#03da5c;"></span>
