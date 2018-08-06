@@ -7,7 +7,6 @@ const FavoritesSchema = Joi.object().keys({
   collectionTypeId: Joi.string().required(),
 });
 export const saveFavoriteRule: RequestHandler = (req, res, next) => {
-  //   req.body.role = res.locals.user.role;
   Joi.validate(req.body, FavoritesSchema, { stripUnknown: true }, err => {
     // console.log();
     // delete req.body.role;
