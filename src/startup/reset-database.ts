@@ -5,8 +5,6 @@ import * as mongoose from 'mongoose';
 import { getMongooseConnectionPromise } from './db-init';
 
 import { initUsers } from './users';
-import { createMVP } from './add-mvp';
-import { createSlot } from './set-slots';
 import { createCat } from './add-cat-subcat';
 import { createProjCat } from './add-proj-cat-subcat';
 import * as lme from 'lme';
@@ -51,6 +49,7 @@ const resetDatabase = async (MONGO_URI?: string) => {
       mongoose.connection.db
         .dropCollection('projectsubcategories')
         .catch(errHandler),
+      mongoose.connection.db.dropCollection('projects').catch(errHandler),
     ]);
   } catch (err) {
     if (err.code === 26) {
@@ -64,9 +63,6 @@ const resetDatabase = async (MONGO_URI?: string) => {
 
   try {
     await BluePromise.all([initUsers(), createCat(), createProjCat()]);
-
-    await createSlot();
-    await createMVP();
   } catch (err) {
     console.log(err);
   }

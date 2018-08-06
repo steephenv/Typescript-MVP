@@ -2,6 +2,7 @@ import { RequestHandler } from 'express';
 import { Promise as BluePromise } from 'bluebird';
 
 import { PersonalDetails } from '../../models/PersonalDetails';
+import { User } from '../../models/User';
 import { generateMiwagoUserId } from '../../utils/miwagoId-generator';
 
 import { addNewCity } from '../../utils/add-new-city';
@@ -36,8 +37,14 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
     }
     if (req.query && req.query.userId) {
       const updatePersonal = PersonalDetails.update(where, { $set: req.body });
+      const userUpdate = User.update(
+        { _id: where.userId },
+        {
+          $set: { firstName: req.body.firstName, lastName: req.body.lastName },
+        },
+      );
       const citySave = addNewCity(req.body.stateIso, req.body.city);
-      await BluePromise.all([updatePersonal, citySave]);
+      await BluePromise.all([updatePersonal, citySave, userUpdate]);
     } else {
       req.body.createdAt = new Date();
       req.body.createdBy = res.locals.user.userId;
@@ -49,7 +56,13 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
       const personalData = new PersonalDetails(req.body);
       const personalSave = personalData.save();
       const citySave = addNewCity(req.body.state, req.body.city);
-      await BluePromise.all([personalSave, citySave]);
+      const userUpdate = User.update(
+        { _id: where.userId },
+        {
+          $set: { firstName: req.body.firstName, lastName: req.body.lastName },
+        },
+      );
+      await BluePromise.all([personalSave, citySave, userUpdate]);
     }
     return res.status(200).send({ success: true });
   } catch (err) {

@@ -21,12 +21,24 @@ const RegSchema = Joi.object().keys({
   email: Joi.string()
     .email()
     .required(),
+  isDirectRegistration: Joi.boolean().required(),
   secondaryEmail: Joi.string().optional(),
-  mobile: Joi.string().required(),
-  appliedRole: Joi.string().required(),
-  companyName: Joi.string().optional(),
-  role: Joi.string().optional(),
-  url: Joi.string().required(),
+  appliedRole: Joi.string().when('isDirectRegistration', {
+    is: false,
+    then: Joi.required(),
+  }),
+  companyName: Joi.string().when('role', {
+    is: 'Client',
+    then: Joi.required(),
+  }),
+  role: Joi.string().when('isDirectRegistration', {
+    is: true,
+    then: Joi.required(),
+  }),
+  url: Joi.string().when('isDirectRegistration', {
+    is: false,
+    then: Joi.required(),
+  }),
 });
 
 export const registerValidation: RequestHandler = (req, res, next) => {
@@ -41,13 +53,6 @@ export const registerValidation: RequestHandler = (req, res, next) => {
           success: false,
           msg: err,
         });
-      }
-      if (req.body.appliedRole === 'Client' && !req.body.companyName) {
-        return res.status(422).send({
-          success: false,
-          msg: messages.invalidParams.ENG,
-        });
-        return;
       }
       if (req.body.appliedRole === 'Client') {
         if (!isBusinessEmail(req.body.email)) {

@@ -143,10 +143,12 @@ export const linkData: RequestHandler = async (req, res, next) => {
           let profData: any = {};
           objArray.forEach(async (dataobj: any) => {
             const datakey: any = Object.keys(dataobj);
+            let birthD = '';
+            try {
+              const newDateObj = new Date(dataobj[datakey[4]]); //tslint:disable-line
+              birthD = dataobj[datakey[4]];
+            } catch (err) {} //tslint:disable-line
             profData = {
-              firstName: dataobj[datakey[0]],
-              lastName: dataobj[datakey[1]],
-              birthDate: dataobj[datakey[4]],
               country: dataobj[datakey[9]],
               zipCode: dataobj[datakey[10]],
               personalStatement: dataobj[datakey[6]],
@@ -159,6 +161,7 @@ export const linkData: RequestHandler = async (req, res, next) => {
               { $set: profData },
               { upsert: true },
             );
+            // await BluePromise.all([updateUser, personalUpdate]);
           });
           objArray.forEach(async (dataobj: any) => {
             const datakey: any = Object.keys(dataobj);

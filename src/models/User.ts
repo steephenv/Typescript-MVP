@@ -15,7 +15,6 @@ const userSchema = new Schema({
   appliedRole: {
     type: String,
     enum: ['User', 'Consultant', 'BPM', 'Admin', 'Client', 'Employee'],
-    required: true,
   },
   companyName: {
     type: String,
@@ -31,6 +30,10 @@ const userSchema = new Schema({
   secondaryEmail: {
     type: String,
   },
+  isDirectRegistration: {
+    type: Boolean,
+    default: false,
+  },
   role: {
     type: String,
     enum: ['User', 'Consultant', 'BPM', 'Admin', 'Client', 'Employee'],
@@ -41,7 +44,6 @@ const userSchema = new Schema({
   },
   mobile: {
     type: String,
-    required: true,
   },
   devices: [
     {
@@ -57,11 +59,19 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  interviewStatus: {
+    type: String,
+    enum: ['Applied', 'Completed', 'Cancelled', 'Passed', 'Failed'],
+  },
   createdAt: {
     type: Date,
   },
   updatedAt: {
     type: Date,
+  },
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
   },
 });
 

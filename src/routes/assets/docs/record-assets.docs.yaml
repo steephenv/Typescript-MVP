@@ -2,10 +2,10 @@
   post:
     # security:
     # - Bearer: []
-    summary: api to record an uploaded asset.
+    summary: api to record/update an uploaded asset.
     tags:
     - Assets
-    description: this is usually called after uploading an asset to aws
+    description: this is usually called after uploading an asset to aws and to update an asset
     parameters:
     - name: X-Requested-With
       description: set value to XMLHttpRequest if you are making an xhr request
@@ -18,10 +18,11 @@
       schema:
         type: object
         required:
-        - title
-        - fileAccessUrls
-        - fileName
         properties:
+          _id:
+            type: string
+            description: "id of the asset. **If present, the op will be update. Else create**"
+            example: 5b4f0845b48361468f85033c
           title:
             type: string
             description: asset name

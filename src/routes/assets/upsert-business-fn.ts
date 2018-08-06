@@ -40,3 +40,17 @@ export const upsertBusinessFunction: RequestHandler = async (
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }
 };
+
+export async function addBusinessFun(busFn: string) {
+  const extBusFn: any = await BusinessFunction.findOne({
+    name: busFn,
+  }).exec();
+
+  if (!extBusFn) {
+    const newBusFn = new BusinessFunction({
+      name: busFn,
+    });
+    await newBusFn.save();
+    return;
+  }
+}

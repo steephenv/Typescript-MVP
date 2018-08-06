@@ -1,0 +1,24 @@
+/assets:
+  delete:
+    # security:
+    # - Bearer: []
+    summary: api to delete any uploaded asset.
+    tags:
+    - Assets
+    description: api to delete any uploaded asset.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+
+    - name: _id
+      type: string
+      description: "use `_id` of the asset to delete it"
+      in: query
+      example: 5b4f0845b48361468f85033c   
+        
+    responses:
+      200:
+        description: "successful attempt, returns `success message`"

@@ -8,14 +8,23 @@ import { InterviewAvailabilityCalender } from '../../models/InterviewAvailabilit
 export const listBPMAvailability: RequestHandler = async (req, res, next) => {
   try {
     const gettingDate = req.query.date ? new Date(req.query.date) : new Date();
+    const forward = req.query.forward ? req.query.forward : 'true';
     const givenStartTime = new Date(gettingDate.setHours(23, 59, 59, 999));
+    const givenEndTime = new Date(gettingDate.setHours(0, 0, 0, 0));
+
+    let timeQuery = {};
+    let sortVariable = 1;
+    if (forward === 'true') {
+      timeQuery = { slotDayStartingTime: { $gt: givenStartTime } };
+    } else {
+      sortVariable = -1;
+      timeQuery = { slotDayStartingTime: { $lt: givenEndTime } };
+    }
+
     const dates = await InterviewAvailabilityCalender.aggregate([
       {
         $match: {
-          $and: [
-            { slotDayStartingTime: { $gt: givenStartTime } },
-            { booked: false },
-          ],
+          $and: [timeQuery, { booked: false }],
         },
       },
       {
@@ -32,8 +41,9 @@ export const listBPMAvailability: RequestHandler = async (req, res, next) => {
       { $unwind: '$slots' },
       { $sort: { 'slots.startTime': 1 } },
       { $group: { _id: '$_id', slotData: { $push: '$slots' } } },
-      { $sort: { _id: 1 } },
+      { $sort: { _id: sortVariable } },
       { $limit: 3 },
+      { $sort: { _id: 1 } },
     ]).exec();
     return res.status(200).send({ success: true, data: dates });
   } catch (err) {

@@ -52,7 +52,7 @@
         "NODE_CONFIG_DIR": "./src/config",
         "NODE_ENV": "production",
         "NODE_CONFIG":
-          "{\\\"database\\\":{\\\"url\\\":\\\"mongodb://miwago-dev:HKGFJBVK615qYGFUJasdf65YsadfKHGa78sd234fH5GdsfFH04323JFGHasdfYasdf4FHGsdfKsfJ@185.148.147.8:27017/miwago-dev_db\\\"}}",
+          "{\\\"database\\\":{\\\"url\\\":\\\"mongodb://miwago_user:NBGVJHgjhg67uhgvjuuy5hjnv98jkhbBGbkjbhfgjhbkmjhb76hjv98bkjbnjmn@185.148.147.8:27018/miwago_db\\\"}}",
         "NODE_APP_INSTANCE": "beta"
       }
     }

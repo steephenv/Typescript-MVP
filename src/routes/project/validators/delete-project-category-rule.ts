@@ -6,7 +6,7 @@ const DeleteProjectCategorySchema = Joi.object().keys({
   model: Joi.string()
     .valid('category', 'subcategory')
     .required(),
-  _id: Joi.string().required(),
+  ids: Joi.array().required(),
 });
 
 export const deleteProjectCategoryRules: RequestHandler = (req, res, next) => {

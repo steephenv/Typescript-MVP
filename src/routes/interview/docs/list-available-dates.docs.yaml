@@ -16,6 +16,9 @@
       description: last date on current listing
       in: query
       example: '2018-07-22'  
+    - forward: boolean
+      description: is it forward or not
+      example: true  
     responses:
       200:
         description: "successful attempt, returns `success message`"

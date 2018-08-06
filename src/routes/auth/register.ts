@@ -17,7 +17,7 @@ import {
 
 sgMail.setApiKey(secrets.sendGridKey);
 
-export const register: RequestHandler = async (req, res, next) => {
+export const commonRegistration: RequestHandler = async (req, res, next) => {
   try {
     const [user, temp] = await BluePromise.all([
       User.findOne({ email: req.body.email }).exec(),
@@ -61,4 +61,30 @@ export const register: RequestHandler = async (req, res, next) => {
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR));
   }
+};
+
+export const directRegistration: RequestHandler = async (req, res, next) => {
+  try {
+    const existingUser = await User.findOne({ email: req.body.email }).exec();
+    if (existingUser) {
+      return next(
+        new RequestError(RequestErrorType.CONFLICT, messages.emailExisting.ENG),
+      );
+    }
+    req.body.isDirectRegistration = true;
+    req.body.createdBy = res.locals.user.userId;
+    req.body.appliedRole = req.body.role;
+    const newUser: any = new User(req.body);
+    await newUser.save();
+    return res.status(201).send({ success: true });
+  } catch (err) {
+    return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR));
+  }
+};
+
+export const register: RequestHandler = async (req, res, next) => {
+  if (req.body.isDirectRegistration) {
+    return directRegistration(req, res, next);
+  }
+  return commonRegistration(req, res, next);
 };

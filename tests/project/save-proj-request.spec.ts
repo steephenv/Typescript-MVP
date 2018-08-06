@@ -32,6 +32,7 @@ describe('Test for saving project request data  ===> ', () => {
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
       .send({
+        templateType: 'template2',
         currentStatus: 'sadsad',
         currentSituation: 'sdfdsf',
         challengeType: 'cvdsjhgv',
@@ -74,7 +75,7 @@ describe('Test for saving project request data  ===> ', () => {
             engagementEnd: new Date(),
             engagementStart: new Date(),
             reqCapacityInFTE: 'sdxvnsdjbv',
-            reqCapacityWorkDays: ' sxzdhvchsdgv',
+            reqCapacityWorkDays: 'sxzdhvchsdgv',
             confirmAvgCapacity: 'zxjh hcgsxvc',
             avgCapacityPerWeek: 'sdbjdskbvvds',
             travellingRequired: 'ncsbvgdc',
@@ -152,5 +153,125 @@ describe('Test for saving project request data  ===> ', () => {
         }
         return done();
       });
+  });
+
+  describe('Test for saving project request data for template 1 ===> ', () => {
+    it('Saving project request details api for template 1', done => {
+      supertest(app)
+        .post(`/v1/project/save-project-request`)
+        .set('X-Requested-With', 'XMLHttpRequest')
+        .set({ Authorization: `Bearer ${token}` })
+        .send({
+          templateType: 'template1',
+          currentStatus: 'sadsad',
+          currentSituation: 'sdfdsf',
+          challengeType: 'cvdsjhgv',
+          challenge: 'cbbxgcge',
+          degreeOfChallenge: 'nxcdshgsa',
+          goalValueAdd: 'ssdcvmnjas',
+          desiredFutureSituation: 'sdjhysgdew',
+          targetStart: 'sdhfvgnxcb',
+          expectedEnd: 'bcvhdsgftwesa',
+          mainLocation: 'tehsdkvn',
+          additionalLocations: 'nvsteddxsv',
+          location2: 'AHDGBUYHASCV',
+          location3: 'BCSYDGFYEWTC',
+          location4: 'ZXBCHSAYHBSACC',
+          communication: 'BCHSAFCAS',
+
+          stakeHolders: [
+            {
+              stakeHolder: 'ascdkdvjhbiufwe',
+              businessFunction: 'ascdkdvjhbiufwe',
+              businessFunctionRole: 'ascdkdvjhbiufwe',
+              sponsorsPosition: 'ascdkdvjhbiufwe',
+              managersPosition: 'ascdkdvjhbiufwe',
+            },
+            {
+              stakeHolder: 'vhbfdhsmchd',
+              businessFunction: 'vhbfdhsmchd',
+              businessFunctionRole: 'vhbfdhsmchd',
+              sponsorsPosition: 'vhbfdhsmchd',
+              managersPosition: 'vhbfdhsmchd',
+            },
+          ],
+          noOfExpectedDeliverables: 'cshdgsdcsdv',
+          nameOfDeliverables: 'cshdgsdcsdv',
+          typeOfDeliverables: 'cshdgsdcsdv',
+          languageOfDeliverable: 'cshdgsdcsdv',
+          briefDescriptionOfDeliverable: 'cshdgsdcsdv',
+          expectedValueAddOfDeliverable: 'cshdgsdcsdv',
+          expectedQualityOfDeliverable: 'cshdgsdcsdv',
+          expectedDueDateOfDeliverable: '3-4-2018',
+          expectedTotalPriceForValue: '1254',
+          expectedPricePerDeliverable: '3584',
+          travelExpPercentageOfTotalPriceForValue: 'cshdgsdcsdv',
+          proposalSelectionBasedOn: 'cshdgsdcsdv',
+          clientsMessage: 'dsjbvhvz',
+        })
+        .expect(200)
+        .end((err, res) => {
+          if (err) {
+            throw err;
+          }
+          return done();
+        });
+    });
+  });
+
+  describe('Test for saving project request data for template 3  ===> ', () => {
+    it('Saving project request details api for template 3', done => {
+      supertest(app)
+        .post(`/v1/project/save-project-request`)
+        .set('X-Requested-With', 'XMLHttpRequest')
+        .set({ Authorization: `Bearer ${token}` })
+        .send({
+          templateType: 'template3',
+          currentStatus: 'sadsad',
+          currentSituation: 'sdfdsf',
+          challengeType: 'cvdsjhgv',
+          challenge: 'cbbxgcge',
+          degreeOfChallenge: 'nxcdshgsa',
+          goalValueAdd: 'ssdcvmnjas',
+          desiredFutureSituation: 'sdjhysgdew',
+          targetStart: 'sdhfvgnxcb',
+          expectedEnd: 'bcvhdsgftwesa',
+          mainLocation: 'tehsdkvn',
+          additionalLocations: 'nvsteddxsv',
+          location2: 'AHDGBUYHASCV',
+          location3: 'BCSYDGFYEWTC',
+          location4: 'ZXBCHSAYHBSACC',
+          communication: 'BCHSAFCAS',
+
+          stakeHolders: [
+            {
+              stakeHolder: 'ascdkdvjhbiufwe',
+              businessFunction: 'ascdkdvjhbiufwe',
+              businessFunctionRole: 'ascdkdvjhbiufwe',
+              sponsorsPosition: 'ascdkdvjhbiufwe',
+              managersPosition: 'ascdkdvjhbiufwe',
+            },
+            {
+              stakeHolder: 'vhbfdhsmchd',
+              businessFunction: 'vhbfdhsmchd',
+              businessFunctionRole: 'vhbfdhsmchd',
+              sponsorsPosition: 'vhbfdhsmchd',
+              managersPosition: 'vhbfdhsmchd',
+            },
+          ],
+          languageOfDeliverable: 'cshdgsdcsdv',
+          expectedDueDateOfDeliverable: '3-4-2018',
+          proposalSubmissionDate: new Date(),
+          proposalSelectionBasedOn: 'cshdgsdcsdv',
+          clientsMessage: 'dsjbvhvz',
+        })
+        .expect(200)
+        .end((err, res) => {
+          if (err) {
+            throw err;
+          }
+          return done();
+        });
+    });
   });
 });

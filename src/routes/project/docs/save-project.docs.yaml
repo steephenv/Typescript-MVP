@@ -1,4 +1,4 @@
-/project/save-project-request:
+/project/save-project:
   post:
     security:
     - Bearer: []
@@ -22,7 +22,7 @@
       schema:
         type: object
         required:
-        - projectTittle
+        - projectTitle
         - currentSituation
         - targetSituation
         - targetGroup
@@ -44,8 +44,9 @@
         - referenceProjectDate
         - referenceCountry
         - referenceLanguage
+        - categoryId
         properties:
-          projectTittle:
+          projectTitle:
             type: String
           currentSituation:
             type: String
@@ -89,6 +90,8 @@
             type: String
           referenceLanguage:
             type: String
+          categoryId:
+            type: string
     responses:
       200:
         description: "successful attempt, returns `success message`"

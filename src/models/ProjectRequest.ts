@@ -13,6 +13,9 @@ const projectRequestSchema = new Schema({
   createdAt: {
     type: Date,
   },
+  templateType: {
+    type: String,
+  },
   stakeHolder: {
     type: String,
   },
@@ -155,6 +158,49 @@ const projectRequestSchema = new Schema({
   proposalSubmissionDate: {
     type: Date,
   },
+
+  noOfExpectedDeliverables: {
+    type: String,
+  },
+  nameOfDeliverables: {
+    type: String,
+  },
+  typeOfDeliverables: {
+    type: String,
+  },
+  languageOfDeliverable: {
+    type: String,
+  },
+  briefDescriptionOfDeliverable: {
+    type: String,
+  },
+  expectedValueAddOfDeliverable: {
+    type: String,
+  },
+  expectedQualityOfDeliverable: {
+    type: String,
+  },
+  expectedDueDateOfDeliverable: {
+    type: String,
+  },
+  expectedTotalPriceForValue: {
+    type: Number,
+  },
+  expectedPricePerDeliverable: {
+    type: Number,
+  },
+  travelExpPercentageOfTotalPriceForValue: {
+    type: String,
+  },
+  proposalSelectionBasedOn: {
+    type: String,
+  },
+  // proposalSubmissionDate: {
+  //   type: Date,
+  // },
+  // clientsMessage: {
+  //   type: String,
+  // },
 });
 
 export const ProjectRequest = mongooseModel(

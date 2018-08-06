@@ -15,6 +15,7 @@ import { upsertBusinessFunction } from './upsert-business-fn';
 import { listBusinessFns } from './list-business-fn';
 import { upsertBusinessSubFunction } from './upsert-business-sub-fn';
 import { listBusinessSubFunction } from './list-business-sub-fn';
+import { deleteAssets } from './delete-asset';
 
 import { listBussSubFnRule } from './validators/list-buss-sub-fn.rule';
 import { upsertBusinessSubFnRule } from './validators/upsert-business-sub-fn.rule';
@@ -80,3 +81,4 @@ assets.get(
   errValidator,
   listBusinessSubFunction,
 );
+assets.delete('/', deleteAssets);

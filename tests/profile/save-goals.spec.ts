@@ -34,11 +34,13 @@ describe('Test for saving goals  ===> ', () => {
       .send({
         clientRating: 'Good',
         teamRating: 'Good',
-        assets: [],
-        annualAvailableCapacity: 'gftretgre',
+        annualAvailableCapacity: 1,
+        capricornsAvailableCapacity: 1,
         daysLeftInYear: 22,
-        educationalTarget: [],
         incomePerHour: '33',
+        skillTargets: [
+          { skillId: '5b4c658e32958459122535cb', targetProficiency: 'Good' },
+        ],
       })
       .expect(200)
       .end((err, res) => {

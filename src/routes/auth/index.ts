@@ -1,5 +1,8 @@
 import * as express from 'express';
 
+import * as queryBoolParser from 'express-query-boolean';
+import * as queryIntParser from 'express-query-int';
+
 import { errValidator } from '../../error-handler/error-validator';
 
 import { registerValidation } from './validators/register-rules';
@@ -10,6 +13,7 @@ import { loginRule } from './validators/login.rule';
 import { resetPasswordValidation } from './validators/reset-password-rules';
 import { listUsersValidation } from './validators/list-users.rule';
 import { setRoleValidation } from './validators/role-setting-rules';
+import { userSuggestionRule } from './validators/user-suggestion.rule';
 
 import { register } from './register';
 import { confirmUser } from './confirm-user';
@@ -24,6 +28,7 @@ import { getCities } from './get-countries';
 import { getCountryDetails } from './get-countries';
 import { listUsers } from './list-users';
 import { saveRole } from './role-setting';
+import { suggestUsers } from './user-suggestions';
 
 export const auth = express.Router();
 
@@ -43,5 +48,13 @@ auth.get('/get-states', getStates);
 auth.get('/get-cities', getCities);
 auth.get('/get-country-details', getCountryDetails);
 
-auth.get('/list-users/:page', listUsersValidation, listUsers);
+auth.get(
+  '/list-users',
+  queryBoolParser(),
+  queryIntParser(),
+  listUsersValidation,
+  listUsers,
+);
 auth.post('/role-setting', setRoleValidation, saveRole);
+
+auth.get('/suggest-users', userSuggestionRule, suggestUsers);

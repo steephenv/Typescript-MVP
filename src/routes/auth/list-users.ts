@@ -10,30 +10,26 @@ import { InterviewDetails } from '../../models/InterviewDetails';
 
 export const listUsers: RequestHandler = async (req, res, next) => {
   try {
-    const totalNumUsers = await User.count({
-      [res.locals.query.field]: { $in: res.locals.query.values },
-    });
-    const limit = 10;
-    let n = 1;
-    if (req.params.page) {
-      n = +req.params.page;
-    }
-    const skip = limit * (n - 1);
-    const usersList = await User.find({
-      [res.locals.query.field]: { $in: res.locals.query.values },
-    })
+    const { _limit = 50, _skip = 0 } = req.query;
+    delete req.query._limit;
+    delete req.query._skip;
+
+    const condition = req.query;
+
+    const totalNumUsersPromise = User.count(condition).exec();
+    const usersListPromise = User.find(condition)
       .select('firstName lastName appliedRole role profileDataVerified')
-      .skip(skip)
-      .limit(limit)
+      .skip(+_skip)
+      .limit(+_limit)
       .sort('-createdAt')
       .lean()
       .exec();
-    if (!usersList.length) {
-      return res.status(200).send({
-        success: true,
-        users: [],
-      });
-    }
+
+    const [totalNumUsers, usersList] = await BluePromise.all([
+      totalNumUsersPromise,
+      usersListPromise,
+    ]);
+
     await BluePromise.map(usersList, async (user: any) => {
       const interviewDetails = await InterviewDetails.find({
         contestantId: user._id,
@@ -46,6 +42,7 @@ export const listUsers: RequestHandler = async (req, res, next) => {
       }
       return;
     });
+
     return res.status(200).send({
       success: true,
       users: usersList,

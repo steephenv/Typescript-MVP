@@ -14,7 +14,7 @@ const projectSchema = new Schema({
   createdAt: {
     type: Date,
   },
-  projectTittle: {
+  projectTitle: {
     type: String,
   },
   currentSituation: {
@@ -27,19 +27,24 @@ const projectSchema = new Schema({
     type: String,
   },
   category: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'ProjectCategory',
   },
   subCategory: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'ProjectSubCategory',
   },
   industryLine: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'Industry',
   },
   businessFunctions: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'BusinessFunction',
   },
   businessSubFunctions: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'BusinessSubFunction',
   },
   projectStages: {
     type: String,
@@ -79,6 +84,10 @@ const projectSchema = new Schema({
   },
   referenceLanguage: {
     type: String,
+  },
+  producerId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
   },
 });
 
