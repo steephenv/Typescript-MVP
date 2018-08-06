@@ -24,13 +24,13 @@
         required:
         - userId
         - type
-        - collectionType
+        - collectionTypeId
         properties:
           userId:
             type: string
           type:
             type: String
-          collectionType:
+          collectionTypeId:
             type: String
     responses:
       200:

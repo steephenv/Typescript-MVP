@@ -16,7 +16,7 @@ const favoritesSchema = new Schema({
   type: {
     type: String,
   },
-  collectionType: {
+  collectionTypeId: {
     type: Schema.Types.ObjectId,
     required: true,
   },

@@ -4,7 +4,7 @@ import { RequestHandler } from 'express';
 // tslint:disable:variable-name
 const DeleteFavoritesSchema = Joi.object().keys({
   type: Joi.string().required(),
-  collectionType: Joi.string().required(),
+  collectionTypeId: Joi.string().required(),
 });
 export const deleteFavoriteRule: RequestHandler = (req, res, next) => {
   //   req.body.role = res.locals.user.role;
