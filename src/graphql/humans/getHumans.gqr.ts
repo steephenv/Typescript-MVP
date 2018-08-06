@@ -5,5 +5,9 @@ export const querySchema = `getHumans: String`;
 export const resolver = { getHumans };
 
 function getHumans() {
-  return `We're humans :) (<5)`;
+  try {
+    return `We're humans :) (<5)`;
+  } catch (err) {
+    throw new GQLErr(GQLErrType.BAD_REQUEST, err);
+  }
 }
