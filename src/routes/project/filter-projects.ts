@@ -61,7 +61,7 @@ async function attachFavoritesFlag(projects: any[], userId: string) {
     const isFavorite = await Favorites.count({
       userId,
       type: 'project',
-      collectionTypeId: project._id,
+      projectsId: project._id,
     }).exec();
 
     if (isFavorite) {

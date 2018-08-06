@@ -8,7 +8,7 @@ import { updateProjectCategoryRules } from './validators/add-project-category-ru
 import { deleteProjectCategoryRules } from './validators/delete-project-category-rule';
 import { createCategoryValidationChain } from './validators/save-proj-category-rule';
 import { createSubCatValidationChain } from './validators/save-proj-sub-category-rules';
-import { saveFavoriteRule } from '../favorites/validators/add-favorites-rules';
+// import { saveFavoriteRule } from '../favorites/validators/add-favorites-rules';
 
 import { saveProjectRequest } from './project-request';
 import { saveProject } from './save-project';
@@ -38,7 +38,7 @@ project.post('/update-project', updateProject);
 project.post('/filter-project', filterProject);
 project.post('/save-project-request', projectRequestRule, saveProjectRequest);
 project.get('/get-catalog', searchCatalog);
-project.post('/save-project-favorite', saveFavoriteRule, saveFavorites);
+project.post('/save-project-favorite', saveFavorites);
 project.post('/delete-project-favorite', deleteFavorites);
 project.post('/save-project', saveProjectRule, saveProject);
 project.post('/search-project', searchProjects);
