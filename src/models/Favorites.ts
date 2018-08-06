@@ -1,6 +1,6 @@
 /* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
-import { Project } from './Project';
+// import { Project } from './Project';
 
 const favoritesSchema = new Schema({
   userId: {
