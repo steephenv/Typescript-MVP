@@ -16,9 +16,7 @@ import { PersonalDetails } from '../../models/PersonalDetails';
 
 export const login: RequestHandler = async (req, res, next) => {
   try {
-    const user: any = await User.findOne({ email: req.body.username })
-      .lean()
-      .exec();
+    const user: any = await User.findOne({ email: req.body.username }).exec();
     if (!user) {
       const tempUser: any = await TempUser.findOne({
         email: req.body.username,
@@ -48,9 +46,9 @@ export const login: RequestHandler = async (req, res, next) => {
     })
       .lean()
       .exec();
-
+    let userImage = '';
     if (personalDetail) {
-      user.image = personalDetail.image;
+      userImage = personalDetail.image;
     }
 
     const accessToken = await Jwt.sign({
@@ -59,7 +57,9 @@ export const login: RequestHandler = async (req, res, next) => {
       appliedRole: user.appliedRole,
     });
 
-    return res.status(200).send({ success: true, data: user, accessToken });
+    return res
+      .status(200)
+      .send({ success: true, data: user, accessToken, userImage });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }
