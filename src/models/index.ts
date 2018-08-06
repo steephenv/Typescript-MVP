@@ -24,8 +24,10 @@ import { SkillSubCategory } from './SkillSubCategory';
 import { TempUser } from './TempUser';
 import { TimeSlot } from './TimeSlots';
 import { Wlb } from './WLB';
+import { Favorites } from './Favorites';
 
 export const Models: { [key: string]: typeof AppData } = {
+  Favorites,
   AppData,
   AssetSubCategory,
   AssetCategory,
