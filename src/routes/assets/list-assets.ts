@@ -2,6 +2,8 @@ import { RequestHandler } from 'express';
 import { Promise as BluePromise } from 'bluebird';
 
 import { Assets } from '../../models/Assets';
+import { Favorites } from '../../models/Favorites';
+
 import { escapeRegex } from '../../utils/escape-regex';
 
 import {
@@ -32,6 +34,16 @@ export const listAssets: RequestHandler = async (req, res, next) => {
       count = result.count;
     }
 
+    const userIdForListingFavs: string = req.query.userId
+      ? req.query.userId
+      : res.locals.user
+        ? res.locals.user.userId
+        : null;
+
+    if (userIdForListingFavs) {
+      assets = await attachFavoritesFlag(assets, userIdForListingFavs);
+    }
+
     return res.status(200).send({
       msg: 'success',
       count,
@@ -41,6 +53,26 @@ export const listAssets: RequestHandler = async (req, res, next) => {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }
 };
+
+// attach favorites flag for assets
+async function attachFavoritesFlag(assets: any[], userId: string) {
+  const assetsMapped = await BluePromise.map(assets, async asset => {
+    const isFavorite = await Favorites.count({
+      userId,
+      type: 'asset',
+      collectionTypeId: asset._id,
+    }).exec();
+
+    if (isFavorite) {
+      asset.favorite = true;
+    } else {
+      asset.favorite = false;
+    }
+    return asset;
+  });
+
+  return assetsMapped;
+}
 
 // usual query
 async function normalFind(query: any, limit: number, skip: number) {
