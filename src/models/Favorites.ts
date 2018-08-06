@@ -1,5 +1,6 @@
 /* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
+// import { Project } from './Project';
 
 const favoritesSchema = new Schema({
   userId: {
@@ -16,9 +17,13 @@ const favoritesSchema = new Schema({
   type: {
     type: String,
   },
-  collectionTypeId: {
+  projectsId: {
     type: Schema.Types.ObjectId,
-    required: true,
+    ref: 'Project',
+  },
+  assetsId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Assets',
   },
 });
 
