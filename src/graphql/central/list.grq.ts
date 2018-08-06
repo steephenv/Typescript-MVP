@@ -26,7 +26,7 @@ class Collection {
 
   public async fetch({
     query = {},
-    attachments,
+    attachments = [],
     limit = 50,
     skip = 0,
   }: {
@@ -38,9 +38,11 @@ class Collection {
     try {
       let prepareResult = this.collection.find(query);
 
-      attachments.forEach(attachment => {
-        prepareResult.populate(attachment);
-      });
+      if (attachments) {
+        attachments.forEach(attachment => {
+          prepareResult.populate(attachment);
+        });
+      }
 
       prepareResult = prepareResult
         .limit(limit)
