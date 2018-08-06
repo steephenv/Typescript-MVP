@@ -32,8 +32,16 @@ describe('Test for project favorite  ===> ', () => {
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
       .send({
-        type: 'project',
-        collectionTypeId: '5b6145a72a31c83e72c7fee3',
+        items: [
+          {
+            type: 'project',
+            projectsId: '5b6145a72a31c83e72c7fee3',
+          },
+          {
+            type: 'project',
+            projectsId: '5b68121c586dd83b039c3a7c',
+          },
+        ],
       })
       .expect(200)
       .end((err, res) => {

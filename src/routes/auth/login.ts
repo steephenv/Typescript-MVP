@@ -12,6 +12,7 @@ import {
   RequestError,
   RequestErrorType,
 } from '../../error-handler/RequestError';
+import { PersonalDetails } from '../../models/PersonalDetails';
 
 export const login: RequestHandler = async (req, res, next) => {
   try {
@@ -40,13 +41,25 @@ export const login: RequestHandler = async (req, res, next) => {
       );
     }
 
+    const personalDetail = await PersonalDetails.findOne({
+      userId: user._id,
+    })
+      .lean()
+      .exec();
+    let userImage = '';
+    if (personalDetail) {
+      userImage = personalDetail.image;
+    }
+
     const accessToken = await Jwt.sign({
       userId: user._id,
       role: user.role,
       appliedRole: user.appliedRole,
     });
 
-    return res.status(200).send({ success: true, data: user, accessToken });
+    return res
+      .status(200)
+      .send({ success: true, data: user, accessToken, userImage });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }
