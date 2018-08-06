@@ -12,10 +12,13 @@ import {
   RequestError,
   RequestErrorType,
 } from '../../error-handler/RequestError';
+import { PersonalDetails } from '../../models/PersonalDetails';
 
 export const login: RequestHandler = async (req, res, next) => {
   try {
-    const user: any = await User.findOne({ email: req.body.username }).exec();
+    const user: any = await User.findOne({ email: req.body.username })
+      .lean()
+      .exec();
     if (!user) {
       const tempUser: any = await TempUser.findOne({
         email: req.body.username,
@@ -38,6 +41,16 @@ export const login: RequestHandler = async (req, res, next) => {
       return next(
         new RequestError(RequestErrorType.LOGIN_FAILED, messages.noUser.ENG),
       );
+    }
+
+    const personalDetail = await PersonalDetails.findOne({
+      userId: user._id,
+    })
+      .lean()
+      .exec();
+
+    if (personalDetail) {
+      user.image = personalDetail.image;
     }
 
     const accessToken = await Jwt.sign({
