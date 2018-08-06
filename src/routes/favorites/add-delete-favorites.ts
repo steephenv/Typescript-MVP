@@ -33,10 +33,10 @@ export const deleteFavorites: RequestHandler = async (req, res, next) => {
     const where: any = {};
     where.userId = req.body.userId ? req.body.userId : res.locals.user.userId;
     await BluePromise.map(req.body.items, async (item: any) => {
-      item.updatedAt = new Date();
-      item.userId = where.userId;
-      item.createdAt = new Date();
-      await Favorites.findOneAndRemove(req.body);
+      // item.updatedAt = new Date();
+      // item.userId = where.userId;
+      // item.createdAt = new Date();
+      await Favorites.findOneAndRemove(item);
       // const newData = new Favorites(item);
       // await newData.save();
     });
