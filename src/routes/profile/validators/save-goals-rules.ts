@@ -6,16 +6,27 @@ const GoalsSchema = Joi.object().keys({
   clientRating: Joi.string().required(),
   teamRating: Joi.string().required(),
   personalStatement: Joi.string().allow(''),
-  industryExperience: Joi.array(),
-  functionalExperience: Joi.array(),
-  subjectMatter: Joi.array(),
-  taskExperience: Joi.array(),
-  certifications: Joi.array(),
-  assets: Joi.array(),
-  educationalTarget: Joi.array(),
-  socialSkills: Joi.array(),
-  peopleDevelopment: Joi.array(),
-  businessDevelopment: Joi.array(),
+  skillTargets: Joi.array()
+    .items(
+      Joi.object().keys({
+        skillId: Joi.string().required(),
+        targetProficiency: Joi.string().required(),
+      }),
+    )
+    .optional(),
+  educationalTargets: Joi.array().items(
+    Joi.object().keys({
+      durationFrom: Joi.string(),
+      durationTo: Joi.string(),
+      typeOfInstitution: Joi.string(),
+      nameOfInstitution: Joi.string(),
+      locationCountry: Joi.string(),
+      locationCity: Joi.string(),
+      locationState: Joi.string(),
+      major: Joi.string(),
+      degree: Joi.string(),
+    }),
+  ),
   annualAvailableCapacity: Joi.number().required(),
   capricornsAvailableCapacity: Joi.number().required(),
   income: Joi.string().allow(''),
