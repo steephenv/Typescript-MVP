@@ -54,6 +54,7 @@ async function normalFind(query: any, limit: number, skip: number) {
   const assetsPromise = Assets.find(query)
     .skip(skip)
     .limit(limit)
+    .lean()
     .exec();
   const countPromise = Assets.count(query).exec();
 
@@ -89,6 +90,7 @@ async function regexKeySearch(reqQuery: any, limit: number, skip: number) {
   const assetsPromise = Assets.find(condition)
     .skip(skip)
     .limit(limit)
+    .lean()
     .exec();
 
   const countPromise = Assets.count(condition).exec();
