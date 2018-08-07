@@ -1,0 +1,19 @@
+/profile/search-skills:
+  get:
+    security:
+    - Bearer: []
+    summary: api for search skills.
+    tags:
+    - profile updation
+    description: api for search skills.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest 
+    - name: text
+      in: query
+    responses:
+      200:
+        description: "successful attempt, returns `success message`"
