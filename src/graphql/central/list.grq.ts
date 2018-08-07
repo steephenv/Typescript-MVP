@@ -46,7 +46,11 @@ class Collection {
       if (typeof query === 'string') {
         query = JSON.parse(query);
       }
+    } catch (err) {
+      throw new GQLErr(GQLErrType.BAD_REQUEST, err);
+    }
 
+    try {
       let prepareResult = this.collection.find(query);
 
       if (attachments) {
@@ -63,13 +67,17 @@ class Collection {
       const result = await prepareResult.exec();
       return result;
     } catch (err) {
-      throw new GQLErr(GQLErrType.BAD_REQUEST, err);
+      throw new GQLErr(GQLErrType.INTERNAL_SERVER_ERROR, err);
     }
   }
 
   public async remove({ condition }: { condition: any }) {
-    const resp = await this.collection.remove(condition);
-    return resp;
+    try {
+      const resp = await this.collection.remove(condition).exec();
+      return resp;
+    } catch (err) {
+      throw new GQLErr(GQLErrType.INTERNAL_SERVER_ERROR, err);
+    }
   }
 }
 
