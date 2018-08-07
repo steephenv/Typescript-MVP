@@ -9,6 +9,7 @@ type Collection {
   collectionName: String
   fetch(query: Object, attachments:[String], limit:Int, skip:Int): Object
   create(content: Object!): Object
+  remove(condition: Object!): Object
 }
 `;
 export const resolver = { collection };
@@ -64,6 +65,11 @@ class Collection {
     } catch (err) {
       throw new GQLErr(GQLErrType.BAD_REQUEST, err);
     }
+  }
+
+  public async remove({ condition }: { condition: any }) {
+    const resp = await this.collection.remove(condition);
+    return resp;
   }
 }
 
