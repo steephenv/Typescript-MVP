@@ -1,7 +1,12 @@
 // this is a sample grq file
 import { Models } from '../../models';
 import { Model, Document } from 'mongoose';
-import { GQLErr, GQLErrType } from '../../error-handler/GQL-Error';
+import {
+  GQLErr,
+  GQLErrType,
+  prepareGQLQuery,
+} from '../../graphql-compiler/tools';
+import { Promise as BluePromise } from 'bluebird';
 
 export const querySchema = `collection(name: String!): Collection`;
 export const otherSchema = `
@@ -9,6 +14,8 @@ type Collection {
   collectionName: String
   fetch(query: Object, attachments:[String], limit:Int, skip:Int): Object
   create(content: Object!): Object
+  update(condition: Object!, content: Object!): Object
+  remove(condition: Object!): Object
 }
 `;
 export const resolver = { collection };
@@ -25,9 +32,36 @@ class Collection {
     }
   }
 
-  public async create({ content }: { content: any }) {
-    const resp = await this.collection.create(content);
-    return resp;
+  public async create({ content }: { content: any[] }) {
+    try {
+      const resp = await BluePromise.map(content, async item => {
+        await this.collection.create(item);
+      });
+      return resp;
+    } catch (err) {
+      throw new GQLErr(GQLErrType.BAD_REQUEST, err);
+    }
+  }
+
+  public async update({
+    condition,
+    content,
+  }: {
+    content: any;
+    condition: any;
+  }) {
+    let preparedQuery: any;
+    try {
+      preparedQuery = await prepareGQLQuery(condition);
+    } catch (err) {
+      throw new GQLErr(GQLErrType.BAD_REQUEST, err);
+    }
+    try {
+      const resp = await this.collection.update(preparedQuery, content).exec();
+      return resp;
+    } catch (err) {
+      throw new GQLErr(GQLErrType.INTERNAL_SERVER_ERROR, err);
+    }
   }
 
   public async fetch({
@@ -41,12 +75,15 @@ class Collection {
     limit: number;
     skip: number;
   }) {
+    let preparedQuery: any;
     try {
-      if (typeof query === 'string') {
-        query = JSON.parse(query);
-      }
+      preparedQuery = await prepareGQLQuery(query);
+    } catch (err) {
+      throw new GQLErr(GQLErrType.BAD_REQUEST, err);
+    }
 
-      let prepareResult = this.collection.find(query);
+    try {
+      let prepareResult = this.collection.find(preparedQuery);
 
       if (attachments) {
         attachments.forEach(attachment => {
@@ -62,7 +99,22 @@ class Collection {
       const result = await prepareResult.exec();
       return result;
     } catch (err) {
+      throw new GQLErr(GQLErrType.INTERNAL_SERVER_ERROR, err);
+    }
+  }
+
+  public async remove({ condition }: { condition: any }) {
+    let preparedQuery: any;
+    try {
+      preparedQuery = await prepareGQLQuery(condition);
+    } catch (err) {
       throw new GQLErr(GQLErrType.BAD_REQUEST, err);
+    }
+    try {
+      const resp = await this.collection.remove(preparedQuery).exec();
+      return resp;
+    } catch (err) {
+      throw new GQLErr(GQLErrType.INTERNAL_SERVER_ERROR, err);
     }
   }
 }
