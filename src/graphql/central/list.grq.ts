@@ -1,7 +1,11 @@
 // this is a sample grq file
 import { Models } from '../../models';
 import { Model, Document } from 'mongoose';
-import { GQLErr, GQLErrType } from '../../error-handler/GQL-Error';
+import {
+  GQLErr,
+  GQLErrType,
+  prepareGQLQuery,
+} from '../../graphql-compiler/tools';
 import { Promise as BluePromise } from 'bluebird';
 
 export const querySchema = `collection(name: String!): Collection`;
@@ -46,8 +50,14 @@ class Collection {
     content: any;
     condition: any;
   }) {
+    let preparedQuery: any;
     try {
-      const resp = await this.collection.update(condition, content).exec();
+      preparedQuery = await prepareGQLQuery(condition);
+    } catch (err) {
+      throw new GQLErr(GQLErrType.BAD_REQUEST, err);
+    }
+    try {
+      const resp = await this.collection.update(preparedQuery, content).exec();
       return resp;
     } catch (err) {
       throw new GQLErr(GQLErrType.INTERNAL_SERVER_ERROR, err);
@@ -65,16 +75,15 @@ class Collection {
     limit: number;
     skip: number;
   }) {
+    let preparedQuery: any;
     try {
-      if (typeof query === 'string') {
-        query = JSON.parse(query);
-      }
+      preparedQuery = await prepareGQLQuery(query);
     } catch (err) {
       throw new GQLErr(GQLErrType.BAD_REQUEST, err);
     }
 
     try {
-      let prepareResult = this.collection.find(query);
+      let prepareResult = this.collection.find(preparedQuery);
 
       if (attachments) {
         attachments.forEach(attachment => {
@@ -95,8 +104,14 @@ class Collection {
   }
 
   public async remove({ condition }: { condition: any }) {
+    let preparedQuery: any;
     try {
-      const resp = await this.collection.remove(condition).exec();
+      preparedQuery = await prepareGQLQuery(condition);
+    } catch (err) {
+      throw new GQLErr(GQLErrType.BAD_REQUEST, err);
+    }
+    try {
+      const resp = await this.collection.remove(preparedQuery).exec();
       return resp;
     } catch (err) {
       throw new GQLErr(GQLErrType.INTERNAL_SERVER_ERROR, err);
