@@ -12,7 +12,7 @@ import '../../models/SkillSubCategory';
 export const searchSkills: RequestHandler = async (req, res, next) => {
   try {
     const skillText = req.query.text ? req.query.text : '';
-    const regexp = new RegExp(`^${skillText}`);
+    const regexp = new RegExp(`${skillText}`);
     const skillsSearched = await Skills.find({
       skillTitle: regexp,
     })
