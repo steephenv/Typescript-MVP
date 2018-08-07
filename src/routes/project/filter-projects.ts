@@ -93,6 +93,19 @@ async function normalFind(
   limit: number,
   skip: number,
 ) {
+  const removeFavs = body._removeFavs || false;
+  delete body._removeFavs;
+
+  if (removeFavs && userId) {
+    const favProjectIds = await Favorites.find({
+      userId,
+      type: 'project',
+    })
+      .distinct('projectId')
+      .exec();
+
+    body._id = { $nin: favProjectIds };
+  }
   const projectsPromise = Project.find(body)
     .populate('category')
     .populate('subcategory')
