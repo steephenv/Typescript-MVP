@@ -30,12 +30,16 @@ class Collection {
     limit = 50,
     skip = 0,
   }: {
-    query: any;
+    query: string | { [key: string]: any };
     attachments: string[];
     limit: number;
     skip: number;
   }) {
     try {
+      if (typeof query === 'string') {
+        query = JSON.parse(query);
+      }
+
       let prepareResult = this.collection.find(query);
 
       if (attachments) {
