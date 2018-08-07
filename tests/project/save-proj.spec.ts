@@ -32,7 +32,7 @@ describe('Test for project data  ===> ', () => {
       .set('X-Requested-With', 'XMLHttpRequest')
       .set({ Authorization: `Bearer ${token}` })
       .send({
-        projectTitle: 'MusicMatch',
+        projectTitle: 'testin proj',
         currentSituation: 'Not a plan in mind',
         targetSituation: 'Fully-fledged online music platform',
         targetGroup: 'all',
@@ -54,6 +54,8 @@ describe('Test for project data  ===> ', () => {
         referenceProjectDate: '2018-03-31T18:30:00.000Z',
         referenceCountry: 'Canada',
         referenceLanguage: 'fr',
+        deliverables: 'deliverable 1',
+        duration: '6 months',
       })
       .expect(200)
       .end((err, res) => {
