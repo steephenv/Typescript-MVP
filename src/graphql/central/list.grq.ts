@@ -2,6 +2,7 @@
 import { Models } from '../../models';
 import { Model, Document } from 'mongoose';
 import { GQLErr, GQLErrType } from '../../error-handler/GQL-Error';
+import { Promise as BluePromise } from 'bluebird';
 
 export const querySchema = `collection(name: String!): Collection`;
 export const otherSchema = `
@@ -9,6 +10,7 @@ type Collection {
   collectionName: String
   fetch(query: Object, attachments:[String], limit:Int, skip:Int): Object
   create(content: Object!): Object
+  update(condition: Object!, content: Object!): Object
 }
 `;
 export const resolver = { collection };
@@ -25,9 +27,30 @@ class Collection {
     }
   }
 
-  public async create({ content }: { content: any }) {
-    const resp = await this.collection.create(content);
-    return resp;
+  public async create({ content }: { content: any[] }) {
+    try {
+      const resp = await BluePromise.map(content, async item => {
+        await this.collection.create(item);
+      });
+      return resp;
+    } catch (err) {
+      throw new GQLErr(GQLErrType.BAD_REQUEST, err);
+    }
+  }
+
+  public async update({
+    condition,
+    content,
+  }: {
+    content: any;
+    condition: any;
+  }) {
+    try {
+      const resp = await this.collection.update(condition, content).exec();
+      return resp;
+    } catch (err) {
+      throw new GQLErr(GQLErrType.INTERNAL_SERVER_ERROR, err);
+    }
   }
 
   public async fetch({
