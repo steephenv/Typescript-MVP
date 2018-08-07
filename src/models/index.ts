@@ -19,6 +19,7 @@ import { InterviewAvailabilityCalender } from './InterviewAvailabilityCalender';
 import { InterviewDetails } from './InterviewDetails';
 import { Project } from './Project';
 import { ProjectCategory } from './ProjectCategory';
+import { Skills } from './Skills';
 import { SkillCategory } from './SkillCategory';
 import { SkillSubCategory } from './SkillSubCategory';
 import { TempUser } from './TempUser';
@@ -48,6 +49,7 @@ export const Models: { [key: string]: typeof AppData } = {
   InterviewDetails,
   Project,
   ProjectCategory,
+  Skills,
   SkillCategory,
   SkillSubCategory,
   TempUser,
