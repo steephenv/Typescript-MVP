@@ -8,6 +8,7 @@ export const otherSchema = `
 type Collection {
   collectionName: String
   fetch(query: Object, attachments:[String], limit:Int, skip:Int): Object
+  create(content: Object!): Object
 }
 `;
 export const resolver = { collection };
@@ -24,18 +25,27 @@ class Collection {
     }
   }
 
+  public async create({ content }: { content: any }) {
+    const resp = await this.collection.create(content);
+    return resp;
+  }
+
   public async fetch({
     query = {},
     attachments = [],
     limit = 50,
     skip = 0,
   }: {
-    query: any;
+    query: string | { [key: string]: any };
     attachments: string[];
     limit: number;
     skip: number;
   }) {
     try {
+      if (typeof query === 'string') {
+        query = JSON.parse(query);
+      }
+
       let prepareResult = this.collection.find(query);
 
       if (attachments) {
