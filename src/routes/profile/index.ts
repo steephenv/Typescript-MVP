@@ -34,6 +34,7 @@ import { saveSkillCategory } from './add-skill-category';
 import { updateSkillCategory } from './add-skill-category';
 import { listAllSkillCategories } from './list-all-skill-categories';
 import { deleteSkillCategory } from './delete-skill-categories';
+import { searchSkills } from './search-skills';
 
 const upload = multer({ dest: userHome + '/uploads/' });
 
@@ -82,3 +83,4 @@ profile.post(
   deleteSkillCategory,
 );
 profile.get('/list-all-skill-categories', listAllSkillCategories);
+profile.get('/search-skills', searchSkills);
