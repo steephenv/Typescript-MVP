@@ -8,6 +8,7 @@ export const otherSchema = `
 type Collection {
   collectionName: String
   fetch(query: Object, attachments:[String], limit:Int, skip:Int): Object
+  create(content: Object!): Object
 }
 `;
 export const resolver = { collection };
@@ -22,6 +23,11 @@ class Collection {
     if (!this.collection) {
       throw new GQLErr(GQLErrType.BAD_REQUEST, 'No such collections found');
     }
+  }
+
+  public async create({ content }: { content: any }) {
+    const resp = await this.collection.create(content);
+    return resp;
   }
 
   public async fetch({
