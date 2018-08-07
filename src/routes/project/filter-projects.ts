@@ -101,7 +101,7 @@ async function normalFind(
       userId,
       type: 'project',
     })
-      .distinct('projectId')
+      .distinct('projectsId')
       .exec();
 
     body._id = { $nin: favProjectIds };
@@ -145,7 +145,7 @@ async function regexKeySearch(
       userId,
       type: 'project',
     })
-      .distinct('projectId')
+      .distinct('projectsId')
       .exec();
 
     reqQuery._id = { $nin: favProjectIds };
