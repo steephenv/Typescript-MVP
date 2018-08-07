@@ -24,21 +24,32 @@ export const filterProject: RequestHandler = async (req, res, next) => {
     let projects: any[] = null;
     let count: number = null;
 
-    // determine the fn to activate
-    if (req.body.searchKey) {
-      const result = await regexKeySearch(req.body, _limit, _skip);
-      projects = result.projects;
-      count = result.count;
-    } else {
-      const result = await normalFind(req.body, _limit, _skip);
-      projects = result.projects;
-      count = result.count;
-    }
     const userIdForListingFavs: string = req.body.userId
       ? req.body.userId
       : res.locals.user
         ? res.locals.user.userId
         : null;
+
+    // determine the fn to activate
+    if (req.body.searchKey) {
+      const result = await regexKeySearch(
+        req.body,
+        userIdForListingFavs,
+        _limit,
+        _skip,
+      );
+      projects = result.projects;
+      count = result.count;
+    } else {
+      const result = await normalFind(
+        req.body,
+        userIdForListingFavs,
+        _limit,
+        _skip,
+      );
+      projects = result.projects;
+      count = result.count;
+    }
 
     if (userIdForListingFavs) {
       projects = await attachFavoritesFlag(projects, userIdForListingFavs);
@@ -76,7 +87,25 @@ async function attachFavoritesFlag(projects: any[], userId: string) {
 }
 
 // usual query
-async function normalFind(body: any, limit: number, skip: number) {
+async function normalFind(
+  body: any,
+  userId: string,
+  limit: number,
+  skip: number,
+) {
+  const removeFavs = body._removeFavs || false;
+  delete body._removeFavs;
+
+  if (removeFavs && userId) {
+    const favProjectIds = await Favorites.find({
+      userId,
+      type: 'project',
+    })
+      .distinct('projectsId')
+      .exec();
+
+    body._id = { $nin: favProjectIds };
+  }
   const projectsPromise = Project.find(body)
     .populate('category')
     .populate('subcategory')
@@ -97,12 +126,30 @@ async function normalFind(body: any, limit: number, skip: number) {
 }
 
 // regex key search
-async function regexKeySearch(reqQuery: any, limit: number, skip: number) {
+async function regexKeySearch(
+  reqQuery: any,
+  userId: string,
+  limit: number,
+  skip: number,
+) {
   const key: string = reqQuery.searchKey;
   delete reqQuery.searchKey;
+  const removeFavs = reqQuery._removeFavs || false;
+  delete reqQuery._removeFavs;
 
   const text = escapeRegex(key);
   const regex = new RegExp(text, 'gi');
+
+  if (removeFavs && userId) {
+    const favProjectIds = await Favorites.find({
+      userId,
+      type: 'project',
+    })
+      .distinct('projectsId')
+      .exec();
+
+    reqQuery._id = { $nin: favProjectIds };
+  }
 
   // make condition
   const condition = Object.assign(
