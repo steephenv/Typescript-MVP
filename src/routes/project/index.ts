@@ -8,6 +8,7 @@ import { updateProjectCategoryRules } from './validators/add-project-category-ru
 import { deleteProjectCategoryRules } from './validators/delete-project-category-rule';
 import { createCategoryValidationChain } from './validators/save-proj-category-rule';
 import { createSubCatValidationChain } from './validators/save-proj-sub-category-rules';
+import { shareProjectRule } from '../share/validators/share-project-rule';
 // import { saveFavoriteRule } from '../favorites/validators/add-favorites-rules';
 
 import { saveProjectRequest } from './project-request';
@@ -29,6 +30,7 @@ import { filterProject } from '../project/filter-projects';
 import { getProjectById } from '../project/delete-view-project';
 import { deleteProjectById } from '../project/delete-view-project';
 import { updateProject } from '../project/save-project';
+import { shareProject } from '../share/share-project';
 
 export const project = express.Router();
 
@@ -73,6 +75,7 @@ project.post(
   createSubCatValidationChain,
   createProjectSubCategory,
 );
+project.post('/share-project', shareProjectRule, shareProject);
 
 project.get('/list-all-categories', listProjectCategories);
 
