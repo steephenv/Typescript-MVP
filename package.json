@@ -135,7 +135,7 @@
       "^.+\\.(ts)$": "ts-jest"
     },
     "testMatch": [
-      "**/tests/**/*.spec.ts"
+      "**/tests/**/*.spec.got.{ts,js}"
     ],
     "testEnvironment": "node"
   }
