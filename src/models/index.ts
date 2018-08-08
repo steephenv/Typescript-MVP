@@ -26,6 +26,7 @@ import { TempUser } from './TempUser';
 import { TimeSlot } from './TimeSlots';
 import { Wlb } from './WLB';
 import { Favorites } from './Favorites';
+import { Draft } from './Draft';
 
 export const Models: { [key: string]: typeof AppData } = {
   Favorites,
@@ -38,6 +39,7 @@ export const Models: { [key: string]: typeof AppData } = {
   BusinessSubFunction,
   Company,
   country,
+  Draft,
   Education,
   EmployeeProjects,
   Experience,

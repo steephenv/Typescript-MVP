@@ -13,6 +13,7 @@ export const otherSchema = `
 type Collection {
   collectionName: String
   fetch(query: Object, attachments:[String], limit:Int, skip:Int): Object
+  count(query: Object): Int
   create(content: Object!): Object
   update(condition: Object!, content: Object!): Object
   remove(condition: Object!): Object
@@ -59,6 +60,26 @@ class Collection {
     try {
       const resp = await this.collection.update(preparedQuery, content).exec();
       return resp;
+    } catch (err) {
+      throw new GQLErr(GQLErrType.INTERNAL_SERVER_ERROR, err);
+    }
+  }
+
+  public async count({
+    query = {},
+  }: {
+    query: string | { [key: string]: any };
+  }) {
+    let preparedQuery: any;
+    try {
+      preparedQuery = await prepareGQLQuery(query);
+    } catch (err) {
+      throw new GQLErr(GQLErrType.BAD_REQUEST, err);
+    }
+
+    try {
+      const count = await this.collection.count(preparedQuery).exec();
+      return count;
     } catch (err) {
       throw new GQLErr(GQLErrType.INTERNAL_SERVER_ERROR, err);
     }
