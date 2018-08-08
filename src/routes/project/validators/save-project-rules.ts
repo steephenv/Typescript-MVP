@@ -27,7 +27,7 @@ const ProjectSchema = Joi.object().keys({
   referenceLanguage: Joi.string().allow(''),
   categoryId: Joi.string().allow(''),
   producerId: Joi.string().allow(''),
-  deliverables: Joi.string().allow(''),
+  deliverables: Joi.array(),
   duration: Joi.string().allow(''),
 });
 export const saveProjectRule: RequestHandler = (req, res, next) => {
