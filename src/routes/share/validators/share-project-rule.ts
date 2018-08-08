@@ -4,7 +4,7 @@ import { RequestHandler } from 'express';
 // tslint:disable:variable-name
 const SharedSchema = Joi.object().keys({
   type: Joi.string().required(),
-  sharedLink: Joi.string().required(),
+  sharedLink: Joi.array().required(),
   sharedTo: Joi.string().required(),
 });
 export const shareProjectRule: RequestHandler = (req, res, next) => {

@@ -33,7 +33,11 @@ describe('Test for sharing project ===> ', () => {
       .set({ Authorization: `Bearer ${token}` })
       .send({
         type: 'project',
-        sharedLink: 'https://projects.invisionapp.com',
+        sharedLink: [
+          'https://google.com',
+          'https://gmail.com',
+          'https://yahoo.com',
+        ],
         sharedTo: 'sss@gmail.com',
       })
       .expect(201)
@@ -53,7 +57,11 @@ describe('Test for sharing project ===> ', () => {
       .set({ Authorization: `Bearer ${token}` })
       .send({
         type: 'project',
-        sharedLink: 'https://projects.invisionapp.com',
+        sharedLink: [
+          'https://google.com',
+          'https://gmail.com',
+          'https://yahoo.com',
+        ],
         sharedTo: '',
       })
       .expect(422)

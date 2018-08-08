@@ -30,7 +30,7 @@
           type:
             type: string
           sharedLink:
-            type: string
+            type: array
           sharedTo:
             type: string
     responses:

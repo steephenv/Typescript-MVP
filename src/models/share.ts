@@ -17,7 +17,7 @@ const ShareSchema = new Schema({
     type: String,
   },
   sharedLink: {
-    type: String,
+    type: [String],
   },
   sharedTo: {
     type: String,
