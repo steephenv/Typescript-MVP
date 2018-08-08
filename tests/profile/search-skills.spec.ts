@@ -33,6 +33,7 @@ describe('Test for search skills', () => {
       .set({ Authorization: `Bearer ${token}` })
       .expect(200)
       .end((err, res) => {
+        console.log(res.body);
         if (err) {
           throw err;
         }
