@@ -63,7 +63,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/v1', attachTokenData, apis);
 app.use('/graph', (req, res) => res.redirect('/v1/graph'));
-app.use('/v1/graph', buildGraphQLRoutesGateway());
+app.use('/v1/graph', attachTokenData, buildGraphQLRoutesGateway());
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
