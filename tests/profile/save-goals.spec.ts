@@ -37,7 +37,11 @@ describe('Test for saving goals  ===> ', () => {
         annualAvailableCapacity: 1,
         capricornsAvailableCapacity: 1,
         daysLeftInYear: 22,
-        incomePerHour: '33',
+        income: 33,
+        incomePerAnnum: 4,
+        incomePerMonth: 44,
+        incomePerDay: 3,
+        startDate: 'ddd',
         skillTargets: [
           { skillId: '5b4c658e32958459122535cb', targetProficiency: 'Good' },
         ],

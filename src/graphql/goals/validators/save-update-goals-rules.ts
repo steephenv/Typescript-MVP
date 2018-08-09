@@ -1,14 +1,17 @@
 import * as Joi from 'joi';
-import { RequestHandler } from 'express';
 
 // tslint:disable:variable-name
 const GoalsSchema = Joi.object().keys({
   clientRating: Joi.string().required(),
+  _id: Joi.string().optional(),
+  userId: Joi.string().optional(),
   teamRating: Joi.string().required(),
   skillTargets: Joi.array()
     .items(
       Joi.object().keys({
-        skillId: Joi.string().required(),
+        skillId: Joi.object()
+          .keys({ _id: Joi.strict().required() })
+          .required(),
         targetProficiency: Joi.string().required(),
       }),
     )
@@ -32,7 +35,7 @@ const GoalsSchema = Joi.object().keys({
   ),
   annualAvailableCapacity: Joi.number().required(),
   capricornsAvailableCapacity: Joi.number().required(),
-  income: Joi.number().allow(''),
+  income: Joi.number().required(),
   incomePerAnnum: Joi.number().required(),
   incomePerMonth: Joi.number().required(),
   incomePerDay: Joi.number().required(),
@@ -42,15 +45,10 @@ const GoalsSchema = Joi.object().keys({
   targetAnnualIncomeCapricorns: Joi.number(),
 });
 
-export const saveGoalRule: RequestHandler = (req, res, next) => {
-  Joi.validate(req.body, GoalsSchema, { stripUnknown: true }, err => {
-    // console.log();
-    if (err) {
-      return res.status(422).send({
-        success: false,
-        msg: err,
-      });
-    }
-    next();
-  });
+export const updateValidator = (content: any) => {
+  const { error } = Joi.validate(content, GoalsSchema, { stripUnknown: true });
+  if (error) {
+    return { errFound: true, error };
+  }
+  return { errFound: false };
 };
