@@ -44,7 +44,7 @@ class SkillsClass {
           skillObj.subCategory = skillObj.subCategory._id;
           skillObj.uniqueTitle = skillObj.skillTitle.trim().toLowerCase();
           if (skillObj._id) {
-            const skillExist = await Skills.findOne({
+            const skillExist = await Skills.count({
               _id: {
                 $ne: skillObj._id,
               },
@@ -52,9 +52,17 @@ class SkillsClass {
               category: skillObj.category,
               subCategory: skillObj.subCategory,
               uniqueTitle: skillObj.uniqueTitle,
-            });
+            }).exec();
             if (skillExist) {
-              return;
+              const existingError = Object.assign(
+                {
+                  _IS_EXISTING: true,
+                  _DESCRIPTION:
+                    'create skipped due to _options.skipIfExistingOnCondition',
+                },
+                skillObj,
+              );
+              return existingError;
             }
             const skillId = skillObj._id;
             delete skillObj._id;
@@ -65,14 +73,22 @@ class SkillsClass {
             ).exec();
           }
           if (!skillObj._id) {
-            const skillExist = await Skills.findOne({
+            const skillExist = await Skills.count({
               category: skillObj.category,
               subCategory: skillObj.subCategory,
               uniqueTitle: skillObj.uniqueTitle,
               userId: comingUserId,
-            });
+            }).exec();
             if (skillExist) {
-              return;
+              const existingError = Object.assign(
+                {
+                  _IS_EXISTING: true,
+                  _DESCRIPTION:
+                    'create skipped due to _options.skipIfExistingOnCondition',
+                },
+                skillObj,
+              );
+              return existingError;
             }
             skillObj.userId = comingUserId;
             const newSkillObj = new Skills(skillObj);
