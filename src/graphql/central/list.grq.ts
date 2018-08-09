@@ -36,7 +36,32 @@ class Collection {
   public async create({ content }: { content: any[] }) {
     try {
       const resp = await BluePromise.map(content, async item => {
-        await this.collection.create(item);
+        const { _options } = item;
+        delete item._options;
+
+        // console.log('!!!!!!!!!!!!!!!!', _options.skipIfExistingOnCondition);
+        if (
+          _options.skipIfExistingOnCondition &&
+          Object.keys(_options.skipIfExistingOnCondition).length
+        ) {
+          const isExisting = await this.collection
+            .count(_options.skipIfExistingOnCondition)
+            .exec();
+          // console.log('isExisting', isExisting);
+          if (isExisting) {
+            const res = Object.assign(
+              {
+                _IS_EXISTING: true,
+                _DESCRIPTION:
+                  'create skipped due to _options.skipIfExistingOnCondition',
+              },
+              item,
+            );
+            return res;
+          }
+        }
+        const createResp = await this.collection.create(item);
+        return createResp;
       });
       return resp;
     } catch (err) {
