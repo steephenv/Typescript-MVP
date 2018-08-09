@@ -5,7 +5,7 @@ import { PersonalDetails } from '../../models/PersonalDetails';
 
 import { messages } from '../../config/app/messages';
 import { secrets } from '../../config/credentials/secrets';
-import { sendGTemplates } from '../../config/credentials/sendgrid-templates';
+import { EmailTemplates, sendEmail } from '../../email/send-email';
 
 import {
   RequestError,
@@ -26,19 +26,20 @@ export const emailRecoveryFunction: RequestHandler = async (req, res, next) => {
         new RequestError(RequestErrorType.BAD_REQUEST, messages.noUser.ENG),
       );
     }
-    const msg: any = {
-      to: req.body.secEmail,
-      from: 'miwago@cubettech.com',
-      subject: 'Email Recovery',
-      text: 'To recover the primary email',
-      html: '<p></p>',
-      templateId: sendGTemplates.emailRecovery,
-      substitutionWrappers: ['%', '%'],
-      substitutions: {
+
+    const mailOptions = {
+      toAddresses: [req.body.email],
+      template: EmailTemplates.EMAIL_RECOVERY,
+      fromName: 'Miwago Team',
+      subject: `Email Recovery`,
+      fields: {
+        user: user.firstName + ' ' + user.lastName,
         email: user.primaryEmail,
       },
     };
-    await sgMail.send(msg);
+
+    await sendEmail(mailOptions);
+
     return res.status(202).send({ success: true });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));

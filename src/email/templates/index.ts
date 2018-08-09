@@ -6,8 +6,8 @@ export class EmailTemplates {
     pathJoin(__dirname, 'sample.ejs'),
   ).toString();
 
-  public static RESET_PASSWORD = readFileSync(
-    pathJoin(__dirname, 'reset-password.ejs'),
+  public static FORGOT_PASSWORD = readFileSync(
+    pathJoin(__dirname, 'forgot-password.ejs'),
   ).toString();
 
   public static EMAIL_RECOVERY = readFileSync(
