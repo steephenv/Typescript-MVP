@@ -39,6 +39,9 @@ const GoalSchema: Schema = new Schema({
       durationFrom: {
         type: String,
       },
+      activities: {
+        type: String,
+      },
       durationTo: {
         type: String,
       },
@@ -63,20 +66,24 @@ const GoalSchema: Schema = new Schema({
       degree: {
         type: String,
       },
+      grade: {
+        type: String,
+      },
+      subject: {
+        type: String,
+      },
+      subjectGrade: {
+        type: String,
+      },
     },
   ],
   annualAvailableCapacity: { type: Number },
   capricornsAvailableCapacity: { type: Number },
-  income: { type: String },
-  incomeUnit: { type: String },
+  income: { type: Number },
   startDate: { type: String },
-  incomePerAnnum: String,
-  incomePerMonth: String,
-  incomePerWeek: String,
-  incomePerDay: String,
-  incomePerHour: String,
-  daysLeftInYear: { type: Number },
-  daysLeftInCapricorns: { type: Number },
+  incomePerMonth: Number,
+  incomePerDay: Number,
+  remainingIncome: Number,
   targetAnnualIncome: { type: Number },
   targetAnnualIncomeCapricorns: { type: Number },
 });

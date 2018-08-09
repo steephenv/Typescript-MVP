@@ -46,6 +46,7 @@ class GoalClass {
         delete content._id;
         goalDetails = await Goals.update({ _id: contentId }, { $set: content });
       } else {
+        content.userId = comingUserId;
         const newGoalDetails = new Goals(content);
         goalDetails = await newGoalDetails.save();
       }

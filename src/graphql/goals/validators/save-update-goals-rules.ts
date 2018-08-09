@@ -36,7 +36,6 @@ const GoalsSchema = Joi.object().keys({
   annualAvailableCapacity: Joi.number().required(),
   capricornsAvailableCapacity: Joi.number().required(),
   income: Joi.number().required(),
-  incomePerAnnum: Joi.number().required(),
   incomePerMonth: Joi.number().required(),
   incomePerDay: Joi.number().required(),
   startDate: Joi.string().required(),
