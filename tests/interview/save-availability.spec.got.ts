@@ -1,32 +1,26 @@
-import * as supertest from 'supertest';
-
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
-
-import { User } from '../../src/models/User';
-
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
+import * as got from 'got';
 
 let token: string;
-let bpm: any;
+const bpmId = '5b6c04094d27ef4e82b47e6b';
 
 beforeAll(done => {
-  supertest(app)
-    .post('/v1/auth/login')
-    .set('X-Requested-With', 'XMLHttpRequest')
-    .send({
+  got('http://localhost:7000/v1/auth/login', {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+    json: true,
+    body: {
       username: 'stark@marvel.com',
       password: 'password',
+    },
+  })
+    .then(({ body }: any) => {
+      token = body.accessToken;
+      done();
     })
-    .expect(200)
-    .end(async (err, res) => {
-      if (err) {
-        throw err;
-      }
-      token = res.body.accessToken;
-      bpm = await User.findOne({
-        role: 'BPM',
-      }).exec();
-      return done();
+    .catch(err => {
+      throw err;
     });
 });
 
@@ -34,11 +28,14 @@ describe('Test for availability save', () => {
   test(
     'creating slots',
     done => {
-      supertest(app)
-        .post('/v1/interview/save-availability-calender')
-        .set('X-Requested-With', 'XMLHttpRequest')
-        .set({ Authorization: `Bearer ${token}` })
-        .send({
+      got('http://localhost:7000/v1/interview/save-availability-calender', {
+        method: 'POST',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          Authorization: `Bearer ${token}`,
+        },
+        json: true,
+        body: {
           dateRange: {
             startDate:
               'Mon Aug 27 2018 05:30:00 GMT+0530 (India Standard Time)',
@@ -55,15 +52,13 @@ describe('Test for availability save', () => {
               'Mon Jul 30 2018 13:00:00 GMT+0530 (India Standard Time)',
             endTime: 'Mon Jul 30 2018 14:00:00 GMT+0530 (India Standard Time)',
           },
-          userId: '5b5ed5287630af443bcf2843',
+          userId: bpmId,
           annualAvailability: 20,
-        })
-        .expect(200)
-        .end((err, { body }) => {
-          if (err) {
-            throw err;
-          }
-          done();
+        },
+      })
+        .then(() => done())
+        .catch(err => {
+          throw err;
         });
     },
     80000,
