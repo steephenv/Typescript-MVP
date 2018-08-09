@@ -57,7 +57,11 @@ class SkillsClass {
             }
             const skillId = skillObj._id;
             delete skillObj._id;
-            return Skills.update({ _id: skillId }, { skillObj });
+
+            return await Skills.update(
+              { _id: skillId },
+              { $set: skillObj },
+            ).exec();
           }
           if (!skillObj._id) {
             const skillExist = await Skills.findOne({
