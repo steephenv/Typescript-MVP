@@ -27,6 +27,11 @@ function createServerAndTestIt() {
   serverChild.on('close', err => {
     serverLog(`close event with arg`, err);
     agentLog('server terminated');
+    agentExitLog(
+      process.exitCode === 0
+        ? chalk.green('Exited with code 0')
+        : chalk.red(`ERR> Exited with code ${process.exitCode}`),
+    );
   });
   serverChild.on('message', msg => {
     serverLog(`message event with arg`, msg);
@@ -78,4 +83,7 @@ function testLog(msg) {
 }
 function agentLog(msg) {
   console.log(chalk.yellow('[TEST_AGENT   > ] ') + chalk.grey(msg));
+}
+function agentExitLog(msg) {
+  console.log(chalk.yellow('[TEST_AGENT   > ] ') + msg);
 }
