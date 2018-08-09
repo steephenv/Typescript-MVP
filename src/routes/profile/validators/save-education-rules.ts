@@ -12,7 +12,7 @@ const objectSchema = Joi.object({
   nameOfInstitution: Joi.string().required(),
   locationCountry: Joi.string().required(),
   locationCity: Joi.string().required(),
-  locationState: Joi.string().required(),
+  locationState: Joi.string().optional(),
   major: Joi.string().required(),
   degree: Joi.string().required(),
   grade: Joi.string().required(),
