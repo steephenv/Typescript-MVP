@@ -54,8 +54,9 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     const goalDataPromise = Goals.findOne({
       userId: comingUserId,
     })
+      .populate('skillTargets.skillId')
       .populate({
-        path: 'skillTargets',
+        path: 'skillTargets.skillId',
         model: 'Skills',
         populate: {
           path: 'category',
@@ -63,7 +64,7 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
         },
       })
       .populate({
-        path: 'skillTargets',
+        path: 'skillTargets.skillId',
         model: 'Skills',
         populate: {
           path: 'subCategory',

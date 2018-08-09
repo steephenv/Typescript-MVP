@@ -8,12 +8,14 @@ const GoalsSchema = Joi.object().keys({
   teamRating: Joi.string().required(),
   skillTargets: Joi.array()
     .items(
-      Joi.object().keys({
-        skillId: Joi.object()
-          .keys({ _id: Joi.strict().required() })
-          .required(),
-        targetProficiency: Joi.string().required(),
-      }),
+      Joi.object()
+        .keys({
+          skillId: Joi.object()
+            .keys({ _id: Joi.string().required() })
+            .required(),
+          targetProficiency: Joi.string().required(),
+        })
+        .required(),
     )
     .optional(),
   educationalTargets: Joi.array().items(
@@ -46,6 +48,7 @@ const GoalsSchema = Joi.object().keys({
 
 export const updateValidator = (content: any) => {
   const { error } = Joi.validate(content, GoalsSchema, { stripUnknown: true });
+
   if (error) {
     return { errFound: true, error };
   }
