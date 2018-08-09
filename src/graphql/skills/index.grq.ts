@@ -52,7 +52,7 @@ class SkillsClass {
               category: skillObj.category,
               subCategory: skillObj.subCategory,
               uniqueTitle: skillObj.uniqueTitle,
-            });
+            }).exec();
             if (skillExist) {
               const existingError = Object.assign(
                 {
@@ -78,7 +78,7 @@ class SkillsClass {
               subCategory: skillObj.subCategory,
               uniqueTitle: skillObj.uniqueTitle,
               userId: comingUserId,
-            });
+            }).exec();
             if (skillExist) {
               const existingError = Object.assign(
                 {
