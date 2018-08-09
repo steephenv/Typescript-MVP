@@ -1,35 +1,40 @@
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
+import * as got from 'got';
 
 let token = '';
-
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
+let newUserId: string;
 
 beforeAll(done => {
-  supertest(app)
-    .post('/v1/auth/login')
-    .set('X-Requested-With', 'XMLHttpRequest')
-    .send({
+  got('http://localhost:7000/v1/auth/login', {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+    json: true,
+    body: {
       username: 'stark@marvel.com',
       password: 'password',
-    })
-    .expect(200)
-    .end((err, res) => {
-      if (err) {
-        throw err;
-      }
+    },
+  })
+    .then(res => {
+      newUserId = res.body.data._id;
       token = res.body.accessToken;
       return done();
+    })
+    .catch(err => {
+      throw err;
     });
 });
 
-describe('Test for saving experience data  ===> ', () => {
-  it('Saving experience details api', done => {
-    supertest(app)
-      .post(`/v1/profile/save-experience`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
+describe('Test for saving experience data ', () => {
+  test('Saving Experience details api', done => {
+    got(`http://localhost:7000/v1/profile/save-experience`, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         experiences: [
           {
             durationFrom: 'sdsd',
@@ -82,13 +87,11 @@ describe('Test for saving experience data  ===> ', () => {
             locationState: 'sdbcvsgavc',
           },
         ],
-      })
-      .expect(200)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
 });
