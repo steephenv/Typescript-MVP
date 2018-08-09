@@ -34,7 +34,8 @@
         "NODE_ENV": "development",
         "NODE_CONFIG_DIR": "./src/config",
         "TESTING": "true",
-        "LOG_LEVEL": "error"
+        "LOG_LEVEL": "error",
+        "NODE_APP_INSTANCE": "test"
       },
       "runtimeArgs": ["--nolazy"]
     },
