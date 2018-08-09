@@ -5,7 +5,6 @@ import { User } from '../../models/User';
 import { ResetPassword } from '../../models/ResetPassword';
 
 import { messages } from '../../config/app/messages';
-import { secrets } from '../../config/credentials/secrets';
 import { EmailTemplates, sendEmail } from '../../email/send-email';
 
 import {

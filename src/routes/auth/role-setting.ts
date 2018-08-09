@@ -5,7 +5,6 @@ import {
   RequestErrorType,
 } from '../../error-handler/RequestError';
 
-import { secrets } from '../../config/credentials/secrets';
 import { EmailTemplates, sendEmail } from '../../email/send-email';
 
 import { User } from '../../models/User';
