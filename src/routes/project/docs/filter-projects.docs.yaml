@@ -20,7 +20,7 @@
         required:
           -userId
           -type
-          -collectionTypeId
+          -projectsId
         properties:
           userId:
             type: string
@@ -28,7 +28,11 @@
             type: string
             description: type of collection ('project' keyword for project collection ) 
             example: project
-          collectionTypeId:
+          _removeFavs:
+            type: boolean
+            description: if given, favorite projects will be removed from result 
+            example: false
+          projectsId:
             type: string
             description: project id
           searchKey: 

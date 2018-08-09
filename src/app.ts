@@ -30,7 +30,7 @@ import { AppEmailTemplates, sendEmail } from './email/send-email';
 import { RequestError, RequestErrorType } from './error-handler/RequestError';
 
 import { apis } from './routes';
-
+import { buildGraphQLRoutesGateway } from './graphql-compiler';
 import { getRoute } from './utils/get-route';
 
 // import { accessControl } from './access-control/access-control';
@@ -62,6 +62,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/v1', attachTokenData, apis);
+app.use('/graph', (req, res) => res.redirect('/v1/graph'));
+app.use('/v1/graph', attachTokenData, buildGraphQLRoutesGateway());
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

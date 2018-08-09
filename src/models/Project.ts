@@ -85,6 +85,12 @@ const projectSchema = new Schema({
   referenceLanguage: {
     type: String,
   },
+  deliverables: {
+    type: [String],
+  },
+  duration: {
+    type: String,
+  },
   producerId: {
     type: Schema.Types.ObjectId,
     ref: 'User',

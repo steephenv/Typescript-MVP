@@ -2,6 +2,8 @@ import { RequestHandler } from 'express';
 
 import { Project } from '../../models/Project';
 
+// import { getDuration } from '../../utils/get-duration';
+
 import {
   RequestError,
   RequestErrorType,
@@ -15,6 +17,8 @@ export const saveProject: RequestHandler = async (req, res, next) => {
     req.body.updatedAt = new Date();
     req.body.userId = where.userId;
     req.body.createdAt = new Date();
+    // const calculatedSkills = getDuration(req.body.duration);
+    // req.body.duration = calculatedSkills;
     const projectData = new Project(req.body);
     await projectData.save();
     return res.status(200).send({ success: true });
@@ -31,6 +35,8 @@ export const updateProject: RequestHandler = async (req, res, next) => {
     req.body.updatedAt = new Date();
     req.body.userId = where.userId;
     req.body.createdAt = new Date();
+    // const calculatedSkills = getDuration(req.body.duration);
+    // req.body.duration = calculatedSkills;
     await Project.findOneAndUpdate({ _id: req.body.projectId }, req.body);
     return res.status(200).send({ success: true });
   } catch (err) {

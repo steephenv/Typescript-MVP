@@ -149,7 +149,6 @@ export const linkData: RequestHandler = async (req, res, next) => {
               birthD = dataobj[datakey[4]];
             } catch (err) {} //tslint:disable-line
             profData = {
-              birthDate: birthD,
               country: dataobj[datakey[9]],
               zipCode: dataobj[datakey[10]],
               personalStatement: dataobj[datakey[6]],
