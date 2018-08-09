@@ -49,7 +49,7 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
       req.body.createdAt = new Date();
       req.body.createdBy = res.locals.user.userId;
       try {
-        req.body.professionalId = await generateMiwagoUserId(req.body.city);
+        req.body.professionalId = await generateMiwagoUserId();
       } catch (err) {
         return next(new RequestError(RequestErrorType.BAD_REQUEST, err));
       }
