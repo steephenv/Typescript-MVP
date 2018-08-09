@@ -37,6 +37,7 @@
     "variable-name": [true, "check-format", "ban-keywords"],
     "prefer-const": true,
     "object-literal-sort-keys": false,
+    "object-literal-key-quotes": false,
     "ordered-imports": false
   },
   "rulesDirectory": []
