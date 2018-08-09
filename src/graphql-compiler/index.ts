@@ -1,5 +1,6 @@
 import * as graphqlHTTP from 'express-graphql';
 import { buildSchema } from 'graphql';
+import * as GQL_JSONType from 'graphql-type-json';
 
 import { formatError } from './formatError';
 
@@ -14,6 +15,7 @@ export function buildGraphQLRoutesGateway() {
   // Construct a schema, using GraphQL schema language
   const schema = buildSchema(`
     scalar Object
+    scalar Object2
 
     ${otherSchemaString}
 
@@ -30,7 +32,8 @@ export function buildGraphQLRoutesGateway() {
   // The root provides a resolver function for each API endpoint
   const root = Object.assign(
     {
-      Object: ObjectScalarType,
+      Object: GQL_JSONType,
+      Object2: ObjectScalarType,
     },
     initialResolvers,
     resolvers,
