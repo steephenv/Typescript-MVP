@@ -20,6 +20,7 @@ function createServerAndTestIt() {
 
   serverChild.on('exit', (code, sig) => {
     serverLog(`exited with code ${code} and sig ${sig}.`);
+    process.exitCode = code;
   });
   serverChild.on('error', err => {
     serverLog(`error event with arg`, err);
@@ -29,8 +30,8 @@ function createServerAndTestIt() {
     agentLog('server terminated');
     agentExitLog(
       process.exitCode === 0
-        ? chalk.green('Exited with code 0')
-        : chalk.red(`ERR> Exited with code ${process.exitCode}`),
+        ? chalk.green('✓ Exited with code 0')
+        : chalk.red(`❌ ERR> Exited with code ${process.exitCode}`),
     );
   });
   serverChild.on('message', msg => {
