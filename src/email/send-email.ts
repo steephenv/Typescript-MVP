@@ -49,7 +49,7 @@ export { AppEmailTemplates, EmailTemplates, EmailSignatures };
  */
 
 // sendEmail({
-//   toAddresses: ['vajahath.ahmed@cubettech.com'],
+//   toAddresses: ['lakshmipriya.m@cubettech.com'],
 //   subject: 'Verification Code',
 //   template: EmailTemplates.SAMPLE,
 //   fields: { code: 5474 },
