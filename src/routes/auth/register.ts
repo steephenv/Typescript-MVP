@@ -1,7 +1,6 @@
 import * as shortId from 'shortid';
 import { Promise as BluePromise } from 'bluebird';
 import { RequestHandler } from 'express';
-import * as sgMail from '@sendgrid/mail';
 
 import { TempUser } from '../../models/TempUser';
 import { User } from '../../models/User';
@@ -14,8 +13,6 @@ import {
   RequestError,
   RequestErrorType,
 } from '../../error-handler/RequestError';
-
-sgMail.setApiKey(secrets.sendGridKey);
 
 export const commonRegistration: RequestHandler = async (req, res, next) => {
   try {

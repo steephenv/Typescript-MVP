@@ -1,6 +1,5 @@
 import * as shortId from 'shortid';
 import { RequestHandler } from 'express';
-import * as sgMail from '@sendgrid/mail';
 
 import { User } from '../../models/User';
 import { ResetPassword } from '../../models/ResetPassword';
@@ -13,8 +12,6 @@ import {
   RequestError,
   RequestErrorType,
 } from '../../error-handler/RequestError';
-
-sgMail.setApiKey(secrets.sendGridKey);
 
 export const forgotPassword: RequestHandler = async (req, res, next) => {
   try {

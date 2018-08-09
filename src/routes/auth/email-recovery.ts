@@ -1,5 +1,4 @@
 import { RequestHandler } from 'express';
-import * as sgMail from '@sendgrid/mail';
 
 import { PersonalDetails } from '../../models/PersonalDetails';
 
@@ -11,8 +10,6 @@ import {
   RequestError,
   RequestErrorType,
 } from '../../error-handler/RequestError';
-
-sgMail.setApiKey(secrets.sendGridKey);
 
 export const emailRecoveryFunction: RequestHandler = async (req, res, next) => {
   try {

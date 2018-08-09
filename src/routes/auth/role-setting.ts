@@ -1,5 +1,4 @@
 import { RequestHandler } from 'express';
-import * as sgMail from '@sendgrid/mail';
 import { Promise as BluePromise } from 'bluebird';
 import {
   RequestError,
@@ -8,8 +7,6 @@ import {
 
 import { secrets } from '../../config/credentials/secrets';
 import { EmailTemplates, sendEmail } from '../../email/send-email';
-
-sgMail.setApiKey(secrets.sendGridKey);
 
 import { User } from '../../models/User';
 import { InterviewDetails } from '../../models/InterviewDetails';
