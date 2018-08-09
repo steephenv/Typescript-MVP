@@ -1,21 +1,17 @@
 import * as shortId from 'shortid';
 import { Promise as BluePromise } from 'bluebird';
 import { RequestHandler } from 'express';
-import * as sgMail from '@sendgrid/mail';
 
 import { TempUser } from '../../models/TempUser';
 import { User } from '../../models/User';
 
 import { messages } from '../../config/app/messages';
-import { secrets } from '../../config/credentials/secrets';
-import { sendGTemplates } from '../../config/credentials/sendgrid-templates';
+import { EmailTemplates, sendEmail } from '../../email/send-email';
 
 import {
   RequestError,
   RequestErrorType,
 } from '../../error-handler/RequestError';
-
-sgMail.setApiKey(secrets.sendGridKey);
 
 export const commonRegistration: RequestHandler = async (req, res, next) => {
   try {
@@ -35,24 +31,23 @@ export const commonRegistration: RequestHandler = async (req, res, next) => {
       req.body.role = 'Client';
     }
     req.body.token = token;
+
     const verificationUrl = req.body.url.replace(/{token}/g, token);
     const tempUser: any = new TempUser(req.body);
     await tempUser.save();
-    const msg: any = {
-      to: req.body.email,
-      from: 'miwago@cubettech.com',
-      subject: 'Email Verification',
-      text: 'To verify your email id is valid or not',
-      html: '<p></p>',
-      templateId: sendGTemplates.confirmRegistration,
-      substitutionWrappers: ['%', '%'],
-      substitutions: {
+
+    const mailOptions = {
+      toAddresses: [req.body.email],
+      template: EmailTemplates.CONFIRM_REGISTRATION,
+      fromName: 'Miwago Team',
+      subject: `Confirm Registration`,
+      fields: {
         user: tempUser.firstName + ' ' + tempUser.lastName,
-        URL: verificationUrl,
+        url: verificationUrl,
       },
     };
 
-    await sgMail.send(msg);
+    await sendEmail(mailOptions);
 
     return res.status(201).send({
       success: true,

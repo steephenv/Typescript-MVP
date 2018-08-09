@@ -1,15 +1,11 @@
 import { RequestHandler } from 'express';
-import * as sgMail from '@sendgrid/mail';
 import { Promise as BluePromise } from 'bluebird';
 import {
   RequestError,
   RequestErrorType,
 } from '../../error-handler/RequestError';
 
-import { secrets } from '../../config/credentials/secrets';
-import { sendGTemplates } from '../../config/credentials/sendgrid-templates';
-
-sgMail.setApiKey(secrets.sendGridKey);
+import { EmailTemplates, sendEmail } from '../../email/send-email';
 
 import { User } from '../../models/User';
 import { InterviewDetails } from '../../models/InterviewDetails';
@@ -28,6 +24,7 @@ export const saveRole: RequestHandler = async (req, res, next) => {
           },
         },
       );
+
       const interviewUpdate = InterviewDetails.update(
         {
           _id: req.body.interviewId,
@@ -50,25 +47,25 @@ export const saveRole: RequestHandler = async (req, res, next) => {
         },
         { $set: { interviewStatus: 'Failed', comment: userComment } },
       );
+
       await BluePromise.all([userUpdate, interviewUpdate]);
+
       const user = await User.findOne({ _id: req.body.userId })
         .lean()
         .exec();
-      const msg: any = {
-        to: user.email,
-        from: 'miwago@cubettech.com',
-        subject: 'Role Rejected',
-        text: 'To inform the role rejection',
-        html: '<p></p>',
-        templateId: sendGTemplates.roleRejection,
-        substitutionWrappers: ['%', '%'],
-        substitutions: {
+
+      const mailOptions = {
+        toAddresses: [req.body.email],
+        template: EmailTemplates.ROLE_ACCEPT,
+        fromName: 'Miwago Team',
+        subject: `Role Accept`,
+        fields: {
           user: user.firstName + ' ' + user.lastName,
           role: req.body.role,
         },
       };
 
-      sgMail.send(msg);
+      await sendEmail(mailOptions);
     }
 
     return res.status(200).send({ success: true });
