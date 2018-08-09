@@ -48,6 +48,7 @@ class SkillsClass {
               _id: {
                 $ne: skillObj._id,
               },
+              userId: comingUserId,
               category: skillObj.category,
               subCategory: skillObj.subCategory,
               uniqueTitle: skillObj.uniqueTitle,
@@ -68,6 +69,7 @@ class SkillsClass {
               category: skillObj.category,
               subCategory: skillObj.subCategory,
               uniqueTitle: skillObj.uniqueTitle,
+              userId: comingUserId,
             });
             if (skillExist) {
               return;
