@@ -97,7 +97,6 @@
     "@types/serialize-error": "^2.1.0",
     "@types/serve-favicon": "^2.2.30",
     "@types/shortid": "^0.0.29",
-    "@types/supertest": "^2.0.4",
     "@types/swagger-jsdoc": "^0.0.2",
     "@types/user-home": "2.0.0",
     "del": "^3.0.0",
@@ -118,7 +117,6 @@
     "nodemon": "^1.18.3",
     "prettier": "^1.13.7",
     "run-sequence": "^2.2.1",
-    "supertest": "^3.1.0",
     "ts-jest": "^23.0.0",
     "ts-node": "^7.0.0",
     "tslint": "^5.10.0",
@@ -138,7 +136,7 @@
       "^.+\\.(ts)$": "ts-jest"
     },
     "testMatch": [
-      "**/tests/**/*.spec.got.{ts,js}"
+      "**/tests/**/*.spec.{ts,js}"
     ],
     "testEnvironment": "node"
   }
