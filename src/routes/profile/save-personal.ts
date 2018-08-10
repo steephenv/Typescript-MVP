@@ -62,7 +62,18 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
           $set: { firstName: req.body.firstName, lastName: req.body.lastName },
         },
       );
-      await BluePromise.all([personalSave, citySave, userUpdate]);
+      try {
+        await BluePromise.all([personalSave, citySave, userUpdate]);
+      } catch (err) {
+        if (err.code === 11000) {
+          return next(
+            new RequestError(
+              RequestErrorType.BAD_REQUEST,
+              'Duplicate Entry Found',
+            ),
+          );
+        }
+      }
     }
     return res.status(200).send({ success: true });
   } catch (err) {

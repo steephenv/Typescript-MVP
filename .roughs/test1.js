@@ -1,8 +1,6 @@
-setInterval(() => {
-  console.log('reporting from test1.js');
-}, 700);
+for (let i = 0; i < 2; i++) {
+  setTimeout(() => console.log(i));
+  // console.log(i);
+}
 
-setTimeout(() => {
-  console.log('complete');
-  process.exit(1);
-}, 5000);
+// console.log('out>', i);
