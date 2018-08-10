@@ -6,9 +6,11 @@ import {
 import { Promise as BluePromise } from 'bluebird';
 
 import { messages } from '../../config/app/messages';
+import { EmailTemplates, sendEmail } from '../../email/send-email';
 
 import { InterviewAvailabilityCalender } from '../../models/InterviewAvailabilityCalender';
 import { InterviewDetails } from '../../models/InterviewDetails';
+import { User } from '../../models/User';
 
 export const scheduleInterview: RequestHandler = async (req, res, next) => {
   const givenStartTime = new Date(req.body.startTime);
@@ -60,6 +62,28 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
     availableSlot.booked = true;
     availableSlot.interviewId = savedInterview._id;
     await availableSlot.save();
+
+    const userDetails = await User.findOne({ _id: contestant })
+      .select('firstName lastName')
+      .lean()
+      .exec();
+
+    const interviewTime = availableSlot.startTime.getTime();
+    const mailOptions = {
+      toAddresses: [req.body.email],
+      template: EmailTemplates.INTERVIEW_SCHEDULED,
+      fromName: 'Miwago Team',
+      subject: `Interview Scheduled`,
+      fields: {
+        user: userDetails.firstName + ' ' + userDetails.lastName,
+        date: availableSlot.startTime,
+        calenderLink: `http://www.google.com/calendar/event?action=TEMPLATE&text=[Miwago Interview]
+    &date=${interviewTime}&details=[Miwago Interview Added]&trp=false&sprop=&sprop=name:
+    target="_blank" rel="nofollow"`,
+      },
+    };
+
+    await sendEmail(mailOptions);
 
     return res.status(201).send({
       success: true,
