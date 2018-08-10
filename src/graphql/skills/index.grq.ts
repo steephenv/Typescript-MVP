@@ -4,7 +4,6 @@ import { GQLErr, GQLErrType } from '../../graphql-compiler/tools';
 import { Promise as BluePromise } from 'bluebird';
 
 import { Skills } from '../../models/Skills';
-import { Goals } from '../../models/Goals';
 import { updateValidator } from './validators/save-update-skills-rules';
 
 export const querySchema = `skills: Skills`;
