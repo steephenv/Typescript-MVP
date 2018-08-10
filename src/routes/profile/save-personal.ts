@@ -69,7 +69,7 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
           return next(
             new RequestError(
               RequestErrorType.BAD_REQUEST,
-              'Duplicate Entry Fount',
+              'Duplicate Entry Found',
             ),
           );
         }
