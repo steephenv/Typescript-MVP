@@ -7,6 +7,8 @@ import { getMongooseConnectionPromise } from './db-init';
 import { initUsers } from './users';
 import { createCat } from './add-cat-subcat';
 import { createProjCat } from './add-proj-cat-subcat';
+import { createAvail } from './add-availability-calender';
+
 import * as lme from 'lme';
 
 const resetDatabase = async (MONGO_URI?: string) => {
@@ -50,6 +52,9 @@ const resetDatabase = async (MONGO_URI?: string) => {
         .dropCollection('projectsubcategories')
         .catch(errHandler),
       mongoose.connection.db.dropCollection('projects').catch(errHandler),
+      mongoose.connection.db
+        .dropCollection('interviewavailabilitycalenders')
+        .catch(errHandler),
     ]);
   } catch (err) {
     if (err.code === 26) {
@@ -63,6 +68,7 @@ const resetDatabase = async (MONGO_URI?: string) => {
 
   try {
     await BluePromise.all([initUsers(), createCat(), createProjCat()]);
+    await createAvail(); // heavy task. thats why running alone
   } catch (err) {
     console.log(err);
   }

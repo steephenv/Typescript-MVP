@@ -1,37 +1,40 @@
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
+import * as got from 'got';
 
 let token = '';
 let newUserId: string;
 
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
-
 beforeAll(done => {
-  supertest(app)
-    .post('/v1/auth/login')
-    .set('X-Requested-With', 'XMLHttpRequest')
-    .send({
+  got('http://localhost:7000/v1/auth/login', {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+    json: true,
+    body: {
       username: 'stark@marvel.com',
       password: 'password',
-    })
-    .expect(200)
-    .end((err, res) => {
-      if (err) {
-        throw err;
-      }
+    },
+  })
+    .then(res => {
       newUserId = res.body.data._id;
       token = res.body.accessToken;
       return done();
+    })
+    .catch(err => {
+      throw err;
     });
 });
 
-describe('Test for saving wlb data  ===> ', () => {
-  it('Saving wlb details api', done => {
-    supertest(app)
-      .post(`/v1/profile/save-wlb`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
+describe('Test for saving wlb data ', () => {
+  test('Saving wlb details api', done => {
+    got(`http://localhost:7000/v1/profile/save-wlb`, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         annualAvailableCapacity: 210,
         capricornsAvailableCapacity: 260,
         frequencyOnsiteWork: 2153,
@@ -40,14 +43,11 @@ describe('Test for saving wlb data  ===> ', () => {
         workPermit: 'dsfdshj',
         daysInYear: 154,
         daysInCapricornsYear: 412,
-      })
-      .expect(200)
-      .end((err, res) => {
-        // console.log(res.body.msg.details);
-        if (err) {
-          throw err;
-        }
-        return done();
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
 });

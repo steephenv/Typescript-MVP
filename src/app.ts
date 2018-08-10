@@ -17,6 +17,18 @@ mongooseConnectionPromise
   .then(() => {
     lme.i(`> database connected:${getConfig('database.url')}`);
     /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
+
+    // if this is a forked process, notify parent when the server is ready
+    if (process.send) {
+      lme.i('sending ready');
+      process.send({ msg: 'ready' });
+      process.on('message', msg => {
+        if (typeof msg === 'object' && msg.msg === 'terminate') {
+          console.log('terminating server upon parent request. bye :)'); // tslint:disable-line:no-console
+          process.exit(msg.statusCode);
+        }
+      });
+    }
   })
   .catch(err => {
     // tslint:disable-next-line

@@ -1,56 +1,46 @@
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
-
-import { ProjectCategory } from '../../src/models/ProjectCategory';
-import { ProjectSubCategory } from '../../src/models/ProjectSubCategory';
+import * as got from 'got';
 
 let token = '';
-let catSave: any;
-let subSave: any;
-
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
+let newUserId: string;
 
 beforeAll(done => {
-  supertest(app)
-    .post('/v1/auth/login')
-    .set('X-Requested-With', 'XMLHttpRequest')
-    .send({
+  got('http://localhost:7000/v1/auth/login', {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+    json: true,
+    body: {
       username: 'stark@marvel.com',
       password: 'password',
-    })
-    .expect(200)
-    .end(async (err, res) => {
-      if (err) {
-        throw err;
-      }
+    },
+  })
+    .then(res => {
+      newUserId = res.body.data._id;
       token = res.body.accessToken;
-      const newCat = new ProjectCategory({ category: 'deleteProjCategory' });
-      catSave = await newCat.save();
-      const newSubCat = new ProjectSubCategory({
-        categoryId: newCat._id,
-        subCategory: 'deleteProjSubCategory',
-      });
-      subSave = await newSubCat.save();
       return done();
+    })
+    .catch(err => {
+      throw err;
     });
 });
-
-describe('Save project category ==> ', () => {
-  it('Save project category', done => {
-    supertest(app)
-      .post(`/v1/project/delete-category`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
+describe('Delete project category ', () => {
+  test('Delete project category', done => {
+    got(`http://localhost:7000/v1/project/delete-category`, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         model: 'category',
-        ids: [catSave._id],
-      })
-      .expect(200)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
+        ids: ['5b4f0845b48361468f85033c'],
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
 });

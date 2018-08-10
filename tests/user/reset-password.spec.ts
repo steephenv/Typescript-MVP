@@ -1,55 +1,66 @@
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
+// import * as supertest from 'supertest';
+// import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
 
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
+// afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
+import * as got from 'got';
 
 let tokenNew = '';
 
-describe('Test for forgot-password functionality ===> ', () => {
-  it('forgot password request', async done => {
-    try {
-      const res = await supertest(app)
-        .post('/v1/auth/forgot-password')
-        .send({
-          email: 'loki@marvel.com',
-          url: 'http://fasdfasd.com/token={token}',
-        })
-        .expect(202);
-      expect(res.body.success).toEqual(true);
-      tokenNew = res.body.url.substr(res.body.url.lastIndexOf('=') + 1);
-      return done();
-    } catch (err) {
-      return done(err);
-    }
+describe('Test for forgot-password functionality ==> ', () => {
+  it('forgot password request', done => {
+    got('http://localhost:7000/v1/auth/forgot-password', {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      json: true,
+      body: {
+        email: 'loki@marvel.com',
+        url: 'http://fasdfasd.com/token={token}',
+      },
+    })
+      .then(({ body }) => {
+        tokenNew = body.url.substr(body.url.lastIndexOf('=') + 1);
+        done();
+      })
+      .catch(err => {
+        throw err;
+      });
   });
-  it('reset password api', async done => {
-    try {
-      const res = await supertest(app)
-        .post('/v1/auth/reset-password')
-        .send({
-          token: tokenNew,
-          password: 'password',
-          confirmPassword: 'password',
-        })
-        .expect(200);
-      expect(res.body.success).toEqual(true);
-      return done();
-    } catch (err) {
-      return done(err);
-    }
+  it('Reset password API', done => {
+    got('http://localhost:7000/v1/auth/reset-password', {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      json: true,
+      body: {
+        token: tokenNew,
+        password: 'password',
+        confirmPassword: 'password',
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
+      });
   });
-  it('reset password api - field missing', async done => {
-    try {
-      await supertest(app)
-        .post('/v1/auth/reset-password')
-        .send({
-          token: tokenNew,
-          confirmPassword: 'password',
-        })
-        .expect(422);
-      return done();
-    } catch (err) {
-      return done(err);
-    }
+  it('Reset password API - Field missing', done => {
+    got('http://localhost:7000/v1/auth/reset-password', {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      json: true,
+      body: {
+        token: tokenNew,
+        confirmPassword: 'password',
+      },
+    })
+      // .then(() => done())
+      .catch(err => {
+        expect(err.response.statusCode).toBe(422);
+        done();
+      });
   });
 });

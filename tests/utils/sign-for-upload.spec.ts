@@ -1,53 +1,81 @@
-import * as supertest from 'supertest';
-
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
+import * as got from 'got';
 
 const obj = [{ fileName: 'fasd', fileType: 'fasdf', filePath: 'afsf/fasdf/' }];
+let token: string;
 
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
+beforeAll(done => {
+  got('http://localhost:7000/v1/auth/login', {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+    json: true,
+    body: {
+      username: 'stark@marvel.com',
+      password: 'password',
+    },
+  })
+    .then(({ body }: any) => {
+      token = body.accessToken;
+      done();
+    })
+    .catch(err => {
+      throw err;
+    });
+});
 
 describe('testing sign-for-upload fn', () => {
   test('testing route with good requests', done => {
-    supertest(app)
-      .post('/v1/utils/sign-for-upload')
-      .send({
+    got('http://localhost:7000/v1/utils/sign-for-upload', {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         objectsToSign: obj,
-      })
-      .expect(200)
-      .end((err, { body }) => {
-        if (err) {
-          throw err;
-        }
-        done();
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
 
   test('testing route with null array', done => {
-    supertest(app)
-      .post('/v1/utils/sign-for-upload')
-      .send({
+    got('http://localhost:7000/v1/utils/sign-for-upload', {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         objectsToSign: [],
-      })
-      .expect(200)
-      .end(err => {
-        if (err) {
-          throw err;
-        }
-        done();
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
 
   test('testing route with null array', done => {
-    supertest(app)
-      .post('/v1/utils/sign-for-upload')
-      .send({
+    got('http://localhost:7000/v1/utils/sign-for-upload', {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         objectsToSign: [{ mango: 2 }],
-      })
-      .expect(422)
-      .end(err => {
-        if (err) {
-          throw err;
-        }
+      },
+    })
+      // .then(() => done())
+      .catch(err => {
+        expect(err.response.statusCode).toBe(422);
         done();
       });
   });

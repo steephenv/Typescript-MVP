@@ -1,86 +1,123 @@
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
-
-import { SkillCategory } from '../../src/models/SkillCategory';
+import * as got from 'got';
 
 let token = '';
-let newUserId: string;
-let cats: any;
-
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
 
 beforeAll(done => {
-  supertest(app)
-    .post('/v1/auth/login')
-    .set('X-Requested-With', 'XMLHttpRequest')
-    .send({
+  got('http://localhost:7000/v1/auth/login', {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+    json: true,
+    body: {
       username: 'stark@marvel.com',
       password: 'password',
-    })
-    .expect(200)
-    .end(async (err, res) => {
-      if (err) {
-        throw err;
-      }
-      newUserId = res.body.data._id;
+    },
+  })
+    .then(res => {
       token = res.body.accessToken;
-
-      cats = await SkillCategory.find({}).exec();
       return done();
+    })
+    .catch(err => {
+      throw err;
     });
 });
 
-describe('Test fetching Skills category data  ===> ', () => {
-  it('fetching skill category data api', done => {
-    supertest(app)
-      .get(`/v1/profile/get-skill-category?cluster=Personal`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .expect(200)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
+describe('testing fetching skill category', () => {
+  test('fetching skill category data api', done => {
+    got(
+      `http://localhost:7000/v1/profile/get-skill-category?cluster=Personal`,
+      {
+        method: 'GET',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          Authorization: `Bearer ${token}`,
+        },
+        // json: true,
+        // body: {
+        //   content: [
+        //     {
+        //       name: 'cat-business-fn',
+        //       businessFunctionId: '5b4f0845b48361468f85033c',
+        //     },
+        //   ],
+        // },
+      },
+    )
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
-  it('fetching skill sub category data api', done => {
-    supertest(app)
-      .get(`/v1/profile/get-sub-category?category=` + cats[0]._id)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .expect(200)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
+  test('fetching skill category data api', done => {
+    got(
+      `http://localhost:7000/v1/profile/get-sub-category?category=5b4f0845b48361468f85033c`,
+      {
+        method: 'GET',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          Authorization: `Bearer ${token}`,
+        },
+        // json: true,
+        // body: {
+        //   content: [
+        //     {
+        //       name: 'cat-business-fn',
+        //       businessFunctionId: '5b4f0845b48361468f85033c',
+        //     },
+        //   ],
+        // },
+      },
+    )
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
-  it('fetching skill category data api', done => {
-    supertest(app)
-      .get(`/v1/profile/get-skill-category`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .expect(422)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
+  test('fetching skill category data api', done => {
+    got(`http://localhost:7000/v1/profile/get-skill-category`, {
+      method: 'GET',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      // json: true,
+      // body: {
+      //   content: [
+      //     {
+      //       name: 'cat-business-fn',
+      //       businessFunctionId: '5b4f0845b48361468f85033c',
+      //     },
+      //   ],
+      // },
+    })
+      // .then(() => done())
+      .catch(err => {
+        expect(err.response.statusCode).toBe(422);
+        done();
       });
   });
-  it('fetching skill sub category data api', done => {
-    supertest(app)
-      .get(`/v1/profile/get-sub-category`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .expect(422)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
+  test('fetching skill sub category data api', done => {
+    got(`http://localhost:7000/v1/profile/get-sub-category`, {
+      method: 'GET',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      // json: true,
+      // body: {
+      //   content: [
+      //     {
+      //       name: 'cat-business-fn',
+      //       businessFunctionId: '5b4f0845b48361468f85033c',
+      //     },
+      //   ],
+      // },
+    })
+      // .then(() => done())
+      .catch(err => {
+        expect(err.response.statusCode).toBe(422);
+        done();
       });
   });
 });

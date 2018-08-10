@@ -1,57 +1,82 @@
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
-
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
+import * as got from 'got';
 
 describe('places api  ===> ', () => {
   it(
     'get countries',
     done => {
-      supertest(app)
-        .get('/v1/auth/get-countries')
-        .expect(200)
-        .end(err => {
-          if (err) {
-            throw err;
-          }
-          return done();
+      got('http://localhost:7000/v1/auth/get-countries', {
+        method: 'GET',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        // json: true,
+        // body: {
+        //   email: 'loki@marvel.com',
+        //   url: 'http://fasdfasd.com/token={token}',
+        // },
+      })
+        .then(() => done())
+        .catch(err => {
+          throw err;
         });
     },
     10000,
   );
   it('get states', done => {
-    supertest(app)
-      .get('/v1/auth/get-states?country=IN')
-      .expect(200)
-      .end(err => {
-        if (err) {
-          throw err;
-        }
-        return done();
+    got('http://localhost:7000/v1/auth/get-states?country=IN', {
+      method: 'GET',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      // json: true,
+      // body: {
+      //   email: 'loki@marvel.com',
+      //   url: 'http://fasdfasd.com/token={token}',
+      // },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
+
   it('get cities', done => {
-    supertest(app)
-      .get('/v1/auth/get-cities?state=IN-01')
-      .expect(200)
-      .end(err => {
-        if (err) {
-          throw err;
-        }
-        return done();
+    got('http://localhost:7000/v1/auth/get-cities?state=IN-01', {
+      method: 'GET',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      // json: true,
+      // body: {
+      //   email: 'loki@marvel.com',
+      //   url: 'http://fasdfasd.com/token={token}',
+      // },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
   it(
     'get country details',
     done => {
-      supertest(app)
-        .get('/v1/auth/get-country-details?countryName=India')
-        .expect(200)
-        .end(err => {
-          if (err) {
-            throw err;
-          }
-          return done();
+      got(
+        'http://localhost:7000/v1/auth/get-country-details?countryName=India',
+        {
+          method: 'GET',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+          },
+          // json: true,
+          // body: {
+          //   email: 'loki@marvel.com',
+          //   url: 'http://fasdfasd.com/token={token}',
+          // },
+        },
+      )
+        .then(() => done())
+        .catch(err => {
+          throw err;
         });
     },
     10000,
@@ -60,14 +85,23 @@ describe('places api  ===> ', () => {
   it(
     'get city from state name',
     done => {
-      supertest(app)
-        .get('/v1/auth/get-country-details?stateName=Encamp')
-        .expect(200)
-        .end(err => {
-          if (err) {
-            throw err;
-          }
-          return done();
+      got(
+        'http://localhost:7000/v1/auth/get-country-details?stateName=Encamp',
+        {
+          method: 'GET',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+          },
+          // json: true,
+          // body: {
+          //   email: 'loki@marvel.com',
+          //   url: 'http://fasdfasd.com/token={token}',
+          // },
+        },
+      )
+        .then(() => done())
+        .catch(err => {
+          throw err;
         });
     },
     100000,

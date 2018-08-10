@@ -1,40 +1,44 @@
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
+import * as got from 'got';
 
 let token = '';
 
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
-
 beforeAll(done => {
-  supertest(app)
-    .post('/v1/auth/login')
-    .set('X-Requested-With', 'XMLHttpRequest')
-    .send({
+  got('http://localhost:7000/v1/auth/login', {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+    json: true,
+    body: {
       username: 'stark@marvel.com',
       password: 'password',
-    })
-    .expect(200)
-    .end(async (err, res) => {
-      if (err) {
-        throw err;
-      }
+    },
+  })
+    .then(res => {
       token = res.body.accessToken;
       return done();
+    })
+    .catch(err => {
+      throw err;
     });
 });
-
-describe('list projects ==> ', () => {
-  it('list projects ', done => {
-    supertest(app)
-      .get(`/v1/project/get-project-catalog`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .expect(200)
-      .end(err => {
-        if (err) {
-          throw err;
-        }
-        return done();
+describe('list projects ', () => {
+  test('list projects', done => {
+    got(`http://localhost:7000/v1/project/get-project-catalog`, {
+      method: 'GET',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      // json: true,
+      // body: {
+      //   model: 'category',
+      //   ids: ['5b4f0845b48361468f85033c'],
+      // },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
 });

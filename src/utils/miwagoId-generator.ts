@@ -1,7 +1,7 @@
 import { AppData } from '../models/AppData';
 import * as leftPad from 'left-pad';
 
-export const generateMiwagoUserId = async (localName: string) => {
+export const generateMiwagoUserId = async () => {
   const userCounter = await getNextId();
   const precisionCounter = leftPad(userCounter, 5, 0);
 

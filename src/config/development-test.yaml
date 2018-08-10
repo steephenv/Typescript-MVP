@@ -4,7 +4,7 @@
 # created to use withinh development machines
 app: 
   docs: false
-  logging: false # for logging stuffs out
+  logging: true # for logging stuffs out
   morgan: false # for request logging
   
 mails:

@@ -1,38 +1,55 @@
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
-
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
+import * as got from 'got';
 
 describe('Login functionality ==> ', () => {
   it('Login with all credentials', done => {
-    supertest(app)
-      .post('/v1/auth/login')
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .send({
+    got('http://localhost:7000/v1/auth/login', {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      json: true,
+      body: {
         username: 'stark@marvel.com',
         password: 'password',
-      })
-      .expect(200)
-      .end(err => {
-        if (err) {
-          throw err;
-        }
-        return done();
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
   it('Login with field missing', done => {
-    supertest(app)
-      .post('/v1/auth/login')
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .send({
+    got('http://localhost:7000/v1/auth/login', {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      json: true,
+      body: {
         username: 'stark@marvel.com',
-      })
-      .expect(422)
-      .end(err => {
-        if (err) {
-          throw err;
-        }
-        return done();
+        // password: 'password',
+      },
+    })
+      // .then(() => done())
+      .catch(err => {
+        expect(err.response.statusCode).toBe(422);
+        done();
       });
+  });
+  it('Login with invalid credentials', done => {
+    got('http://localhost:7000/v1/auth/login', {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      json: true,
+      body: {
+        username: 'stark@marvel.com',
+        password: 'password7',
+      },
+    }).catch(err => {
+      expect(err.response.statusCode).toBe(401);
+      done();
+    });
   });
 });

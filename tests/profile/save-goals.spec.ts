@@ -1,37 +1,40 @@
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
+import * as got from 'got';
 
 let token = '';
 let newUserId: string;
 
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
-
 beforeAll(done => {
-  supertest(app)
-    .post('/v1/auth/login')
-    .set('X-Requested-With', 'XMLHttpRequest')
-    .send({
+  got('http://localhost:7000/v1/auth/login', {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+    json: true,
+    body: {
       username: 'stark@marvel.com',
       password: 'password',
-    })
-    .expect(200)
-    .end((err, res) => {
-      if (err) {
-        throw err;
-      }
+    },
+  })
+    .then(res => {
       newUserId = res.body.data._id;
       token = res.body.accessToken;
       return done();
+    })
+    .catch(err => {
+      throw err;
     });
 });
 
-describe('Test for saving goals  ===> ', () => {
-  it('Saving personal details api', done => {
-    supertest(app)
-      .post(`/v1/profile/save-goals`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
+describe('Test for saving Goals data ', () => {
+  test('Saving Goals details api', done => {
+    got(`http://localhost:7000/v1/profile/save-goals`, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         clientRating: 'Good',
         teamRating: 'Good',
         annualAvailableCapacity: 1,
@@ -45,13 +48,11 @@ describe('Test for saving goals  ===> ', () => {
         skillTargets: [
           { skillId: '5b4c658e32958459122535cb', targetProficiency: 'Good' },
         ],
-      })
-      .expect(200)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
 });

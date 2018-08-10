@@ -1,49 +1,54 @@
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
+import * as got from 'got';
 
 let token = '';
 let newUserId = '';
 
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
-
 beforeAll(done => {
-  supertest(app)
-    .post('/v1/auth/login')
-    .set('X-Requested-With', 'XMLHttpRequest')
-    .send({
+  got('http://localhost:7000/v1/auth/login', {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+    json: true,
+    body: {
       username: 'stark@marvel.com',
       password: 'password',
+    },
+  })
+    .then(({ body }: any) => {
+      token = body.accessToken;
+      newUserId = body.data._id;
+      done();
     })
-    .expect(200)
-    .end((err, res) => {
-      if (err) {
-        throw err;
-      }
-      token = res.body.accessToken;
-      newUserId = res.body.data._id;
-      return done();
+    .catch(err => {
+      throw err;
     });
 });
 
-describe('List users api', () => {
-  it('Listing employees and consultants', done => {
-    supertest(app)
-      .post(`/v1/auth/role-setting`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
-        userId: newUserId,
-        role: 'Consultant',
-        isApproved: true,
-        comment: 'fdsgf',
-        interviewId: '5b506d48e618c7361b6a3977',
+describe('Test for signup functionality  ===> ', () => {
+  it(
+    'Registration Functionality',
+    done => {
+      got('http://localhost:7000/v1/auth/role-setting', {
+        method: 'POST',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          Authorization: `Bearer ${token}`,
+        },
+        json: true,
+        body: {
+          userId: newUserId,
+          role: 'Consultant',
+          isApproved: true,
+          comment: 'fdsgf',
+          interviewId: '5b506d48e618c7361b6a3977',
+        },
       })
-      .expect(200)
-      .end((err, res) => {
-        if (err) {
+        .then(() => done())
+        .catch(err => {
           throw err;
-        }
-        return done();
-      });
-  });
+        });
+    },
+    15000,
+  );
 });

@@ -1,45 +1,52 @@
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
-
-import { SkillSubCategory } from '../../src/models/SkillSubCategory';
+import * as got from 'got';
 
 let token = '';
-let subId = '';
-
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
 
 beforeAll(done => {
-  supertest(app)
-    .post('/v1/auth/login')
-    .set('X-Requested-With', 'XMLHttpRequest')
-    .send({
+  got('http://localhost:7000/v1/auth/login', {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+    json: true,
+    body: {
       username: 'stark@marvel.com',
       password: 'password',
-    })
-    .expect(200)
-    .end(async (err, res) => {
-      if (err) {
-        throw err;
-      }
+    },
+  })
+    .then(res => {
       token = res.body.accessToken;
-      const subCats = await SkillSubCategory.find({}).exec();
-      subId = subCats[0]._id;
       return done();
+    })
+    .catch(err => {
+      throw err;
     });
 });
 
-describe('Test fetching Skills category data  ===> ', () => {
-  it('fetching skill category data api', done => {
-    supertest(app)
-      .get(`/v1/profile/skill-suggestions?subCategory=${subId}`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .expect(200)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
+describe('Test fetching Skills category data', () => {
+  test('fetching skill category data api', done => {
+    got(
+      `http://localhost:7000/v1/profile/skill-suggestions?subCategory=5b4f0845b48361468f85033c`,
+      {
+        method: 'GET',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          Authorization: `Bearer ${token}`,
+        },
+        // json: true,
+        // body: {
+        //   content: [
+        //     {
+        //       name: 'cat-business-fn',
+        //       businessFunctionId: '5b4f0845b48361468f85033c',
+        //     },
+        //   ],
+        // },
+      },
+    )
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
 });

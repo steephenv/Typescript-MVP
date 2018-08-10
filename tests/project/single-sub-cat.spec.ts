@@ -1,23 +1,47 @@
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
+import * as got from 'got';
 
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
+let token = '';
+let newUserId: string;
+
+beforeAll(done => {
+  got('http://localhost:7000/v1/auth/login', {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+    json: true,
+    body: {
+      username: 'stark@marvel.com',
+      password: 'password',
+    },
+  })
+    .then(res => {
+      newUserId = res.body.data._id;
+      token = res.body.accessToken;
+      return done();
+    })
+    .catch(err => {
+      throw err;
+    });
+});
 
 describe('testing project-sub-category creation', () => {
   test('testing route', done => {
-    supertest(app)
-      .post('/v1/project/save-single-sub-category')
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .send({
+    got(`http://localhost:7000/v1/project/save-single-category`, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         categoryId: '5b4f0845b48361468f85033c',
         subCategory: 'felis-cat',
-      })
-      .expect(201)
-      .end(err => {
-        if (err) {
-          throw err;
-        }
-        done();
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
 });

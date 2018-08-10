@@ -1,114 +1,113 @@
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
-
-import { SkillCategory } from '../../src/models/SkillCategory';
-import { SkillSubCategory } from '../../src/models/SkillSubCategory';
+import * as got from 'got';
 
 let token = '';
-let catSave: any;
-let subSave: any;
-
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
+let newUserId: string;
 
 beforeAll(done => {
-  supertest(app)
-    .post('/v1/auth/login')
-    .set('X-Requested-With', 'XMLHttpRequest')
-    .send({
+  got('http://localhost:7000/v1/auth/login', {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+    json: true,
+    body: {
       username: 'stark@marvel.com',
       password: 'password',
-    })
-    .expect(200)
-    .end(async (err, res) => {
-      if (err) {
-        throw err;
-      }
+    },
+  })
+    .then(res => {
+      newUserId = res.body.data._id;
       token = res.body.accessToken;
-      const newCat = new SkillCategory({
-        category: 'xxxxxxx',
-        cluster: 'Personal',
-      });
-      catSave = await newCat.save();
-      const newSubCat = new SkillSubCategory({
-        categoryId: newCat._id,
-        subCategory: 'zzzzz',
-      });
-      subSave = await newSubCat.save();
       return done();
+    })
+    .catch(err => {
+      throw err;
     });
 });
 
-describe('Save skill category ==> ', () => {
-  it('Save skill category', done => {
-    supertest(app)
-      .post(`/v1/profile/save-skill-category`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
-        category: 'Adipoli_new123',
-        cluster: 'Personal',
-        subCategories: [{ subCategory: 'newAdiploi_new' }],
-      })
-      .expect(201)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
+describe('Save skill category ', () => {
+  test('Saving skills details api', done => {
+    got(`http://localhost:7000/v1/profile/save-skills`, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
+        skills: [
+          {
+            skillTitle: 'newSkill',
+            proficiency: 'good',
+            category: '5b4f0845b48361468f85033c',
+            cluster: 'Personal',
+            subCategory: '5b4f0845b48361468f85033c',
+          },
+        ],
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
-  it('Save skill category - Bad request', done => {
-    supertest(app)
-      .post(`/v1/profile/save-skill-category`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
+  test('Save skill category - Bad request', done => {
+    got(`http://localhost:7000/v1/profile/save-skill-category`, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         category: 'Adipoli',
-      })
-      .expect(422)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
+      },
+    })
+      // .then(() => done())
+      .catch(err => {
+        expect(err.response.statusCode).toBe(422);
+        done();
       });
   });
-  it('Update skill category', done => {
-    supertest(app)
-      .post(`/v1/profile/update-skill-category`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
+  test('Update skills details api', done => {
+    got(`http://localhost:7000/v1/profile/update-skill-category`, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         category: 'Adipoli_new',
-        _id: catSave._id,
+        _id: '5b4f0845b48361468f85033c',
         subCategories: [
-          { subCategory: 'newAdiploi_neww', _id: subSave._id },
+          { subCategory: 'newAdiploi_neww', _id: '5b4f0845b48361468f85033c' },
           { subCategory: 'newwwwwwwww' },
         ],
-      })
-      .expect(200)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
-  it('Update skill category - bad request', done => {
-    supertest(app)
-      .post(`/v1/project/update-project-category`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
+  test('Update skills details api', done => {
+    got(`http://localhost:7000/v1/profile/update-skill-category`, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         category: 'Adipoli',
         subCategories: [{ subCategory: 'newAdiploi' }],
-      })
-      .expect(422)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
+      },
+    })
+      // .then(() => done())
+      .catch(err => {
+        expect(err.response.statusCode).toBe(422);
+        done();
       });
   });
 });

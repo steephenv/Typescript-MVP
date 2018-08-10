@@ -9,7 +9,6 @@ import { auth } from './auth';
 import { utils } from './utils';
 import { assets } from './assets';
 import { profile } from './profile';
-import { interviewOld } from './interview-old';
 import { interview } from './interview';
 import { project } from './project';
 
@@ -21,7 +20,6 @@ apis.use('/auth', auth);
 apis.use('/utils', utils);
 apis.use('/assets', assets);
 apis.use('/profile', profile);
-apis.use('/interview-old', interviewOld);
 apis.use('/interview', interview);
 apis.use('/project', project);
 

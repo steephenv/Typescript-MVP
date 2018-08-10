@@ -1,110 +1,106 @@
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
-
-import { ProjectCategory } from '../../src/models/ProjectCategory';
-import { ProjectSubCategory } from '../../src/models/ProjectSubCategory';
+import * as got from 'got';
 
 let token = '';
-let catSave: any;
-let subSave: any;
-
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
+let newUserId: string;
 
 beforeAll(done => {
-  supertest(app)
-    .post('/v1/auth/login')
-    .set('X-Requested-With', 'XMLHttpRequest')
-    .send({
+  got('http://localhost:7000/v1/auth/login', {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+    json: true,
+    body: {
       username: 'stark@marvel.com',
       password: 'password',
-    })
-    .expect(200)
-    .end(async (err, res) => {
-      if (err) {
-        throw err;
-      }
+    },
+  })
+    .then(res => {
+      newUserId = res.body.data._id;
       token = res.body.accessToken;
-      const newCat = new ProjectCategory({ category: 'xxxxxxx' });
-      catSave = await newCat.save();
-      const newSubCat = new ProjectSubCategory({
-        categoryId: newCat._id,
-        subCategory: 'zzzzz',
-      });
-      subSave = await newSubCat.save();
       return done();
+    })
+    .catch(err => {
+      throw err;
     });
 });
 
-describe('Save project category ==> ', () => {
-  it('Save project category', done => {
-    supertest(app)
-      .post(`/v1/project/save-project-category`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
+describe('Save project category', () => {
+  test('Save project category', done => {
+    got(`http://localhost:7000/v1/project/save-project-category`, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         category: 'Adipoli',
         subCategories: [{ subCategory: 'newAdiploi' }],
-      })
-      .expect(201)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
-  it('Save project category - Bad request', done => {
-    supertest(app)
-      .post(`/v1/project/save-project-category`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
+  test('Save project category - Bad request', done => {
+    got(`http://localhost:7000/v1/project/save-project-category`, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         category: 'Adipoli',
-      })
-      .expect(422)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
+      },
+    })
+      // .then(() => done())
+      .catch(err => {
+        expect(err.response.statusCode).toBe(422);
+        done();
       });
   });
-  it('Update project category', done => {
-    supertest(app)
-      .post(`/v1/project/update-project-category`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
+  test('Update project category', done => {
+    got(`http://localhost:7000/v1/project/update-project-category`, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         category: 'Adipoli_new',
-        _id: catSave._id,
+        _id: '5b4f0845b48361468f85033c',
         subCategories: [
-          { subCategory: 'newAdiploi_neww', _id: subSave._id },
+          { subCategory: 'newAdiploi_neww', _id: '5b4f0845b48361468f85033c' },
           { subCategory: 'newwwwwwwww' },
         ],
-      })
-      .expect(200)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
-  it('Update project category - bad request', done => {
-    supertest(app)
-      .post(`/v1/project/update-project-category`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
+  test('Update project category bad request', done => {
+    got(`http://localhost:7000/v1/project/update-project-category`, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         category: 'Adipoli',
         subCategories: [{ subCategory: 'newAdiploi' }],
-      })
-      .expect(422)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
+      },
+    })
+      // .then(() => done())
+      .catch(err => {
+        expect(err.response.statusCode).toBe(422);
+        done();
       });
   });
 });

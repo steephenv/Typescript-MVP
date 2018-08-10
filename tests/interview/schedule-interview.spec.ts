@@ -1,69 +1,76 @@
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
-
-import { InterviewAvailabilityCalender } from '../../src/models/InterviewAvailabilityCalender';
-
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
+import * as got from 'got';
 
 let token: string;
-let availableSlot: any;
+const availableSlot = [
+  {
+    startTime: '2018-08-27T05:30:00.000Z',
+    endTime: '2018-08-27T06:30:00.000Z',
+  },
+  {
+    startTime: '2018-08-27T03:30:00.000Z',
+    endTime: '2018-08-27T04:30:00.000Z',
+  },
+];
 
 beforeAll(done => {
-  supertest(app)
-    .post('/v1/auth/login')
-    .set('X-Requested-With', 'XMLHttpRequest')
-    .send({
+  got('http://localhost:7000/v1/auth/login', {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+    json: true,
+    body: {
       username: 'stark@marvel.com',
       password: 'password',
+    },
+  })
+    .then(({ body }: any) => {
+      token = body.accessToken;
+      done();
     })
-    .expect(200)
-    .end(async (err, res) => {
-      if (err) {
-        throw err;
-      }
-      token = res.body.accessToken;
-      availableSlot = await InterviewAvailabilityCalender.find({
-        booked: false,
-      }).exec();
-      return done();
+    .catch(err => {
+      throw err;
     });
 });
 
 describe('Test for scheduling interview', () => {
   it('scheduling with correct data', done => {
-    supertest(app)
-      .post(`/v1/interview/schedule-interview`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
+    got('http://localhost:7000/v1/interview/schedule-interview', {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         startTime: availableSlot[0].startTime,
         endTime: availableSlot[0].endTime,
         typeOfCall: 'Video',
-      })
-      .expect(201)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
+
   it('re scheduling with correct data', done => {
-    supertest(app)
-      .post(`/v1/interview/schedule-interview`)
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
+    got('http://localhost:7000/v1/interview/schedule-interview', {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         startTime: availableSlot[1].startTime,
         endTime: availableSlot[1].endTime,
         typeOfCall: 'Video',
-      })
-      .expect(201)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
 });

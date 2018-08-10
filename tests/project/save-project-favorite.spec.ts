@@ -1,37 +1,40 @@
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
+import * as got from 'got';
 
 let token = '';
 let newUserId: string;
 
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
-
 beforeAll(done => {
-  supertest(app)
-    .post('/v1/auth/login')
-    .set('X-Requested-With', 'XMLHttpRequest')
-    .send({
+  got('http://localhost:7000/v1/auth/login', {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+    json: true,
+    body: {
       username: 'stark@marvel.com',
       password: 'password',
-    })
-    .expect(200)
-    .end((err, res) => {
-      if (err) {
-        throw err;
-      }
+    },
+  })
+    .then(res => {
       newUserId = res.body.data._id;
       token = res.body.accessToken;
       return done();
+    })
+    .catch(err => {
+      throw err;
     });
 });
 
-describe('Test for project favorite  ===> ', () => {
-  it('Saving project favorite api', done => {
-    supertest(app)
-      .post('/v1/project/save-project-favorite')
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
+describe('Test for project favorite', () => {
+  test('Saving project favorite api', done => {
+    got(`http://localhost:7000/v1/project/save-project-favorite`, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         items: [
           {
             type: 'project',
@@ -42,13 +45,11 @@ describe('Test for project favorite  ===> ', () => {
             projectsId: '5b68121c586dd83b039c3a7c',
           },
         ],
-      })
-      .expect(200)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
 });

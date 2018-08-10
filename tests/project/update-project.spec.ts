@@ -1,37 +1,40 @@
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
+import * as got from 'got';
 
 let token = '';
 let newUserId: string;
 
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
-
 beforeAll(done => {
-  supertest(app)
-    .post('/v1/auth/login')
-    .set('X-Requested-With', 'XMLHttpRequest')
-    .send({
+  got('http://localhost:7000/v1/auth/login', {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+    json: true,
+    body: {
       username: 'stark@marvel.com',
       password: 'password',
-    })
-    .expect(200)
-    .end((err, res) => {
-      if (err) {
-        throw err;
-      }
+    },
+  })
+    .then(res => {
       newUserId = res.body.data._id;
       token = res.body.accessToken;
       return done();
+    })
+    .catch(err => {
+      throw err;
     });
 });
 
-describe('Test for project update  ===> ', () => {
-  it('project update api', done => {
-    supertest(app)
-      .post('/v1/project/update-project')
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
+describe('Test for project update', () => {
+  test('project update api', done => {
+    got(`http://localhost:7000/v1/project/update-project`, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         projectId: '5b68364de25d265325ec54c3',
         projectTitle: 'MusicMatch',
         currentSituation: 'plan ind',
@@ -57,13 +60,11 @@ describe('Test for project update  ===> ', () => {
         referenceLanguage: 'fr',
         deliverables: 'deliverable 1',
         duration: '6 months',
-      })
-      .expect(200)
-      .end((err, res) => {
-        if (err) {
-          throw err;
-        }
-        return done();
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
 });

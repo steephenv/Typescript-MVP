@@ -1,19 +1,20 @@
-import * as supertest from 'supertest';
-
-import { app, mongoose, mongooseConnectionPromise } from '../src/app';
-
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
+import * as got from 'got';
 
 describe('test', () => {
   test('testing for humans', done => {
-    supertest(app)
-      .get('/humans.txt')
-      .expect(200)
-      .end(err => {
-        if (err) {
-          throw err;
-        }
-        done();
+    got('http://localhost:7000/humans.txt', {
+      method: 'GET',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      // json: true,
+      // body: {
+      //   objectsToSign: obj,
+      // },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
 });

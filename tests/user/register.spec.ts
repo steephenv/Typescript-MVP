@@ -1,40 +1,41 @@
-/* eslint no-undef: 0 */
-
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
+import * as got from 'got';
 
 const keyEmail = 'loki1234@marvel.com';
 const client1 = 'rdj1234@nnn.com';
 let adminToken = '';
 
-// Test
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
-
 beforeAll(done => {
-  supertest(app)
-    .post('/v1/auth/login')
-    .set('X-Requested-With', 'XMLHttpRequest')
-    .send({
+  got('http://localhost:7000/v1/auth/login', {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+    json: true,
+    body: {
       username: 'red@velvet.com',
       password: 'password',
-    })
-    .expect(200)
-    .end((err, res) => {
-      if (err) {
-        throw err;
-      }
+    },
+  })
+    .then(res => {
       adminToken = res.body.accessToken;
       return done();
+    })
+    .catch(err => {
+      throw err;
     });
 });
 
-describe('Test for signup functionality ===> ', () => {
-  test(
+describe('Test for signup functionality  ===> ', () => {
+  it(
     'Registration Functionality',
     done => {
-      supertest(app)
-        .post('/v1/auth/register')
-        .send({
+      got('http://localhost:7000/v1/auth/register', {
+        method: 'POST',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        json: true,
+        body: {
           firstName: 'Loki',
           lastName: 'Asgard',
           email: keyEmail,
@@ -44,64 +45,77 @@ describe('Test for signup functionality ===> ', () => {
           isDirectRegistration: false,
           url: 'dfsfsd?token={token}',
           mobile: '0987654321',
-        })
-        .expect(201)
-        .end((err, res) => {
-          if (err) {
-            throw err;
-          }
-          return done();
+        },
+      })
+        .then(() => done())
+        .catch(err => {
+          throw err;
         });
     },
     15000,
   );
-
-  test('Testing local register of user with invalid data ', done => {
-    supertest(app)
-      .post('/v1/auth/register')
-      .send({
-        firstName: '',
-        lastName: 'ponding',
-        email: 12345,
-        password: 'australia',
-        isDirectRegistration: false,
-        mobile: '1234567890',
+  it(
+    'Testing local register of user with invalid data',
+    done => {
+      got('http://localhost:7000/v1/auth/register', {
+        method: 'POST',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        json: true,
+        body: {
+          firstName: '',
+          lastName: 'ponding',
+          email: 12345,
+          password: 'australia',
+          isDirectRegistration: false,
+          mobile: '1234567890',
+        },
       })
-      .expect(422)
-      .end(err => {
-        if (err) {
-          throw err;
-        }
-        return done();
-      });
-  });
-
-  test('Testing local register of user with existing email ', done => {
-    supertest(app)
-      .post('/v1/auth/register')
-      .send({
-        firstName: 'ricky',
-        lastName: 'ponding',
-        email: 'keyEmail',
-        isDirectRegistration: false,
-        password: 'australia',
-        mobile: '1234567890',
+        // .then(() => done())
+        .catch(err => {
+          expect(err.response.statusCode).toBe(422);
+          done();
+        });
+    },
+    15000,
+  );
+  it(
+    'Testing local register of user with existing email',
+    done => {
+      got('http://localhost:7000/v1/auth/register', {
+        method: 'POST',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        json: true,
+        body: {
+          firstName: 'ricky',
+          lastName: 'ponding',
+          email: 'keyEmail',
+          isDirectRegistration: false,
+          password: 'australia',
+          mobile: '1234567890',
+        },
       })
-      .expect(422)
-      .end(err => {
-        if (err) {
-          throw err;
-        }
-        return done();
-      });
-  });
-
-  test(
-    'Client registration ',
-    async done => {
-      supertest(app)
-        .post('/v1/auth/register')
-        .send({
+        // .then(() => done())
+        .catch(err => {
+          expect(err.response.statusCode).toBe(422);
+          done();
+        });
+    },
+    15000,
+  );
+  it(
+    'Client registration',
+    done => {
+      got('http://localhost:7000/v1/auth/register', {
+        method: 'POST',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        json: true,
+        body: {
           firstName: 'Tony',
           lastName: 'stark',
           email: client1,
@@ -113,71 +127,83 @@ describe('Test for signup functionality ===> ', () => {
           url: 'dfsfsd?token={token}',
           companyName: 'Stark Industries',
           mobile: '1234567890',
-        })
-        .expect(201)
-        .end(err => {
-          if (err) {
-            throw err;
-          }
-          return done();
+        },
+      })
+        .then(() => done())
+        .catch(err => {
+          throw err;
         });
     },
     15000,
   );
-
-  test('Client registration - Without Company name', done => {
-    supertest(app)
-      .post('/v1/auth/register')
-      .send({
-        firstName: 'Tony',
-        lastName: 'stark',
-        email: client1,
-        password: 'iamIron',
-        confirmPassword: 'iamIron',
-        isDirectRegistration: false,
-        appliedRole: 'Client',
-        callTime: '8 am',
-        mobile: '1234567890',
+  it(
+    'Client registration - Without Company name',
+    done => {
+      got('http://localhost:7000/v1/auth/register', {
+        method: 'POST',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        json: true,
+        body: {
+          firstName: 'Tony',
+          lastName: 'stark',
+          email: client1,
+          password: 'iamIron',
+          confirmPassword: 'iamIron',
+          isDirectRegistration: false,
+          appliedRole: 'Client',
+          callTime: '8 am',
+          mobile: '1234567890',
+        },
       })
-      .expect(422)
-      .end(err => {
-        if (err) {
-          throw err;
-        }
-        return done();
-      });
-  });
-
-  test('Client registration - free email', done => {
-    supertest(app)
-      .post('/v1/auth/register')
-      .send({
-        firstName: 'Tony',
-        lastName: 'stark',
-        email: 'jj.gmail.com',
-        password: 'iamIron',
-        confirmPassword: 'iamIron',
-        appliedRole: 'Client',
-        callTime: '8 am',
-        mobile: '1234567890',
+        // .then(() => done())
+        .catch(err => {
+          expect(err.response.statusCode).toBe(422);
+          done();
+        });
+    },
+    15000,
+  );
+  it(
+    'Client registration - Free email',
+    done => {
+      got('http://localhost:7000/v1/auth/register', {
+        method: 'POST',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        json: true,
+        body: {
+          firstName: 'Tony',
+          lastName: 'stark',
+          email: 'jj.gmail.com',
+          password: 'iamIron',
+          confirmPassword: 'iamIron',
+          appliedRole: 'Client',
+          callTime: '8 am',
+          mobile: '1234567890',
+        },
       })
-      .expect(422)
-      .end(err => {
-        if (err) {
-          throw err;
-        }
-        return done();
-      });
-  });
-
-  test(
-    'Client direct registration ',
-    async done => {
-      supertest(app)
-        .post('/v1/auth/register')
-        .set('X-Requested-With', 'XMLHttpRequest')
-        .set({ Authorization: `Bearer ${adminToken}` })
-        .send({
+        // .then(() => done())
+        .catch(err => {
+          expect(err.response.statusCode).toBe(422);
+          done();
+        });
+    },
+    15000,
+  );
+  it(
+    'Client direct-registration',
+    done => {
+      got('http://localhost:7000/v1/auth/register', {
+        method: 'POST',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          Authorization: `Bearer ${adminToken}`,
+        },
+        json: true,
+        body: {
           firstName: 'Sid',
           lastName: 'stark',
           email: 'sid1234@cubettech.com',
@@ -188,13 +214,11 @@ describe('Test for signup functionality ===> ', () => {
           callTime: new Date(),
           companyName: 'Stark Industries',
           mobile: '1234567890',
-        })
-        .expect(201)
-        .end(err => {
-          if (err) {
-            throw err;
-          }
-          return done();
+        },
+      })
+        .then(() => done())
+        .catch(err => {
+          throw err;
         });
     },
     15000,

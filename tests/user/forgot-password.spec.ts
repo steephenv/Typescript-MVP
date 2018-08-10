@@ -1,23 +1,21 @@
-import * as supertest from 'supertest';
-
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
-
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
+import * as got from 'got';
 
 describe('Test for forgot-password functionality ===> ', () => {
-  it('Login with incorrect credentials', async done => {
-    try {
-      const res = await supertest(app)
-        .post('/v1/auth/forgot-password')
-        .send({
-          email: 'loki@marvel.com',
-          url: 'http://fasdfasd.com/token={token}',
-        })
-        .expect(202);
-      expect(res.body.success).toEqual(true);
-      return done();
-    } catch (err) {
-      return done(err);
-    }
+  it('Login with incorrect credentials', done => {
+    got('http://localhost:7000/v1/auth/forgot-password', {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      json: true,
+      body: {
+        email: 'loki@marvel.com',
+        url: 'http://fasdfasd.com/token={token}',
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
+      });
   });
 });

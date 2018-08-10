@@ -1,23 +1,21 @@
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
-
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
+import * as got from 'got';
 
 describe('testing asset-sub-category creation', () => {
   test('testing route', done => {
-    supertest(app)
-      .post('/v1/assets/sub-category')
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .send({
+    got('http://localhost:7000/v1/assets/sub-category', {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      json: true,
+      body: {
         categoryId: '5b4f0845b48361468f85033c',
         subCategoryName: 'felis',
-      })
-      .expect(201)
-      .end(err => {
-        if (err) {
-          throw err;
-        }
-        done();
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
 });

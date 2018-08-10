@@ -1,84 +1,77 @@
-/* eslint no-undef: 0 */
-
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
-import { SkillCategory } from '../../src/models/SkillCategory';
-import { SkillSubCategory } from '../../src/models/SkillSubCategory';
+import * as got from 'got';
 
 let token = '';
 let newUserId: string;
-let catId: string;
-let subId: string;
-
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
 
 beforeAll(done => {
-  supertest(app)
-    .post('/v1/auth/login')
-    .set('X-Requested-With', 'XMLHttpRequest')
-    .send({
+  got('http://localhost:7000/v1/auth/login', {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+    json: true,
+    body: {
       username: 'stark@marvel.com',
       password: 'password',
-    })
-    .expect(200)
-    .end(async (err, res) => {
-      if (err) {
-        throw err;
-      }
+    },
+  })
+    .then(res => {
       newUserId = res.body.data._id;
       token = res.body.accessToken;
-
-      const cats = await SkillCategory.find({}).exec();
-      catId = cats[0]._id;
-      const subCats = await SkillSubCategory.find({}).exec();
-      subId = subCats[0]._id;
       return done();
+    })
+    .catch(err => {
+      throw err;
     });
 });
 
-describe('Test for skills  ===> ', () => {
-  it('Saving skill api', done => {
-    supertest(app)
-      .post('/v1/profile/save-skills')
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
+describe('Test for skills ', () => {
+  test('saving skill api', done => {
+    got(`http://localhost:7000/v1/profile/save-skills`, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         skills: [
           {
             cluster: 'Personal',
-            category: catId,
-            subCategory: subId,
+            category: '5b4f0845b48361468f85033c',
+            subCategory: '5b4f0845b48361468f85033c',
             proficiency: 'Excellent',
             skillTitle: 'assasasa',
           },
         ],
-      })
-      .expect(200)
-      .end(err => {
-        if (err) {
-          throw err;
-        }
-        return done();
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
-  it('Saving skill api - same user', done => {
-    supertest(app)
-      .post('/v1/profile/save-skills')
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .set({ Authorization: `Bearer ${token}` })
-      .send({
+  test('Saving skill api - same user', done => {
+    got(`http://localhost:7000/v1/profile/save-skills`, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
         skills: [
           {
             cluster: 'Personal',
-            category: catId,
-            subCategory: subId,
+            category: '5b4f0845b48361468f85033c',
+            subCategory: '5b4f0845b48361468f85033c',
             proficiency: 'Excellent',
             skillTitle: 'assasasa',
           },
           {
             cluster: 'Functional',
-            category: catId,
-            subCategory: subId,
+            category: '5b4f0845b48361468f85033c',
+            subCategory: '5b4f0845b48361468f85033c',
             proficiency: 'Excellent',
             skillTitle: 'assasasa',
             description: 'cccc',
@@ -86,13 +79,11 @@ describe('Test for skills  ===> ', () => {
             lastApplied: 2005,
           },
         ],
-      })
-      .expect(200)
-      .end(err => {
-        if (err) {
-          throw err;
-        }
-        return done();
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
 });

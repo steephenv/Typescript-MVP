@@ -1,42 +1,47 @@
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
+import * as got from 'got';
 
 let token = '';
 
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
-
 beforeAll(done => {
-  supertest(app)
-    .post('/v1/auth/login')
-    .set('X-Requested-With', 'XMLHttpRequest')
-    .send({
+  got('http://localhost:7000/v1/auth/login', {
+    method: 'POST',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+    json: true,
+    body: {
       username: 'stark@marvel.com',
       password: 'password',
-    })
-    .expect(200)
-    .end((err, res) => {
-      if (err) {
-        throw err;
-      }
+    },
+  })
+    .then(res => {
       token = res.body.accessToken;
       return done();
+    })
+    .catch(err => {
+      throw err;
     });
 });
 
-describe.skip('Generate pdf of user details', () => {
+describe('Generate pdf of user details', () => {
   it(
     'pdf generation',
     done => {
-      supertest(app)
-        .get(`/v1/profile/gen-pdf`)
-        .set('X-Requested-With', 'XMLHttpRequest')
-        .set({ Authorization: `Bearer ${token}` })
-        .expect(200)
-        .end((err, res) => {
-          if (err) {
-            throw err;
-          }
-          return done();
+      got('http://localhost:7000/v1/profile/gen-pdf', {
+        method: 'GET',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          Authorization: `Bearer ${token}`,
+        },
+        // json: true,
+        // body: {
+        //   username: 'stark@marvel.com',
+        //   password: 'password',
+        // },
+      })
+        .then(() => done())
+        .catch(err => {
+          throw err;
         });
     },
     800000,

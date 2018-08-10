@@ -1,22 +1,20 @@
-import * as supertest from 'supertest';
-import { app, mongoose, mongooseConnectionPromise } from '../../src/app';
-
-afterAll(() => mongooseConnectionPromise.then(() => mongoose.disconnect()));
+import * as got from 'got';
 
 describe('testing industry creation', () => {
   test('testing route', done => {
-    supertest(app)
-      .post('/v1/assets/industries')
-      .set('X-Requested-With', 'XMLHttpRequest')
-      .send({
+    got('http://localhost:7000/v1/assets/industries', {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      json: true,
+      body: {
         name: 'Acinonyx',
-      })
-      .expect(201)
-      .end(err => {
-        if (err) {
-          throw err;
-        }
-        done();
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
       });
   });
 });
