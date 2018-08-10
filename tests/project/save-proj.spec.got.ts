@@ -59,7 +59,7 @@ describe('Test for project data ', () => {
           referenceProjectDate: '2018-03-31T18:30:00.000Z',
           referenceCountry: 'Canada',
           referenceLanguage: 'fr',
-          deliverables: 'deliverable 1',
+          deliverables: ['deliverable 1', 'deliverable 2', 'deliverable 3'],
           duration: '6 months',
         },
       },
