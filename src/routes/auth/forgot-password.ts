@@ -1,20 +1,16 @@
 import * as shortId from 'shortid';
 import { RequestHandler } from 'express';
-import * as sgMail from '@sendgrid/mail';
 
 import { User } from '../../models/User';
 import { ResetPassword } from '../../models/ResetPassword';
 
 import { messages } from '../../config/app/messages';
-import { secrets } from '../../config/credentials/secrets';
-import { sendGTemplates } from '../../config/credentials/sendgrid-templates';
+import { EmailTemplates, sendEmail } from '../../email/send-email';
 
 import {
   RequestError,
   RequestErrorType,
 } from '../../error-handler/RequestError';
-
-sgMail.setApiKey(secrets.sendGridKey);
 
 export const forgotPassword: RequestHandler = async (req, res, next) => {
   try {
@@ -35,20 +31,19 @@ export const forgotPassword: RequestHandler = async (req, res, next) => {
       createdAt: new Date(),
     });
     await forgot.save();
-    const msg: any = {
-      to: req.body.email,
-      from: 'miwago@cubettech.com',
-      subject: 'Reset Password',
-      text: 'To reset your account password, ',
-      html: '<p></p>',
-      substitutionWrappers: ['%', '%'],
-      templateId: sendGTemplates.resetPassword,
-      substitutions: {
+
+    const mailOptions = {
+      toAddresses: [req.body.email],
+      template: EmailTemplates.FORGOT_PASSWORD,
+      fromName: 'Miwago Team',
+      subject: `Forgot Password`,
+      fields: {
         url: verificationUrl,
-        user: user.firstName + ' ' + user.lastName,
       },
     };
-    await sgMail.send(msg);
+
+    await sendEmail(mailOptions);
+
     return res.status(202).send({
       success: true,
       url: verificationUrl,

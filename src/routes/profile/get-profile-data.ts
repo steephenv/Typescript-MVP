@@ -10,6 +10,9 @@ import { Skills } from '../../models/Skills';
 import { Wlb } from '../../models/WLB';
 import { User } from '../../models/User';
 
+import '../../models/SkillCategory';
+import '../../models/SkillSubCategory';
+
 import {
   RequestError,
   RequestErrorType,
@@ -51,11 +54,30 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
     const goalDataPromise = Goals.findOne({
       userId: comingUserId,
     })
+      .populate('skillTargets.skillId')
+      .populate({
+        path: 'skillTargets.skillId',
+        model: 'Skills',
+        populate: {
+          path: 'category',
+          model: 'SkillCategory',
+        },
+      })
+      .populate({
+        path: 'skillTargets.skillId',
+        model: 'Skills',
+        populate: {
+          path: 'subCategory',
+          model: 'SkillSubCategory',
+        },
+      })
       .lean()
       .exec();
     const skillDataPromise = Skills.find({
       userId: comingUserId,
     })
+      .populate('category')
+      .populate('subCategory')
       .lean()
       .exec();
     const wlbDataPromise = Wlb.findOne({

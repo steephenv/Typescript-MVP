@@ -86,7 +86,7 @@ const projectSchema = new Schema({
     type: String,
   },
   deliverables: {
-    type: String,
+    type: [String],
   },
   duration: {
     type: String,

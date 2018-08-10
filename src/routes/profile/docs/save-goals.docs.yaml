@@ -29,32 +29,22 @@
              type: string
           teamRating:
              type: string
-          personalStatement:
-           type: string
           annualAvailableCapacity:
              type: number
           capricornsAvailableCapacity:
              type: number
           income:
-             type: string
-          incomeUnit:
-             type: string
+             type: number
           incomePerAnnum:
-             type: string
+             type: number
           incomePerMonth:
-             type: string
-          incomePerWeek:
-             type: string
+             type: number
           incomePerDay:
-             type: string
-          incomePerHour:
-             type: string               
+             type: number             
           startDate:
              type: string
-          daysLeftInYear:
-             type: number
-          daysLeftInCapricorns:
-             type: number
+          remainingIncome:
+             type: number   
           targetAnnualIncome:
              type: number
           targetAnnualIncomeCapricorns:
@@ -71,6 +61,8 @@
             type: array
             items:
               properties:
+                activities:
+                  type: string
                 durationFrom:
                   type: string
                 durationTo:
@@ -88,7 +80,13 @@
                 major:
                   type: string
                 degree:
-                  type: string                
+                  type: string
+                grade:
+                  type: string  
+                subject:
+                  type: string
+                subjectGrade:
+                  type: string                    
     responses:
       200:
         description: "successful attempt, returns `success message`"

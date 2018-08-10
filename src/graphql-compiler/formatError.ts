@@ -28,6 +28,9 @@ export function formatError(error: GQLErr) {
     }
     if (origErr.statusCode) {
       errToDisplay.statusCode = origErr.statusCode;
+      if (origErr.statusCode >= 500) {
+        console.error(errToDisplay); // tslint:disable-line:no-console
+      }
     }
   }
   return errToDisplay;

@@ -12,13 +12,13 @@ import '../../models/SkillSubCategory';
 export const searchSkills: RequestHandler = async (req, res, next) => {
   try {
     const skillText = req.query.text ? req.query.text : '';
-    const regexp = new RegExp(`${skillText}`);
+    const regexp = new RegExp(`${skillText}`, 'i');
     const skillsSearched = await Skills.find({
       skillTitle: regexp,
     })
       .populate('category')
       .populate('subCategory')
-      .select('-userId')
+      .select('skillTitle cluster category subCategory')
       .exec();
     return res.status(200).send({
       success: true,
