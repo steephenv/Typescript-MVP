@@ -24,7 +24,7 @@ export const emailRecoveryFunction: RequestHandler = async (req, res, next) => {
     }
 
     const mailOptions = {
-      toAddresses: [req.body.email],
+      toAddresses: [req.body.secEmail],
       template: EmailTemplates.EMAIL_RECOVERY,
       fromName: 'Miwago Team',
       subject: `Email Recovery`,

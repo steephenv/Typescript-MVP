@@ -70,7 +70,7 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
 
     const interviewTime = availableSlot.startTime.getTime();
     const mailOptions = {
-      toAddresses: [req.body.email],
+      toAddresses: [userDetails.email],
       template: EmailTemplates.INTERVIEW_SCHEDULED,
       fromName: 'Miwago Team',
       subject: `Interview Scheduled`,
