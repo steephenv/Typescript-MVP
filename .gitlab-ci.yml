@@ -14,7 +14,7 @@ before_script:
 
 Build:
   variables:
-    NODE_ENV: development
+    NODE_ENV: runner
   stage: build
   retry: 0
   artifacts:
