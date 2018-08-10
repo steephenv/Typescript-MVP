@@ -10,7 +10,6 @@ export const querySchema = `skills: Skills`;
 export const otherSchema = `
   type Skills {
     update(content:Object!): Object
-    deleteSkills(condition: Object!,ids:Object!): Object
   }
 `;
 
