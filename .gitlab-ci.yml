@@ -15,6 +15,7 @@ before_script:
 Build:
   variables:
     NODE_ENV: runner
+    NODE_APP_INSTANCE: test
   stage: build
   retry: 0
   artifacts:
