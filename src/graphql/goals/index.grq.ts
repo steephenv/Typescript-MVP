@@ -21,14 +21,16 @@ class GoalClass {
     }
 
     try {
-      const skillTargetsArray = content.skillTargets.map((target: any) => {
-        return {
-          targetProficiency: target.targetProficiency,
-          skillId: target.skillId._id,
-        };
-      });
+      if (content.skillTargets && content.skillTargets.length) {
+        const skillTargetsArray = content.skillTargets.map((target: any) => {
+          return {
+            targetProficiency: target.targetProficiency,
+            skillId: target.skillId._id,
+          };
+        });
+        content.skillTargets = skillTargetsArray;
+      }
 
-      content.skillTargets = skillTargetsArray;
       const comingUserId = content.userId
         ? content.userId
         : res.locals.user
@@ -47,6 +49,7 @@ class GoalClass {
         goalDetails = await Goals.update({ _id: contentId }, { $set: content });
       } else {
         content.userId = comingUserId;
+        content.submitted = true;
         const newGoalDetails = new Goals(content);
         goalDetails = await newGoalDetails.save();
       }

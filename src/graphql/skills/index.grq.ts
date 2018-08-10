@@ -1,3 +1,5 @@
+// tslint:disable:no-console
+
 import { GQLErr, GQLErrType } from '../../graphql-compiler/tools';
 import { Promise as BluePromise } from 'bluebird';
 
@@ -22,9 +24,15 @@ class SkillsClass {
     },
     { res }: any,
   ) {
+    console.log(
+      'GQL>>skills>update>>content',
+      JSON.stringify(content, null, 2),
+    );
+
     const { errFound, error } = updateValidator(content);
 
     if (errFound) {
+      console.log('GQL>>skills>update>>content(err)', error);
       throw new GQLErr(GQLErrType.BAD_REQUEST, error);
     }
 
@@ -37,12 +45,15 @@ class SkillsClass {
             : res.locals.user
               ? res.locals.user.userId
               : null;
+
           if (!comingUserId) {
             throw new GQLErr(GQLErrType.FORBIDDEN, 'No token Found');
           }
+
           skillObj.category = skillObj.category._id;
           skillObj.subCategory = skillObj.subCategory._id;
           skillObj.uniqueTitle = skillObj.skillTitle.trim().toLowerCase();
+
           if (skillObj._id) {
             const skillExist = await Skills.count({
               _id: {
@@ -53,6 +64,7 @@ class SkillsClass {
               subCategory: skillObj.subCategory,
               uniqueTitle: skillObj.uniqueTitle,
             }).exec();
+
             if (skillExist) {
               const existingError = Object.assign(
                 {
@@ -67,33 +79,32 @@ class SkillsClass {
             const skillId = skillObj._id;
             delete skillObj._id;
 
-            return await Skills.update(
-              { _id: skillId },
-              { $set: skillObj },
-            ).exec();
+            console.log('saving in if');
+            return Skills.update({ _id: skillId }, { $set: skillObj }).exec();
           }
-          if (!skillObj._id) {
-            const skillExist = await Skills.count({
-              category: skillObj.category,
-              subCategory: skillObj.subCategory,
-              uniqueTitle: skillObj.uniqueTitle,
-              userId: comingUserId,
-            }).exec();
-            if (skillExist) {
-              const existingError = Object.assign(
-                {
-                  _IS_EXISTING: true,
-                  _DESCRIPTION:
-                    'create skipped due to _options.skipIfExistingOnCondition',
-                },
-                skillObj,
-              );
-              return existingError;
-            }
-            skillObj.userId = comingUserId;
-            const newSkillObj = new Skills(skillObj);
-            return newSkillObj.save();
+
+          const skillExist2 = await Skills.count({
+            category: skillObj.category,
+            subCategory: skillObj.subCategory,
+            uniqueTitle: skillObj.uniqueTitle,
+            userId: comingUserId,
+          }).exec();
+          if (skillExist2) {
+            const existingError = Object.assign(
+              {
+                _IS_EXISTING: true,
+                _DESCRIPTION:
+                  'create skipped due to _options.skipIfExistingOnCondition',
+              },
+              skillObj,
+            );
+            return existingError;
           }
+          skillObj.userId = comingUserId;
+          skillObj.submitted = true;
+          const newSkillObj = new Skills(skillObj);
+          console.log('saving in else');
+          return newSkillObj.save();
         },
       );
       // await updateSkillsAndGoals(res.locals.user.userId);
@@ -107,21 +118,3 @@ class SkillsClass {
 function skills() {
   return new SkillsClass();
 }
-
-// async function updateSkillsAndGoals(givenUserId: string) {
-//   const removeSkills = await Skills.find({
-//     userId: givenUserId,
-//     isDelete: true,
-//   })
-//     .distinct('_id')
-//     .exec();
-//   if (removeSkills.length) {
-//     const skillUpdate = Skills.remove({ _id: { $in: removeSkills } }).exec();
-//     const goalUpdate = Goals.update(
-//       { userId: givenUserId },
-//       { $pull: { skillTargets: { skillId: { $in: removeSkills } } } },
-//     );
-//     await BluePromise.all([skillUpdate, goalUpdate]);
-//   }
-//   return;
-// }
