@@ -50,8 +50,8 @@ export { AppEmailTemplates, EmailTemplates, EmailSignatures };
 
 // sendEmail({
 //   toAddresses: ['lakshmipriya.m@cubettech.com'],
-//   subject: 'Verification Code',
-//   template: EmailTemplates.SAMPLE,
+//   subject: 'Test Email markup - ' + new Date(),
+//   template: EmailTemplates.INTERVIEW_SCHEDULED,
 //   fields: { code: 5474 },
 // })
 //   .then(data => {
