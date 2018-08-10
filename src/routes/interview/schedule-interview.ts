@@ -64,7 +64,7 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
     await availableSlot.save();
 
     const userDetails = await User.findOne({ _id: contestant })
-      .select('firstName lastName')
+      .select('firstName lastName email')
       .lean()
       .exec();
 
