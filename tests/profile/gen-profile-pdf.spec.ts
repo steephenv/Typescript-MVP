@@ -24,11 +24,11 @@ beforeAll(done => {
 });
 
 describe('Generate pdf of user details', () => {
-  it.skip(
+  it(
     'pdf generation',
     done => {
       got('http://localhost:7000/v1/profile/gen-pdf', {
-        method: 'POST',
+        method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
           Authorization: `Bearer ${token}`,
