@@ -90,9 +90,8 @@ const resetDatabase = async (MONGO_URI?: string) => {
 export = resetDatabase;
 
 function errHandler(err: any) {
-  if (err.code !== 26) {
-    console.log(err);
-    return;
+  if (err.code === 26 || err.message === 'ns not found') {
+    lme.s('> ns NotFound Error. This is expected. please ignore');
   }
   throw err;
 }
