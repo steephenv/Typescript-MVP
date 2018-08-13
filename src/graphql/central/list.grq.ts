@@ -33,15 +33,21 @@ class Collection {
     }
   }
 
-  public async create({ content }: { content: any[] }) {
+  public async create({ content }: { content: any[] }, { res }: any) {
     try {
       console.log('GQL>create>>content', JSON.stringify(content, null, 2));
 
       const resp = await BluePromise.map(content, async item => {
+        // attach userId if not present
+        if (!item.userId) {
+          item.userId = res.locals.user ? res.locals.user.userId : null;
+        }
+
         const { _options } = item;
         delete item._options;
 
         if (
+          _options &&
           _options.skipIfExistingOnCondition &&
           Object.keys(_options.skipIfExistingOnCondition).length
         ) {
@@ -49,7 +55,7 @@ class Collection {
             .count(_options.skipIfExistingOnCondition)
             .exec();
           if (isExisting) {
-            const res = Object.assign(
+            const isExistingResp = Object.assign(
               {
                 _IS_EXISTING: true,
                 _DESCRIPTION:
@@ -57,7 +63,7 @@ class Collection {
               },
               item,
             );
-            return res;
+            return isExistingResp;
           }
         }
         const createResp = await this.collection.create(item);
