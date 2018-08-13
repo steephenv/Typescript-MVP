@@ -5,6 +5,7 @@ app:
   docs: false
   logging: true # for logging stuffs out
   morgan: false # for request logging
+  port: 7000
   
 mails:
   enable: false

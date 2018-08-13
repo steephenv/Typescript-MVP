@@ -62,7 +62,7 @@ const resetDatabase = async (MONGO_URI?: string) => {
         .catch(errHandler),
     ]);
   } catch (err) {
-    if (err.code === 26) {
+    if (err.code === 26 || err.message === 'ns not found') {
       lme.s('> ns NotFound Error. This is expected. please ignore');
     } else {
       lme.e('err occurred');
