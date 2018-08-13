@@ -78,6 +78,7 @@ class SkillsClass {
             }
             const skillId = skillObj._id;
             delete skillObj._id;
+            skillObj.submitted = true;
 
             console.log('saving in if');
             return Skills.update({ _id: skillId }, { $set: skillObj }).exec();
