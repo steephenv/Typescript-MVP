@@ -11,6 +11,11 @@ import { createAvail } from './add-availability-calender';
 
 import * as lme from 'lme';
 
+console.log('==========DB-RESET=ENVS================');
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+console.log(`NODE_APP_INSTANCE: ${process.env.NODE_APP_INSTANCE}`);
+console.log('=======================================');
+
 const resetDatabase = async (MONGO_URI?: string) => {
   try {
     await getMongooseConnectionPromise(MONGO_URI);
