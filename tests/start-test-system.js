@@ -6,6 +6,12 @@ const app = path.join(__dirname, '../dist/src/bin/www.js');
 const appCwd = path.join(__dirname, '../dist/src/');
 const testCwd = path.join(__dirname, '../.roughs/'); // root
 
+agentLog(`============ENVS==========`);
+agentLog(`NODE_ENV: ${process.env.NODE_ENV}`);
+agentLog(`NODE_APP_INSTANCE: ${process.env.NODE_APP_INSTANCE}`);
+agentLog(`CWD: ${process.env.CWD}`);
+agentLog(`==========================`);
+
 const server = createServerAndTestIt();
 
 function createServerAndTestIt() {
@@ -15,7 +21,7 @@ function createServerAndTestIt() {
   const serverChild = fork(app, {
     cwd: appCwd,
     stdio: 'inherit',
-    env: { NODE_APP_INSTANCE: 'test' },
+    env: { NODE_APP_INSTANCE: 'test', NODE_ENV: process.env.NODE_ENV },
   });
 
   serverChild.on('exit', (code, sig) => {
@@ -51,8 +57,11 @@ function startTests() {
 
   const testAgent = spawn('npm', ['run', 'test-core'], {
     cwd: testCwd,
-    NODE_APP_INSTANCE: 'test',
     stdio: 'inherit',
+    // env: {
+    //   NODE_APP_INSTANCE: 'test',
+    //   // NODE_ENV: process.env.NODE_ENV,
+    // },
   });
 
   testAgent.on('exit', (code, sig) => {
