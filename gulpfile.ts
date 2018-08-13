@@ -1,3 +1,5 @@
+/* tslint:disable:no-console */
+
 import * as del from 'del';
 import * as log from 'fancy-log';
 import * as gulp from 'gulp';
@@ -201,8 +203,18 @@ gulp.task('lint-noFix', cb => {
   gulpRunSequence(['prettier-noFix', 'tslint-noFix'], cb);
 });
 
+gulp.task('logEnvs', () => {
+  log('==============BUILD-SYSTEM====ENVS============');
+  log(`NODE_ENV: ${process.env.NODE_ENV}`);
+  log(`NODE_APP_INSTANCE: ${process.env.NODE_APP_INSTANCE}`);
+  log('CWD: ', process.cwd());
+  log('==============================================');
+  return;
+});
+
 gulp.task('build', cb => {
   gulpRunSequence(
+    'logEnvs',
     ['clean-build', 'clean-schema-doc'],
     ['compile-schema-doc-generator', 'compile-schema', 'prettier-noFix'],
     ['generate-schema-docs', 'tslint-noFix', 'compile-code'],

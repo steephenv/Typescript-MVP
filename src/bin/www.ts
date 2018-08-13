@@ -2,9 +2,11 @@
 /**
  * Module dependencies.
  */
-console.log('NODE_ENV: ', process.env.NODE_ENV);
-console.log('NODE_APP_INSTANCE: ', process.env.NODE_APP_INSTANCE);
-console.log('cwd: ', process.cwd());
+console.log('=====SERVER-STARTING======ENVS================');
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+console.log(`NODE_APP_INSTANCE: ${process.env.NODE_APP_INSTANCE}`);
+console.log('CWD: ', process.cwd());
+console.log('==============================================');
 
 import './unCaughtException';
 

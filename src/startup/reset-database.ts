@@ -11,6 +11,11 @@ import { createAvail } from './add-availability-calender';
 
 import * as lme from 'lme';
 
+console.log('==========DB-RESET=ENVS================');
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+console.log(`NODE_APP_INSTANCE: ${process.env.NODE_APP_INSTANCE}`);
+console.log('=======================================');
+
 const resetDatabase = async (MONGO_URI?: string) => {
   try {
     await getMongooseConnectionPromise(MONGO_URI);
@@ -57,7 +62,7 @@ const resetDatabase = async (MONGO_URI?: string) => {
         .catch(errHandler),
     ]);
   } catch (err) {
-    if (err.code === 26) {
+    if (err.code === 26 || err.message === 'ns not found') {
       lme.s('> ns NotFound Error. This is expected. please ignore');
     } else {
       lme.e('err occurred');
@@ -85,9 +90,8 @@ const resetDatabase = async (MONGO_URI?: string) => {
 export = resetDatabase;
 
 function errHandler(err: any) {
-  if (err.code !== 26) {
-    console.log(err);
-    return;
+  if (err.code === 26 || err.message === 'ns not found') {
+    lme.s('> ns NotFound Error. This is expected. please ignore');
   }
   throw err;
 }

@@ -14,7 +14,8 @@ before_script:
 
 Build:
   variables:
-    NODE_ENV: development
+    NODE_ENV: runner
+    NODE_APP_INSTANCE: test
   stage: build
   retry: 0
   artifacts:
@@ -25,7 +26,7 @@ Build:
   script:
     - yarn install --prefer-offline
     # unit tests should reset test-db. cz, each version expects a new db schema
-    - yarn run build
+    - yarn run test
   tags:
     - node
 
@@ -33,7 +34,8 @@ Build:
 Dev(devapi-miwago):
   stage: deploy
   variables:
-    NODE_ENV: development
+    NODE_ENV: runner
+    NODE_APP_INSTANCE: test
   environment:
     name: devapi-miwago
     url: https://devapi-miwago.cubettech.in/
@@ -54,7 +56,9 @@ Dev(devapi-miwago):
 Staging(Personal_management_API):
   stage: deploy
   variables:
-    NODE_ENV: development
+    NODE_ENV: runner
+    NODE_APP_INSTANCE: test
+
   environment:
     name: Personal management API
     url: https://personalapi-miwago.cubettech.in/
