@@ -19,7 +19,7 @@
     </head>
     <body>
         <div class="container">
-
+            <%if(personalDetailsData){%>
             <h2>Personal Data </h2>
             <div class="card-body">
                 <p><%= personalDetailsData.firstName%>' '<%= personalDetailsData.lastName%></p>
@@ -28,11 +28,11 @@
                 <p>Mobile <%personalDetailsData.mobilePhone?personalDetailsData.mobilePhone:'' %></p>
                 <p><%= personalDetailsData.primaryEmail%></p>
             </div>
-
+            <%}%>
 
             <h2>Professional Experience </h2>
             <div class="card-body">
-                <%if(workExperienceData.length !== 0) { %>
+                <%if(workExperienceData && workExperienceData.length !== 0) { %>
                     <% workExperienceData.forEach((exp, i) =>{%>
                         <h6 class="hr-ttl mb-4 mt-4"><h3 class="ttl">Job <%= i+1%></h3><span class="hr"></span></h6>
                         <p>I was engaged in <%= exp.typeOfEngagement%> from <%= exp.durationFrom%> to <%= exp.durationTo%> as <%= exp.jobTitle%></p>
@@ -48,7 +48,7 @@
             </div>
             <h2>Projects </h2>
             <div class="card-body">
-                <%if(projectsData.length !== 0) { %>
+                <%if(projectsData && projectsData.length !== 0) { %>
                     <%projectsData.forEach((proj, i) => {%>
                         <h6 class="hr-ttl mb-4 mt-4"><h3 class="ttl">Project <%= i%></h3><span class="hr"></span></h6>
                         <p>I have done <%= proj.projectName%> for <%= proj.clientsCompanyName%> which is under <%= proj.companyIndustryLine%> Industry.</p>
@@ -64,7 +64,7 @@
             </div>
             <h2>Education</h2>
             <div class="card-body">
-                <% if(educationData.length !== 0){%>
+                <% if(educationData && educationData.length !== 0){%>
                     <%educationData.forEach(edu => { %>
                         <p>I have completed <%= edu.typeOfInstitution%> in <%= edu.major%> from <%= edu.nameOfInstitution%>,  <%= edu.locationCountry%> 
                             <%= edu.locationCity%>  with <%= edu.grade%> in the year <%= edu.durationFrom%> to <%= edu.durationTo%></p>
@@ -74,16 +74,19 @@
             </div>
             <h2>Skills </h2>
             <div class="card-body">
-            <% if(skillData.length !== 0){%>
+            <% if(skillData && skillData.length !== 0){%>
                 <%skillData.forEach(skill =>{%>
                     <p>I am expert in <%= skill.skillTitle%> </p>
                 <%})%>
             <%}%>
             </div>
+            <%if(wlbData){%>
             <h2>Work-Life-Balance </h2>
             <div class="card-body">
                 <p>My annual available capacity is <%= wlbData.annualAvailableCapacity%> </p>
             </div>
+            <%}%>
+            <%if(goalData){%>
             <h2>Goals </h2>
             <div class="card-body">
                 <p><%= goalData.clientRating%> client rating &amp; ranking </p>
@@ -92,6 +95,7 @@
                 Daily Income is <%= goalData.incomePerDay?goalData.incomePerDay: '' %></p>
                 <p></p>
             </div>
+            <%}%>
         </div>
 
     </body>

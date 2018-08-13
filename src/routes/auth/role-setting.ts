@@ -55,7 +55,7 @@ export const saveRole: RequestHandler = async (req, res, next) => {
         .exec();
 
       const mailOptions = {
-        toAddresses: [req.body.email],
+        toAddresses: [user.email],
         template: EmailTemplates.ROLE_ACCEPT,
         fromName: 'Miwago Team',
         subject: `Role Accept`,
