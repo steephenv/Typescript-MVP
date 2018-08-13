@@ -1,3 +1,5 @@
+'use strict';
+
 const { fork, spawn } = require('child_process');
 const path = require('path');
 const chalk = require('chalk');
@@ -11,6 +13,9 @@ agentLog(`NODE_ENV: ${process.env.NODE_ENV}`);
 agentLog(`NODE_APP_INSTANCE: ${process.env.NODE_APP_INSTANCE}`);
 agentLog(`CWD: ${process.env.CWD}`);
 agentLog(`==========================`);
+
+let jestExitCode = null;
+let serverExitCode = null;
 
 const server = createServerAndTestIt();
 
@@ -26,14 +31,28 @@ function createServerAndTestIt() {
 
   serverChild.on('exit', (code, sig) => {
     serverLog(`exited with code ${code} and sig ${sig}.`);
-    process.exitCode = code;
+    serverExitCode = code;
   });
   serverChild.on('error', err => {
     serverLog(`error event with arg`, err);
+    console.log(err);
+    serverExitCode = 1;
   });
   serverChild.on('close', err => {
     serverLog(`close event with arg`, err);
     agentLog('server terminated');
+    process.exitCode = +(jestExitCode || serverExitCode);
+
+    agentExitLog(
+      serverExitCode === 0
+        ? chalk.green('✓ SERVER Exited with code 0')
+        : chalk.red(`❌ SERVER ERR> Exited with code ${serverExitCode}`),
+    );
+    agentExitLog(
+      jestExitCode === 0
+        ? chalk.green('✓ JEST Exited with code 0')
+        : chalk.red(`❌ JEST ERR> Exited with code ${jestExitCode}`),
+    );
     agentExitLog(
       process.exitCode === 0
         ? chalk.green('✓ Exited with code 0')
@@ -60,16 +79,18 @@ function startTests() {
     stdio: 'inherit',
     // env: {
     //   NODE_APP_INSTANCE: 'test',
-    //   // NODE_ENV: process.env.NODE_ENV,
+    //   NODE_ENV: process.env.NODE_ENV,
     // },
   });
 
   testAgent.on('exit', (code, sig) => {
     testLog(`exited with code ${code} and sig ${sig}.`);
-    testExitCode = code;
+    jestExitCode = code;
   });
   testAgent.on('error', err => {
     testLog(`error event with arg`, err);
+    console.log(err);
+    jestExitCode = 1;
   });
   testAgent.on('close', err => {
     testLog(`close event with arg`, err);
