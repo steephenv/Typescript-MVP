@@ -46,6 +46,7 @@ class GoalClass {
       if (content._id) {
         const contentId = content._id;
         delete content._id;
+        content.submitted = true;
         goalDetails = await Goals.update({ _id: contentId }, { $set: content });
       } else {
         content.userId = comingUserId;
