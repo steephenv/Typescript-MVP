@@ -2,10 +2,10 @@
 # configuration for production server (live)
 
 app:
-  logging: false
+  logging: true
   morgan: true
-  port: 6233
+  port: 3000
   docs: false
 
 database:
-  url: ''
+  url: 'mongodb+srv://capricorns-db-user:Capricorns-DB-pwd-56$@capricons-cl1-jngps.mongodb.net/miwago_db?retryWrites=true'
