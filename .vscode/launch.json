@@ -71,7 +71,7 @@
         "NODE_CONFIG_DIR": "./src/config",
         "NODE_ENV": "production",
         "NODE_CONFIG":
-          "{\\\"database\\\":{\\\"url\\\":\\\"mongodb+srv://capricorns-db-user:Capricorns-DB-pwd-56$@capricons-cl1-jngps.mongodb.net/miwago_db?retryWrites=true\\\"}}",
+          "{\\\"database\\\":{\\\"url\\\":\\\"mongodb://miwago_user:NBGVJHgjhg67uhgvjuuy5hjnv98jkhbBGbkjbhfgjhbkmjhb76hjv98bkjbnjmn@185.148.147.8:27018/miwago_db\\\"}}",
         "NODE_APP_INSTANCE": "production"
       }
     }
