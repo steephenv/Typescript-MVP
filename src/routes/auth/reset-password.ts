@@ -4,6 +4,7 @@ import { ResetPassword } from '../../models/ResetPassword';
 import { messages } from '../../config/app/messages';
 import { RequestHandler } from 'express';
 import * as bcrypt from 'bcrypt';
+import { Promise as BluePromise } from 'bluebird';
 
 import {
   RequestError,
@@ -24,6 +25,7 @@ export const passwordReset: RequestHandler = async (req, res, next) => {
     twentyMinutesBefore.setMinutes(twentyMinutesBefore.getMinutes() - 20);
     const criteria = {
       token: req.body.token,
+      used: false,
       createdAt: {
         $gte: new Date(twentyMinutesBefore),
       },
@@ -39,7 +41,12 @@ export const passwordReset: RequestHandler = async (req, res, next) => {
     }
 
     const newPassword = await bcrypt.hash(req.body.password, 10);
-    await User.update(
+
+    const resetPasswordUpdate = ResetPassword.update(
+      { token: req.body.token },
+      { $set: { used: true } },
+    ).exec();
+    const userUpdate = User.update(
       {
         email: user.email,
       },
@@ -49,6 +56,8 @@ export const passwordReset: RequestHandler = async (req, res, next) => {
         },
       },
     ).exec();
+
+    await BluePromise.all([resetPasswordUpdate, userUpdate]);
 
     return res.status(200).send({
       success: true,
