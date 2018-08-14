@@ -7,14 +7,24 @@ const projectRequestSchema = new Schema({
     ref: 'User',
     required: true,
   },
+  projectId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Project',
+    required: true,
+  },
   updatedAt: {
     type: Date,
   },
   createdAt: {
     type: Date,
   },
+  status: {
+    type: String,
+    enum: ['Draft', 'Request'],
+  },
   templateType: {
     type: String,
+    enum: ['MakeDeliverable', 'MakeSkill', 'BuyDeliverable'],
   },
   stakeHolder: {
     type: String,

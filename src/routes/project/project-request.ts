@@ -13,15 +13,6 @@ export const saveProjectRequest: RequestHandler = async (req, res, next) => {
     where.userId = req.query.userId ? req.query.userId : res.locals.user.userId;
     req.body.updatedAt = new Date();
     req.body.userId = where.userId;
-    // req.body.submitted = true;
-    // const criteria = {
-    //   userId: req.body.userId,
-    //   updatedAt: req.body.updatedAt,
-    //   roleAndResponsibility: req.body.roleAndResponsibility,
-    //   skillsAndExperience: req.body.skillsAndExperience,
-    //   clientsMessage: req.body.clientsMessage,
-    //   proposalSubmissionDate: new Date(),
-    // };
     if (req.query && req.query.userId) {
       await ProjectRequest.update(where, { $set: req.body });
     } else {
