@@ -76,7 +76,7 @@ Staging(Personal_management_API):
     - node
 
 # deploy to production
-Staging(Production_API):
+Capricorns(Production_API):
   stage: deploy
   variables:
     NODE_ENV: runner

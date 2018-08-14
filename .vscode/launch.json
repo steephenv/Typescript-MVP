@@ -56,6 +56,24 @@
           "{\\\"database\\\":{\\\"url\\\":\\\"mongodb://miwago_user:NBGVJHgjhg67uhgvjuuy5hjnv98jkhbBGbkjbhfgjhbkmjhb76hjv98bkjbnjmn@185.148.147.8:27018/miwago_db\\\"}}",
         "NODE_APP_INSTANCE": "beta"
       }
+    },
+    {
+      "name": "App against capricorn",
+      "type": "node",
+      "request": "launch",
+      "args": ["${workspaceRoot}/src/bin/www.ts"],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}",
+      "console": "integratedTerminal",
+      "protocol": "inspector",
+      "env": {
+        "NODE_CONFIG_DIR": "./src/config",
+        "NODE_ENV": "production",
+        "NODE_CONFIG":
+          "{\\\"database\\\":{\\\"url\\\":\\\"mongodb+srv://capricorns-db-user:Capricorns-DB-pwd-56$@capricons-cl1-jngps.mongodb.net/miwago_db?retryWrites=true\\\"}}",
+        "NODE_APP_INSTANCE": "production"
+      }
     }
   ]
 }
