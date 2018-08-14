@@ -85,10 +85,9 @@ Capricorns(Production_API):
   environment:
     name: Production
     url: https://api.capricorns.io
-  when: on_success
+  when: manual
   only:
     - tags
-      - /^(.*)-release/g
   script:
     # - yarn install
     # - yarn run build # cz it is running in build
