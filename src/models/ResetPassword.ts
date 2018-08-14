@@ -14,6 +14,10 @@ const ResetPasswordSchema: Schema = new Schema({
     type: Date,
     default: new Date(),
   },
+  used: {
+    type: Boolean,
+    default: false,
+  },
 });
 export const ResetPassword = mongooseModel(
   'ResetPassword',

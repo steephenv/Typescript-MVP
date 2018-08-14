@@ -45,6 +45,25 @@ describe('Test for forgot-password functionality ==> ', () => {
         throw err;
       });
   });
+  it('Reset password API - Reset operation on same link', done => {
+    got('http://localhost:7000/v1/auth/reset-password', {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      json: true,
+      body: {
+        token: tokenNew,
+        password: 'password',
+        confirmPassword: 'password',
+      },
+    })
+      // .then(() => done())
+      .catch(err => {
+        expect(err.response.statusCode).toBe(400);
+        done();
+      });
+  });
   it('Reset password API - Field missing', done => {
     got('http://localhost:7000/v1/auth/reset-password', {
       method: 'POST',
