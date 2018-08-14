@@ -2,10 +2,10 @@
 # configuration for production server (live)
 
 app:
-  logging: false
+  logging: true
   morgan: true
-  port: 6233
+  port: 3000
   docs: false
 
 database:
-  url: ''
+  url: 'mongodb://miwago_user:NBGVJHgjhg67uhgvjuuy5hjnv98jkhbBGbkjbhfgjhbkmjhb76hjv98bkjbnjmn@185.148.147.8:27018/miwago_db'
