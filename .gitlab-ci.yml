@@ -74,3 +74,26 @@ Staging(Personal_management_API):
     - ssh dev-miwago@185.148.147.4 "export NODE_ENV=production && export PATH=/home/dev-miwago/bin:/home/dev-miwago/.local/bin:/home/dev-miwago/.nvm/versions/node/v8.11.3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin && node --version && yarn --version && cd ~/staging-miwago-api && yarn install && cd public && yarn install && pm2 restart staging-miwago-api"
   tags:
     - node
+
+# deploy to production
+Staging(Production_API):
+  stage: deploy
+  variables:
+    NODE_ENV: runner
+    NODE_APP_INSTANCE: test
+
+  environment:
+    name: Production
+    url: https://api.capricorns.io
+  when: on_success
+  only:
+    - tags
+  script:
+    # - yarn install
+    # - yarn run build # cz it is running in build
+    - ssh miwago-api@52.215.101.120 "rm -rf ~/miwago-api"
+    - ssh miwago-api@52.215.101.120 "mkdir ~/miwago-api"
+    - rsync -avz -e ssh ./dist/src/* miwago-api@52.215.101.120:~/miwago-api
+    - ssh miwago-api@52.215.101.120 "export NODE_ENV=production && export NODE_APP_INSTANCE=production && export PATH=/home/miwago-api/bin:/home/miwago-api/.local/bin:/home/miwago-api/.nvm/versions/node/v8.11.3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin && node --version && yarn --version && cd ~/miwago-api && yarn install && cd public && yarn install && pm2 restart miwago-api"
+  tags:
+    - node
