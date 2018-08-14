@@ -35,7 +35,7 @@ class Collection {
 
   public async create({ content }: { content: any[] }, { res }: any) {
     try {
-      console.log('GQL>create>>content', JSON.stringify(content, null, 2));
+      // console.log('GQL>create>>content', JSON.stringify(content, null, 2));
 
       const resp = await BluePromise.map(content, async item => {
         // attach userId if not present
@@ -95,20 +95,20 @@ class Collection {
       throw new GQLErr(GQLErrType.BAD_REQUEST, err);
     }
     try {
-      console.log(
-        'GQL>update>>condition',
-        JSON.stringify(preparedCondition, null, 2),
-      );
+      // console.log(
+      //   'GQL>update>>condition',
+      //   JSON.stringify(preparedCondition, null, 2),
+      // );
 
-      console.log(
-        'GQL>update>>content',
-        JSON.stringify(preparedContent, null, 2),
-      );
+      // console.log(
+      //   'GQL>update>>content',
+      //   JSON.stringify(preparedContent, null, 2),
+      // );
 
-      console.log(
-        'GQL>update>>options',
-        JSON.stringify(preparedOptions, null, 2),
-      );
+      // console.log(
+      //   'GQL>update>>options',
+      //   JSON.stringify(preparedOptions, null, 2),
+      // );
 
       const resp = await this.collection
         .update(preparedCondition, preparedContent, preparedOptions)
@@ -182,10 +182,10 @@ class Collection {
     let preparedQuery: any;
     try {
       preparedQuery = prepareGQLQuery(condition);
-      console.log(
-        'GQL>remove>>condition',
-        JSON.stringify(preparedQuery, null, 2),
-      );
+      // console.log(
+      //   'GQL>remove>>condition',
+      //   JSON.stringify(preparedQuery, null, 2),
+      // );
     } catch (err) {
       throw new GQLErr(GQLErrType.BAD_REQUEST, err);
     }
