@@ -42,8 +42,8 @@ describe('Test for saving Goals data ', () => {
         daysLeftInYear: 22,
         income: 33,
         incomePerAnnum: 4,
-        incomePerMonth: 44,
-        incomePerDay: 3,
+        incomePerMonth: '44',
+        incomePerDay: '3',
         startDate: 'ddd',
         skillTargets: [
           { skillId: '5b4c658e32958459122535cb', targetProficiency: 'Good' },
