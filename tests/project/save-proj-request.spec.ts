@@ -35,7 +35,9 @@ describe('Test for saving project request data ', () => {
       },
       json: true,
       body: {
-        templateType: 'template2',
+        status: 'Draft',
+        projectId: '5b72b04f814f7342d5874202',
+        templateType: 'MakeSkill',
         currentStatus: 'sadsad',
         currentSituation: 'sdfdsf',
         challengeType: 'cvdsjhgv',
@@ -164,7 +166,9 @@ describe('Test for saving project request data ', () => {
       },
       json: true,
       body: {
-        templateType: 'template1',
+        status: 'Draft',
+        projectId: '5b72b04f814f7342d5874202',
+        templateType: 'MakeDeliverable',
         currentStatus: 'sadsad',
         currentSituation: 'sdfdsf',
         challengeType: 'cvdsjhgv',
@@ -226,7 +230,9 @@ describe('Test for saving project request data ', () => {
       },
       json: true,
       body: {
-        templateType: 'template3',
+        status: 'Draft',
+        projectId: '5b72b04f814f7342d5874202',
+        templateType: 'BuyDeliverable',
         currentStatus: 'sadsad',
         currentSituation: 'sdfdsf',
         challengeType: 'cvdsjhgv',
