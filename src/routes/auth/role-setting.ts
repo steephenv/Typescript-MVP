@@ -49,7 +49,9 @@ export const saveRole: RequestHandler = async (req, res, next) => {
       );
 
       await BluePromise.all([userUpdate, interviewUpdate]);
+    }
 
+    if (req.body.isApproved) {
       const user = await User.findOne({ _id: req.body.userId })
         .lean()
         .exec();
@@ -64,10 +66,8 @@ export const saveRole: RequestHandler = async (req, res, next) => {
           role: req.body.role,
         },
       };
-
       await sendEmail(mailOptions);
     }
-
     return res.status(200).send({ success: true });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR));
