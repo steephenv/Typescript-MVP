@@ -23,14 +23,14 @@ export const saveRole: RequestHandler = async (req, res, next) => {
             interviewStatus: 'Passed',
           },
         },
-      );
+      ).exec();
 
       const interviewUpdate = InterviewDetails.update(
         {
           _id: req.body.interviewId,
         },
         { $set: { interviewStatus: 'Passed', comment: userComment } },
-      );
+      ).exec();
 
       await BluePromise.all([userUpdate, interviewUpdate]);
 
@@ -58,13 +58,13 @@ export const saveRole: RequestHandler = async (req, res, next) => {
             interviewStatus: 'Failed',
           },
         },
-      );
+      ).exec();
       const interviewUpdate = InterviewDetails.update(
         {
           _id: req.body.interviewId,
         },
         { $set: { interviewStatus: 'Failed', comment: userComment } },
-      );
+      ).exec();
 
       await BluePromise.all([userUpdate, interviewUpdate]);
 
