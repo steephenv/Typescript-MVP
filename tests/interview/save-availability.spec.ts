@@ -1,7 +1,7 @@
 import * as got from 'got';
 
 let token: string;
-const bpmId = '5b6c04094d27ef4e82b47e6b';
+// const bpmId = '5b6c04094d27ef4e82b47e6b';
 
 beforeAll(done => {
   got('http://localhost:7000/v1/auth/login', {
