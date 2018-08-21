@@ -25,9 +25,9 @@ beforeAll(done => {
     });
 });
 
-describe('Test for signup functionality  ===> ', () => {
+describe('Test for role set up functionality  ===> ', () => {
   it(
-    'Registration Functionality',
+    'Role Accept',
     done => {
       got('http://localhost:7000/v1/auth/role-setting', {
         method: 'POST',
@@ -41,6 +41,34 @@ describe('Test for signup functionality  ===> ', () => {
           role: 'Consultant',
           isApproved: true,
           comment: 'fdsgf',
+          loginUrl: 'fdsfds',
+          interviewId: '5b506d48e618c7361b6a3977',
+        },
+      })
+        .then(() => done())
+        .catch(err => {
+          throw err;
+        });
+    },
+    15000,
+  );
+
+  it(
+    'Role Reject',
+    done => {
+      got('http://localhost:7000/v1/auth/role-setting', {
+        method: 'POST',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          Authorization: `Bearer ${token}`,
+        },
+        json: true,
+        body: {
+          userId: newUserId,
+          role: 'Consultant',
+          isApproved: false,
+          comment: 'fdsgf',
+          loginUrl: 'fdsfds',
           interviewId: '5b506d48e618c7361b6a3977',
         },
       })

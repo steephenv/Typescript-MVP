@@ -23,35 +23,17 @@ export const saveRole: RequestHandler = async (req, res, next) => {
             interviewStatus: 'Passed',
           },
         },
-      );
+      ).exec();
 
       const interviewUpdate = InterviewDetails.update(
         {
           _id: req.body.interviewId,
         },
         { $set: { interviewStatus: 'Passed', comment: userComment } },
-      );
-      await BluePromise.all([userUpdate, interviewUpdate]);
-    } else {
-      const userUpdate = User.update(
-        { _id: req.body.userId },
-        {
-          $set: {
-            interviewStatus: 'Failed',
-          },
-        },
-      );
-      const interviewUpdate = InterviewDetails.update(
-        {
-          _id: req.body.interviewId,
-        },
-        { $set: { interviewStatus: 'Failed', comment: userComment } },
-      );
+      ).exec();
 
       await BluePromise.all([userUpdate, interviewUpdate]);
-    }
 
-    if (req.body.isApproved) {
       const user = await User.findOne({ _id: req.body.userId })
         .lean()
         .exec();
@@ -64,10 +46,46 @@ export const saveRole: RequestHandler = async (req, res, next) => {
         fields: {
           user: user.firstName + ' ' + user.lastName,
           role: req.body.role,
+          loginUrl: req.body.loginUrl,
+        },
+      };
+      await sendEmail(mailOptions);
+    } else {
+      const userUpdate = User.update(
+        { _id: req.body.userId },
+        {
+          $set: {
+            interviewStatus: 'Failed',
+          },
+        },
+      ).exec();
+      const interviewUpdate = InterviewDetails.update(
+        {
+          _id: req.body.interviewId,
+        },
+        { $set: { interviewStatus: 'Failed', comment: userComment } },
+      ).exec();
+
+      await BluePromise.all([userUpdate, interviewUpdate]);
+
+      const user = await User.findOne({ _id: req.body.userId })
+        .lean()
+        .exec();
+
+      const mailOptions = {
+        toAddresses: [user.email],
+        template: EmailTemplates.ROLE_REJECT,
+        fromName: 'Miwago Team',
+        subject: `Role Rejected`,
+        fields: {
+          user: user.firstName + ' ' + user.lastName,
+          role: req.body.role,
+          loginUrl: req.body.loginUrl,
         },
       };
       await sendEmail(mailOptions);
     }
+
     return res.status(200).send({ success: true });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR));
