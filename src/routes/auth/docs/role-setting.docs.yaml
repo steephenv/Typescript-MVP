@@ -21,6 +21,7 @@
         - role
         - userId
         - isApproved
+        - loginUrl
         properties:
           role:
             type: string
@@ -35,6 +36,8 @@
           isApproved:
             type: boolean
             example: true
+          loginUrl:
+            type: string  
           comment:
             type: string
             example: gregtr  

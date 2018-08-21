@@ -31,7 +31,25 @@ export const saveRole: RequestHandler = async (req, res, next) => {
         },
         { $set: { interviewStatus: 'Passed', comment: userComment } },
       );
+
       await BluePromise.all([userUpdate, interviewUpdate]);
+
+      const user = await User.findOne({ _id: req.body.userId })
+        .lean()
+        .exec();
+
+      const mailOptions = {
+        toAddresses: [user.email],
+        template: EmailTemplates.ROLE_ACCEPT,
+        fromName: 'Miwago Team',
+        subject: `Role Accept`,
+        fields: {
+          user: user.firstName + ' ' + user.lastName,
+          role: req.body.role,
+          loginUrl: req.body.loginUrl,
+        },
+      };
+      await sendEmail(mailOptions);
     } else {
       const userUpdate = User.update(
         { _id: req.body.userId },
@@ -49,25 +67,26 @@ export const saveRole: RequestHandler = async (req, res, next) => {
       );
 
       await BluePromise.all([userUpdate, interviewUpdate]);
-    }
 
-    if (req.body.isApproved) {
       const user = await User.findOne({ _id: req.body.userId })
         .lean()
         .exec();
 
       const mailOptions = {
         toAddresses: [user.email],
-        template: EmailTemplates.ROLE_ACCEPT,
+        template: EmailTemplates.ROLE_REJECT,
         fromName: 'Miwago Team',
-        subject: `Role Accept`,
+        subject: `Role Rejected`,
         fields: {
           user: user.firstName + ' ' + user.lastName,
           role: req.body.role,
+          loginUrl: req.body.loginUrl,
         },
       };
-      await sendEmail(mailOptions);
+      const rejected = await sendEmail(mailOptions);
+      console.log('dffffffffffffffffffffffffffffffffffffffffff', rejected);
     }
+
     return res.status(200).send({ success: true });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR));
