@@ -39,7 +39,7 @@ describe('Test for availability save', () => {
           dateRange: {
             startDate:
               'Mon Aug 27 2018 05:30:00 GMT+0530 (India Standard Time)',
-            endDate: 'Thu Sep 27 2018 05:30:00 GMT+0530 (India Standard Time)',
+            endDate: '2018-08-30',
           },
           workingDays: ['Sunday', 'Monday', 'Tuesday', 'Thursday'],
           workingTime: {
@@ -52,7 +52,7 @@ describe('Test for availability save', () => {
               'Mon Jul 30 2018 13:00:00 GMT+0530 (India Standard Time)',
             endTime: 'Mon Jul 30 2018 14:00:00 GMT+0530 (India Standard Time)',
           },
-          userId: bpmId,
+          userId: '5b5ed5287630af443bcf2878',
           annualAvailability: 20,
         },
       })

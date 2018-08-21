@@ -23,6 +23,9 @@ const projectsSchema = new Schema({
   engagementAs: {
     type: String,
   },
+  topic: {
+    type: String,
+  },
   engagementFrom: {
     type: String,
   },
