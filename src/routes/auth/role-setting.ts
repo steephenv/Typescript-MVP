@@ -83,8 +83,7 @@ export const saveRole: RequestHandler = async (req, res, next) => {
           loginUrl: req.body.loginUrl,
         },
       };
-      const rejected = await sendEmail(mailOptions);
-      console.log('dffffffffffffffffffffffffffffffffffffffffff', rejected);
+      await sendEmail(mailOptions);
     }
 
     return res.status(200).send({ success: true });
