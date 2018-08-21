@@ -14,6 +14,7 @@ import { resetPasswordValidation } from './validators/reset-password-rules';
 import { listUsersValidation } from './validators/list-users.rule';
 import { setRoleValidation } from './validators/role-setting-rules';
 import { userSuggestionRule } from './validators/user-suggestion.rule';
+import { deleteUsersValidation } from './validators/delete-user-rule';
 
 import { register } from './register';
 import { confirmUser } from './confirm-user';
@@ -29,6 +30,7 @@ import { getCountryDetails } from './get-countries';
 import { listUsers } from './list-users';
 import { saveRole } from './role-setting';
 import { suggestUsers } from './user-suggestions';
+import { deleteUser } from './delete-user';
 
 export const auth = express.Router();
 
@@ -58,3 +60,5 @@ auth.get(
 auth.post('/role-setting', setRoleValidation, saveRole);
 
 auth.get('/suggest-users', userSuggestionRule, suggestUsers);
+
+auth.delete('/delete/user', deleteUsersValidation, deleteUser);

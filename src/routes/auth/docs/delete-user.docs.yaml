@@ -1,0 +1,22 @@
+/auth/delete/user:
+  delete:
+    summary: api for delete user.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: key
+      in: query
+      type: string
+      description: field name
+      example: email
+    - name: value
+      in: query
+      type: string
+      description: value of matching field
+      example: ll@yopmail.com  
+    responses:
+      200:
+        description: "successful attempt, returns `success message`"
