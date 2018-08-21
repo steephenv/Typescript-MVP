@@ -69,6 +69,7 @@ describe('Test for role set up functionality  ===> ', () => {
           isApproved: false,
           comment: 'fdsgf',
           loginUrl: 'fdsfds',
+          homeUrl: 'fdsfds',
           interviewId: '5b506d48e618c7361b6a3977',
         },
       })
