@@ -33,10 +33,6 @@
         - country
         - city
         - street
-        - zipCode
-        - houseNo
-        - countryDialingCode
-        - cityDialingCode
         - fixedLinePhone
         - mobilePhone
         - primaryEmail
@@ -79,12 +75,6 @@
           street:
             type: string
           pinCode:
-            type: string
-          houseNo:
-            type: string
-          countryDialingCode:
-            type: string
-          cityDialingCode:
             type: string
           fixedLinePhone:
             type: string
