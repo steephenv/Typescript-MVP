@@ -30,9 +30,6 @@ const experienceSchema = new Schema({
   durationTo: {
     type: String,
   },
-  jobTitle: {
-    type: String,
-  },
   businessFunction: {
     type: String,
   },
@@ -70,12 +67,7 @@ const experienceSchema = new Schema({
     type: Number,
   },
   managementType: {
-    type: {
-      disciplinaryManager: String,
-      functionalSupervisor: String,
-      coach: Boolean,
-      none: Boolean,
-    },
+    type: String,
   },
 });
 
