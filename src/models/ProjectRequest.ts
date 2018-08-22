@@ -24,17 +24,21 @@ const projectRequestSchema = new Schema({
   },
   templateType: {
     type: String,
-    enum: ['MakeDeliverable', 'MakeSkill', 'BuyDeliverable'],
+    enum: ['SkillBased', 'DeliverableBased', 'ReadyToUse'],
   },
-  stakeHolder: {
-    type: String,
-  },
-  businessFunction: {
-    type: String,
-  },
-  businessFunctionRole: {
-    type: String,
-  },
+  stakeHolders: [
+    {
+      stakeHolder: {
+        type: String,
+      },
+      businessFunction: {
+        type: String,
+      },
+      businessFunctionRole: {
+        type: String,
+      },
+    },
+  ],
   sponsorsPosition: {
     type: String,
   },
@@ -168,7 +172,7 @@ const projectRequestSchema = new Schema({
   proposalSubmissionDate: {
     type: Date,
   },
-
+  // Need for Project support ......
   noOfExpectedDeliverables: {
     type: String,
   },
@@ -205,12 +209,6 @@ const projectRequestSchema = new Schema({
   proposalSelectionBasedOn: {
     type: String,
   },
-  // proposalSubmissionDate: {
-  //   type: Date,
-  // },
-  // clientsMessage: {
-  //   type: String,
-  // },
 });
 
 export const ProjectRequest = mongooseModel(

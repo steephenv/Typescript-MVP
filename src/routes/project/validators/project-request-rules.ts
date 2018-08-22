@@ -6,9 +6,8 @@ const EnvObjectSchema = Joi.object({
   stakeHolder: Joi.string().allow(''),
   businessFunction: Joi.string().allow(''),
   businessFunctionRole: Joi.string().allow(''),
-  sponsorsPosition: Joi.string().allow(''),
-  managersPosition: Joi.string().allow(''),
-}).required();
+});
+
 const skillsAndExpSchema = Joi.object({
   role: Joi.string().allow(''),
   yearsOfProfessionalExp: Joi.string().allow(''),
@@ -39,8 +38,9 @@ const roleAndRespSchema = Joi.object({
   travellingToLocations: Joi.array(),
   travellingFrequency: Joi.string().allow(''),
 });
+
 const ProjectRequestSchema = Joi.object().keys({
-  templateType: Joi.string().required(),
+  _id: Joi.string().required(),
   currentStatus: Joi.string().allow(''),
   currentSituation: Joi.string().allow(''),
   challengeType: Joi.string().allow(''),
@@ -56,48 +56,89 @@ const ProjectRequestSchema = Joi.object().keys({
   location3: Joi.string().allow(''),
   location4: Joi.string().allow(''),
   communication: Joi.string().allow(''),
-
-  stakeHolders: Joi.array().items(EnvObjectSchema),
-
-  roleAndResponsibility: Joi.array().items(roleAndRespSchema),
-  skillsAndExperience: Joi.array().items(skillsAndExpSchema),
-  clientsMessage: Joi.string().allow(''),
-
-  // template 3 - deliverable based
-  noOfExpectedDeliverables: Joi.string().allow(''),
-  nameOfDeliverables: Joi.string().allow(''),
-  typeOfDeliverables: Joi.string().allow(''),
-  languageOfDeliverable: Joi.string().allow(''),
-  briefDescriptionOfDeliverable: Joi.string().allow(''),
-  expectedValueAddOfDeliverable: Joi.string().allow(''),
-  expectedQualityOfDeliverable: Joi.string().allow(''),
-  expectedDueDateOfDeliverable: Joi.string().allow(''),
-  expectedTotalPriceForValue: Joi.number(),
-  expectedPricePerDeliverable: Joi.number(),
-  travelExpPercentageOfTotalPriceForValue: Joi.string().allow(''),
-  proposalSubmissionDate: Joi.date(),
-  proposalSelectionBasedOn: Joi.string().allow(''),
 });
 
 // tslint:disable:variable-name
-// const ProjectEnvSchema = Joi.object().keys({
-//   stakeHolders: Joi.array()
-//     .items(EnvObjectSchema)
-//     .min(1)
-//     .required(),
-// });
+const ProjectEnvironmentSchema = Joi.object().keys({
+  _id: Joi.string().required(),
+  stakeHolders: Joi.array().items(EnvObjectSchema),
+  sponsorsPosition: Joi.string().allow(''),
+  managersPosition: Joi.string().allow(''),
+});
+
+const ProjectSupportNeedSchema = Joi.object().keys({
+  _id: Joi.string().required(),
+  templateType: Joi.string()
+    .valid('SkillBased', 'DeliverableBased', 'ReadyToUse')
+    .required(),
+  roleAndResponsibility: Joi.array().items(roleAndRespSchema),
+  skillsAndExperience: Joi.array().items(skillsAndExpSchema),
+  clientMessage: Joi.string().allow(''),
+});
 
 export const projectRequestRule: RequestHandler = (req, res, next) => {
-  //   req.body.role = res.locals.user.role;
-  Joi.validate(req.body, ProjectRequestSchema, { stripUnknown: true }, err => {
-    // console.log();
-    // delete req.body.role;
-    if (err) {
-      return res.status(422).send({
-        success: false,
-        msg: err,
-      });
-    }
-    next();
-  });
+  if (!req.body.formType) {
+    return res.status(422).send({
+      success: false,
+      msg: 'Invalid formType',
+    });
+  }
+  if (req.body.formType === 'keyParams') {
+    Joi.validate(
+      req.body,
+      ProjectRequestSchema,
+      { stripUnknown: true },
+      err => {
+        // console.log();
+        // delete req.body.role;
+        if (err) {
+          // console.log(err);
+          return res.status(422).send({
+            success: false,
+            msg: err,
+          });
+        }
+        return next();
+      },
+    );
+  } else if (req.body.formType === 'projectEnvironment') {
+    Joi.validate(
+      req.body,
+      ProjectEnvironmentSchema,
+      { stripUnknown: true },
+      err => {
+        // console.log();
+        // delete req.body.role;
+        if (err) {
+          return res.status(422).send({
+            success: false,
+            msg: err,
+          });
+        }
+        return next();
+      },
+    );
+  } else if (req.body.formType === 'projectSupportNeed') {
+    Joi.validate(
+      req.body,
+      ProjectSupportNeedSchema,
+      { stripUnknown: true },
+      err => {
+        // console.log();
+        // delete req.body.role;
+        if (err) {
+          return res.status(422).send({
+            success: false,
+            msg: err,
+          });
+        }
+        return next();
+      },
+    );
+  } else {
+    return res.status(422).send({
+      success: false,
+      msg: 'Invalid formType',
+    });
+  }
 };
