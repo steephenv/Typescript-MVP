@@ -13,5 +13,12 @@ export const listUsersValidation: RequestHandler = (req, res, next) => {
       return next(new RequestError(RequestErrorType.UNPROCESSABLE_ENTITY, err));
     }
   }
+  if (req.query.role) {
+    try {
+      req.query.role = { $in: JSON.parse(req.query.role) };
+    } catch (err) {
+      return next(new RequestError(RequestErrorType.UNPROCESSABLE_ENTITY, err));
+    }
+  }
   next();
 };
