@@ -51,8 +51,13 @@ export { AppEmailTemplates, EmailTemplates, EmailSignatures };
 // sendEmail({
 //   toAddresses: ['lakshmipriya.m@cubettech.com'],
 //   subject: 'Test Email markup - ' + new Date(),
-//   template: EmailTemplates.INTERVIEW_SCHEDULED,
-//   fields: { code: 5474 },
+//   template: EmailTemplates.ROLE_REJECT,
+//   fields: {
+//     user: 'fdhgs',
+//     role: 'sdfsd',
+//     loginUrl: 'fsdsdfg',
+//     homeUrl: 'dsgfdsgd',
+//   },
 // })
 //   .then(data => {
 //     console.log('mailed', data); // tslint:disable-line

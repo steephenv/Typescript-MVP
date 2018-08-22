@@ -60,11 +60,18 @@
                                     </tr>
                                     <tr>
                                         <td style="background-color:#FFF; padding:30px 0 5px 0; border-bottom: solid 1px #ccc;" align="left" valign="top">
-                                            <h4 style="font:normal 15px/26px Roboto, sans-serif;color: #000; margin: 5px;">Sorry <%= user%>, You are rejected for <%= role%>.
+                                            <h4 style="font:normal 15px/26px Roboto, sans-serif;color: #000; margin: 5px;">Sorry <%= user%>, Your application for <%= role%>
+                                            is rejected. 
+                                            Reason : <%= comment%>.
                                             Do you want to continue as a user ?
-                                            <a href=<%= loginUrl%> >Yes</a>
-                                            <a href=<%= homeUrl%> >No</a>
+                                            
                                             </h4>
+                                            <div style="width:100%; text-align:center; margin: 15px 0;">
+                                            <a href=<%= loginUrl%> style="background:  #000; color:  #fff; padding: 6px 16px; display: inline-block; border-radius:  5px; text-decoration:  none; margin: 0 7px; 
+     font-size: 15px;"> Yes</a>
+                                            <a href=<%= homeUrl%> style="background:  #ccc; color: #000; padding: 6px 16px; display: inline-block; border-radius:  5px; text-decoration:  none; margin: 0 7px; 
+     font-size: 15px;"> No</a>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
