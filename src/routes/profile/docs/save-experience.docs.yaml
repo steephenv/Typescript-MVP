@@ -41,10 +41,6 @@
                         type: string
                         required: true
                         example: '2018-Jan'
-                    jobTitle: 
-                        type: string
-                        required: true
-                        example: Manager
                     businessFunction:
                         type: string
                         required: true
@@ -90,20 +86,7 @@
                         required: true
                         example: 200
                     managementType: 
-                        type: object
-                        properties:
-                            disciplinaryManager:
-                                type: string
-                                example: Nill
-                            functionalSupervisor:
-                                type: string
-                                example: Nill 
-                            coach: 
-                                type: boolean
-                                example: true
-                            none: 
-                                type: boolean
-                                example: true
+                        type: string
           projects:
             type: array
             items:
@@ -120,10 +103,6 @@
                         type: string
                         required: true
                         example: '2019'
-                    projectName:
-                        type: string
-                        required: true
-                        example: Miwago
                     clientsCompanyName:
                         type: string
                         required: true

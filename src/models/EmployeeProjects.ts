@@ -29,9 +29,6 @@ const projectsSchema = new Schema({
   engagementTo: {
     type: String,
   },
-  projectName: {
-    type: String,
-  },
   clientsCompanyName: {
     type: String,
   },
