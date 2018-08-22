@@ -6,6 +6,7 @@ import { Favorites } from '../../models/Favorites';
 
 import { escapeRegex } from '../../utils/escape-regex';
 
+import '../../models/User';
 import {
   RequestError,
   RequestErrorType,
@@ -84,6 +85,7 @@ async function normalFind(query: any, limit: number, skip: number) {
   }
 
   const assetsPromise = Assets.find(query)
+    .populate('userId', 'firstName lastName')
     .skip(skip)
     .limit(limit)
     .lean()
@@ -120,6 +122,7 @@ async function regexKeySearch(reqQuery: any, limit: number, skip: number) {
   );
 
   const assetsPromise = Assets.find(condition)
+    .populate('userId', 'firstName lastName')
     .skip(skip)
     .limit(limit)
     .lean()
