@@ -61,15 +61,12 @@ const personalDetailsSchema = new Schema({
   zipCode: {
     type: String,
   },
-  houseNo: {
-    type: String,
-  },
-  countryDialingCode: {
-    type: Number,
-  },
-  cityDialingCode: {
-    type: Number,
-  },
+  // countryDialingCode: {
+  //   type: Number,
+  // },
+  // cityDialingCode: {
+  //   type: Number,
+  // },
   fixedLinePhone: {
     type: String,
   },
