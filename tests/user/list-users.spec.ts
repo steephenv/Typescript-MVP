@@ -67,4 +67,26 @@ describe('List users api', () => {
         throw err;
       });
   });
+
+  it('profile data verified check', done => {
+    got(
+      'http://localhost:7000/v1/auth/list-users?role=["Employee", "Consultant"]&profileDataVerified=true',
+      {
+        method: 'GET',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          Authorization: `Bearer ${token}`,
+        },
+        // json: true,
+        // body: {
+        //   email: 'loki@marvel.com',
+        //   url: 'http://fasdfasd.com/token={token}',
+        // },
+      },
+    )
+      .then(() => done())
+      .catch(err => {
+        throw err;
+      });
+  });
 });
