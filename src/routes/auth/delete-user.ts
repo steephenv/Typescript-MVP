@@ -14,8 +14,11 @@ export const deleteUser: RequestHandler = async (req, res, next) => {
     const userFound = await User.findOne(req.query.condition)
       .lean()
       .exec();
-
-    const tempRemove = TempUser.remove({ email: userFound.email }).exec();
+    let newEmail = '';
+    if (userFound) {
+      newEmail = userFound.email;
+    }
+    const tempRemove = TempUser.remove({ email: newEmail }).exec();
     const userRemove = User.remove(req.query.condition).exec();
     await BluePromise.all([tempRemove, userRemove]);
     return res.status(200).send({ success: true });
