@@ -25,44 +25,42 @@ export const saveProjectRequest: RequestHandler = async (req, res, next) => {
       { new: true },
     ).exec();
 
-    if (!requestDetails) {
-      return;
-    }
+    if (requestDetails) {
+      if (requestDetails.status === 'Request') {
+        // const userIds = await getMatchingResult(
+        //   { startTime: new Date(), endTime: new Date() },
+        //   3,
+        // );
 
-    if (requestDetails.status === 'Request') {
-      // const userIds = await getMatchingResult(
-      //   { startTime: new Date(), endTime: new Date() },
-      //   3,
-      // );
+        // if (!userIds.length) {
+        //   return;
+        // }
 
-      // if (!userIds.length) {
-      //   return;
-      // }
+        const cIds = await User.find({ role: 'Consultant' })
+          .distinct('_id')
+          .exec();
 
-      const cIds = await User.find({ role: 'Consultant' })
-        .distinct('_id')
-        .exec();
+        const userMailIds = await User.find({ role: 'Consultant' })
+          .distinct('email')
+          .exec();
 
-      const userMailIds = await User.find({ role: 'Consultant' })
-        .distinct('email')
-        .exec();
+        const requestUpdate = ProjectRequest.findOneAndUpdate(
+          { _id: req.body._id },
+          { $set: { consultantIds: cIds } },
+          { new: true },
+        ).exec();
 
-      const requestUpdate = ProjectRequest.findOneAndUpdate(
-        { _id: req.body._id },
-        { $set: { consultantIds: cIds } },
-        { new: true },
-      ).exec();
+        const mailOptions: any = {
+          toAddresses: userMailIds,
+          template: EmailTemplates.PROJECT_REQUEST_EMAIL,
+          fromName: 'Miwago Team',
+          subject: `New Project Request`,
+        };
 
-      const mailOptions: any = {
-        toAddresses: userMailIds,
-        template: EmailTemplates.PROJECT_REQUEST_EMAIL,
-        fromName: 'Miwago Team',
-        subject: `New Project Request`,
-      };
+        const mailSend = sendEmail(mailOptions);
 
-      const mailSend = sendEmail(mailOptions);
-
-      await BluePromise.all([requestUpdate, mailSend]);
+        await BluePromise.all([requestUpdate, mailSend]);
+      }
     }
     return res.status(200).send({ success: true });
   } catch (err) {
