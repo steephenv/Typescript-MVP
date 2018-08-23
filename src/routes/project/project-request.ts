@@ -1,5 +1,6 @@
 import { ProjectRequest } from '../../models/ProjectRequest';
 import { RequestHandler } from 'express';
+import { Promise as BluePromise } from 'bluebird';
 
 import {
   RequestError,
@@ -38,9 +39,19 @@ export const saveProjectRequest: RequestHandler = async (req, res, next) => {
       //   return;
       // }
 
+      const cIds = await User.find({ role: 'Consultant' })
+        .distinct('_id')
+        .exec();
+
       const userMailIds = await User.find({ role: 'Consultant' })
         .distinct('email')
         .exec();
+
+      const requestUpdate = ProjectRequest.findOneAndUpdate(
+        { _id: req.body._id },
+        { $set: { consultantIds: cIds } },
+        { new: true },
+      ).exec();
 
       const mailOptions: any = {
         toAddresses: userMailIds,
@@ -49,7 +60,9 @@ export const saveProjectRequest: RequestHandler = async (req, res, next) => {
         subject: `New Project Request`,
       };
 
-      await sendEmail(mailOptions);
+      const mailSend = sendEmail(mailOptions);
+
+      await BluePromise.all([requestUpdate, mailSend]);
     }
     return res.status(200).send({ success: true });
   } catch (err) {

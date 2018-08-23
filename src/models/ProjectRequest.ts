@@ -12,6 +12,12 @@ const projectRequestSchema = new Schema({
     ref: 'Project',
     required: true,
   },
+  consultantIds: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
   updatedAt: {
     type: Date,
   },
