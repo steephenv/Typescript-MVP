@@ -36,6 +36,7 @@ export const project = express.Router();
 
 project.get('/delete-project', deleteProjectById);
 project.get('/view-project', getProjectById);
+project.post('/share-project', shareProject);
 project.post('/update-project', updateProject);
 project.post('/filter-project', filterProject);
 project.post('/save-project-request', projectRequestRule, saveProjectRequest);
@@ -75,7 +76,7 @@ project.post(
   createSubCatValidationChain,
   createProjectSubCategory,
 );
-project.post('/share-project', shareProjectRule, shareProject);
+project.post('/share-project', shareProject);
 
 project.get('/list-all-categories', listProjectCategories);
 

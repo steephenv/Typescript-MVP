@@ -2,7 +2,11 @@ import { RequestHandler } from 'express';
 import { Share } from '../../models/share';
 
 import { messages } from '../../config/app/messages';
+import * as shortId from 'shortid';
+import { Promise as BluePromise } from 'bluebird';
+import { User } from '../../models/User';
 
+import { EmailTemplates, sendEmail } from '../../email/send-email';
 import {
   RequestError,
   RequestErrorType,
@@ -18,27 +22,23 @@ export const shareProject: RequestHandler = async (req, res, next) => {
     const sharedData = new Share(req.body);
 
     await sharedData.save();
-    // const msg: any = {
-    //   to: req.body.sharedTo,
-    //   from: 'miwago@cubettech.com',
-    //   subject: 'Project Link',
-    //   text: 'Link to shared project',
-    //   html: '<p></p>',
-    //   // templateId: sendGTemplates.confirmRegistration,
-    //   substitutionWrappers: ['%', '%'],
-    //   substitutions: {
-    //     URL: req.body.sharedLink,
-    //   },
-    // };
+    const mailOptions = {
+      toAddresses: [req.body.sharedTo],
+      template: EmailTemplates.SHARE_PROJECT,
+      fromName: 'Miwago Team',
+      subject: `Share Project Link`,
+      fields: {
+        url: req.body.sharedLink,
+      },
+    };
 
-    // await sgMail.send(msg);
+    await sendEmail(mailOptions);
 
     return res.status(201).send({
       success: true,
       msg: messages.emailSent.ENG,
     });
-    // return res.status(200).send({ success: true });
   } catch (err) {
-    return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
+    return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR));
   }
 };

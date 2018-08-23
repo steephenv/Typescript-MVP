@@ -29,4 +29,8 @@ export class EmailTemplates {
   public static INTERVIEW_SCHEDULED = readFileSync(
     pathJoin(__dirname, 'interview-scheduled.ejs'),
   ).toString();
+
+  public static SHARE_PROJECT = readFileSync(
+    pathJoin(__dirname, 'share-project.ejs'),
+  ).toString();
 }
