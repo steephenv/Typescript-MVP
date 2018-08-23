@@ -29,9 +29,6 @@ const projectsSchema = new Schema({
   engagementTo: {
     type: String,
   },
-  projectName: {
-    type: String,
-  },
   clientsCompanyName: {
     type: String,
   },
@@ -51,6 +48,9 @@ const projectsSchema = new Schema({
     type: String,
   },
   businessFunction: {
+    type: String,
+  },
+  projectName: {
     type: String,
   },
   projectGoal: {

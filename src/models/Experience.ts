@@ -21,6 +21,9 @@ const experienceSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
+  jobTitle: {
+    type: String,
+  },
   typeOfEngagement: {
     type: String,
   },
@@ -28,9 +31,6 @@ const experienceSchema = new Schema({
     type: String,
   },
   durationTo: {
-    type: String,
-  },
-  jobTitle: {
     type: String,
   },
   businessFunction: {
@@ -70,12 +70,7 @@ const experienceSchema = new Schema({
     type: Number,
   },
   managementType: {
-    type: {
-      disciplinaryManager: String,
-      functionalSupervisor: String,
-      coach: Boolean,
-      none: Boolean,
-    },
+    type: String,
   },
 });
 
