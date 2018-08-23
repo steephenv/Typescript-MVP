@@ -2,10 +2,6 @@ import { RequestHandler } from 'express';
 import { Share } from '../../models/share';
 
 import { messages } from '../../config/app/messages';
-import * as shortId from 'shortid';
-import { Promise as BluePromise } from 'bluebird';
-import { User } from '../../models/User';
-
 import { EmailTemplates, sendEmail } from '../../email/send-email';
 import {
   RequestError,
