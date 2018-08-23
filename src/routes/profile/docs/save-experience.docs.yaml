@@ -45,6 +45,10 @@
                         type: string
                         required: true
                         example: Ethical
+                    jobTitle:
+                        type: string
+                        required: true
+                        example: dsgfd    
                     companyName:
                         type: string
                         required: true
@@ -131,6 +135,10 @@
                         type: string
                         required: true
                         example: hHH
+                    projectName:
+                        type: string
+                        required: true
+                        example: sdfgsd    
                     projectGoal:
                         type: string
                         required: true

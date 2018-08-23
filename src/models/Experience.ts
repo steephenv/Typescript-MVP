@@ -21,6 +21,9 @@ const experienceSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
+  jobTitle: {
+    type: String,
+  },
   typeOfEngagement: {
     type: String,
   },

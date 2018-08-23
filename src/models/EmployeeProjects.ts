@@ -50,6 +50,9 @@ const projectsSchema = new Schema({
   businessFunction: {
     type: String,
   },
+  projectName: {
+    type: String,
+  },
   projectGoal: {
     type: String,
   },
