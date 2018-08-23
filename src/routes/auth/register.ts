@@ -71,6 +71,21 @@ export const directRegistration: RequestHandler = async (req, res, next) => {
     req.body.appliedRole = req.body.role;
     const newUser: any = new User(req.body);
     await newUser.save();
+
+    const mailOptions = {
+      toAddresses: [req.body.email],
+      template: EmailTemplates.CLIENT_REG_EMAIL,
+      fromName: 'Miwago Team',
+      subject: `Registered Successfully`,
+      fields: {
+        user: req.body.firstName + ' ' + req.body.lastName,
+        email: req.body.email,
+        password: req.body.password,
+        url: req.body.url,
+      },
+    };
+
+    await sendEmail(mailOptions);
     return res.status(201).send({ success: true });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR));
