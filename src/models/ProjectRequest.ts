@@ -12,6 +12,10 @@ const projectRequestSchema = new Schema({
     ref: 'Project',
     required: true,
   },
+  formType: {
+    type: String,
+    enum: ['tab1', 'tab2', 'tab3'],
+  },
   updatedAt: {
     type: Date,
   },
