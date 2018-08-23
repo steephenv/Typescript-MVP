@@ -56,7 +56,7 @@ export const saveRole: RequestHandler = async (req, res, next) => {
         {
           $set: {
             interviewStatus: 'Failed',
-            appliedRole: '',
+            appliedRole: 'User',
             role: 'User',
           },
         },
