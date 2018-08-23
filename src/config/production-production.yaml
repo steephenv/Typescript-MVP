@@ -8,4 +8,4 @@ app:
   docs: false
 
 database:
-  url: 'mongodb://miwago_user:NBGVJHgjhg67uhgvjuuy5hjnv98jkhbBGbkjbhfgjhbkmjhb76hjv98bkjbnjmn@185.148.147.8:27018/miwago_db'
+  url: 'mongodb://capricorns-db-user:Capricorns-DB-pwd-56%24@capricons-cl1-shard-00-00-jngps.mongodb.net:27017,capricons-cl1-shard-00-01-jngps.mongodb.net:27017,capricons-cl1-shard-00-02-jngps.mongodb.net:27017/miwago_db?authSource=admin&replicaSet=Capricons-CL1-shard-0&ssl=true'
