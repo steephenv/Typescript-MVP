@@ -35,7 +35,7 @@ describe('Test for saving project request data ', () => {
       },
       json: true,
       body: {
-        formType: 'keyParams',
+        formType: 'tab1',
         status: 'Draft',
         _id: '5b6ab43cde77746596b2f9a8',
         templateType: 'SkillBased',
