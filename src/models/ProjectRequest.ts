@@ -16,6 +16,12 @@ const projectRequestSchema = new Schema({
     type: String,
     enum: ['tab1', 'tab2', 'tab3'],
   },
+  consultantIds: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
   updatedAt: {
     type: Date,
   },
@@ -29,6 +35,11 @@ const projectRequestSchema = new Schema({
   templateType: {
     type: String,
     enum: ['SkillBased', 'DeliverableBased', 'ReadyToUse'],
+  },
+  submittedSections: {
+    tab1: Boolean,
+    tab2: Boolean,
+    tab3: Boolean,
   },
   stakeHolders: [
     {
@@ -71,10 +82,10 @@ const projectRequestSchema = new Schema({
     type: String,
   },
   targetStart: {
-    type: String,
+    type: Date,
   },
   expectedEnd: {
-    type: String,
+    type: Date,
   },
   mainLocation: {
     type: String,

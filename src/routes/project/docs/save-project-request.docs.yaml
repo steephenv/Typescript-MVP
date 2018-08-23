@@ -75,9 +75,9 @@
           desiredFutureSituation:
             type: string
           targetStart:
-            type: string
+            type: date
           expectedEnd:
-            type: string
+            type: date
           mainLocation:
             type: string
           additionalLocations:

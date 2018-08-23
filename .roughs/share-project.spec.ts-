@@ -16,7 +16,7 @@ beforeAll(done => {
     })
     .expect(200)
     .end((err, res) => {
-      if (err) {
+      if (err) {ccc
         throw err;
       }
       newUserId = res.body.data._id;
