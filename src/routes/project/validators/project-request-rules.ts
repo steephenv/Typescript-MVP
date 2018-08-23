@@ -83,7 +83,7 @@ export const projectRequestRule: RequestHandler = (req, res, next) => {
       msg: 'Invalid formType',
     });
   }
-  if (req.body.formType === 'keyParams') {
+  if (req.body.formType === 'tab1') {
     Joi.validate(
       req.body,
       ProjectRequestSchema,
@@ -101,7 +101,7 @@ export const projectRequestRule: RequestHandler = (req, res, next) => {
         return next();
       },
     );
-  } else if (req.body.formType === 'projectEnvironment') {
+  } else if (req.body.formType === 'tab2') {
     Joi.validate(
       req.body,
       ProjectEnvironmentSchema,
@@ -118,7 +118,7 @@ export const projectRequestRule: RequestHandler = (req, res, next) => {
         return next();
       },
     );
-  } else if (req.body.formType === 'projectSupportNeed') {
+  } else if (req.body.formType === 'tab3') {
     Joi.validate(
       req.body,
       ProjectSupportNeedSchema,

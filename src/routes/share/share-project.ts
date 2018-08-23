@@ -24,7 +24,7 @@ export const shareProject: RequestHandler = async (req, res, next) => {
       fromName: 'Miwago Team',
       subject: `Share Project Link`,
       fields: {
-        url: req.body.sharedLink,
+        urls: req.body.sharedLink,
       },
     };
 
