@@ -26,6 +26,11 @@ const projectRequestSchema = new Schema({
     type: String,
     enum: ['SkillBased', 'DeliverableBased', 'ReadyToUse'],
   },
+  submittedSections: {
+    tab1: Boolean,
+    tab2: Boolean,
+    tab3: Boolean,
+  },
   stakeHolders: [
     {
       stakeHolder: {
@@ -67,10 +72,10 @@ const projectRequestSchema = new Schema({
     type: String,
   },
   targetStart: {
-    type: String,
+    type: Date,
   },
   expectedEnd: {
-    type: String,
+    type: Date,
   },
   mainLocation: {
     type: String,
