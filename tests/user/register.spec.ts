@@ -211,6 +211,7 @@ describe('Test for signup functionality  ===> ', () => {
           confirmPassword: 'iamIron',
           role: 'Client',
           isDirectRegistration: true,
+          url: 'dsfs',
           callTime: new Date(),
           companyName: 'Stark Industries',
           mobile: '1234567890',

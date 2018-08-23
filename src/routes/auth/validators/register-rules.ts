@@ -35,10 +35,7 @@ const RegSchema = Joi.object().keys({
     is: true,
     then: Joi.required(),
   }),
-  url: Joi.string().when('isDirectRegistration', {
-    is: false,
-    then: Joi.required(),
-  }),
+  url: Joi.string().required(),
 });
 
 export const registerValidation: RequestHandler = (req, res, next) => {
