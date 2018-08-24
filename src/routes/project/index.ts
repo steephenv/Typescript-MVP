@@ -31,6 +31,8 @@ import { getProjectById } from '../project/delete-view-project';
 import { deleteProjectById } from '../project/delete-view-project';
 import { updateProject } from '../project/save-project';
 import { shareProject } from '../share/share-project';
+import { saveProjectDraft } from '../project/add-project-draft';
+import { saveProjectDraftRule } from '../project/validators/project-draft-rule';
 
 export const project = express.Router();
 
@@ -81,3 +83,4 @@ project.post('/share-project', shareProject);
 project.get('/list-all-categories', listProjectCategories);
 
 project.post('/delete-category', deleteProjectCategoryRules, deleteCategory);
+project.post('/save-project-draft', saveProjectDraftRule, saveProjectDraft);
