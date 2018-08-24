@@ -20,7 +20,12 @@ export const saveProjectDraft: RequestHandler = async (req, res, next) => {
         ),
       );
     } else {
-      const newData: any = new ProjectRequest(req.body);
+      const newData: any = new ProjectRequest({
+        userId: res.locals.user.userId,
+        projectId: req.body.projectId,
+        templateType: req.body.templateType,
+        status: req.body.status,
+      });
       await newData.save();
     }
     return res.status(201).send({ success: true });
