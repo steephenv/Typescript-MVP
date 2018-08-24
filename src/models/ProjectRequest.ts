@@ -224,6 +224,9 @@ const projectRequestSchema = new Schema({
   proposalSelectionBasedOn: {
     type: String,
   },
+  bestFitNo: {
+    type: Number,
+  },
 });
 
 export const ProjectRequest = mongooseModel(
