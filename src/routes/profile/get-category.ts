@@ -10,6 +10,7 @@ import {
 export const getCategory: RequestHandler = async (req, res, next) => {
   try {
     const cats = await SkillCategory.find({
+      isDelete: false,
       cluster: req.query.cluster,
     }).exec();
     return res.status(200).send({
