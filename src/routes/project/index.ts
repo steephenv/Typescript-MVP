@@ -83,4 +83,4 @@ project.post('/share-project', shareProject);
 project.get('/list-all-categories', listProjectCategories);
 
 project.post('/delete-category', deleteProjectCategoryRules, deleteCategory);
-project.post('/save-project-draft', saveProjectDraftRule, saveProjectDraft);
+project.post('/save-project-draft', saveProjectDraft);
