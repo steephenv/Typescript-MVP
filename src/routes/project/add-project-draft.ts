@@ -3,7 +3,6 @@ import {
   RequestError,
   RequestErrorType,
 } from '../../error-handler/RequestError';
-import { Promise as BluePromise } from 'bluebird';
 
 import { ProjectRequest } from '../../models/ProjectRequest';
 
@@ -22,7 +21,7 @@ export const saveProjectDraft: RequestHandler = async (req, res, next) => {
       );
     } else {
       const newData: any = new ProjectRequest(req.body);
-      const saved = await newData.save();
+      await newData.save();
     }
     return res.status(201).send({ success: true });
   } catch (err) {
