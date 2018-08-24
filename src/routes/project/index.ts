@@ -32,7 +32,7 @@ import { deleteProjectById } from '../project/delete-view-project';
 import { updateProject } from '../project/save-project';
 import { shareProject } from '../share/share-project';
 import { saveProjectDraft } from '../project/add-project-draft';
-import { saveProjectDraftRule } from '../project/validators/project-draft-rule';
+// import { saveProjectDraftRule } from '../project/validators/project-draft-rule';
 
 export const project = express.Router();
 
