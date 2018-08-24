@@ -64,6 +64,7 @@ export const updateSkillCategory: RequestHandler = async (req, res, next) => {
       _id: { $ne: req.body._id },
       category: req.body.category,
       cluster: req.body.cluster,
+      isDelete: false,
     }).exec();
     if (exsCategory.length) {
       return next(
