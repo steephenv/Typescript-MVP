@@ -33,6 +33,7 @@ export const saveSkillCategory: RequestHandler = async (req, res, next) => {
     const exsCategory = await SkillCategory.find({
       category: req.body.category,
       cluster: req.body.cluster,
+      isDelete: false,
     }).exec();
     if (exsCategory.length) {
       return next(
