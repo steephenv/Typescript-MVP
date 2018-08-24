@@ -14,6 +14,8 @@ import { User } from '../../models/User';
 
 export const saveProjectRequest: RequestHandler = async (req, res, next) => {
   try {
+    const consNo = await User.count({ role: 'Consultant' }).exec();
+    req.body.bestFitNo = consNo;
     req.body.userId = req.query.userId
       ? req.query.userId
       : res.locals.user.userId;
@@ -62,7 +64,7 @@ export const saveProjectRequest: RequestHandler = async (req, res, next) => {
         await BluePromise.all([requestUpdate, mailSend]);
       }
     }
-    return res.status(200).send({ success: true });
+    return res.status(200).send({ success: true, bestFitNo: consNo });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }
