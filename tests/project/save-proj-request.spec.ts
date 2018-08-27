@@ -26,7 +26,7 @@ beforeAll(done => {
 });
 
 describe('Test for saving project request data ', () => {
-  test('Saving project request details api with template 2', done => {
+  test('Saving project request details api with template 2 -1', done => {
     got(`http://localhost:7000/v1/project/save-project-request`, {
       method: 'POST',
       headers: {

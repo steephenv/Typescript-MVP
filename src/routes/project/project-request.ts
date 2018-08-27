@@ -7,7 +7,7 @@ import {
   RequestErrorType,
 } from '../../error-handler/RequestError';
 
-// import { getMatchingResult } from '../../utils/matching-system/index';
+import { getMatchingResult } from '../../utils/matching-system';
 import { EmailTemplates, sendEmail } from '../../email/send-email';
 
 import { User } from '../../models/User';
@@ -24,31 +24,33 @@ export const saveProjectRequest: RequestHandler = async (req, res, next) => {
     const requestDetails: any = await ProjectRequest.findOneAndUpdate(
       { _id: req.body._id },
       { $set: req.body },
-      { new: true },
+      { upsert: true, new: true },
     ).exec();
 
     if (requestDetails) {
       if (requestDetails.status === 'Request') {
-        // const userIds = await getMatchingResult(
-        //   { startTime: new Date(), endTime: new Date() },
-        //   3,
-        // );
+        const userIds = await getMatchingResult(
+          { startTime: new Date(), endTime: new Date() },
+          3,
+        );
 
-        // if (!userIds.length) {
-        //   return;
-        // }
+        console.log('userId::', userIds); // tslint:disable-line
 
-        const cIds = await User.find({ role: 'Consultant' })
-          .distinct('_id')
-          .exec();
+        if (!userIds.length) {
+          return;
+        }
 
-        const userMailIds = await User.find({ role: 'Consultant' })
+        // const cIds = await User.find({ role: 'Consultant' })
+        //   .distinct('_id')
+        //   .exec();
+
+        const userMailIds = await User.find({ _id: { $in: userIds } })
           .distinct('email')
           .exec();
 
         const requestUpdate = ProjectRequest.findOneAndUpdate(
           { _id: req.body._id },
-          { $set: { consultantIds: cIds } },
+          { $set: { consultantIds: userIds } },
           { new: true },
         ).exec();
 

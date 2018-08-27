@@ -21,7 +21,9 @@ export async function getMatchingResult(
       Math.max(...correspondingMarks),
     );
 
-    selectedUsers.push(shortListedUserIds[maxIndex]);
+    if (shortListedUserIds[maxIndex]) {
+      selectedUsers.push(shortListedUserIds[maxIndex]);
+    }
 
     // remove those entries from both arrays
     shortListedUserIds.splice(maxIndex, 1);
