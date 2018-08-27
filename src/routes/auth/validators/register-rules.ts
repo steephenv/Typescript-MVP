@@ -43,7 +43,7 @@ export const registerValidation: RequestHandler = (req, res, next) => {
     req.body,
     RegSchema,
     { stripUnknown: true },
-    (err: any, value: any) => {
+    async (err: any, value: any) => {
       // lme.e(err);
       if (err) {
         return res.status(422).send({
@@ -52,7 +52,8 @@ export const registerValidation: RequestHandler = (req, res, next) => {
         });
       }
       if (req.body.appliedRole === 'Client') {
-        if (!isBusinessEmail(req.body.email)) {
+        const bEmail = await isBusinessEmail(req.body.email);
+        if (!bEmail) {
           return res.status(422).send({
             success: false,
             msg: messages.NotBsnsEmail.ENG,
