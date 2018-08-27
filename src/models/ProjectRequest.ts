@@ -214,14 +214,14 @@ const projectRequestSchema = new Schema({
       expectedDueDateOfDeliverable: {
         type: String,
       },
-      expectedTotalPriceForValue: {
-        type: Number,
-      },
-      expectedPricePerDeliverable: {
-        type: Number,
-      },
     },
   ],
+  expectedTotalPriceForValue: {
+    type: Number,
+  },
+  expectedPricePerDeliverable: {
+    type: Number,
+  },
   travelExpPercentageOfTotalPriceForValue: {
     type: String,
   },
