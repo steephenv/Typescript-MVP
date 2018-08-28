@@ -12,7 +12,7 @@ export const querySchema = `collection(name: String!): Collection`;
 export const otherSchema = `
 type Collection {
   collectionName: String
-  fetch(query: Object, attachments:[String], limit:Int, skip:Int): Object
+  fetch(query: Object, attachments:[String], fields: String, limit:Int, skip:Int): Object
   count(query: Object): Int
   create(content: Object!): Object
   update(condition: Object!, content: Object!, options: Object): Object
@@ -125,11 +125,13 @@ class Collection {
   public async fetch({
     query = {},
     attachments = [],
+    fields = '',
     limit = 50,
     skip = 0,
   }: {
     query: string | { [key: string]: any };
     attachments: string[];
+    fields: string;
     limit: number;
     skip: number;
   }) {
@@ -145,10 +147,10 @@ class Collection {
 
       if (attachments) {
         attachments.forEach(attachment => {
-          prepareResult.populate(attachment);
+          prepareResult.populate(attachment, fields);
         });
       }
-
+      // console.log(',,,,,,,,,,,,,,,,,,,,', typeof fields, fields);
       prepareResult = prepareResult
         .limit(limit)
         .skip(skip)
