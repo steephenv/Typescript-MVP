@@ -2,7 +2,7 @@
 
 import * as bcrypt from 'bcrypt';
 import { model as mongooseModel, Schema } from 'mongoose';
-import { Project } from './Project';
+import './Project';
 
 const userSchema = new Schema({
   firstName: {
@@ -74,7 +74,7 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
-  recentlyViewed: [{ type: Schema.Types.ObjectId, ref: Project }],
+  recentlyViewed: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
 });
 
 // type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void;
