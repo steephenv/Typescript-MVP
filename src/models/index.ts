@@ -28,6 +28,7 @@ import { Wlb } from './WLB';
 import { Favorites } from './Favorites';
 import { Draft } from './Draft';
 import { ProjectRequest } from './ProjectRequest';
+import { User } from './User';
 
 export const Models: { [key: string]: typeof AppData } = {
   Favorites,
@@ -59,4 +60,5 @@ export const Models: { [key: string]: typeof AppData } = {
   TimeSlot,
   Wlb,
   ProjectRequest,
+  User,
 };
