@@ -2,7 +2,7 @@
 
 import * as bcrypt from 'bcrypt';
 import { model as mongooseModel, Schema } from 'mongoose';
-import { Project } from './Project';
+import './Project';
 
 const userSchema = new Schema({
   firstName: {
