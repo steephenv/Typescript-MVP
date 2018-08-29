@@ -13,6 +13,8 @@ export const listBusinessFns: RequestHandler = async (req, res, next) => {
   try {
     const limit = req.query._limit || 50;
     const skip = req.query._skip || 0;
+    delete req.query._limit;
+    delete req.query._skip;
 
     // quick validation
     if (isNaN(limit) || isNaN(skip)) {
