@@ -192,30 +192,34 @@ const projectRequestSchema = new Schema({
     type: Date,
   },
   // Need for Project support ......
-  noOfExpectedDeliverables: {
-    type: String,
-  },
-  nameOfDeliverables: {
-    type: String,
-  },
-  typeOfDeliverables: {
-    type: String,
-  },
-  languageOfDeliverable: {
-    type: String,
-  },
-  briefDescriptionOfDeliverable: {
-    type: String,
-  },
-  expectedValueAddOfDeliverable: {
-    type: String,
-  },
-  expectedQualityOfDeliverable: {
-    type: String,
-  },
-  expectedDueDateOfDeliverable: {
-    type: String,
-  },
+  deliverables: [
+    {
+      noOfExpectedDeliverables: {
+        type: String,
+      },
+      nameOfDeliverables: {
+        type: String,
+      },
+      typeOfDeliverables: {
+        type: String,
+      },
+      languageOfDeliverable: {
+        type: String,
+      },
+      briefDescriptionOfDeliverable: {
+        type: String,
+      },
+      expectedValueAddOfDeliverable: {
+        type: String,
+      },
+      expectedQualityOfDeliverable: {
+        type: String,
+      },
+      expectedDueDateOfDeliverable: {
+        type: String,
+      },
+    },
+  ],
   expectedTotalPriceForValue: {
     type: Number,
   },
