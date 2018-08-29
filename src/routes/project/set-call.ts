@@ -18,6 +18,12 @@ export const setCall: RequestHandler = async (req, res, next) => {
       .lean()
       .exec();
     // console.log('userDetails', userDetails);
+    if (!userDetails) {
+      return res.status(200).send({
+        status: 'no user found',
+      });
+    }
+
     const mailOptions = {
       toAddresses: [user.email],
       template: EmailTemplates.SET_CALL,
