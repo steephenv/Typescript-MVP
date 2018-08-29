@@ -14,7 +14,7 @@ export const listAllSkillCategories: RequestHandler = async (
   next,
 ) => {
   try {
-    const { _limit, _skip } = req.query;
+    const { _limit = 50, _skip = 0 } = req.query;
     delete req.query._limit;
     delete req.query._skip;
 
