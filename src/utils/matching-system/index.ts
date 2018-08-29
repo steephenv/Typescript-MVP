@@ -11,6 +11,9 @@ export async function getMatchingResult(
   const shortListedUserIds = await shortList(params, shortListSize);
   const correspondingMarks = await getMarks(params, shortListedUserIds);
 
+  // console.log('> shortListedUserIds:', shortListedUserIds);
+  // console.log('> correspondingMarks:', correspondingMarks);
+
   const selectedUsers: string[] = [];
   let i = 0;
 
@@ -21,12 +24,15 @@ export async function getMatchingResult(
       Math.max(...correspondingMarks),
     );
 
-    selectedUsers.push(shortListedUserIds[maxIndex]);
+    if (shortListedUserIds[maxIndex]) {
+      selectedUsers.push(shortListedUserIds[maxIndex]);
+    }
 
     // remove those entries from both arrays
     shortListedUserIds.splice(maxIndex, 1);
     correspondingMarks.splice(maxIndex, 1);
   }
 
+  // console.log('> selectedUsers:', selectedUsers);
   return selectedUsers;
 }

@@ -1,4 +1,3 @@
-// import { InterviewAvailabilityCalender } from '../../../models/InterviewAvailabilityCalender';
 import { InterviewAvailabilityCalender } from './../../../models/InterviewAvailabilityCalender';
 import { Experience } from './../../../models/Experience';
 import { EmployeeProjects } from './../../../models/EmployeeProjects';
@@ -6,7 +5,8 @@ import { EmployeeProjects } from './../../../models/EmployeeProjects';
 import { IQueryParams } from './Query-params.interface';
 
 export async function firstQuery(params: IQueryParams) {
-  const availabilityResp = (await InterviewAvailabilityCalender.aggregate([
+  // console.log('> running f-q');
+  const availabilityRespRaw = await InterviewAvailabilityCalender.aggregate([
     {
       $match: {
         startTime: { $gte: params.startTime },
@@ -18,9 +18,14 @@ export async function firstQuery(params: IQueryParams) {
       $group: { _id: '$userId', length: { $sum: 1 } },
     },
     { $sort: { length: -1 } },
-    { $limit: 100, $skip: 0 },
+    { $limit: 100 },
+    { $skip: 0 },
     { $group: { _id: 'allIds', ids: { $push: '$_id' } } },
-  ]))[0].ids;
+  ]);
+
+  const availabilityResp = availabilityRespRaw[0]
+    ? availabilityRespRaw[0].ids
+    : [];
 
   const usersWithSameTopic = await EmployeeProjects.find({
     userId: { $in: availabilityResp },
@@ -32,9 +37,13 @@ export async function firstQuery(params: IQueryParams) {
     companyIndustryLine: params.industry,
   }).distinct('userId');
 
-  return {
+  const result = {
     // return set
     firstQResult: new Set(usersWithSameIndustry), // ['userId', ...]
     availabilityResp, // for using in next query
   };
+
+  // console.log('> f-q result', result);
+
+  return result;
 }

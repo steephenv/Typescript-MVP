@@ -3,4 +3,6 @@ export interface IQueryParams {
   endTime: Date;
   industry?: string;
   topic?: string;
+  clientName?: string;
+  skills?: string[];
 }

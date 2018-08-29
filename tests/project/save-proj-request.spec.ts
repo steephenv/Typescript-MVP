@@ -11,8 +11,8 @@ beforeAll(done => {
     },
     json: true,
     body: {
-      username: 'stark@marvel.com',
-      password: 'password',
+      username: 'miwagoclient1@yopmail.com',
+      password: '123456',
     },
   })
     .then(res => {
@@ -26,7 +26,7 @@ beforeAll(done => {
 });
 
 describe('Test for saving project request data ', () => {
-  test('Saving project request details api with template 2', done => {
+  test('Saving project request details api with template 2 -1', done => {
     got(`http://localhost:7000/v1/project/save-project-request`, {
       method: 'POST',
       headers: {
@@ -38,6 +38,7 @@ describe('Test for saving project request data ', () => {
         formType: 'tab1',
         status: 'Request',
         _id: '5b7d6431d0f39c5e9bf14d35',
+        projectId: '5b8621e1c3dae018580c93f7',
         templateType: 'SkillBased',
         currentStatus: 'sadsad',
         currentSituation: 'sdfdsf',
@@ -45,9 +46,10 @@ describe('Test for saving project request data ', () => {
         challenge: 'cbbxgcge',
         degreeOfChallenge: 'nxcdshgsa',
         goalValueAdd: 'ssdcvmnjas',
+        projectName: 'Iron Man Series',
         desiredFutureSituation: 'sdjhysgdew',
-        targetStart: new Date(),
-        expectedEnd: new Date('2018-09-27'),
+        targetStart: new Date('2018-09-02'),
+        expectedEnd: new Date('2018-09-06'),
         mainLocation: 'tehsdkvn',
         additionalLocations: 'nvsteddxsv',
         location2: 'AHDGBUYHASCV',
@@ -109,7 +111,7 @@ describe('Test for saving project request data ', () => {
             clientsIndustryExp: 'asfascv',
             clientsCompanyExp: 'xgvcssad',
             businessFunction: 'revstcjas',
-            functional: ['sdacmnk', 'skcn', 'scdgh'],
+            functional: ['Genius'],
             personal: ['chgsa', 'sgchy', 'sdckjhj'],
             leadership: ['ashcbvh', 'dvjhj', 'sdihsd'],
             entrepreneurship: ['hjsdgch', 'sadgsa', 'dshcgb'],

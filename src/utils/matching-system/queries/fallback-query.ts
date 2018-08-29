@@ -5,6 +5,8 @@ import { EmployeeProjects } from './../../../models/EmployeeProjects';
 import { IQueryParams } from './Query-params.interface';
 
 export async function fallbackQuery(params: IQueryParams) {
+  // console.log('> running fallback-q');
+
   // search extended to availabilityResp
   const usersWithSameTopicPromise = EmployeeProjects.find({
     topic: params.topic,
@@ -20,5 +22,7 @@ export async function fallbackQuery(params: IQueryParams) {
     usersWithSameIndustryPromise,
   ]);
 
-  return new Set([...usersWithSameTopic, ...usersWithSameIndustry]);
+  const result = new Set([...usersWithSameTopic, ...usersWithSameIndustry]);
+  // console.log('> running fallback-q', result);
+  return result;
 }
