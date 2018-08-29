@@ -14,13 +14,31 @@ export const listAllSkillCategories: RequestHandler = async (
   next,
 ) => {
   try {
+    const { _limit, _skip } = req.query;
+    delete req.query._limit;
+    delete req.query._skip;
+
+    if (isNaN(_limit) || isNaN(_skip)) {
+      return new RequestError(
+        RequestErrorType.UNPROCESSABLE_ENTITY,
+        'limit and skip should be numbers',
+      );
+    }
+
     const givenCluster = req.query.cluster ? req.query.cluster : '';
-    const cats = await SkillCategory.find({
+    const catsP = SkillCategory.find({
       isDelete: false,
       cluster: givenCluster,
     })
+      .limit(_limit)
+      .skip(_skip)
       .lean()
       .exec();
+
+    const countP = SkillCategory.count({}).exec();
+
+    const [cats, count] = await BluePromise.all([catsP, countP]);
+
     if (cats.length) {
       await BluePromise.map(cats, async (cat: any) => {
         const subCategories = await SkillSubCategory.find({
@@ -32,7 +50,10 @@ export const listAllSkillCategories: RequestHandler = async (
         cat.subCategories = subCategories;
       });
     }
-    return res.status(200).send({ success: true, skillCategories: cats });
+
+    return res
+      .status(200)
+      .send({ success: true, skillCategories: cats, count });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }

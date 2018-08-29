@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as multer from 'multer';
 import * as userHome from 'user-home';
+import * as queryIntParser from 'express-query-int';
 
 import { errValidator } from '../../error-handler/error-validator';
 
@@ -83,6 +84,12 @@ profile.post(
   deleteSkillCategoryRules,
   deleteSkillCategory,
 );
-profile.get('/list-all-skill-categories', listAllSkillCategories);
+
+profile.get(
+  '/list-all-skill-categories',
+  queryIntParser(),
+  listAllSkillCategories,
+);
+
 profile.get('/search-skills', searchSkills);
 profile.get('/gen-pdf', generatePdf);
