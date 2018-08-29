@@ -58,7 +58,7 @@ assets.post(
 assets.get('/sub-category', listSubCatRule, errValidator, listAssetSubCategory);
 
 // industries
-assets.get('/industries', listIndustries);
+assets.get('/industries', queryIntParser(), listIndustries);
 assets.post('/industries', createIndustryRule, errValidator, createIndustries);
 
 // business functions
