@@ -26,6 +26,10 @@ export class EmailTemplates {
     pathJoin(__dirname, 'user-role-reject.ejs'),
   ).toString();
 
+  public static SET_CALL = readFileSync(
+    pathJoin(__dirname, 'set-call-email.ejs'),
+  ).toString();
+
   public static INTERVIEW_SCHEDULED = readFileSync(
     pathJoin(__dirname, 'interview-scheduled.ejs'),
   ).toString();
