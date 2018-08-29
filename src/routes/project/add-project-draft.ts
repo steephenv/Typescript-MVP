@@ -23,6 +23,7 @@ export const saveProjectDraft: RequestHandler = async (req, res, next) => {
       const newData: any = new ProjectRequest({
         userId: res.locals.user.userId,
         projectId: req.body.projectId,
+        projectName: req.body.projectName,
         templateType: req.body.templateType,
         status: req.body.status,
       });
