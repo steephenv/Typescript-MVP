@@ -12,6 +12,17 @@
       in: header
       required: true
       default: XMLHttpRequest 
+      
+    - name: _limit
+      description: limit by number of records. **(default:50)**
+      type: number
+      in: query
+      example: 5
+    - name: _skip
+      description: number of records to skip **(default:0)**
+      type: number
+      in: query
+      example: 0
     responses:
       200:
         description: "successful attempt, returns `success message`"
