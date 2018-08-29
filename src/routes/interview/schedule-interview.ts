@@ -28,7 +28,7 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
         {
           interviewId: existingInterview._id,
         },
-        { $set: { booked: false, interviewId: null } },
+        { $set: { booked: false, interviewId: null, type: '' } },
       );
 
       existingInterview.interviewStatus = 'Cancelled';
@@ -60,6 +60,7 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
     const savedInterview = await newInterview.save();
 
     availableSlot.booked = true;
+    availableSlot.type = 'interview';
     availableSlot.interviewId = savedInterview._id;
     await availableSlot.save();
 

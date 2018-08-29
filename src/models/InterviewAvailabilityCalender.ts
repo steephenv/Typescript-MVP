@@ -22,6 +22,10 @@ const InterviewAvailabilityCalenderSchema = new Schema({
     type: Date,
     required: true,
   },
+  type: {
+    type: String,
+    enum: ['interview', 'project'],
+  },
   booked: {
     type: Boolean,
     default: false,
@@ -29,6 +33,10 @@ const InterviewAvailabilityCalenderSchema = new Schema({
   interviewId: {
     type: Schema.Types.ObjectId,
     ref: 'InterviewDetails',
+  },
+  project: {
+    type: Schema.Types.ObjectId,
+    ref: 'ProjectRequest',
   },
   createdAt: {
     type: Date,
