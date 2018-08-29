@@ -24,7 +24,7 @@
           content:
             type: object
             description: "the fields you need to update. passing `_id` results in update op"
-            example: [{name: 'mango'}, {name: 'apple', _id: '5b4f0845b48361468f85033c'}]
+            example: [{name: 'mango', subFunctions:[{name: 'sub', businessFunctionId: '<id>'}]}, {name: 'apple', _id: '5b4f0845b48361468f85033c'}]
     responses:
       200:
         description: "successful attempt, returns `success message`"

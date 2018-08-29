@@ -10,7 +10,18 @@ const contentSchema = Joi.object().keys({
   content: Joi.array().items(
     Joi.object().keys({
       _id: Joi.string().optional(),
+      __v: Joi.optional(),
       name: Joi.string().required(),
+      subFunctions: Joi.array()
+        .items(
+          Joi.object().keys({
+            name: Joi.string().required(),
+            businessFunctionId: Joi.string().optional(),
+            _id: Joi.string().optional(),
+            __v: Joi.optional(),
+          }),
+        )
+        .optional(),
     }),
   ),
 });

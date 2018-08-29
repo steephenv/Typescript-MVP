@@ -2,6 +2,8 @@ import { RequestHandler } from 'express';
 import { Promise as BluePromise } from 'bluebird';
 
 import { BusinessFunction } from '../../models/Business-function';
+import { BusinessSubFunction } from '../../models/Business-sub-function';
+
 import {
   RequestError,
   RequestErrorType,
@@ -16,19 +18,67 @@ export const upsertBusinessFunction: RequestHandler = async (
     const contents: Array<{
       name: string;
       _id: string;
+      __v?: string;
+      subFunctions?: Array<{
+        name: string;
+        _id?: string;
+        __v?: string;
+        businessFunctionId?: string;
+      }>;
     }> =
       req.body.content;
 
-    const result = await BluePromise.map(contents, content => {
+    const result = await BluePromise.map(contents, async content => {
+      delete content.__v;
+
       if (content._id) {
-        // update op
-        const id = content._id;
+        // update
+        const businessFunctionId = content._id;
+        const subFns = content.subFunctions || [];
+
         delete content._id;
-        return BusinessFunction.update({ _id: id }, content).exec();
+        delete content.subFunctions;
+
+        return BluePromise.all([
+          // update parent
+          BusinessFunction.update({ _id: businessFunctionId }, content).exec(),
+          // update child
+          BluePromise.map(subFns, fn => {
+            delete fn.__v;
+
+            if (fn._id) {
+              // update
+              return BusinessSubFunction.update({ _id: fn._id }, fn).exec();
+            } else {
+              // create
+              return BusinessSubFunction.create([
+                {
+                  name: fn.name,
+                  businessFunctionId,
+                },
+              ]);
+            }
+          }),
+        ]);
       } else {
-        // create op
-        const fn = new BusinessFunction(content);
-        return fn.save();
+        // create parent and keep _id
+        let businessFn = new BusinessFunction({ name: content.name });
+        businessFn = await businessFn.save();
+        return BluePromise.map(content.subFunctions || [], sf => {
+          delete sf.__v;
+
+          if (sf._id) {
+            // update
+            return BusinessSubFunction.update({ _id: sf._id }, sf).exec();
+          } else {
+            // create
+            const bussSubFn = new BusinessSubFunction({
+              name: sf.name,
+              businessFunctionId: businessFn._id,
+            });
+            return bussSubFn.save();
+          }
+        });
       }
     });
 
