@@ -8,6 +8,8 @@ export async function secondQuery(
   params: IQueryParams,
   availabilityResp: string[],
 ) {
+  // console.log('> running 2-q');
+
   // search extended to availabilityResp
   const usersWithSameTopicPromise = EmployeeProjects.find({
     userId: { $in: availabilityResp },
@@ -25,6 +27,10 @@ export async function secondQuery(
     usersWithSameIndustryPromise,
   ]);
 
+  const result = new Set([...usersWithSameTopic, ...usersWithSameIndustry]);
+
+  // console.log('> 2-q result', result);
+
   // return set
-  return new Set([...usersWithSameTopic, ...usersWithSameIndustry]);
+  return result;
 }
