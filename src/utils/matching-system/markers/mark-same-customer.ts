@@ -1,7 +1,10 @@
 import { EmployeeProjects } from '../../../models/EmployeeProjects';
 import { score } from './score-board';
 
-export async function markSameTopic(id: string, client: string) {
+export async function markSameCustomers(id: string, client: string) {
+  if (!client) {
+    return 0;
+  }
   const clientName = await EmployeeProjects.count({
     userId: id,
     clientsCompanyName: client,
