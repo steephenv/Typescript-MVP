@@ -34,6 +34,6 @@ export const setCall: RequestHandler = async (req, res, next) => {
     await sendEmail(mailOptions);
     return res.status(200).send({ success: true });
   } catch (err) {
-    return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR));
+    return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }
 };
