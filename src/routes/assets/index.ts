@@ -67,7 +67,7 @@ assets.post(
   upsertBusinessFnRule,
   upsertBusinessFunction,
 );
-assets.get('/business-functions', listBusinessFns);
+assets.get('/business-functions', queryIntParser(), listBusinessFns);
 
 // business sub functions
 assets.post(
