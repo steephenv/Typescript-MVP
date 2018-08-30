@@ -35,7 +35,10 @@ export const listAllSkillCategories: RequestHandler = async (
       .lean()
       .exec();
 
-    const countP = SkillCategory.count({}).exec();
+    const countP = SkillCategory.count({
+      isDelete: false,
+      cluster: givenCluster,
+    }).exec();
 
     const [cats, count] = await BluePromise.all([catsP, countP]);
 
