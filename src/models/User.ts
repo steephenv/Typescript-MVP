@@ -74,6 +74,9 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
+  userRating: {
+    type: Number,
+  },
   recentlyViewed: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
 });
 
