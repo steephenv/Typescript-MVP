@@ -175,6 +175,9 @@ const projectRequestSchema = new Schema({
       leadership: [String],
       entrepreneurship: [String],
       desiredDailyRate: {
+        type: String,
+      },
+      desiredDailyRateNumber: {
         type: Number,
       },
       travellingExpensePercentage: {
@@ -221,9 +224,15 @@ const projectRequestSchema = new Schema({
     },
   ],
   expectedTotalPriceForValue: {
+    type: String,
+  },
+  expectedTotalPriceForValueNumber: {
     type: Number,
   },
   expectedPricePerDeliverable: {
+    type: String,
+  },
+  expectedPricePerDeliverableNumber: {
     type: Number,
   },
   travelExpPercentageOfTotalPriceForValue: {
