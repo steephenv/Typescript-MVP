@@ -35,7 +35,20 @@ describe('Test for project share', () => {
       },
       json: true,
       body: {
-        sharedLink: ['google.com', 'gmail.com', 'yahoo.com'],
+        datas: [
+          {
+            url: 'google.com',
+            projectName: 'ProjectName1',
+          },
+          {
+            url: 'gmail.com',
+            projectName: 'ProjectName2',
+          },
+          {
+            url: 'yahoo.com',
+            projectName: 'ProjectName3',
+          },
+        ],
         sharedTo: 'steephenvrs3@gmail.com',
       },
     })
