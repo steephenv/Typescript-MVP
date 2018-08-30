@@ -135,7 +135,9 @@ const requestErrHandler: express.ErrorRequestHandler = (
               null,
               2,
             ),
-            requestIp: req.ip,
+            requestIp: `> x-forwarded-for: ${req.headers['x-forwarded-for']} |
+            > req.connection.remoteAddress: ${req.connection.remoteAddress} |
+            > req.ip: ${req.ip} |`,
             resLocals: JSON.stringify(res.locals, null, 2),
             reqMethod: req.method,
             reqHeaders: JSON.stringify(req.headers, null, 2),
