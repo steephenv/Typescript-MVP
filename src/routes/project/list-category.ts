@@ -29,7 +29,7 @@ export const listProjectCategories: RequestHandler = async (req, res, next) => {
       .lean()
       .exec();
 
-    const countP = ProjectCategory.count({}).exec();
+    const countP = ProjectCategory.count({ isDelete: false }).exec();
 
     const [cats, count] = await BluePromise.all([catsP, countP]);
 
