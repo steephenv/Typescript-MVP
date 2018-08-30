@@ -21,6 +21,7 @@ export const saveRole: RequestHandler = async (req, res, next) => {
             role: req.body.role,
             appliedRole: '',
             interviewStatus: 'Passed',
+            userRating: req.body.userRating,
           },
         },
       ).exec();
