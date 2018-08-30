@@ -43,7 +43,7 @@ import { RequestError, RequestErrorType } from './error-handler/RequestError';
 
 import { apis } from './routes';
 import { buildGraphQLRoutesGateway } from './graphql-compiler';
-import { getRoute } from './utils/get-route';
+// import { getRoute } from './utils/get-route';
 
 // import { accessControl } from './access-control/access-control';
 import { attachTokenData } from './access-control/attach-token-data';
@@ -99,8 +99,8 @@ const requestErrHandler: express.ErrorRequestHandler = (
     console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'); // tslint:disable-line
   }
   if (err.statusCode >= 500 && process.env.NODE_ENV !== 'development') {
-    const route = getRoute(req);
-    const queryOrParam = Object.keys(req.query).length ? '(Query)' : '(Param)';
+    // const route = getRoute(req);
+    const queryOrParam = Object.keys(req.query).length ? '(Query)' : '';
 
     v4()
       .then(pubIp => {
@@ -109,7 +109,7 @@ const requestErrHandler: express.ErrorRequestHandler = (
           template: AppEmailTemplates.ERR_REPORTER,
           fromName: 'Miwago Err Reporter',
           subject: `err ${err.statusCode} in ${process.env.USER ||
-            'unknown-env'} in ${req.method} ${route} ${queryOrParam}`,
+            'unknown-env'} in ${req.method} ${req.originalUrl} ${queryOrParam}`,
           fields: {
             errCode: err.statusCode,
             ENV_USER: process.env.USER,
