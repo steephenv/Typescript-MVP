@@ -36,6 +36,6 @@ export const shareAsset: RequestHandler = async (req, res, next) => {
       msg: messages.emailSent.ENG,
     });
   } catch (err) {
-    return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR));
+    return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }
 };
