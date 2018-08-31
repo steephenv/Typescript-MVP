@@ -59,14 +59,14 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                    <%if(datas && datas.length){%>
+                                    <%if(datas && datas.length !== 0){%>
                                         <td style="background-color:#FFF; padding:30px 0 5px 0; border-bottom: solid 1px #ccc;" align="left" valign="top">
                                             <h4 style="font:normal 15px/26px Roboto, sans-serif;color: #000; margin: 5px;">Hi, please check your shared Asset details. 
                                             <% datas.forEach(function(data){ %>
                                             <p><b>********* ASSET DETAILS *********</b></p>
                                             <br>
                                             <% if(data.title) { %>
-                                            <p><b>Asset Name </b>: <%= data.title %></p>
+                                            <p><b>Asset Name </b>: Title</p>
                                             <% }%>
 
                                             <% }); %>
