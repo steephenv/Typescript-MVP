@@ -59,6 +59,7 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                    <%if(datas && datas.length){%>
                                         <td style="background-color:#FFF; padding:30px 0 5px 0; border-bottom: solid 1px #ccc;" align="left" valign="top">
                                             <h4 style="font:normal 15px/26px Roboto, sans-serif;color: #000; margin: 5px;">Hi, please check your shared Asset details. 
                                             <% datas.forEach(function(data){ %>
@@ -90,6 +91,7 @@
                                             <div style="width:100%; text-align:center; margin: 15px 0;">
                                             </div>
                                         </td>
+                                        <%}%>
                                     </tr>
                                     <tr>
                                         <td style="background-color:#FFF; padding:5px 0; border-bottom: solid 1px #ccc;" align="left" valign="top">
