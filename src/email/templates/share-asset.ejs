@@ -64,13 +64,27 @@
                                             <% datas.forEach(function(data){ %>
                                             <p><b>********* ASSET DETAILS *********</b></p>
                                             <br>
+                                            <% if(data.title) { %>
                                             <p><b>Asset Name </b>: <%= data.title%></p>
+                                            <% }%>
+                                            <% if(data.stage) { %>
                                             <p><b>Asset stage </b>: <%= data.stage%></p>
+                                            <% }%>
+                                            <% if(data.type) { %>
                                             <p><b>Asset type </b>: <%= data.type%></p>
+                                            <% }%>
+                                            <% if(data.size) { %>
                                             <p><b>Asset size </b>: <%= data.size%></p>
+                                            <% }%>
+                                            <% if(data.format) { %>
                                             <p><b>Asset format </b>: <%= data.format%></p>
+                                            <% }%>
+                                            <% if(data.lang) { %>
                                             <p><b>Asset lang </b>: <%= data.lang%></p>
+                                            <% }%>
+                                            <% if(data.fileName) { %>
                                             <p><b>Asset fileName </b>: <%= data.fileName%></p>
+                                            <% }%>
                                             <% }); %>
                                             </h4>
                                             <div style="width:100%; text-align:center; margin: 15px 0;">
