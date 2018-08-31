@@ -13,7 +13,7 @@ import {
 export const confirmUser: RequestHandler = async (req, res, next) => {
   try {
     const twentyMinutesBefore = new Date();
-    twentyMinutesBefore.setMinutes(twentyMinutesBefore.getMinutes() - 20);
+    twentyMinutesBefore.setMinutes(twentyMinutesBefore.getMinutes() - 2);
     const criteria = {
       token: req.query.token,
       createdAt: {
