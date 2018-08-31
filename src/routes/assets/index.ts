@@ -16,6 +16,7 @@ import { listBusinessFns } from './list-business-fn';
 import { upsertBusinessSubFunction } from './upsert-business-sub-fn';
 import { listBusinessSubFunction } from './list-business-sub-fn';
 import { deleteAssets } from './delete-asset';
+import { shareAsset } from '../share/share-asset';
 
 import { listBussSubFnRule } from './validators/list-buss-sub-fn.rule';
 import { upsertBusinessSubFnRule } from './validators/upsert-business-sub-fn.rule';
@@ -26,6 +27,7 @@ import { createCategoryValidationChain } from './validators/create-category.vali
 import { createSubCatValidationChain } from './validators/create-asset-sub-category.rule';
 import { listSubCatRule } from './validators/list-sub-category.rule';
 import { createIndustryRule } from './validators/create-industry.rule';
+import { shareAssetRule } from '../share/validators/share-asset-rule';
 
 export const assets = express.Router();
 
@@ -82,3 +84,4 @@ assets.get(
   listBusinessSubFunction,
 );
 assets.delete('/', deleteAssets);
+assets.post('/share-asset', shareAssetRule, shareAsset);

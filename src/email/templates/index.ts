@@ -38,6 +38,10 @@ export class EmailTemplates {
     pathJoin(__dirname, 'share-project.ejs'),
   ).toString();
 
+  public static SHARE_ASSET = readFileSync(
+    pathJoin(__dirname, 'share-asset.ejs'),
+  ).toString();
+
   public static CLIENT_REG_EMAIL = readFileSync(
     pathJoin(__dirname, 'client-reg-email.ejs'),
   ).toString();
