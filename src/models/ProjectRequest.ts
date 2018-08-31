@@ -219,7 +219,7 @@ const projectRequestSchema = new Schema({
         type: String,
       },
       expectedDueDateOfDeliverable: {
-        type: String,
+        type: Date,
       },
     },
   ],
