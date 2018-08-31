@@ -65,8 +65,8 @@
                                             <% datas.forEach(function(data){ %>
                                             <p><b>********* ASSET DETAILS *********</b></p>
                                             <br>
-                                            <% if(data.title) { %>
-                                            <p><b>Asset Name </b>: Title</p>
+                                            <% if(data && data.title) { %>
+                                            <p><b>Asset Name </b>: data.title</p>
                                             <% }%>
 
                                             <% }); %>
