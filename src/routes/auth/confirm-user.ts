@@ -13,12 +13,12 @@ import {
 export const confirmUser: RequestHandler = async (req, res, next) => {
   try {
     const twentyMinutesBefore = new Date();
-    twentyMinutesBefore.setMinutes(twentyMinutesBefore.getMinutes() - 2);
+    twentyMinutesBefore.setMinutes(twentyMinutesBefore.getMinutes() - 2880);
     const criteria = {
       token: req.query.token,
-      createdAt: {
-        $gte: new Date(twentyMinutesBefore),
-      },
+      // createdAt: {
+      //   $gte: new Date(twentyMinutesBefore),
+      // },
     };
     const user: any = await TempUser.findOne(criteria)
       .lean()
@@ -26,6 +26,12 @@ export const confirmUser: RequestHandler = async (req, res, next) => {
     if (!user) {
       return next(
         new RequestError(RequestErrorType.BAD_REQUEST, messages.noUser.ENG),
+      );
+    }
+    if (user && user.createdAt.getTime() - new Date().getTime() > 60000) {
+      await TempUser.remove(criteria).exec();
+      return next(
+        new RequestError(RequestErrorType.BAD_REQUEST, messages.timeOut.ENG),
       );
     }
     const extUser = await User.findOne({ email: user.email });
