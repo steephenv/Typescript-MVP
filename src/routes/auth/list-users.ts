@@ -17,6 +17,7 @@ export const listUsers: RequestHandler = async (req, res, next) => {
     const condition = req.query;
 
     const totalNumUsersPromise = User.count(condition).exec();
+
     const usersListPromise = User.find(condition)
       .select('firstName lastName appliedRole role profileDataVerified')
       .skip(+_skip)

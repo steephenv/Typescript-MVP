@@ -22,7 +22,8 @@ export const listUsersValidation: RequestHandler = (req, res, next) => {
   }
   if (req.query.userId) {
     try {
-      req.query._id = { $in: JSON.parse(req.query.userId) };
+      req.query._id = req.query.userId;
+      delete req.query.userId;
     } catch (err) {
       return next(new RequestError(RequestErrorType.UNPROCESSABLE_ENTITY, err));
     }

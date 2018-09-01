@@ -70,7 +70,7 @@ describe('List users api', () => {
 
   it('profile data verified check - user Id', done => {
     got(
-      'http://localhost:7000/v1/auth/list-users?userId=["5b894951534d207597078317"]',
+      'http://localhost:7000/v1/auth/list-users?userId=5b894951534d207597078317',
       {
         method: 'GET',
         headers: {
