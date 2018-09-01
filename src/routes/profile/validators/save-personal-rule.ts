@@ -53,7 +53,7 @@ const PersonalDataSchema = Joi.object().keys({
 export const savePersonalRule: RequestHandler = (req, res, next) => {
   req.body.role = res.locals.user.role;
   Joi.validate(req.body, PersonalDataSchema, { stripUnknown: true }, err => {
-    // console.log();
+    console.log(req.body);
     delete req.body.role;
     if (err) {
       return res.status(422).send({
