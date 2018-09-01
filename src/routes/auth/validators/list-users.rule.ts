@@ -20,5 +20,12 @@ export const listUsersValidation: RequestHandler = (req, res, next) => {
       return next(new RequestError(RequestErrorType.UNPROCESSABLE_ENTITY, err));
     }
   }
+  if (req.query.userId) {
+    try {
+      req.query._id = { $in: JSON.parse(req.query.userId) };
+    } catch (err) {
+      return next(new RequestError(RequestErrorType.UNPROCESSABLE_ENTITY, err));
+    }
+  }
   next();
 };
