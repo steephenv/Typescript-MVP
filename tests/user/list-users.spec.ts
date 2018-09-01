@@ -68,6 +68,28 @@ describe('List users api', () => {
       });
   });
 
+  it('profile data verified check - user Id', done => {
+    got(
+      'http://localhost:7000/v1/auth/list-users?userId=["5b894951534d207597078317"]',
+      {
+        method: 'GET',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          Authorization: `Bearer ${token}`,
+        },
+        // json: true,
+        // body: {
+        //   email: 'loki@marvel.com',
+        //   url: 'http://fasdfasd.com/token={token}',
+        // },
+      },
+    )
+      .then(() => done())
+      .catch(err => {
+        throw err;
+      });
+  });
+
   it('profile data verified check', done => {
     got(
       'http://localhost:7000/v1/auth/list-users?role=["Employee", "Consultant"]&profileDataVerified=true',
