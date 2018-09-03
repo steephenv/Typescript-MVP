@@ -26,7 +26,7 @@ beforeAll(done => {
 describe('Suggest users api ===> ', () => {
   it('Suggestions for consultant', done => {
     got(
-      'http://localhost:7000/v1/auth/suggest-users?role=Consultant&text=steephen',
+      'http://localhost:7000/v1/auth/suggest-users?role=Consultant&text=tony',
       {
         method: 'GET',
         headers: {

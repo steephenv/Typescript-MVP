@@ -8,7 +8,7 @@ import { User } from '../../models/User';
 
 export const suggestUsers: RequestHandler = async (req, res, next) => {
   try {
-    const regexp = new RegExp(`^${req.query.text}`);
+    const regexp = new RegExp(`^${req.query.text}`, 'i');
     const userSuggestion = await User.find({
       role: req.query.role,
       firstName: regexp,
