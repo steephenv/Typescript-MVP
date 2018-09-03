@@ -1,5 +1,4 @@
 import { RequestHandler } from 'express';
-import { Share } from '../../models/share';
 
 import { messages } from '../../config/app/messages';
 import { EmailTemplates, sendEmail } from '../../email/send-email';
@@ -10,14 +9,6 @@ import {
 
 export const shareProject: RequestHandler = async (req, res, next) => {
   try {
-    const where: any = {};
-    where.userId = req.query.userId ? req.query.userId : res.locals.user.userId;
-    req.body.updatedAt = new Date();
-    req.body.userId = where.userId;
-    req.body.createdAt = new Date();
-    const sharedData = new Share(req.body);
-
-    await sharedData.save();
     const mailOptions = {
       toAddresses: [req.body.sharedTo],
       template: EmailTemplates.SHARE_PROJECT,
