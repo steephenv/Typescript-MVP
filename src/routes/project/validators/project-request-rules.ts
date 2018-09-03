@@ -51,10 +51,7 @@ const ProjectRequestSchema = Joi.object().keys({
   targetStart: Joi.date().required(),
   expectedEnd: Joi.date().required(),
   mainLocation: Joi.string().allow(''),
-  additionalLocations: Joi.string().allow(''),
-  location2: Joi.string().allow(''),
-  location3: Joi.string().allow(''),
-  location4: Joi.string().allow(''),
+  additionalLocations: Joi.array(),
   communication: Joi.string().allow(''),
 });
 
