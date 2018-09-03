@@ -94,18 +94,7 @@ const projectRequestSchema = new Schema({
   mainLocation: {
     type: String,
   },
-  additionalLocations: {
-    type: String,
-  },
-  location2: {
-    type: String,
-  },
-  location3: {
-    type: String,
-  },
-  location4: {
-    type: String,
-  },
+  additionalLocations: [String],
   communication: {
     type: String,
   },

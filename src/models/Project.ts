@@ -34,10 +34,12 @@ const projectSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'ProjectSubCategory',
   },
-  industryLine: {
-    type: Schema.Types.ObjectId,
-    ref: 'Industry',
-  },
+  industryLine: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Industry',
+    },
+  ],
   businessFunctions: {
     type: Schema.Types.ObjectId,
     ref: 'BusinessFunction',
@@ -46,6 +48,7 @@ const projectSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'BusinessSubFunction',
   },
+
   projectStages: {
     type: String,
   },
@@ -62,7 +65,7 @@ const projectSchema = new Schema({
     type: Number,
   },
   impact: {
-    type: String,
+    type: [String],
   },
   impactLevel: {
     type: String,

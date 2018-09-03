@@ -24,62 +24,41 @@ beforeAll(done => {
       throw err;
     });
 });
-describe('testing asset listing ', () => {
+describe('testing project listing ', () => {
   test('testing normal search', done => {
-    got(`http://localhost:7000/v1/assets?fileName=mango`, {
-      method: 'GET',
+    got(`http://localhost:7000/v1/project/filter-project`, {
+      method: 'POST',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
         Authorization: `Bearer ${token}`,
       },
-      // json: true,
-      // body: {
-      //   model: 'category',
-      //   ids: ['5b4f0845b48361468f85033c'],
-      // },
+      json: true,
+      body: {
+        // searchKey: 'test',
+        // category: { $in: '5b6c04114d27ef4e82b47e7b' },
+        // projectTitle: 'MusicMatch',
+        category: {
+          $in: ['5b598e0f746364417c569061'],
+        },
+        // subCategory: {
+        //   $in: ['5b5f02cbb19b436977beb3e1', '5b5f02cbb19b436977beb3e1'],
+        // },
+        // industryLine: {
+        //   $in: ['5b5f02cbb19b436977beb3e1', '5b5f02cbb19b436977beb3e1'],
+        // },
+        // businessFunctions: {
+        //   $in: ['5b5f02cbb19b436977beb3e1'],
+        // },
+        // technology: 'Informaton technology',
+        // effort: 'Low (< 20 days)',
+        // price: 20000,
+        // impact: ['Procurement Saving', 'Test impact 2'],
+        // referenceClientTypes: 'Small',
+        // referenceProjectDate: '2018-03-31T18:30:00.000Z',
+        // referenceCountry: 'Canada',
+        // referenceLanguage: 'fr',
+      },
     })
-      .then(() => done())
-      .catch(err => {
-        throw err;
-      });
-  });
-  test('testing keyQuery search', done => {
-    got(
-      `http://localhost:7000/v1/assets?keyQuery=a&description=lorem ipsium doller sit`,
-      {
-        method: 'GET',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          Authorization: `Bearer ${token}`,
-        },
-        // json: true,
-        // body: {
-        //   model: 'category',
-        //   ids: ['5b4f0845b48361468f85033c'],
-        // },
-      },
-    )
-      .then(() => done())
-      .catch(err => {
-        throw err;
-      });
-  });
-  test('testing excludeUsers search', done => {
-    got(
-      `http://localhost:7000/v1/assets?keyQuery=a&exUserId=5b4f0845b48361468f85032c`,
-      {
-        method: 'GET',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          Authorization: `Bearer ${token}`,
-        },
-        // json: true,
-        // body: {
-        //   model: 'category',
-        //   ids: ['5b4f0845b48361468f85033c'],
-        // },
-      },
-    )
       .then(() => done())
       .catch(err => {
         throw err;
