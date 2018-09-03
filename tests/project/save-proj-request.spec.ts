@@ -51,11 +51,7 @@ describe('Test for saving project request data ', () => {
         targetStart: new Date('2018-09-02'),
         expectedEnd: new Date('2018-09-06'),
         mainLocation: 'tehsdkvn',
-        additionalLocations: 'nvsteddxsv',
-        location2: 'AHDGBUYHASCV',
-        location3: 'BCSYDGFYEWTC',
-        location4: 'ZXBCHSAYHBSACC',
-        communication: 'BCHSAFCAS',
+        additionalLocations: ['location 1', ' location 2', 'location 3'],
 
         stakeHolders: [
           {
