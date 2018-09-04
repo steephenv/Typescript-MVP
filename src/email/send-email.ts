@@ -73,7 +73,7 @@ export { AppEmailTemplates, EmailTemplates, EmailSignatures };
 //   subject: 'Test Email markup - ' + new Date(),
 //   template: EmailTemplates.SAMPLE,
 //   fields: {
-//     url: `http://www.google.com/calendar/event?action=TEMPLATE&dates=20180902T105558Z%2F20180902T115558Z&text=Litmus`, // tslint:disable-line
+//     url: `http://www.google.com/calendar/event?`, // tslint:disable-line
 //   },
 // })
 //   .then(data => {

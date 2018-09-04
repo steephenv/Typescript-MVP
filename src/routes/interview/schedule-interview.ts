@@ -113,7 +113,6 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
       availableSlot.endTime,
     );
 
-    console.log('link', googleCalenderLink);
     const mailOptions = {
       toAddresses: ['lakshmipriya.m@cubettech.com'],
       template: EmailTemplates.INTERVIEW_SCHEDULED,
