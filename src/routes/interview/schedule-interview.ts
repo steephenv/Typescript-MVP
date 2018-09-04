@@ -114,7 +114,7 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
     );
 
     const mailOptions = {
-      toAddresses: ['lakshmipriya.m@cubettech.com'],
+      toAddresses: [userDetails.email],
       template: EmailTemplates.INTERVIEW_SCHEDULED,
       fromName: 'Miwago Team',
       subject: `Interview Scheduled`,
