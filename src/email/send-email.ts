@@ -47,16 +47,33 @@ export { AppEmailTemplates, EmailTemplates, EmailSignatures };
 /**
  * un-comment below function for quick testing sendEmail()
  */
+// const year = new Date().getFullYear().toString();
+// let month = (new Date().getMonth() + 1).toString();
+// let day = new Date().getDay().toString();
+// const hrs = new Date().getHours().toString();
+// const mns = new Date().getMinutes().toString();
+// const secs = new Date().getSeconds().toString();
 
+// if (month.length === 1) {
+//   month = `0${month}`;
+// }
+
+// if (day.length === 1) {
+//   day = `0${day}`;
+// }
+
+// let dateString = `${year}${month}${day}T${hrs}${mns}${secs}Z/`;
+// let dateString1 = `${year}${month}22T${hrs}${mns}${secs}Z`;
+// dateString = encodeURI(dateString);
+// dateString1 = encodeURI(dateString1);
+
+// console.log('nnnnnnnnnnnnnnnn', dateString);
 // sendEmail({
 //   toAddresses: ['lakshmipriya.m@cubettech.com'],
 //   subject: 'Test Email markup - ' + new Date(),
-//   template: EmailTemplates.ROLE_REJECT,
+//   template: EmailTemplates.SAMPLE,
 //   fields: {
-//     user: 'fdhgs',
-//     role: 'sdfsd',
-//     loginUrl: 'fsdsdfg',
-//     homeUrl: 'dsgfdsgd',
+//     url: `http://www.google.com/calendar/event?action=TEMPLATE&dates=20180902T105558Z%2F20180902T115558Z&text=Litmus`, // tslint:disable-line
 //   },
 // })
 //   .then(data => {
