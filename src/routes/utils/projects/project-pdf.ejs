@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>GETTING STARTED WITH BRACKETS</title>
+        <meta name="description" content="An interactive getting started guide for Brackets.">
+        <link rel="stylesheet" href="main.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+        <style>
+            .container {
+                max-width: 1170px;
+                margin: auto;
+                padding: 25px;
+                font-family: 'Roboto', sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <%if(projectRequestDetailsData){%>
+            <h2>Project Request Details </h2>
+            <div class="card-body">
+                <p><b>Project Name </b> &nbsp&nbsp:&nbsp&nbsp <%= projectRequestDetailsData.projectName%></p>
+                <p><b>Template Type </b> &nbsp&nbsp:&nbsp&nbsp <%= projectRequestDetailsData.templateType%></p>
+                <p><b>Current Situation </b> &nbsp&nbsp:&nbsp&nbsp <%= projectRequestDetailsData.currentSituation%></p>
+                <p><b>Challenge Type </b> &nbsp&nbsp:&nbsp&nbsp <%= projectRequestDetailsData.challengeType%></p>
+                <p><b>Challenge </b> &nbsp&nbsp:&nbsp&nbsp <%= projectRequestDetailsData.challenge%></p>
+                <p><b>Desired Future Situation </b> &nbsp&nbsp:&nbsp&nbsp <%= projectRequestDetailsData.desiredFutureSituation%></p>
+                <p><b>Target Start </b> &nbsp&nbsp:&nbsp&nbsp <%= projectRequestDetailsData.targetStart%></p>
+                <p><b>Expected End </b> &nbsp&nbsp:&nbsp&nbsp <%= projectRequestDetailsData.expectedEnd%></p>
+                <p><b>Main Location </b> &nbsp&nbsp:&nbsp&nbsp <%= projectRequestDetailsData.mainLocation%></p>
+                <p><b>Proposal Submission Date </b> &nbsp&nbsp:&nbsp&nbsp <%= projectRequestDetailsData.proposalSubmissionDate%></p>
+                <p><b>Expected Total Price For Value </b> &nbsp&nbsp:&nbsp&nbsp <%= projectRequestDetailsData.expectedTotalPriceForvalue%></p>
+                <p><b>Expected Price Per Deliverable </b> &nbsp&nbsp:&nbsp&nbsp <%= projectRequestDetailsData.expectedPricePerDeliverable%></p>
+                <p><b>Proposal Selection Based On </b> &nbsp&nbsp:&nbsp&nbsp <%= projectRequestDetailsData.proposalSelectionBasedOn%></p>
+                <p><b>Clients Message </b> &nbsp&nbsp:&nbsp&nbsp <%= projectRequestDetailsData.clientsMessage%></p>
+            </div>
+            <%}%>
+        </div>
+    </body>
+</html>

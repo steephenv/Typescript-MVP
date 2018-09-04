@@ -35,6 +35,7 @@ import { updateProject } from '../project/save-project';
 import { shareProject } from '../share/share-project';
 import { saveProjectDraft } from '../project/add-project-draft';
 import { setCall } from '../project/set-call';
+import { generateProjectPdf } from '../project/generate-project-pdf';
 // import { saveProjectDraftRule } from '../project/validators/project-draft-rule';
 
 export const project = express.Router();
@@ -88,3 +89,4 @@ project.get('/list-all-categories', queryIntParser(), listProjectCategories);
 project.post('/delete-category', deleteProjectCategoryRules, deleteCategory);
 project.post('/save-project-draft', saveProjectDraft);
 project.post('/set-call', setCallRule, setCall);
+project.get('/generate-project-pdf', generateProjectPdf);
