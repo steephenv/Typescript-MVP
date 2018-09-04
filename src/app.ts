@@ -77,6 +77,16 @@ app.use('/v1', attachTokenData, apis);
 app.use('/graph', (req, res) => res.redirect('/v1/graph'));
 app.use('/v1/graph', attachTokenData, buildGraphQLRoutesGateway());
 
+// test for err emails
+app.get('/send/cats/to/me/with/500', (req, res, next) =>
+  next(
+    new RequestError(
+      RequestErrorType.INTERNAL_SERVER_ERROR,
+      'testing 500 with cats api',
+    ),
+  ),
+);
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new RequestError(RequestErrorType.NOT_FOUND);
