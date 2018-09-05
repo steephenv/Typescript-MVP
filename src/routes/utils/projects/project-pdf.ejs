@@ -74,6 +74,12 @@
                 <% if(item && item.stakeHolder) { %>
                 <p>&nbsp&nbsp&nbsp&nbsp&nbsp <b>*</b>&nbsp&nbsp&nbsp&nbsp<%= item.stakeHolder%></p>
                         <% } %>
+                <% if(item && item.businessFunction && item.businessFunction.name) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp <b>*</b>&nbsp&nbsp&nbsp&nbsp<%= item.businessFunction.name%></p>
+                        <% } %>
+                <% if(item && item.businessFunctionRole) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp <b>*</b>&nbsp&nbsp&nbsp&nbsp<%= item.businessFunctionRole%></p>
+                        <% } %>
                     <% }); %>
                  <%}%>
                 
@@ -176,6 +182,9 @@
                         <% } %>
                 <% if(item && item.clientsCompanyExp) { %>
                 <p><b> Client Company Experience : </b> <%= item.clientsCompanyExp%></p>
+                        <% } %>
+                <% if(item && item.businessFunction && item.businessFunction.name) { %>
+                <p><b> Business Function : </b> <%= item.businessFunction.name%></p>
                         <% } %>
 
 
