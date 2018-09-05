@@ -51,7 +51,8 @@ const projectRequestSchema = new Schema({
         type: String,
       },
       businessFunction: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'BusinessFunction',
       },
       businessFunctionRole: {
         type: String,
@@ -157,7 +158,8 @@ const projectRequestSchema = new Schema({
         type: String,
       },
       businessFunction: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'BusinessFunction',
       },
       functional: [String],
       personal: [String],
