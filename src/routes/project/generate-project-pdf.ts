@@ -41,6 +41,8 @@ export const getProjectData = async (
   })
     .populate('consultantIds')
     .populate('userId')
+    .populate('stakeHolders.businessFunction')
+    .populate('skillsAndExperience.businessFunction')
     .lean()
     .exec();
   return await BluePromise.all([projectDataPromise, projectRequestDataPromise]);
@@ -54,7 +56,6 @@ export const generateProjectPdf: RequestHandler = async (req, res, next) => {
       projectDetailsData,
       projectRequestDetailsData,
     ] = await getProjectData(userId, projectsId);
-
     const htmlString: any = await getHtmlString(ejsPath, {
       projectDetailsData,
       projectRequestDetailsData,
