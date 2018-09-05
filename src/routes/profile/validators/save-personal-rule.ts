@@ -15,10 +15,14 @@ const PersonalDataSchema = Joi.object().keys({
     .allow('')
     .allow(null),
   country: Joi.string().required(),
-  state: Joi.string().optional(),
+  state: Joi.string()
+    .optional()
+    .allow(''),
   city: Joi.string().required(),
   street: Joi.string().required(),
-  zipCode: Joi.string().optional(),
+  zipCode: Joi.string()
+    .optional()
+    .allow(''),
   fixedLinePhone: Joi.string().required(),
   mobilePhone: Joi.string().required(),
   primaryEmail: Joi.string().required(),
