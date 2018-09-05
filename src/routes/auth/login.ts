@@ -54,7 +54,6 @@ export const login: RequestHandler = async (req, res, next) => {
     if (personalDetail && personalDetail.middleName) {
       middleName = personalDetail.middleName;
     }
-    user.middleName = personalDetail.middleName;
     const accessToken = await Jwt.sign({
       userId: user._id,
       role: user.role,
