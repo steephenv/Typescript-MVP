@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>GETTING STARTED WITH BRACKETS</title>
+        <meta name="description" content="An interactive getting started guide for Brackets.">
+        <link rel="stylesheet" href="main.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+        <style>
+            .container {
+                max-width: 1170px;
+                margin: auto;
+                padding: 25px;
+                font-family: 'Roboto', sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <%if(projectRequestDetailsData){%>
+            <h2>Project Request Details </h2>
+            <div class="card-body">
+            </br>
+              <% if(projectRequestDetailsData && projectRequestDetailsData.projectName) { %>
+                <p><b>Project Name </b> &nbsp:&nbsp <%= projectRequestDetailsData.projectName%></p>
+                <%}%>
+              <% if(projectRequestDetailsData && projectRequestDetailsData.templateType) { %>
+                <p><b>Template Type </b> &nbsp:&nbsp <%= projectRequestDetailsData.templateType%></p>
+                <%}%>
+              <% if(projectRequestDetailsData && projectRequestDetailsData.currentSituation) { %>
+                <p><b>Current Situation </b> &nbsp:&nbsp <%= projectRequestDetailsData.currentSituation%></p>
+                <%}%>
+              <% if(projectRequestDetailsData && projectRequestDetailsData.challengeType) { %>
+                <p><b>Challenge Type </b> &nbsp:&nbsp <%= projectRequestDetailsData.challengeType%></p>
+                <%}%>
+              <% if(projectRequestDetailsData && projectRequestDetailsData.challenge) { %>
+                <p><b>Challenge </b> &nbsp:&nbsp <%= projectRequestDetailsData.challenge%></p>
+                <%}%>
+              <% if(projectRequestDetailsData && projectRequestDetailsData.desiredFutureSituation) { %>
+                <p><b>Desired Future Situation </b> &nbsp:&nbsp <%= projectRequestDetailsData.desiredFutureSituation%></p>
+                <%}%>
+              <% if(projectRequestDetailsData && projectRequestDetailsData.targetStart) { %>
+                <p><b>Target Start </b> &nbsp:&nbsp <%= projectRequestDetailsData.targetStart%></p>
+                <%}%>
+              <% if(projectRequestDetailsData && projectRequestDetailsData.expectedEnd) { %>
+                <p><b>Expected End </b> &nbsp:&nbsp <%= projectRequestDetailsData.expectedEnd%></p>
+                <%}%>
+              <% if(projectRequestDetailsData && projectRequestDetailsData.mainLocation) { %>
+                <p><b>Main Location </b> &nbsp:&nbsp <%= projectRequestDetailsData.mainLocation%></p>
+                <%}%>
+              <% if(projectRequestDetailsData && projectRequestDetailsData.proposalSubmissionDate) { %>
+                <p><b>Proposal Submission Date </b> &nbsp:&nbsp <%= projectRequestDetailsData.proposalSubmissionDate%></p>
+                <%}%>
+              <% if(projectRequestDetailsData && projectRequestDetailsData.expectedTotalPriceForvalue) { %>
+                <p><b>Expected Total Price For Value </b> &nbsp:&nbsp <%= projectRequestDetailsData.expectedTotalPriceForvalue%></p>
+                <%}%>
+              <% if(projectRequestDetailsData && projectRequestDetailsData.expectedPricePerDeliverable) { %>
+                <p><b>Expected Price Per Deliverable </b> &nbsp:&nbsp <%= projectRequestDetailsData.expectedPricePerDeliverable%></p>
+                <%}%>
+              <% if(projectRequestDetailsData && projectRequestDetailsData.proposalSelectionBasedOn) { %>
+                <p><b>Proposal Selection Based On </b> &nbsp:&nbsp <%= projectRequestDetailsData.proposalSelectionBasedOn%></p>
+                <%}%>
+              <% if(projectRequestDetailsData && projectRequestDetailsData.clientsMessage) { %>
+                <p><b>Clients Message </b> &nbsp:&nbsp <%= projectRequestDetailsData.clientsMessage%></p>
+                <%}%>
+              
+                
+                
+                <% if(projectRequestDetailsData.stakeHolders && projectRequestDetailsData.stakeHolders.length !== 0){%>
+                <p><b>Stakeholders : </b></p>
+                <% projectRequestDetailsData.stakeHolders.forEach(function(item){ %>
+                <% if(item && item.stakeHolder) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp <b>*</b>&nbsp&nbsp&nbsp&nbsp<%= item.stakeHolder%></p>
+                        <% } %>
+                    <% }); %>
+                 <%}%>
+                
+                <% if(projectRequestDetailsData && projectRequestDetailsData.clientsMessage) { %>
+                 <p><b>Sponsors Position </b> &nbsp:&nbsp <%= projectRequestDetailsData.sponsorsPosition%></p>
+                    <%}%>
+                <% if(projectRequestDetailsData && projectRequestDetailsData.clientsMessage) { %>
+                 <p><b>Managers Position </b> &nbsp:&nbsp <%= projectRequestDetailsData.managersPosition%></p>
+                    <%}%>
+                <% if(projectRequestDetailsData && projectRequestDetailsData.clientsMessage) { %>
+                 <p><b>Current Status </b> &nbsp:&nbsp <%= projectRequestDetailsData.currentStatus%></p>
+                    <%}%>
+                <% if(projectRequestDetailsData && projectRequestDetailsData.clientsMessage) { %>
+                 <p><b>Degree Of Challenge </b> &nbsp:&nbsp <%= projectRequestDetailsData.degreeOfChallenge%></p>
+                    <%}%>
+                <% if(projectRequestDetailsData && projectRequestDetailsData.clientsMessage) { %>
+                 <p><b>Goal Value Add </b> &nbsp:&nbsp <%= projectRequestDetailsData.goalValueAdd%></p>
+                    <%}%>
+                <% if(projectRequestDetailsData && projectRequestDetailsData.clientsMessage) { %>
+                 <p><b>Goal Value Add </b> &nbsp:&nbsp <%= projectRequestDetailsData.goalValueAdd%></p>
+                    <%}%>
+                
+                  
+                  
+                  <% if(projectRequestDetailsData && projectRequestDetailsData.additionalLocations) { %>
+                   <p><b> Additional Locations : </b></p>
+                 <% projectRequestDetailsData.additionalLocations.forEach(function(item){ %>
+                <% if(item) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp<b>*</b>&nbsp&nbsp&nbsp&nbsp<%= item%></p>
+                        <% } %>
+                    <% }); %>
+                  <% } %>  
+                 <%if(projectRequestDetailsData.roleAndResponsibility && projectRequestDetailsData.roleAndResponsibility.length !== 0){%>
+                <p><b>Role and Responsibilities : </b></p>
+                </br>
+                <% projectRequestDetailsData.roleAndResponsibility.forEach(function(item){ %>
+                <% if(item && item.consultant) { %>
+                <p><b> Consultant : </b><%= item.consultant%></p>
+                        <% } %>
+                <% if(item && item.requiredHeadCount) { %>
+                <p><b> Required Head Count : </b><%= item.requiredHeadCount%></p>
+                        <% } %>
+                <% if(item && item.requiredRole) { %>
+                <p><b> Required Role : </b><%= item.requiredRole%></p>
+                        <% } %>
+                <% if(item && item.mainResponsibility) { %>
+                <p><b> Main Responsibility : </b><%= item.mainResponsibility%></p>
+                        <% } %>
+                <% if(item && item.engagementStart) { %>
+                <p><b> Engagement Start : </b><%= item.engagementStart%></p>
+                        <% } %>
+                <% if(item && item.engagementEnd) { %>
+                <p><b> Engagement End : </b><%= item.engagementEnd%></p>
+                        <% } %>
+                <% if(item && item.reqCapacityWorkDays) { %>
+                <p><b> Required Capacity Work Days : </b><%= item.reqCapacityWorkDays%></p>
+                        <% } %>
+                <% if(item && item.reqCapacityInFTE) { %>
+                <p><b> Required Capacity In FTE : </b><%= item.reqCapacityInFTE%></p>
+                        <% } %>
+                <% if(item && item.avgCapacityPerWeek) { %>
+                <p><b> Average Capacity Per Week : </b><%= item.avgCapacityPerWeek%></p>
+                        <% } %>
+                <% if(item && item.confirmAvgCapacity) { %>
+                <p><b> Confirm Average Capacity : </b><%= item.confirmAvgCapacity%></p>
+                        <% } %>
+                <% if(item && item.onsiteAvailability) { %>
+                <p><b> Onsite Availability : </b><%= item.onsiteAvailability%></p>
+                        <% } %>
+                <% if(item && item.travellingRequired) { %>
+                <p><b> Travelling Required : </b><%= item.travellingRequired%></p>
+                        <% } %>
+
+                <% if(item && item.travellingToLocations) { %>
+                <p><b>Travelling To Locations : </b></p>
+                 <% item.travellingToLocations.forEach(function(ttl){ %>
+                <% if(ttl) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp<b>*</b>&nbsp&nbsp<%= ttl%></p>
+                        <% } %>
+                    <% }); %>
+                        <% } %>
+                <% if(item && item.travellingFrequency) { %>
+                <p><b> Travelling Frequency : </b><%= item.travellingFrequency%></p>
+                        <% } %>
+                        <p> ************** </p>
+                    <% }); %>
+                 <%}%>
+                
+                <% if(projectRequestDetailsData.skillsAndExperience && projectRequestDetailsData.skillsAndExperience.length !== 0){%>
+                <p><b>Skills and Experiences : </b></p>
+                <% projectRequestDetailsData.skillsAndExperience.forEach(function(item){ %>
+                <% if(item && item.role) { %>
+                <p><b> Role : </b><%= item.role%></p>
+                        <% } %>
+                <% if(item && item.yearsOfProfessionalExp) { %>
+                <p><b> Years Of Professional Experience : </b><%= item.yearsOfProfessionalExp%></p>
+                        <% } %>
+                <% if(item && item.clientsIndustryExp) { %>
+                <p><b> Client Industry Experiance : </b> <%= item.clientsIndustryExp%></p>
+                        <% } %>
+                <% if(item && item.clientsCompanyExp) { %>
+                <p><b> Client Company Experience : </b> <%= item.clientsCompanyExp%></p>
+                        <% } %>
+
+
+                 <% if(item && item.functional) { %>
+                 <p><b>Functional :</b></p>
+                 <% item.functional.forEach(function(fn){ %>
+                <% if(fn) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp<b>*</b>&nbsp&nbsp<%= fn%></p>
+                        <% } %>
+                    <% }); %>
+                        <% } %>
+                <% if(item && item.personal) { %>
+                <p><b>Personal :</b></p>
+                 <% item.personal.forEach(function(pn){ %>
+                <% if(pn) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp<b>*</b>&nbsp&nbsp<%= pn%></p>
+                        <% } %>
+                    <% }); %>
+                        <% } %>
+                <% if(item && item.leadership) { %>
+                <p><b>Leaderships :</b></p>
+                <% item.leadership.forEach(function(lsp){ %>
+                <% if(lsp) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp<b>*</b>&nbsp&nbsp<%= lsp%></p>
+                        <% } %>
+                    <% }); %>
+                        <% } %>
+                <% if(item && item.entrepreneurship) { %>
+                <p><b>Entrepreneurships :</b></p>
+                <% item.entrepreneurship.forEach(function(ent){ %>
+                <% if(ent) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp<b>*</b>&nbsp&nbsp<%= ent%></p>
+                        <% } %>
+                    <% }); %>
+                        <% } %>
+
+                <% if(item && item.desiredDailyRate) { %>
+                <p><b> Desired Daily Rate : </b><%= item.desiredDailyRate%></p>
+                        <% } %>
+                <% if(item && item.desiredDailyRateNumber) { %>
+                <p><b> Desired Daily Rate Number : </b><%= item.desiredDailyRateNumber%></p>
+                        <% } %>
+                <% if(item && item.travellingExpensePercentage) { %>
+                <p><b> Travelling Expense Percentage : </b><%= item.travellingExpensePercentage%></p>
+                        <% } %>
+                <% if(item && item.proposalSelectionMode) { %>
+                <p><b> Proposal Selection Mode : </b><%= item.proposalSelectionMode%></p>
+                        <% } %>
+                    <% }); %>
+                 <%}%>
+
+                
+                <%if(projectRequestDetailsData.deliverables && projectRequestDetailsData.deliverables.length !== 0){%>
+                <p><b>Deliverables : </b></p>
+                <% projectRequestDetailsData.deliverables.forEach(function(item){ %>
+                <% if(item && item.noOfExpectedDeliverables) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp No Of Expected Deliverables<%= item.noOfExpectedDeliverables%></p>
+                        <% } %>
+                <% if(item && item.nameOfDeliverables) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Name Of Deliverables<%= item.nameOfDeliverables%></p>
+                        <% } %>
+                <% if(item && item.typeOfDeliverables) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Type Of Deliverables<%= item.typeOfDeliverables%></p>
+                        <% } %>
+                <% if(item && item.languageOfDeliverable) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Language Of Deliverables<%= item.languageOfDeliverable%></p>
+                        <% } %>
+                <% if(item && item.briefDescriptionOfDeliverable) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Brief description Of Deliverables<%= item.briefDescriptionOfDeliverable%></p>
+                        <% } %>
+                <% if(item && item.expectedValueAddOfDeliverable) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Expected Value Add Of deliverables<%= item.expectedValueAddOfDeliverable%></p>
+                        <% } %>
+                <% if(item && item.expectedQualityOfDeliverable) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Expected Quality Of Deliverables<%= item.expectedQualityOfDeliverable%></p>
+                        <% } %>
+                <% if(item && item.expectedDueDateOfDeliverable) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Expected Due Date Of deliverables<%= item.expectedDueDateOfDeliverable%></p>
+                        <% } %>            
+                    <% }); %>
+                 <%}%>
+
+                    <%if(projectRequestDetailsData.deliverables && projectRequestDetailsData.deliverables.length !== 0){%>
+                <p><b>Deliverables : </b></p>
+                <% projectRequestDetailsData.deliverables.forEach(function(item){ %>
+                <% if(item && item.noOfExpectedDeliverables) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp No Of Expected Deliverables<%= item.noOfExpectedDeliverables%></p>
+                        <% } %>
+                <% if(item && item.nameOfDeliverables) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Name Of Deliverables<%= item.nameOfDeliverables%></p>
+                        <% } %>
+                <% if(item && item.typeOfDeliverables) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Type Of Deliverables<%= item.typeOfDeliverables%></p>
+                        <% } %>
+                <% if(item && item.languageOfDeliverable) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Language Of Deliverables<%= item.languageOfDeliverable%></p>
+                        <% } %>
+                <% if(item && item.briefDescriptionOfDeliverable) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Brief description Of Deliverables<%= item.briefDescriptionOfDeliverable%></p>
+                        <% } %>
+                <% if(item && item.expectedValueAddOfDeliverable) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Expected Value Add Of deliverables<%= item.expectedValueAddOfDeliverable%></p>
+                        <% } %>
+                <% if(item && item.expectedQualityOfDeliverable) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Expected Quality Of Deliverables<%= item.expectedQualityOfDeliverable%></p>
+                        <% } %>
+                <% if(item && item.expectedDueDateOfDeliverable) { %>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Expected Due Date Of deliverables<%= item.expectedDueDateOfDeliverable%></p>
+                        <% } %>            
+                    <% }); %>
+                 <%}%>
+
+                 <% if(projectRequestDetailsData && projectRequestDetailsData.expectedTotalPriceForValue) { %>
+                 <p><b>Expected Total Price For value </b> : <%= projectRequestDetailsData.expectedTotalPriceForValue%></p>
+                 <%}%>
+                 <% if(projectRequestDetailsData && projectRequestDetailsData.expectedTotalPriceForValueNumber) { %>
+                 <p><b>Expected Total Price For value number </b> : <%= projectRequestDetailsData.expectedTotalPriceForValueNumber%></p>
+                 <%}%>
+                 <% if(projectRequestDetailsData && projectRequestDetailsData.expectedPricePerDeliverable) { %>
+                 <p><b>Expected Price Per Deliverable </b> : <%= projectRequestDetailsData.expectedPricePerDeliverable%></p>
+                 <%}%>
+                 <% if(projectRequestDetailsData && projectRequestDetailsData.expectedPricePerDeliverableNumber) { %>
+                 <p><b>Expected Price Per Deliverable Number</b> : <%= projectRequestDetailsData.expectedPricePerDeliverableNumber%></p>
+                 <%}%>
+                 <% if(projectRequestDetailsData && projectRequestDetailsData.travelExpPercentageOfTotalPriceForValue) { %>
+                 <p><b>Travelling Percentage For Total Total Price For Value</b> : <%= projectRequestDetailsData.travelExpPercentageOfTotalPriceForValue%></p>
+                 <%}%>
+                 <% if(projectRequestDetailsData && projectRequestDetailsData.proposalSelectionBasedOn) { %>
+                 <p><b>Proposal Selection Based On</b> : <%= projectRequestDetailsData.proposalSelectionBasedOn%></p>
+                 <%}%>
+
+            </div>
+                <%}%>
+        </div>
+    </body>
+</html>
