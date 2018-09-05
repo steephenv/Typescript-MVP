@@ -47,19 +47,21 @@ export const login: RequestHandler = async (req, res, next) => {
       .lean()
       .exec();
     let userImage = '';
+    let middleName = '';
     if (personalDetail) {
       userImage = personalDetail.image;
     }
-
+    if (personalDetail && personalDetail.middleName) {
+      middleName = personalDetail.middleName;
+    }
     const accessToken = await Jwt.sign({
       userId: user._id,
       role: user.role,
       appliedRole: user.appliedRole,
     });
-
     return res
       .status(200)
-      .send({ success: true, data: user, accessToken, userImage });
+      .send({ success: true, data: user, accessToken, userImage, middleName });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }
