@@ -9,15 +9,20 @@ const PersonalDataSchema = Joi.object().keys({
   role: Joi.string().required(),
   image: Joi.string().allow(''),
   birthDate: Joi.string().required(),
-  countryOfBirth: Joi.string().allow(''),
-  citizenship: Joi.string().allow(''),
+  countryOfBirth: Joi.string()
+    .allow('')
+    .allow(null),
+  citizenship: Joi.string()
+    .allow('')
+    .allow(null),
   workPermit: Joi.string()
     .allow('')
     .allow(null),
   country: Joi.string().required(),
   state: Joi.string()
     .optional()
-    .allow(''),
+    .allow('')
+    .allow(null),
   city: Joi.string().required(),
   street: Joi.string().required(),
   zipCode: Joi.string()
