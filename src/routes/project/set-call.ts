@@ -10,10 +10,12 @@ import { User } from '../../models/User';
 
 export const setCall: RequestHandler = async (req, res, next) => {
   try {
-    const user = await User.findOne({ role: 'Admin' })
+    const user = await User.find({
+      role: 'Admin',
+      email: 'madmin@yopmail.com',
+    })
       .lean()
       .exec();
-    // console.log('user', user);
     const userDetails = await User.findById({ _id: req.body.userId })
       .lean()
       .exec();
