@@ -28,6 +28,7 @@ function getHtmlString(newEjsPath: string, dataObj: any) {
 export const getProjectData = async (
   comingUserId: string,
   projectsId: string,
+  projectsRequestId: string,
 ) => {
   const projectDataPromise: any = Project.findOne({
     _id: projectsId,
@@ -36,8 +37,8 @@ export const getProjectData = async (
     .lean()
     .exec();
   const projectRequestDataPromise = ProjectRequest.findOne({
+    _id: projectsRequestId,
     userId: comingUserId,
-    projectId: projectsId,
   })
     .populate('consultantIds')
     .populate('userId')
@@ -52,10 +53,11 @@ export const generateProjectPdf: RequestHandler = async (req, res, next) => {
   try {
     const userId = req.query.userId ? req.query.userId : res.locals.user.userId;
     const projectsId = req.query.projectId;
+    const projectsRequestId = req.query.projectsRequestId;
     const [
       projectDetailsData,
       projectRequestDetailsData,
-    ] = await getProjectData(userId, projectsId);
+    ] = await getProjectData(userId, projectsId, projectsRequestId);
     const htmlString: any = await getHtmlString(ejsPath, {
       projectDetailsData,
       projectRequestDetailsData,
