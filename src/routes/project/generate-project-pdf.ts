@@ -39,6 +39,8 @@ export const getProjectData = async (
     userId: comingUserId,
     projectId: projectsId,
   })
+    .populate('consultantIds')
+    .populate('userId')
     .lean()
     .exec();
   return await BluePromise.all([projectDataPromise, projectRequestDataPromise]);
