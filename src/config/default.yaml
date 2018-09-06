@@ -18,6 +18,12 @@ mails:
   admin: 'aumadmin@yopmail.com'
   errMails: miwago-bug-report@cubettech.com
 
+issue-maker:
+  service: gitlab
+  projectId: 938
+  endPoint: http://117.247.186.100:9898
+  privateToken: QtHVSf1hvAeCqd6Bu7-X
+
 frontEnd:
   web:
     baseUrl: 'http://localhost:7011'

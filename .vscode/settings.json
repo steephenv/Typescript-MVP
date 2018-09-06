@@ -6,6 +6,7 @@
         "Promisifying",
         "Splitted",
         "UNPROCESSABLE",
+        "gitlab",
         "graphiql",
         "upsert",
         "validators"
