@@ -43,6 +43,7 @@ describe('Test for saving wlb data ', () => {
         workPermit: 'dsfdshj',
         daysInYear: 154,
         daysInCapricornsYear: 412,
+        fileName: 'TestImage.png',
       },
     })
       .then(() => done())

@@ -39,6 +39,9 @@ const wlbSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  fileName: {
+    type: String,
+  },
 });
 
 export const Wlb = mongooseModel('Wlb', wlbSchema);
