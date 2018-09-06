@@ -1,5 +1,4 @@
 import * as express from 'express';
-import * as queryIntParser from 'express-query-int';
 
 import { projectRequestRule } from './validators/project-request-rules';
 import { saveProjectRule } from './validators/save-project-rules';
