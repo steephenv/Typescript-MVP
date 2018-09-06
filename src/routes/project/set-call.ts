@@ -10,7 +10,7 @@ import { User } from '../../models/User';
 
 export const setCall: RequestHandler = async (req, res, next) => {
   try {
-    const user = await User.find({
+    const user = await User.findOne({
       role: 'Admin',
       email: 'madmin@yopmail.com',
     })
@@ -25,7 +25,6 @@ export const setCall: RequestHandler = async (req, res, next) => {
         status: 'no user found',
       });
     }
-
     const mailOptions = {
       toAddresses: [user.email],
       template: EmailTemplates.SET_CALL,
