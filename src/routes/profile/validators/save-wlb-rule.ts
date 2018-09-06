@@ -11,6 +11,9 @@ const wlbDataSchema = Joi.object().keys({
   workPermit: Joi.string().allow(''),
   daysInYear: Joi.number().required(),
   daysInCapricornsYear: Joi.number().required(),
+  fileName: Joi.string()
+    .optional()
+    .allow(''),
 });
 
 export const saveWLBRule: RequestHandler = (req, res, next) => {

@@ -47,6 +47,8 @@
             type: number
           daysInCapricornsYear:
             type: number  
+          fileName:
+            type: string
     responses:
       200:
         description: "successful attempt, returns `success message`"
