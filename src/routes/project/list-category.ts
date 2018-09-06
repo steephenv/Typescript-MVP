@@ -22,13 +22,38 @@ export const listProjectCategories: RequestHandler = async (req, res, next) => {
         ),
       );
     }
+    if (req.query.isDelete === 'All') {
+      const catsPromise = ProjectCategory.find({})
+        .limit(_limit)
+        .skip(_skip)
+        .lean()
+        .exec();
+      const countPromise = ProjectCategory.count({}).exec();
+      const [categories, counts] = await BluePromise.all([
+        catsPromise,
+        countPromise,
+      ]);
+      if (categories.length) {
+        await BluePromise.map(categories, async (cat: any) => {
+          const subCategories = await ProjectSubCategory.find({
+            categoryId: cat._id,
+            isDelete: false,
+          })
+            .lean()
+            .exec();
+          cat.subCategories = subCategories;
+        });
+      }
+      return res
+        .status(200)
+        .send({ success: true, projectCategories: categories, counts });
+    }
 
     const catsP = ProjectCategory.find({ isDelete: false })
       .limit(_limit)
       .skip(_skip)
       .lean()
       .exec();
-
     const countP = ProjectCategory.count({ isDelete: false }).exec();
 
     const [cats, count] = await BluePromise.all([catsP, countP]);
