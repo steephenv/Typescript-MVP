@@ -36,9 +36,10 @@ describe('Test for project share', () => {
       json: true,
       body: {
         projectName: 'Test Project',
-        userId: '5b86831d924ee607d9b0b4a2',
+        userId: '5b9102c387c63b226223314c',
         timeForCall: '12.30-PM',
         otherDetails: '11-11-2018',
+        mobile: '9544529886',
       },
     })
       .then(() => done())

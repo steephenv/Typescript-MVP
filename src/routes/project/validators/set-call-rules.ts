@@ -7,6 +7,7 @@ const ProjectDraftSchema = Joi.object().keys({
   userId: Joi.string().required(),
   timeForCall: Joi.string().required(),
   otherDetails: Joi.string().optional(),
+  mobile: Joi.string().required(),
 });
 export const setCallRule: RequestHandler = (req, res, next) => {
   Joi.validate(req.body, ProjectDraftSchema, err => {
