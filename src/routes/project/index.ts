@@ -1,4 +1,5 @@
 import * as express from 'express';
+import * as queryIntParser from 'express-query-int';
 
 import { projectRequestRule } from './validators/project-request-rules';
 import { saveProjectRule } from './validators/save-project-rules';
@@ -83,7 +84,7 @@ project.post(
 );
 project.post('/share-project', shareProject);
 
-project.get('/list-all-categories', listProjectCategories);
+project.get('/list-all-categories', queryIntParser(), listProjectCategories);
 
 project.post('/delete-category', deleteProjectCategoryRules, deleteCategory);
 project.post('/save-project-draft', saveProjectDraft);

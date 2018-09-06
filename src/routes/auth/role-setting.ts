@@ -13,6 +13,7 @@ import { InterviewDetails } from '../../models/InterviewDetails';
 export const saveRole: RequestHandler = async (req, res, next) => {
   try {
     const userComment = req.body.comment ? req.body.comment : '';
+    const userReason = req.body.reason ? req.body.reason : '';
     if (req.body.isApproved) {
       const userUpdate = User.update(
         { _id: req.body.userId },
@@ -66,7 +67,13 @@ export const saveRole: RequestHandler = async (req, res, next) => {
         {
           _id: req.body.interviewId,
         },
-        { $set: { interviewStatus: 'Failed', comment: userComment } },
+        {
+          $set: {
+            interviewStatus: 'Failed',
+            comment: userComment,
+            reason: userReason,
+          },
+        },
       ).exec();
 
       await BluePromise.all([userUpdate, interviewUpdate]);

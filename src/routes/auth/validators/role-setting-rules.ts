@@ -7,8 +7,9 @@ const saveRoleSchema = Joi.object().keys({
   isApproved: Joi.boolean().required(),
   interviewId: Joi.string().required(),
   comment: Joi.string().optional(),
+  reason: Joi.string().optional(),
   loginUrl: Joi.string().required(),
-  userRating: Joi.number().optional(),
+  userRating: Joi.string().optional(),
   homeUrl: Joi.string().when('isApproved', { is: false, then: Joi.required() }),
   role: Joi.string()
     .valid('Consultant', 'Employee')
