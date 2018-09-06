@@ -8,7 +8,12 @@ import * as path from 'path';
 import { v4 } from 'public-ip';
 import * as lme from 'lme';
 import * as favicon from 'serve-favicon';
-
+import {
+  IssueMaker,
+  ExpressRequestError,
+  ExpressRequestErrorType,
+} from 'issue-maker';
+// import {RequestError, RequestErrorType} from 'issue-maker/dist/src/error-types/express-request-error';
 // init db
 import { mongooseConnectionPromise, mongoose } from './db.init';
 export { mongoose, mongooseConnectionPromise }; // exporting for quick access in tests
@@ -37,9 +42,6 @@ mongooseConnectionPromise
     );
     process.exit(1);
   });
-
-import { AppEmailTemplates, sendEmail } from './email/send-email';
-import { RequestError, RequestErrorType } from './error-handler/RequestError';
 
 import { apis } from './routes';
 import { buildGraphQLRoutesGateway } from './graphql-compiler';
@@ -80,8 +82,8 @@ app.use('/v1/graph', attachTokenData, buildGraphQLRoutesGateway());
 // test for err emails
 app.get('/send/cats/to/me/with/500', (req, res, next) =>
   next(
-    new RequestError(
-      RequestErrorType.INTERNAL_SERVER_ERROR,
+    new ExpressRequestError(
+      ExpressRequestErrorType.INTERNAL_SERVER_ERROR,
       'testing 500 with cats api',
     ),
   ),
@@ -89,15 +91,20 @@ app.get('/send/cats/to/me/with/500', (req, res, next) =>
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  const err = new RequestError(RequestErrorType.NOT_FOUND);
+  const err = new ExpressRequestError(ExpressRequestErrorType.NOT_FOUND);
   next(err);
 });
 
-const ERR_EMAIL: string = getConfig('mails.errMails');
+const gitlabIssue = new IssueMaker({
+  service: 'gitlab',
+  endPoint: 'http://117.247.186.100:9898',
+  privateToken: 'QtHVSf1hvAeCqd6Bu7-X',
+  projectId: 938,
+});
 
 // error handler
-const requestErrHandler: express.ErrorRequestHandler = (
-  err: RequestError,
+const requestErrHandler: express.ErrorRequestHandler = async (
+  err: ExpressRequestError,
   req,
   res,
   next,
@@ -109,61 +116,16 @@ const requestErrHandler: express.ErrorRequestHandler = (
     console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'); // tslint:disable-line
   }
   if (err.statusCode >= 500 && process.env.NODE_ENV !== 'development') {
-    // const route = getRoute(req);
-    const queryOrParam = Object.keys(req.query).length ? '(Query)' : '';
-
-    v4()
-      .then(pubIp => {
-        const mailOptions = {
-          toAddresses: [ERR_EMAIL],
-          template: AppEmailTemplates.ERR_REPORTER,
-          fromName: 'Miwago Err Reporter',
-          subject: `err ${err.statusCode} in ${process.env.USER ||
-            'unknown-env'} in ${req.method} ${req.originalUrl} ${queryOrParam}`,
-          fields: {
-            errCode: err.statusCode,
-            ENV_USER: process.env.USER,
-            NODE_ENV: process.env.NODE_ENV,
-            NODE_CONFIG: JSON.stringify(
-              JSON.parse(process.env.NODE_CONFIG || '{}'),
-              null,
-              2,
-            ),
-            host: pubIp,
-            NODE_APP_INSTANCE: process.env.NODE_APP_INSTANCE,
-            databaseName: getConfig('database.url'),
-            databaseHost: '',
-            time: new Date(),
-            requestOrigin: req.hostname,
-            requestedUrl: req.originalUrl,
-            errDetails: JSON.stringify(
-              {
-                code: err.statusCode,
-                msg: err.message,
-                details: err.details,
-              },
-              null,
-              2,
-            ),
-            requestIp: `> x-forwarded-for: ${req.headers['x-forwarded-for']} |
-            > req.connection.remoteAddress: ${req.connection.remoteAddress} |
-            > req.ip: ${req.ip} |`,
-            resLocals: JSON.stringify(res.locals, null, 2),
-            reqMethod: req.method,
-            reqHeaders: JSON.stringify(req.headers, null, 2),
-            reqBody: JSON.stringify(req.body, null, 2),
-            reqQuery: JSON.stringify(req.query, null, 2),
-          },
-        };
-        console.log(mailOptions); // tslint:disable-line
-
-        return sendEmail(mailOptions);
-      })
-      .then(data => console.log('err emailed. resp if any:', data)) // tslint:disable-line
-      .catch(sendEmailErr => {
-        // tslint:disable-next-line
-        console.trace('err in sending err-responder-email', sendEmailErr);
+    try {
+      await gitlabIssue.expressReportError(req, err, {
+        labels: 'by-issue-maker',
+        resLocals: res.locals,
+        databaseHost: getConfig('database.url'),
+        databaseName: '',
       });
+    } catch (err) {
+      console.log('ERR: some error occurred while reporting issue', err); //tslint:disable-line
+    }
   }
 
   if (req.xhr) {
