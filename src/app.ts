@@ -83,7 +83,7 @@ app.get('/send/cats/to/me/with/500', (req, res, next) =>
   next(
     new ExpressRequestError(
       ExpressRequestErrorType.INTERNAL_SERVER_ERROR,
-      'testing 500 with cats api',
+      new Error('testing 500 with cats api'),
     ),
   ),
 );
@@ -95,10 +95,10 @@ app.use((req, res, next) => {
 });
 
 const gitlabIssue = new IssueMaker({
-  service: 'gitlab',
-  endPoint: 'http://117.247.186.100:9898',
-  privateToken: 'QtHVSf1hvAeCqd6Bu7-X',
-  projectId: 938,
+  service: getConfig('issue-maker.service'),
+  endPoint: getConfig('issue-maker.endPoint'),
+  privateToken: getConfig('issue-maker.privateToken'),
+  projectId: getConfig('issue-maker.projectId'),
 });
 
 // error handler
