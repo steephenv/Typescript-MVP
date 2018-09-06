@@ -25,6 +25,7 @@ export const deleteCategory: RequestHandler = async (req, res, next) => {
       await ProjectSubCategory.update(
         { _id: { $in: req.body.ids } },
         { $set: { isDelete: true } },
+        { multi: true },
       );
     }
     return res.status(200).send({ success: true });

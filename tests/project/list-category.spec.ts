@@ -23,8 +23,26 @@ beforeAll(done => {
     });
 });
 describe('Save project category ', () => {
-  test('Save project category', done => {
+  test('List project category', done => {
     got(`http://localhost:7000/v1/project/list-all-categories`, {
+      method: 'GET',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      // json: true,
+      // body: {
+      //   model: 'category',
+      //   ids: ['5b4f0845b48361468f85033c'],
+      // },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
+      });
+  });
+  test('List project category with isDelete param', done => {
+    got(`http://localhost:7000/v1/project/list-all-categories?isDelete=All`, {
       method: 'GET',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',

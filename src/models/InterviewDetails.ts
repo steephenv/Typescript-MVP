@@ -20,6 +20,7 @@ const InterviewDetailsSchema = new Schema({
     default: 'Applied',
   },
   comment: { type: String },
+  reason: { type: String },
   createdAt: {
     type: Date,
   },
