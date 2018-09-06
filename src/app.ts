@@ -5,7 +5,6 @@ import * as cors from 'cors';
 import * as express from 'express';
 import * as logger from 'morgan';
 import * as path from 'path';
-import { v4 } from 'public-ip';
 import * as lme from 'lme';
 import * as favicon from 'serve-favicon';
 import {
