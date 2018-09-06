@@ -26,9 +26,6 @@
               <% if(projectRequestDetailsData && projectRequestDetailsData.projectName) { %>
                 <p><b>Project Name </b> &nbsp:&nbsp <%= projectRequestDetailsData.projectName%></p>
                 <%}%>
-              <% if(projectRequestDetailsData && projectRequestDetailsData.templateType) { %>
-                <p><b>Template Type </b> &nbsp:&nbsp <%= projectRequestDetailsData.templateType%></p>
-                <%}%>
               <% if(projectRequestDetailsData && projectRequestDetailsData.currentSituation) { %>
                 <p><b>Current Situation </b> &nbsp:&nbsp <%= projectRequestDetailsData.currentSituation%></p>
                 <%}%>
@@ -54,16 +51,20 @@
                 <p><b>Proposal Submission Date </b> &nbsp:&nbsp <%= projectRequestDetailsData.proposalSubmissionDate%></p>
                 <%}%>
               <% if(projectRequestDetailsData && projectRequestDetailsData.expectedTotalPriceForvalue) { %>
+              <% if ( typeof projectRequestDetailsData.expectedTotalPriceForvalue === "string") { %>
                 <p><b>Expected Total Price For Value </b> &nbsp:&nbsp <%= projectRequestDetailsData.expectedTotalPriceForvalue%></p>
                 <%}%>
+                <%}%>
               <% if(projectRequestDetailsData && projectRequestDetailsData.expectedPricePerDeliverable) { %>
+              <% if (typeof projectRequestDetailsData.expectedPricePerDeliverable === "string") { %>
                 <p><b>Expected Price Per Deliverable </b> &nbsp:&nbsp <%= projectRequestDetailsData.expectedPricePerDeliverable%></p>
                 <%}%>
-              <% if(projectRequestDetailsData && projectRequestDetailsData.proposalSelectionBasedOn) { %>
-                <p><b>Proposal Selection Based On </b> &nbsp:&nbsp <%= projectRequestDetailsData.proposalSelectionBasedOn%></p>
                 <%}%>
               <% if(projectRequestDetailsData && projectRequestDetailsData.clientsMessage) { %>
                 <p><b>Clients Message </b> &nbsp:&nbsp <%= projectRequestDetailsData.clientsMessage%></p>
+                <%}%>
+                <% if(projectRequestDetailsData && projectRequestDetailsData.communication) { %>
+                <p><b>Communication </b> &nbsp:&nbsp <%= projectRequestDetailsData.communication%></p>
                 <%}%>
               
                 
@@ -94,9 +95,6 @@
                     <%}%>
                 <% if(projectRequestDetailsData && projectRequestDetailsData.clientsMessage) { %>
                  <p><b>Degree Of Challenge </b> &nbsp:&nbsp <%= projectRequestDetailsData.degreeOfChallenge%></p>
-                    <%}%>
-                <% if(projectRequestDetailsData && projectRequestDetailsData.clientsMessage) { %>
-                 <p><b>Goal Value Add </b> &nbsp:&nbsp <%= projectRequestDetailsData.goalValueAdd%></p>
                     <%}%>
                 <% if(projectRequestDetailsData && projectRequestDetailsData.clientsMessage) { %>
                  <p><b>Goal Value Add </b> &nbsp:&nbsp <%= projectRequestDetailsData.goalValueAdd%></p>
@@ -189,7 +187,7 @@
 
 
                  <% if(item && item.functional) { %>
-                 <p><b>Functional :</b></p>
+                 <p><b>Functional, Technical, Methodology Know-How :</b></p>
                  <% item.functional.forEach(function(fn){ %>
                 <% if(fn) { %>
                 <p>&nbsp&nbsp&nbsp&nbsp&nbsp<b>*</b>&nbsp&nbsp<%= fn%></p>
@@ -197,7 +195,7 @@
                     <% }); %>
                         <% } %>
                 <% if(item && item.personal) { %>
-                <p><b>Personal :</b></p>
+                <p><b>Personal And Social Skills :</b></p>
                  <% item.personal.forEach(function(pn){ %>
                 <% if(pn) { %>
                 <p>&nbsp&nbsp&nbsp&nbsp&nbsp<b>*</b>&nbsp&nbsp<%= pn%></p>
@@ -205,7 +203,7 @@
                     <% }); %>
                         <% } %>
                 <% if(item && item.leadership) { %>
-                <p><b>Leaderships :</b></p>
+                <p><b>People Development And Leadership :</b></p>
                 <% item.leadership.forEach(function(lsp){ %>
                 <% if(lsp) { %>
                 <p>&nbsp&nbsp&nbsp&nbsp&nbsp<b>*</b>&nbsp&nbsp<%= lsp%></p>
@@ -213,7 +211,7 @@
                     <% }); %>
                         <% } %>
                 <% if(item && item.entrepreneurship) { %>
-                <p><b>Entrepreneurships :</b></p>
+                <p><b>Entrepreneurship And Business Development :</b></p>
                 <% item.entrepreneurship.forEach(function(ent){ %>
                 <% if(ent) { %>
                 <p>&nbsp&nbsp&nbsp&nbsp&nbsp<b>*</b>&nbsp&nbsp<%= ent%></p>
@@ -222,11 +220,10 @@
                         <% } %>
 
                 <% if(item && item.desiredDailyRate) { %>
+                 <% if (typeof item.desiredDailyRate === "string") { %>
                 <p><b> Desired Daily Rate : </b><%= item.desiredDailyRate%></p>
-                        <% } %>
-                <% if(item && item.desiredDailyRateNumber) { %>
-                <p><b> Desired Daily Rate Number : </b><%= item.desiredDailyRateNumber%></p>
-                        <% } %>
+                    <% } %>
+                    <% } %>
                 <% if(item && item.travellingExpensePercentage) { %>
                 <p><b> Travelling Expense Percentage : </b><%= item.travellingExpensePercentage%></p>
                         <% } %>
@@ -236,63 +233,32 @@
                     <% }); %>
                  <%}%>
 
-                
                 <%if(projectRequestDetailsData.deliverables && projectRequestDetailsData.deliverables.length !== 0){%>
                 <p><b>Deliverables : </b></p>
                 <% projectRequestDetailsData.deliverables.forEach(function(item){ %>
                 <% if(item && item.noOfExpectedDeliverables) { %>
-                <p>&nbsp&nbsp&nbsp&nbsp&nbsp No Of Expected Deliverables<%= item.noOfExpectedDeliverables%></p>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp <b> No Of Expected Deliverables </b>: <%= item.noOfExpectedDeliverables%></p>
                         <% } %>
                 <% if(item && item.nameOfDeliverables) { %>
-                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Name Of Deliverables<%= item.nameOfDeliverables%></p>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp <b> Name Of Deliverables </b>: <%= item.nameOfDeliverables%></p>
                         <% } %>
                 <% if(item && item.typeOfDeliverables) { %>
-                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Type Of Deliverables<%= item.typeOfDeliverables%></p>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp <b> Type Of Deliverables </b>: <%= item.typeOfDeliverables%></p>
                         <% } %>
                 <% if(item && item.languageOfDeliverable) { %>
-                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Language Of Deliverables<%= item.languageOfDeliverable%></p>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp <b> Language Of Deliverables </b>: <%= item.languageOfDeliverable%></p>
                         <% } %>
                 <% if(item && item.briefDescriptionOfDeliverable) { %>
-                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Brief description Of Deliverables<%= item.briefDescriptionOfDeliverable%></p>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp <b> Brief description Of Deliverables </b>: <%= item.briefDescriptionOfDeliverable%></p>
                         <% } %>
                 <% if(item && item.expectedValueAddOfDeliverable) { %>
-                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Expected Value Add Of deliverables<%= item.expectedValueAddOfDeliverable%></p>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp <b> Expected Value Add Of deliverables </b>: <%= item.expectedValueAddOfDeliverable%></p>
                         <% } %>
                 <% if(item && item.expectedQualityOfDeliverable) { %>
-                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Expected Quality Of Deliverables<%= item.expectedQualityOfDeliverable%></p>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp <b> Expected Quality Of Deliverables </b>: <%= item.expectedQualityOfDeliverable%></p>
                         <% } %>
                 <% if(item && item.expectedDueDateOfDeliverable) { %>
-                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Expected Due Date Of deliverables<%= item.expectedDueDateOfDeliverable%></p>
-                        <% } %>            
-                    <% }); %>
-                 <%}%>
-
-                    <%if(projectRequestDetailsData.deliverables && projectRequestDetailsData.deliverables.length !== 0){%>
-                <p><b>Deliverables : </b></p>
-                <% projectRequestDetailsData.deliverables.forEach(function(item){ %>
-                <% if(item && item.noOfExpectedDeliverables) { %>
-                <p>&nbsp&nbsp&nbsp&nbsp&nbsp No Of Expected Deliverables<%= item.noOfExpectedDeliverables%></p>
-                        <% } %>
-                <% if(item && item.nameOfDeliverables) { %>
-                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Name Of Deliverables<%= item.nameOfDeliverables%></p>
-                        <% } %>
-                <% if(item && item.typeOfDeliverables) { %>
-                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Type Of Deliverables<%= item.typeOfDeliverables%></p>
-                        <% } %>
-                <% if(item && item.languageOfDeliverable) { %>
-                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Language Of Deliverables<%= item.languageOfDeliverable%></p>
-                        <% } %>
-                <% if(item && item.briefDescriptionOfDeliverable) { %>
-                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Brief description Of Deliverables<%= item.briefDescriptionOfDeliverable%></p>
-                        <% } %>
-                <% if(item && item.expectedValueAddOfDeliverable) { %>
-                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Expected Value Add Of deliverables<%= item.expectedValueAddOfDeliverable%></p>
-                        <% } %>
-                <% if(item && item.expectedQualityOfDeliverable) { %>
-                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Expected Quality Of Deliverables<%= item.expectedQualityOfDeliverable%></p>
-                        <% } %>
-                <% if(item && item.expectedDueDateOfDeliverable) { %>
-                <p>&nbsp&nbsp&nbsp&nbsp&nbsp Expected Due Date Of deliverables<%= item.expectedDueDateOfDeliverable%></p>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp <b> Expected Due Date Of deliverables </b>: <%= item.expectedDueDateOfDeliverable%></p>
                         <% } %>            
                     <% }); %>
                  <%}%>
@@ -300,15 +266,10 @@
                  <% if(projectRequestDetailsData && projectRequestDetailsData.expectedTotalPriceForValue) { %>
                  <p><b>Expected Total Price For value </b> : <%= projectRequestDetailsData.expectedTotalPriceForValue%></p>
                  <%}%>
-                 <% if(projectRequestDetailsData && projectRequestDetailsData.expectedTotalPriceForValueNumber) { %>
-                 <p><b>Expected Total Price For value number </b> : <%= projectRequestDetailsData.expectedTotalPriceForValueNumber%></p>
-                 <%}%>
                  <% if(projectRequestDetailsData && projectRequestDetailsData.expectedPricePerDeliverable) { %>
                  <p><b>Expected Price Per Deliverable </b> : <%= projectRequestDetailsData.expectedPricePerDeliverable%></p>
                  <%}%>
-                 <% if(projectRequestDetailsData && projectRequestDetailsData.expectedPricePerDeliverableNumber) { %>
-                 <p><b>Expected Price Per Deliverable Number</b> : <%= projectRequestDetailsData.expectedPricePerDeliverableNumber%></p>
-                 <%}%>
+                 
                  <% if(projectRequestDetailsData && projectRequestDetailsData.travelExpPercentageOfTotalPriceForValue) { %>
                  <p><b>Travelling Percentage For Total Total Price For Value</b> : <%= projectRequestDetailsData.travelExpPercentageOfTotalPriceForValue%></p>
                  <%}%>
