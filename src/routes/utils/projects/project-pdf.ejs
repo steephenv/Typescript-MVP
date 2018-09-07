@@ -39,10 +39,12 @@
                 <p><b>Desired Future Situation </b> &nbsp:&nbsp <%= projectRequestDetailsData.desiredFutureSituation%></p>
                 <%}%>
               <% if(projectRequestDetailsData && projectRequestDetailsData.targetStart) { %>
-                <p><b>Target Start </b> &nbsp:&nbsp <%= projectRequestDetailsData.targetStart%></p>
+              <% var dt = new Date(projectRequestDetailsData.targetStart); dtNew = dt.getDay() +  '-'  + dt.getMonth() + '-' + dt.getFullYear()%>                
+                <p><b>Target Start </b> &nbsp:&nbsp <%= dtNew%></p>
                 <%}%>
               <% if(projectRequestDetailsData && projectRequestDetailsData.expectedEnd) { %>
-                <p><b>Expected End </b> &nbsp:&nbsp <%= projectRequestDetailsData.expectedEnd%></p>
+              <% var dt = new Date(projectRequestDetailsData.expectedEnd); dtNew = dt.getDay() +  '-'  + dt.getMonth() + '-' + dt.getFullYear()%>              
+                <p><b>Expected End </b> &nbsp:&nbsp <%= dtNew%></p>
                 <%}%>
               <% if(projectRequestDetailsData && projectRequestDetailsData.mainLocation) { %>
                 <p><b>Main Location </b> &nbsp:&nbsp <%= projectRequestDetailsData.mainLocation%></p>
@@ -127,10 +129,12 @@
                 <p><b> Main Responsibility : </b><%= item.mainResponsibility%></p>
                         <% } %>
                 <% if(item && item.engagementStart) { %>
-                <p><b> Engagement Start : </b><%= item.engagementStart%></p>
+                <% var dt = new Date(item.engagementStart); engst = dt.getDay() +  '-'  + dt.getMonth() + '-' + dt.getFullYear()%>              
+                <p><b> Engagement Start : </b><%= engst%></p>
                         <% } %>
                 <% if(item && item.engagementEnd) { %>
-                <p><b> Engagement End : </b><%= item.engagementEnd%></p>
+                <% var dt = new Date(item.engagementEnd); engend = dt.getDay() +  '-'  + dt.getMonth() + '-' + dt.getFullYear()%>              
+                <p><b> Engagement End : </b><%= engend%></p>
                         <% } %>
                 <% if(item && item.reqCapacityWorkDays) { %>
                 <p><b> Required Capacity Work Days : </b><%= item.reqCapacityWorkDays%></p>
@@ -258,7 +262,8 @@
                 <p>&nbsp&nbsp&nbsp&nbsp&nbsp <b> Expected Quality Of Deliverables </b>: <%= item.expectedQualityOfDeliverable%></p>
                         <% } %>
                 <% if(item && item.expectedDueDateOfDeliverable) { %>
-                <p>&nbsp&nbsp&nbsp&nbsp&nbsp <b> Expected Due Date Of deliverables </b>: <%= item.expectedDueDateOfDeliverable%></p>
+                 <% var dt = new Date(item.expectedDueDateOfDeliverable); expdue = dt.getDay() +  '-'  + dt.getMonth() + '-' + dt.getFullYear()%>              
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp <b> Expected Due Date Of deliverables </b>: <%= expdue%></p>
                         <% } %>            
                     <% }); %>
                  <%}%>
