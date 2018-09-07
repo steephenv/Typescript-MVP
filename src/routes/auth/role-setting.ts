@@ -49,6 +49,7 @@ export const saveRole: RequestHandler = async (req, res, next) => {
           user: user.firstName + ' ' + user.lastName,
           role: req.body.role,
           loginUrl: req.body.loginUrl,
+          homeUrl: req.body.homeUrl,
         },
       };
       await sendEmail(mailOptions);
