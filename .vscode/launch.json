@@ -51,6 +51,7 @@
       "protocol": "inspector",
       "env": {
         "NODE_CONFIG_DIR": "./src/config",
+        "TESTING": "true",
         "NODE_ENV": "production",
         "NODE_CONFIG":
           "{\\\"database\\\":{\\\"url\\\":\\\"mongodb://miwago_user:NBGVJHgjhg67uhgvjuuy5hjnv98jkhbBGbkjbhfgjhbkmjhb76hjv98bkjbnjmn@185.148.147.8:27018/miwago_db\\\"}}",
@@ -70,6 +71,7 @@
       "env": {
         "NODE_CONFIG_DIR": "./src/config",
         "NODE_ENV": "production",
+        "TESTING": "true",
         "NODE_CONFIG":
           "{\\\"database\\\":{\\\"url\\\":\\\"mongodb://capricorns-db-user:Capricorns-DB-pwd-56%24@capricons-cl1-shard-00-00-jngps.mongodb.net:27017,capricons-cl1-shard-00-01-jngps.mongodb.net:27017,capricons-cl1-shard-00-02-jngps.mongodb.net:27017/miwago_db?authSource=admin&replicaSet=Capricons-CL1-shard-0&ssl=true\\\"}}",
         "NODE_APP_INSTANCE": "production"

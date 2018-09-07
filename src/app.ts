@@ -114,7 +114,11 @@ const requestErrHandler: express.ErrorRequestHandler = async (
     console.log(err); // tslint:disable-line
     console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'); // tslint:disable-line
   }
-  if (err.statusCode >= 500 && process.env.NODE_ENV !== 'development') {
+  if (
+    err.statusCode >= 500 &&
+    process.env.NODE_ENV !== 'development' &&
+    process.env.TESTING !== 'true'
+  ) {
     try {
       await gitlabIssue.expressReportError(req, err, {
         labels: 'by-issue-maker',
