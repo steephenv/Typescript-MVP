@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
 import { Project } from '../../models/Project';
+import { Promise as BluePromise } from 'bluebird';
 
 import '../../models/ProjectCategory';
 import '../../models/ProjectSubCategory';
@@ -44,10 +45,14 @@ export const deleteProjectById: RequestHandler = async (req, res, next) => {
         msg: 'Project is actively used by a client',
       });
     }
-    await Project.findByIdAndRemove({
+    const projectPromise = Project.findByIdAndRemove({
       _id: req.query.projectId,
     }).exec();
-    await Favorites.remove({ projectsId: req.query.projectId });
+
+    const favoritePromise = Favorites.remove({
+      projectsId: req.query.projectId,
+    });
+    await BluePromise.all([projectPromise, favoritePromise]);
     return res.status(200).send({
       success: true,
     });

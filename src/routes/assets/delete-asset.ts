@@ -2,6 +2,7 @@ import { RequestHandler } from 'express';
 
 import { Assets } from '../../models/Assets';
 import { Favorites } from '../../models/Favorites';
+import { Promise as BluePromise } from 'bluebird';
 
 import {
   RequestError,
@@ -16,15 +17,14 @@ export const deleteAssets: RequestHandler = async (req, res, next) => {
       );
     }
 
-    const resp = await Assets.remove(req.query).exec();
+    const assetPromise = Assets.remove(req.query).exec();
 
-    await Favorites.remove({
+    const favoritePromise = Favorites.remove({
       assetsId: req.query._id,
     });
-
+    await BluePromise.all([assetPromise, favoritePromise]);
     return res.status(200).send({
       msg: 'asset-deleted',
-      resp,
     });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
