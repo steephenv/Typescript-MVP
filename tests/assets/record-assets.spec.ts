@@ -14,7 +14,11 @@ describe('testing asset recording', () => {
         title: 'fasdf',
         fileAccessUrls: ['fasdf'],
         fileName: 'adsfasd',
-        userId: '5b4f0845b48361468f85033c',
+        userId: {
+          _id: '5b4f0845b48361468f85033c',
+          firstName: 'Test',
+          lastName: 'User',
+        },
       },
     })
       .then(() => done())
@@ -34,7 +38,11 @@ describe('testing asset recording', () => {
         title: 'fasdf',
         fileAccessUrls: ['fasdf'],
         fileName: 'adsfasd',
-        userId: '5b4f0845b48361468f85033c',
+        userId: {
+          _id: '5b4f0845b48361468f85033c',
+          firstName: 'Test',
+          lastName: 'User',
+        },
       },
     })
       .then(() => done())
