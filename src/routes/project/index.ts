@@ -11,6 +11,7 @@ import { createCategoryValidationChain } from './validators/save-proj-category-r
 import { createSubCatValidationChain } from './validators/save-proj-sub-category-rules';
 import { shareProjectRule } from '../share/validators/share-project-rule';
 import { setCallRule } from './validators/set-call-rules';
+import { projectViewDeleteRule } from './validators/project-view-delete-rule';
 // import { saveFavoriteRule } from '../favorites/validators/add-favorites-rules';
 
 import { saveProjectRequest } from './project-request';
@@ -40,8 +41,8 @@ import { generateProjectPdf } from '../project/generate-project-pdf';
 
 export const project = express.Router();
 
-project.get('/delete-project', deleteProjectById);
-project.get('/view-project', getProjectById);
+project.get('/delete-project', projectViewDeleteRule, deleteProjectById);
+project.get('/view-project', projectViewDeleteRule, getProjectById);
 project.post('/share-project', shareProjectRule, shareProject);
 project.post('/update-project', updateProject);
 project.post('/filter-project', filterProject);
