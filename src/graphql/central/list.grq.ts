@@ -12,7 +12,8 @@ export const querySchema = `collection(name: String!): Collection`;
 export const otherSchema = `
 type Collection {
   collectionName: String
-  fetch(query: Object, attachments:[String], fields: String, populate: Object, limit:Int, skip:Int): Object
+  fetch(query: Object, selectingFields: String, attachments:[String],
+     fields: String, populate: Object, limit:Int, skip:Int): Object,
   count(query: Object): Int
   create(content: Object!): Object
   update(condition: Object!, content: Object!, options: Object): Object
@@ -129,6 +130,7 @@ class Collection {
     fields = '',
     limit = 50,
     skip = 0,
+    selectingFields = '',
   }: {
     query: string | { [key: string]: any };
     attachments: string[];
@@ -136,6 +138,7 @@ class Collection {
     populate: any;
     limit: number;
     skip: number;
+    selectingFields: string;
   }) {
     let preparedQuery: any;
     try {
@@ -160,6 +163,7 @@ class Collection {
       prepareResult = prepareResult
         .limit(limit)
         .skip(skip)
+        .select(selectingFields)
         .lean();
 
       const result = await prepareResult.exec();
