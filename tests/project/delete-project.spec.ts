@@ -27,7 +27,7 @@ beforeAll(done => {
 describe('Test for deleting single project ', () => {
   test('deleting individual project api', done => {
     got(
-      `http://localhost:7000/v1/project/delete-project?projectId=5b62a5a661f517207520b808`,
+      `http://localhost:7000/v1/project/delete-project?projectId=5b62a5a661f517207520b809`,
       {
         method: 'GET',
         headers: {

@@ -32,7 +32,7 @@ export const confirmUser: RequestHandler = async (req, res, next) => {
     const timeInterval =
       new Date().getTime() - new Date(user.createdAt).getTime();
 
-    if (user && timeInterval > 172800000) {
+    if (user && timeInterval > 120000) {
       await TempUser.remove(criteria).exec();
       return next(
         new RequestError(RequestErrorType.BAD_REQUEST, messages.timeOut.ENG),

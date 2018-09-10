@@ -17,11 +17,16 @@ const ERR_EMAIL: string = getConfig('mails.errMails');
 // handle uncaught exception
 process.on('uncaughtException', async error => {
   try {
-    await gitlabIssue.reportIssue({
-      title: 'app terminated (uncaught exception)',
-      description: `${error}`,
-      labels: 'by-issue-maker',
-    });
+    if (
+      process.env.NODE_ENV !== 'development' &&
+      process.env.TESTING !== 'true'
+    ) {
+      await gitlabIssue.reportIssue({
+        title: 'app terminated (uncaught exception)',
+        description: `${error}`,
+        labels: 'by-issue-maker',
+      });
+    }
   } catch (err) {
     // tslint:disable-next-line:no-console
     console.log('>> ERRR in reporting to gitlab', err);
@@ -34,7 +39,42 @@ process.on('uncaughtException', async error => {
     try {
       const err = serializeError(error);
       const pubIp = await v4();
-
+      if (
+        process.env.NODE_ENV !== 'development' &&
+        process.env.TESTING !== 'true'
+      ) {
+        await sendEmail({
+          toAddresses: [ERR_EMAIL],
+          template: AppEmailTemplates.ERR_REPORTER,
+          fromName: 'Miwago err Reporter',
+          subject: `App terminated on uncaughtException in ${process.env.USER}`,
+          fields: {
+            errCode: 0,
+            ENV_USER: process.env.USER,
+            NODE_ENV: process.env.NODE_ENV,
+            NODE_CONFIG: JSON.stringify(
+              JSON.parse(process.env.NODE_CONFIG || '{}'),
+              null,
+              2,
+            ),
+            host: pubIp,
+            NODE_APP_INSTANCE: process.env.NODE_APP_INSTANCE,
+            databaseName: getConfig('database.url'),
+            databaseHost: `getConfig('database.host')`,
+            time: new Date(),
+            errDetails: JSON.stringify(err, null, 2),
+            requestIp: '',
+            resLocals: '',
+            requestOrigin: '',
+            requestedUrl: '',
+            reqMethod: '',
+            reqHeaders: '',
+            reqBody: '',
+            reqQuery: '',
+          },
+        });
+        console.log('err emailed'); // tslint:disable-line
+      }
       await sendEmail({
         toAddresses: [ERR_EMAIL],
         template: AppEmailTemplates.ERR_REPORTER,
