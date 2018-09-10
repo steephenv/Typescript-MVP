@@ -18,6 +18,7 @@ type Collection {
   create(content: Object!): Object
   update(condition: Object!, content: Object!, options: Object): Object
   remove(condition: Object!): Object
+  aggregate(query: Object!): Object
 }
 `;
 export const resolver = { collection };
@@ -193,6 +194,21 @@ class Collection {
     }
     try {
       const resp = await this.collection.remove(preparedQuery).exec();
+      return resp;
+    } catch (err) {
+      throw new GQLErr(GQLErrType.INTERNAL_SERVER_ERROR, err);
+    }
+  }
+
+  public async aggregate({ query }: { query: any[] }) {
+    let preparedQuery: any;
+    try {
+      preparedQuery = prepareGQLQuery(query);
+    } catch (err) {
+      throw new GQLErr(GQLErrType.BAD_REQUEST, err);
+    }
+    try {
+      const resp = await this.collection.aggregate(preparedQuery).exec();
       return resp;
     } catch (err) {
       throw new GQLErr(GQLErrType.INTERNAL_SERVER_ERROR, err);
