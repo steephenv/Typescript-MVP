@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express';
 
 import { Assets } from '../../models/Assets';
+import { Favorites } from '../../models/Favorites';
 
 import {
   RequestError,
@@ -16,6 +17,10 @@ export const deleteAssets: RequestHandler = async (req, res, next) => {
     }
 
     const resp = await Assets.remove(req.query).exec();
+
+    await Favorites.remove({
+      assetsId: req.query._id,
+    });
 
     return res.status(200).send({
       msg: 'asset-deleted',

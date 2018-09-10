@@ -11,6 +11,8 @@ import {
   RequestError,
   RequestErrorType,
 } from '../../error-handler/RequestError';
+import { Favorites } from '../../models/Favorites';
+import { ProjectRequest } from '../../models/ProjectRequest';
 
 export const getProjectById: RequestHandler = async (req, res, next) => {
   try {
@@ -33,9 +35,19 @@ export const getProjectById: RequestHandler = async (req, res, next) => {
 
 export const deleteProjectById: RequestHandler = async (req, res, next) => {
   try {
+    const isExists = await ProjectRequest.count({
+      projectId: req.query.projectId,
+    });
+    if (isExists !== 0) {
+      return res.status(409).send({
+        success: false,
+        msg: 'Project is actively used by a client',
+      });
+    }
     await Project.findByIdAndRemove({
       _id: req.query.projectId,
     }).exec();
+    await Favorites.remove({ projectsId: req.query.projectId });
     return res.status(200).send({
       success: true,
     });
