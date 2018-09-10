@@ -17,7 +17,7 @@ export const recordValidationChain = [
   body('userId')
     .optional()
     .custom(val => {
-      if (!objectIdValidator(val)) {
+      if (!objectIdValidator(val._id)) {
         throw new Error('Invalid userId');
       }
       return true;
