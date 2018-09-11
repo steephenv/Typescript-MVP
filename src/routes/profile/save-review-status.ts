@@ -59,30 +59,34 @@ export const saveReviewStatus: RequestHandler = async (req, res, next) => {
       contestantId: res.locals.user.userId,
       interviewStatus: 'Applied',
     }).exec();
-    if (existingInterview) {
-      const googleCalenderLink = getCalenderLink(
-        existingInterview.startTime,
-        existingInterview.endTime,
-      );
-
-      if (userDetails.isLinkedinProfileFetched === true) {
-        const mailOptions = {
-          toAddresses: [userDetails.email],
-          template: EmailTemplates.INTERVIEW_SCHEDULED,
-          fromName: 'Miwago Team',
-          subject: `Interview Scheduled`,
-          fields: {
-            user: userDetails.firstName + ' ' + userDetails.lastName,
-            date: existingInterview.startTime,
-            calenderLink: googleCalenderLink,
-          },
-        };
-
-        await sendEmail(mailOptions);
-      }
+    if (!existingInterview) {
+      return res.status(200).send({
+        success: true,
+        msg: 'profileDataVerified field updated',
+      });
     }
+    const googleCalenderLink = getCalenderLink(
+      existingInterview.startTime,
+      existingInterview.endTime,
+    );
+
+    const mailOptions = {
+      toAddresses: [userDetails.email],
+      template: EmailTemplates.INTERVIEW_SCHEDULED,
+      fromName: 'Miwago Team',
+      subject: `Interview Scheduled`,
+      fields: {
+        user: userDetails.firstName + ' ' + userDetails.lastName,
+        date: existingInterview.startTime,
+        calenderLink: googleCalenderLink,
+      },
+    };
+
+    await sendEmail(mailOptions);
+
     return res.status(200).send({
       success: true,
+      msg: 'interview email successfully send',
     });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
