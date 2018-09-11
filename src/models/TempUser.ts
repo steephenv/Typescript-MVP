@@ -19,6 +19,9 @@ const TempUserSchema: Schema = new Schema({
   callTime: {
     type: String,
   },
+  callDate: {
+    type: String,
+  },
   companyName: {
     type: String,
   },
