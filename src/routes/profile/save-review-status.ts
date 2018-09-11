@@ -14,15 +14,6 @@ export const saveReviewStatus: RequestHandler = async (req, res, next) => {
       { _id: res.locals.user.userId },
       { $set: { profileDataVerified: true } },
     );
-    const existingInterview: any = await InterviewDetails.findOne({
-      contestantId: res.locals.user.userId,
-      interviewStatus: 'Applied',
-    }).exec();
-
-    const userDetails = await User.findOne({ _id: res.locals.user.userId })
-      .select('firstName lastName email isLinkedinProfileFetched')
-      .lean()
-      .exec();
     const getCalenderLink = (start: Date, end: Date) => {
       // return 'ffff';
 
@@ -59,25 +50,36 @@ export const saveReviewStatus: RequestHandler = async (req, res, next) => {
 
       return `http://www.google.com/calendar/event?action=TEMPLATE&dates=${query}&text=MiwagoInterview`;
     };
-    const googleCalenderLink = getCalenderLink(
-      existingInterview.startTime,
-      existingInterview.endTime,
-    );
+    const userDetails = await User.findOne({ _id: res.locals.user.userId })
+      .select('firstName lastName email isLinkedinProfileFetched')
+      .lean()
+      .exec();
 
-    if (userDetails.isLinkedinProfileFetched === true) {
-      const mailOptions = {
-        toAddresses: [userDetails.email],
-        template: EmailTemplates.INTERVIEW_SCHEDULED,
-        fromName: 'Miwago Team',
-        subject: `Interview Scheduled`,
-        fields: {
-          user: userDetails.firstName + ' ' + userDetails.lastName,
-          date: existingInterview.startTime,
-          calenderLink: googleCalenderLink,
-        },
-      };
+    const existingInterview: any = await InterviewDetails.findOne({
+      contestantId: res.locals.user.userId,
+      interviewStatus: 'Applied',
+    }).exec();
+    if (existingInterview) {
+      const googleCalenderLink = getCalenderLink(
+        existingInterview.startTime,
+        existingInterview.endTime,
+      );
 
-      await sendEmail(mailOptions);
+      if (userDetails.isLinkedinProfileFetched === true) {
+        const mailOptions = {
+          toAddresses: [userDetails.email],
+          template: EmailTemplates.INTERVIEW_SCHEDULED,
+          fromName: 'Miwago Team',
+          subject: `Interview Scheduled`,
+          fields: {
+            user: userDetails.firstName + ' ' + userDetails.lastName,
+            date: existingInterview.startTime,
+            calenderLink: googleCalenderLink,
+          },
+        };
+
+        await sendEmail(mailOptions);
+      }
     }
     return res.status(200).send({
       success: true,
