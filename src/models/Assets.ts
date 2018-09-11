@@ -66,6 +66,10 @@ const assetsSchema: Schema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
+  producerId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
 });
 
 export const Assets = mongooseModel('Assets', assetsSchema);

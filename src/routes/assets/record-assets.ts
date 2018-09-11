@@ -11,9 +11,10 @@ export const recordAssets: RequestHandler = async (req, res, next) => {
   try {
     if (!req.body.userId) {
       req.body.userId = res.locals.user.userId;
+      req.body.producerId = res.locals.user.userId;
     }
 
-    if (!req.body.userId) {
+    if (!req.body.userId && req.body.producerId) {
       return next(
         new RequestError(
           RequestErrorType.UNPROCESSABLE_ENTITY,
