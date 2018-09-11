@@ -39,14 +39,17 @@ describe('Test for project share', () => {
           {
             url: 'google.com',
             projectName: 'ProjectName1',
+            projectId: '5b9788aac4e4f926c1fc2bbf',
           },
           {
             url: 'gmail.com',
             projectName: 'ProjectName2',
+            projectId: '5b9788aac4e4f926c1fc2bbf',
           },
           {
             url: 'yahoo.com',
             projectName: 'ProjectName3',
+            projectId: '5b9788aac4e4f926c1fc2bbf',
           },
         ],
         sharedTo: 'steephenvrs3@gmail.com',
