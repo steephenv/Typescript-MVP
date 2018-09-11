@@ -207,7 +207,7 @@ const projectRequestSchema = new Schema({
         type: String,
       },
       expectedQualityOfDeliverable: {
-        type: String,
+        type: [String],
       },
       expectedDueDateOfDeliverable: {
         type: Date,
