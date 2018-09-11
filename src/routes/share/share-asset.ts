@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express';
 import { Promise as BluePromise } from 'bluebird';
 import { Assets } from '../../models/Assets';
+import { Share } from '../../models/share';
 
 import { messages } from '../../config/app/messages';
 import { EmailTemplates, sendEmail } from '../../email/send-email';
@@ -13,8 +14,15 @@ export const shareAsset: RequestHandler = async (req, res, next) => {
   try {
     const data = await BluePromise.map(
       req.body.assetIds,
-      async (assetId: any) => {
-        const asset = await Assets.findOne({ _id: assetId });
+      async (assetsId: any) => {
+        const asset = await Assets.findOne({ _id: assetsId });
+        const assetShared = new Share({
+          assetId: assetsId,
+          type: 'asset',
+          userId: res.locals.user.userId,
+          sharedTo: req.body.sharedTo,
+        });
+        await assetShared.save();
         return asset;
       },
     );

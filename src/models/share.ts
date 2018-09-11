@@ -16,6 +16,14 @@ const ShareSchema = new Schema({
   type: {
     type: String,
   },
+  projectId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Project',
+  },
+  assetId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Assets',
+  },
   sharedLink: {
     type: [String],
   },

@@ -102,7 +102,7 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
     await availableSlot.save();
 
     const userDetails = await User.findOne({ _id: contestant })
-      .select('firstName lastName email')
+      .select('firstName lastName email isLinkedinProfileFetched')
       .lean()
       .exec();
 
@@ -113,19 +113,21 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
       availableSlot.endTime,
     );
 
-    const mailOptions = {
-      toAddresses: [userDetails.email],
-      template: EmailTemplates.INTERVIEW_SCHEDULED,
-      fromName: 'Miwago Team',
-      subject: `Interview Scheduled`,
-      fields: {
-        user: userDetails.firstName + ' ' + userDetails.lastName,
-        date: availableSlot.startTime,
-        calenderLink: googleCalenderLink,
-      },
-    };
+    if (userDetails.isLinkedinProfileFetched === true) {
+      const mailOptions = {
+        toAddresses: [userDetails.email],
+        template: EmailTemplates.INTERVIEW_SCHEDULED,
+        fromName: 'Miwago Team',
+        subject: `Interview Scheduled`,
+        fields: {
+          user: userDetails.firstName + ' ' + userDetails.lastName,
+          date: availableSlot.startTime,
+          calenderLink: googleCalenderLink,
+        },
+      };
 
-    await sendEmail(mailOptions);
+      await sendEmail(mailOptions);
+    }
 
     return res.status(201).send({
       success: true,
