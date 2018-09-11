@@ -102,7 +102,7 @@ export const projectRequestRule: RequestHandler = (req, res, next) => {
     Joi.validate(
       req.body,
       ProjectEnvironmentSchema,
-      // { stripUnknown: true },
+      { stripUnknown: true },
       err => {
         // console.log();
         // delete req.body.role;
