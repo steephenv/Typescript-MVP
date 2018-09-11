@@ -2,8 +2,6 @@ import { RequestHandler } from 'express';
 import { EmailTemplates, sendEmail } from '../../email/send-email';
 import { InterviewDetails } from '../../models/InterviewDetails';
 import { User } from '../../models/User';
-import { InterviewAvailabilityCalender } from '../../models/InterviewAvailabilityCalender';
-import { messages } from '../../config/app/messages';
 
 import {
   RequestError,
@@ -61,24 +59,9 @@ export const saveReviewStatus: RequestHandler = async (req, res, next) => {
 
       return `http://www.google.com/calendar/event?action=TEMPLATE&dates=${query}&text=MiwagoInterview`;
     };
-
-    const givenStartTime = new Date(req.body.startTime);
-    const givenEndTime = new Date(req.body.endTime);
-
-    const availableSlot: any = await InterviewAvailabilityCalender.findOne({
-      startTime: givenStartTime,
-      endTime: givenEndTime,
-      booked: false,
-    }).exec();
-
-    if (!availableSlot) {
-      return next(
-        new RequestError(RequestErrorType.BAD_REQUEST, messages.NoInterviewer),
-      );
-    }
     const googleCalenderLink = getCalenderLink(
-      availableSlot.startTime,
-      availableSlot.endTime,
+      existingInterview.startTime,
+      existingInterview.endTime,
     );
 
     if (userDetails.isLinkedinProfileFetched === true) {
@@ -89,7 +72,7 @@ export const saveReviewStatus: RequestHandler = async (req, res, next) => {
         subject: `Interview Scheduled`,
         fields: {
           user: userDetails.firstName + ' ' + userDetails.lastName,
-          date: availableSlot.startTime,
+          date: existingInterview.startTime,
           calenderLink: googleCalenderLink,
         },
       };
