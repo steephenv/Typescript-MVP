@@ -24,6 +24,12 @@ const DownloadedAnalysisSchema: Schema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Assets',
   },
+  purpose: {
+    type: String,
+  },
+  name: {
+    type: String,
+  },
 });
 export const Downloaded = mongooseModel(
   'DownloadedAnalysis',

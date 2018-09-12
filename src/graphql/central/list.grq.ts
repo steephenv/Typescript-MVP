@@ -14,7 +14,7 @@ type Collection {
   collectionName: String
   fetch(query: Object, selectingFields: String, distinct: String, attachments:[String],
      fields: String, populate: Object, limit:Int, skip:Int): Object,
-  count(query: Object): Int
+  count(query: Object, distinct: String): Int
   create(content: Object!): Object
   update(condition: Object!, content: Object!, options: Object): Object
   remove(condition: Object!): Object
@@ -106,8 +106,10 @@ class Collection {
 
   public async count({
     query = {},
+    distinct = '',
   }: {
     query: string | { [key: string]: any };
+    distinct: string;
   }) {
     let preparedQuery: any;
     try {
