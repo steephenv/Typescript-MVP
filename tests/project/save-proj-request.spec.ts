@@ -156,6 +156,34 @@ describe('Test for saving project request data ', () => {
         throw err;
       });
   });
+  test('Saving project request details api with NeedExpertAdvisory', done => {
+    got(`http://localhost:7000/v1/project/save-project-request`, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
+        status: 'Draft',
+        _id: '5b7d6431d0f39c5e9bf14d35',
+        projectId: '5b8621e1c3dae018580c93f7',
+        templateType: 'NeedExpertAdvisory',
+        topic: 'Test Topic',
+        myAdvisoryNeed: ' test need for advisory',
+        earliestStartDate: new Date(),
+        latestDueDate: new Date(),
+      },
+    })
+      .then(() => {
+        // console.log('----------------------');
+        done();
+      })
+      .catch(err => {
+        // console.log(err);
+        throw err;
+      });
+  });
   // test('Saving project request details api with template 1', done => {
   //   got(`http://localhost:7000/v1/project/save-project-request`, {
   //     method: 'POST',

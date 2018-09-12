@@ -73,14 +73,43 @@ const ProjectSupportNeedSchema = Joi.object().keys({
   clientMessage: Joi.string().allow(''),
 });
 
+const NeedExpertAdvisorySchema = Joi.object().keys({
+  _id: Joi.string().required(),
+  status: Joi.string().allow(''),
+  projectId: Joi.string().required(),
+  templateType: Joi.string()
+    .valid('NeedExpertAdvisory')
+    .required(),
+  topic: Joi.string().allow(''),
+  myAdvisoryNeed: Joi.string().allow(''),
+  earliestStartDate: Joi.date().allow(''),
+  latestDueDate: Joi.date().allow(''),
+});
 export const projectRequestRule: RequestHandler = (req, res, next) => {
-  if (!req.body.formType) {
+  if (!req.body.formType && !req.body.templateType) {
     return res.status(422).send({
       success: false,
       msg: 'Invalid formType',
     });
   }
-  if (req.body.formType === 'tab1') {
+  if (req.body.templateType === 'NeedExpertAdvisory') {
+    Joi.validate(
+      req.body,
+      NeedExpertAdvisorySchema,
+      { stripUnknown: true },
+      err => {
+        // console.log(err);
+        // delete req.body.role;
+        if (err) {
+          return res.status(422).send({
+            success: false,
+            msg: err,
+          });
+        }
+        return next();
+      },
+    );
+  } else if (req.body.formType === 'tab1') {
     Joi.validate(
       req.body,
       ProjectRequestSchema,
