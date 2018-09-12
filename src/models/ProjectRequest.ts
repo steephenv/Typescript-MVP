@@ -18,7 +18,7 @@ const projectRequestSchema = new Schema({
   },
   formType: {
     type: String,
-    enum: ['tab1', 'tab2', 'tab3'],
+    enum: ['tab1', 'tab2', 'tab3', 'tab4'],
   },
   consultantIds: [
     {
@@ -38,7 +38,12 @@ const projectRequestSchema = new Schema({
   },
   templateType: {
     type: String,
-    enum: ['SkillBased', 'DeliverableBased', 'ReadyToUse'],
+    enum: [
+      'SkillBased',
+      'DeliverableBased',
+      'ReadyToUse',
+      'NeedExpertAdvisory',
+    ],
   },
   submittedSections: {
     tab1: Boolean,
@@ -234,6 +239,18 @@ const projectRequestSchema = new Schema({
   },
   bestFitNo: {
     type: Number,
+  },
+  topic: {
+    type: String,
+  },
+  myAdvisoryNeed: {
+    type: String,
+  },
+  earliestStartDate: {
+    type: Date,
+  },
+  latestDueDate: {
+    type: Date,
   },
 });
 

@@ -15,6 +15,21 @@ import {
 export const filterProject: RequestHandler = async (req, res, next) => {
   try {
     // console.log('---body', req.body);
+    if (req.body._limit || req.body._skip) {
+      const limit = req.body._limit;
+      const skip = req.body._skip;
+      if (isNaN(limit) || isNaN(skip)) {
+        return next(
+          new RequestError(
+            RequestErrorType.BAD_REQUEST,
+            'limit and skip should be numbers',
+          ),
+        );
+      }
+      req.body._limit = Number(req.body._limit);
+      req.body._skip = Number(req.body._skip);
+    }
+
     const { _limit = 50, _skip = 0 } = req.body;
 
     delete req.body._limit;
