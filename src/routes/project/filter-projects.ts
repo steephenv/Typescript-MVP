@@ -14,23 +14,19 @@ import {
 // route handler
 export const filterProject: RequestHandler = async (req, res, next) => {
   try {
-    // console.log('---body', req.body);
-    if (req.body._limit || req.body._skip) {
-      const limit = req.body._limit;
-      const skip = req.body._skip;
-      if (isNaN(limit) || isNaN(skip)) {
-        return next(
-          new RequestError(
-            RequestErrorType.BAD_REQUEST,
-            'limit and skip should be numbers',
-          ),
-        );
-      }
-      req.body._limit = Number(req.body._limit);
-      req.body._skip = Number(req.body._skip);
-    }
+    let { _limit = 50, _skip = 0 } = req.body;
 
-    const { _limit = 50, _skip = 0 } = req.body;
+    _limit = +_limit;
+    _skip = +_skip;
+
+    if (isNaN(_limit) || isNaN(_skip)) {
+      return next(
+        new RequestError(
+          RequestErrorType.BAD_REQUEST,
+          'limit and skip should be numbers',
+        ),
+      );
+    }
 
     delete req.body._limit;
     delete req.body._skip;
