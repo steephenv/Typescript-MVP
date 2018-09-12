@@ -22,7 +22,7 @@ issue-maker:
   service: gitlab
   projectId: 938
   endPoint: http://117.247.186.100:9898
-  privateToken: QtHVSf1hvAeCqd6Bu7-X
+  privateToken: 2zVNcSxwXsLWzHzDudQ1
 
 frontEnd:
   web:
