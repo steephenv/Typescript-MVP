@@ -37,10 +37,12 @@ import { shareProject } from '../share/share-project';
 import { saveProjectDraft } from '../project/add-project-draft';
 import { setCall } from '../project/set-call';
 import { generateProjectPdf } from '../project/generate-project-pdf';
+import { listShared } from '../project/list-shared';
 // import { saveProjectDraftRule } from '../project/validators/project-draft-rule';
 
 export const project = express.Router();
 
+project.get('/list-shared', listShared);
 project.get('/delete-project', projectViewDeleteRule, deleteProjectById);
 project.get('/view-project', projectViewDeleteRule, getProjectById);
 project.post('/share-project', shareProjectRule, shareProject);
