@@ -102,7 +102,7 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
     await availableSlot.save();
 
     const userDetails = await User.findOne({ _id: contestant })
-      .select('firstName lastName email isLinkedinProfileFetched')
+      .select('firstName lastName email profileDataVerified')
       .lean()
       .exec();
 
@@ -113,7 +113,7 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
       availableSlot.endTime,
     );
 
-    if (userDetails.isLinkedinProfileFetched === true) {
+    if (userDetails.profileDataVerified) {
       const mailOptions = {
         toAddresses: [userDetails.email],
         template: EmailTemplates.INTERVIEW_SCHEDULED,

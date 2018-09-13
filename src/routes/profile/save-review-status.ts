@@ -51,7 +51,7 @@ export const saveReviewStatus: RequestHandler = async (req, res, next) => {
       return `http://www.google.com/calendar/event?action=TEMPLATE&dates=${query}&text=MiwagoInterview`;
     };
     const userDetails = await User.findOne({ _id: res.locals.user.userId })
-      .select('firstName lastName email isLinkedinProfileFetched')
+      .select('firstName lastName email profileDataVerified')
       .lean()
       .exec();
 
@@ -65,24 +65,25 @@ export const saveReviewStatus: RequestHandler = async (req, res, next) => {
         msg: 'profileDataVerified field updated',
       });
     }
-    const googleCalenderLink = getCalenderLink(
-      existingInterview.startTime,
-      existingInterview.endTime,
-    );
+    if (userDetails.profileDataVerified) {
+      const googleCalenderLink = getCalenderLink(
+        existingInterview.startTime,
+        existingInterview.endTime,
+      );
 
-    const mailOptions = {
-      toAddresses: [userDetails.email],
-      template: EmailTemplates.INTERVIEW_SCHEDULED,
-      fromName: 'Miwago Team',
-      subject: `Interview Scheduled`,
-      fields: {
-        user: userDetails.firstName + ' ' + userDetails.lastName,
-        date: existingInterview.startTime,
-        calenderLink: googleCalenderLink,
-      },
-    };
-
-    await sendEmail(mailOptions);
+      const mailOptions = {
+        toAddresses: [userDetails.email],
+        template: EmailTemplates.INTERVIEW_SCHEDULED,
+        fromName: 'Miwago Team',
+        subject: `Interview Scheduled`,
+        fields: {
+          user: userDetails.firstName + ' ' + userDetails.lastName,
+          date: existingInterview.startTime,
+          calenderLink: googleCalenderLink,
+        },
+      };
+      await sendEmail(mailOptions);
+    }
 
     return res.status(200).send({
       success: true,
