@@ -31,6 +31,7 @@ import { ProjectRequest } from './ProjectRequest';
 import { User } from './User';
 import { Viewed } from './View';
 import { Downloaded } from './Downloads';
+import { Share } from './share';
 
 export const Models: { [key: string]: typeof AppData } = {
   Favorites,
@@ -65,4 +66,5 @@ export const Models: { [key: string]: typeof AppData } = {
   User,
   Viewed,
   Downloaded,
+  Share,
 };
