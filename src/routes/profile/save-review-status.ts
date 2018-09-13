@@ -65,7 +65,7 @@ export const saveReviewStatus: RequestHandler = async (req, res, next) => {
         msg: 'profileDataVerified field updated',
       });
     }
-    if (userDetails.profileDataVerified === true) {
+    if (userDetails.profileDataVerified) {
       const googleCalenderLink = getCalenderLink(
         existingInterview.startTime,
         existingInterview.endTime,

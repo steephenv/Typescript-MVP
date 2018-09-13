@@ -113,7 +113,7 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
       availableSlot.endTime,
     );
 
-    if (userDetails.profileDataVerified === true) {
+    if (userDetails.profileDataVerified) {
       const mailOptions = {
         toAddresses: [userDetails.email],
         template: EmailTemplates.INTERVIEW_SCHEDULED,
