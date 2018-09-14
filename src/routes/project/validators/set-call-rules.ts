@@ -3,7 +3,7 @@ import { RequestHandler } from 'express';
 
 // tslint:disable:variable-name
 const ProjectDraftSchema = Joi.object().keys({
-  projectName: Joi.string().required(),
+  projectName: Joi.string().optional(),
   userId: Joi.string().required(),
   timeForCall: Joi.string().required(),
   otherDetails: Joi.string().optional(),
