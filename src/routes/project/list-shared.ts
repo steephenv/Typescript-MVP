@@ -18,10 +18,14 @@ export const listShared: RequestHandler = async (req, res, next) => {
   try {
     const sharedIds = await Share.find({
       userId: res.locals.user.userId,
-    }).distinct('projectId');
+    })
+      .distinct('projectId')
+      .exec();
     const projectDetails = await Project.find({
       _id: { $in: sharedIds },
-    }).select('_id projectTitle picture currentSituation');
+    })
+      .select('_id projectTitle picture currentSituation')
+      .exec();
     return res.status(200).send({
       success: true,
       projects: projectDetails,
