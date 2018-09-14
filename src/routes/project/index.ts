@@ -48,7 +48,7 @@ project.get('/view-project', projectViewDeleteRule, getProjectById);
 project.post('/share-project', shareProjectRule, shareProject);
 project.post('/update-project', updateProject);
 project.post('/filter-project', filterProject);
-project.post('/save-project-request', projectRequestRule, saveProjectRequest);
+project.post('/save-project-request', saveProjectRequest);
 project.get('/get-catalog', searchCatalog);
 project.post('/save-project-favorite', saveFavorites);
 project.post('/delete-project-favorite', deleteFavorites);

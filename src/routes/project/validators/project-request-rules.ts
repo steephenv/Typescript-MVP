@@ -3,7 +3,7 @@ import { RequestHandler } from 'express';
 
 // tslint:disable:variable-name
 const EnvObjectSchema = Joi.object({
-  stakeHolder: Joi.string().allow(''),
+  // stakeHolder: Joi.string().allow(''),
   businessFunction: Joi.string().allow(''),
   businessFunctionRole: Joi.string().allow(''),
 });
@@ -18,7 +18,8 @@ const skillsAndExpSchema = Joi.object({
   personal: Joi.array(),
   leadership: Joi.array(),
   entrepreneurship: Joi.array(),
-  desiredDailyRate: Joi.number(),
+  desiredDailyRate: Joi.string(),
+  desiredDailyRateNumber: Joi.number(),
   travellingExpensePercentage: Joi.string().allow(''),
   proposalSelectionMode: Joi.string().allow(''),
 });
@@ -70,7 +71,7 @@ const ProjectSupportNeedSchema = Joi.object().keys({
     .required(),
   roleAndResponsibility: Joi.array().items(roleAndRespSchema),
   skillsAndExperience: Joi.array().items(skillsAndExpSchema),
-  clientMessage: Joi.string().allow(''),
+  clientsMessage: Joi.string().allow(''),
 });
 
 const NeedExpertAdvisorySchema = Joi.object().keys({

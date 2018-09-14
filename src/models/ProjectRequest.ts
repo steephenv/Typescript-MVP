@@ -52,9 +52,9 @@ const projectRequestSchema = new Schema({
   },
   stakeHolders: [
     {
-      stakeHolder: {
-        type: String,
-      },
+      // stakeHolder: {
+      //   type: String,
+      // },
       businessFunction: {
         type: Schema.Types.ObjectId,
         ref: 'BusinessFunction',
@@ -217,18 +217,18 @@ const projectRequestSchema = new Schema({
       expectedDueDateOfDeliverable: {
         type: Date,
       },
+      expectedPricePerDeliverable: {
+        type: String,
+      },
+      expectedPricePerDeliverableNumber: {
+        type: Number,
+      },
     },
   ],
   expectedTotalPriceForValue: {
     type: String,
   },
   expectedTotalPriceForValueNumber: {
-    type: Number,
-  },
-  expectedPricePerDeliverable: {
-    type: String,
-  },
-  expectedPricePerDeliverableNumber: {
     type: Number,
   },
   travelExpPercentageOfTotalPriceForValue: {
