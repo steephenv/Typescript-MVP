@@ -57,11 +57,6 @@
                 <p><b>Expected Total Price For Value </b> &nbsp:&nbsp <%= projectRequestDetailsData.expectedTotalPriceForvalue%></p>
                 <%}%>
                 <%}%>
-              <% if(projectRequestDetailsData && projectRequestDetailsData.expectedPricePerDeliverable) { %>
-              <% if (typeof projectRequestDetailsData.expectedPricePerDeliverable === "string") { %>
-                <p><b>Expected Price Per Deliverable </b> &nbsp:&nbsp <%= projectRequestDetailsData.expectedPricePerDeliverable%></p>
-                <%}%>
-                <%}%>
               <% if(projectRequestDetailsData && projectRequestDetailsData.clientsMessage) { %>
                 <p><b>Clients Message </b> &nbsp:&nbsp <%= projectRequestDetailsData.clientsMessage%></p>
                 <%}%>
@@ -264,6 +259,11 @@
                 <% if(item && item.expectedDueDateOfDeliverable) { %>
                  <% var dt = new Date(item.expectedDueDateOfDeliverable); expdue = dt.getDay() +  '-'  + dt.getMonth() + '-' + dt.getFullYear()%>              
                 <p>&nbsp&nbsp&nbsp&nbsp&nbsp <b> Expected Due Date Of deliverables </b>: <%= expdue%></p>
+                <% if(item && item.expectedPricePerDeliverable) { %>
+                <% if (typeof item.expectedPricePerDeliverable === "string") { %>
+                <p><b>Expected Price Per Deliverable </b> &nbsp:&nbsp <%= item.expectedPricePerDeliverable%></p>
+                <%}%>
+                <%}%>
                         <% } %>            
                     <% }); %>
                  <%}%>
@@ -271,9 +271,9 @@
                  <% if(projectRequestDetailsData && projectRequestDetailsData.expectedTotalPriceForValue) { %>
                  <p><b>Expected Total Price For value </b> : <%= projectRequestDetailsData.expectedTotalPriceForValue%></p>
                  <%}%>
-                 <% if(projectRequestDetailsData && projectRequestDetailsData.expectedPricePerDeliverable) { %>
-                 <p><b>Expected Price Per Deliverable </b> : <%= projectRequestDetailsData.expectedPricePerDeliverable%></p>
-                 <%}%>
+                //  <% if(projectRequestDetailsData && projectRequestDetailsData.expectedPricePerDeliverable) { %>
+                //  <p><b>Expected Price Per Deliverable </b> : <%= projectRequestDetailsData.expectedPricePerDeliverable%></p>
+                //  <%}%>
                  
                  <% if(projectRequestDetailsData && projectRequestDetailsData.travelExpPercentageOfTotalPriceForValue) { %>
                  <p><b>Travelling Percentage For Total Total Price For Value</b> : <%= projectRequestDetailsData.travelExpPercentageOfTotalPriceForValue%></p>
