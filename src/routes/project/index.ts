@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as queryIntParser from 'express-query-int';
 
-import { projectRequestRule } from './validators/project-request-rules';
+// import { projectRequestRule } from './validators/project-request-rules';
 import { saveProjectRule } from './validators/save-project-rules';
 import { getProjSubCategoryRules } from './validators/get-proj-category-rules';
 import { saveProjectCategoryRules } from './validators/add-project-category-rules';
