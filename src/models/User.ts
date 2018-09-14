@@ -78,6 +78,10 @@ const userSchema = new Schema({
     type: String,
   },
   recentlyViewed: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
+  welcomeTour: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 // type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void;
