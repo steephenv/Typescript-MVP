@@ -28,7 +28,7 @@ export const setCall: RequestHandler = async (req, res, next) => {
     const mailOptions = {
       toAddresses: [user.email],
       template: EmailTemplates.SET_CALL,
-      fromName: 'Miwago Team',
+      fromName: 'Capricorns Team',
       subject: `Set Admin Call`,
       fields: {
         user: userDetails.firstName + ' ' + userDetails.lastName,

@@ -99,7 +99,7 @@ export const saveProjectRequest: RequestHandler = async (req, res, next) => {
     const mailOptions: any = {
       toAddresses: userMailIds,
       template: EmailTemplates.PROJECT_REQUEST_EMAIL,
-      fromName: 'Miwago Team',
+      fromName: 'Capricorns Team',
       subject: `New Project Request`,
     };
 

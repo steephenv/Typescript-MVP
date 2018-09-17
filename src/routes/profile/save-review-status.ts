@@ -74,7 +74,7 @@ export const saveReviewStatus: RequestHandler = async (req, res, next) => {
       const mailOptions = {
         toAddresses: [userDetails.email],
         template: EmailTemplates.INTERVIEW_SCHEDULED,
-        fromName: 'Miwago Team',
+        fromName: 'Capricorns Team',
         subject: `Interview Scheduled`,
         fields: {
           user: userDetails.firstName + ' ' + userDetails.lastName,

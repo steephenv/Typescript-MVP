@@ -30,7 +30,7 @@ export const shareAsset: RequestHandler = async (req, res, next) => {
     const mailOptions = {
       toAddresses: [req.body.sharedTo],
       template: EmailTemplates.SHARE_ASSET,
-      fromName: 'Miwago Team',
+      fromName: 'Capricorns Team',
       subject: `Shared Asset Link`,
       fields: {
         datas: data,

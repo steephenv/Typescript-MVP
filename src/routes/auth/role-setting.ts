@@ -43,7 +43,7 @@ export const saveRole: RequestHandler = async (req, res, next) => {
       const mailOptions = {
         toAddresses: [user.email],
         template: EmailTemplates.ROLE_ACCEPT,
-        fromName: 'Miwago Team',
+        fromName: 'Capricorns Team',
         subject: `Role Accept`,
         fields: {
           user: user.firstName + ' ' + user.lastName,
@@ -86,7 +86,7 @@ export const saveRole: RequestHandler = async (req, res, next) => {
       const mailOptions = {
         toAddresses: [user.email],
         template: EmailTemplates.ROLE_REJECT,
-        fromName: 'Miwago Team',
+        fromName: 'Capricorns Team',
         subject: `Role Rejected`,
         fields: {
           user: user.firstName + ' ' + user.lastName,
