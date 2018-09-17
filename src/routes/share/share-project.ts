@@ -15,7 +15,7 @@ export const shareProject: RequestHandler = async (req, res, next) => {
     const mailOptions = {
       toAddresses: [req.body.sharedTo],
       template: EmailTemplates.SHARE_PROJECT,
-      fromName: 'Miwago Team',
+      fromName: 'Capricorns Team',
       subject: `Share Project Link`,
       fields: {
         datas: req.body.datas,

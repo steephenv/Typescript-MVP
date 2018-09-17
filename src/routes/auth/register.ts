@@ -39,7 +39,7 @@ export const commonRegistration: RequestHandler = async (req, res, next) => {
     const mailOptions = {
       toAddresses: [req.body.email],
       template: EmailTemplates.CONFIRM_REGISTRATION,
-      fromName: 'Miwago Team',
+      fromName: 'Capricorns Team',
       subject: `Confirm Registration`,
       fields: {
         user: tempUser.firstName + ' ' + tempUser.lastName,
@@ -75,7 +75,7 @@ export const directRegistration: RequestHandler = async (req, res, next) => {
     const mailOptions = {
       toAddresses: [req.body.email],
       template: EmailTemplates.CLIENT_REG_EMAIL,
-      fromName: 'Miwago Team',
+      fromName: 'Capricorns Team',
       subject: `Registered Successfully`,
       fields: {
         user: req.body.firstName + ' ' + req.body.lastName,
