@@ -252,6 +252,10 @@ const projectRequestSchema = new Schema({
   latestDueDate: {
     type: Date,
   },
+  isDirect: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export const ProjectRequest = mongooseModel(
