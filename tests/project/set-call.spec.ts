@@ -35,17 +35,18 @@ describe('Test for schedule call functionality ===> ', () => {
       body: {
         startTime: 'Mon Sep 17 2018 15:00:00 GMT+0530 (India Standard Time)',
         endTime: 'Mon Sep 17 2018 18:00:00 GMT+0530 (India Standard Time)',
-        hoursArray: [8, 9, 6, 7],
+        hoursArray: ['hhh'],
         offset: '+0200',
         mobile: '00000009999',
         projectName: 'dsfds',
         typeOfCall: 'project',
       },
-    }).then(() => done());
-    // .catch(err => {
-    //   expect(err.response.statusCode).toBe(400);
-    //   done();
-    // });
+    })
+      // .then(() => done());
+      .catch(err => {
+        expect(err.response.statusCode).toBe(422);
+        done();
+      });
   });
 
   it('Call schedule for project - invalid value', done => {
