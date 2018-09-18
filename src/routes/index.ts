@@ -27,7 +27,6 @@ apis.use('/project', project);
 if (getConfig('app.docs')) {
   // tslint:disable-next-line:no-var-requires
   // const swaggerSpec = require('./swagger');
-
   // deliver swagger spec
   apis.get('/swagger.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json');

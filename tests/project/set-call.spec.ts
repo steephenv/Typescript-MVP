@@ -1,7 +1,6 @@
 import * as got from 'got';
 
 let token = '';
-let newUserId: string;
 
 beforeAll(done => {
   got('http://localhost:7000/v1/auth/login', {
@@ -16,7 +15,6 @@ beforeAll(done => {
     },
   })
     .then(res => {
-      newUserId = res.body.data._id;
       token = res.body.accessToken;
       return done();
     })
@@ -25,9 +23,9 @@ beforeAll(done => {
     });
 });
 
-describe('Test for project share', () => {
-  test('project share api', done => {
-    got(`http://localhost:7000/v1/project/set-call`, {
+describe('Test for schedule call functionality ===> ', () => {
+  it('Call schedule for project ', done => {
+    got('http://localhost:7000/v1/project/set-call', {
       method: 'POST',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
@@ -35,16 +33,42 @@ describe('Test for project share', () => {
       },
       json: true,
       body: {
-        projectName: 'Test Project',
-        userId: '5b9102c387c63b226223314c',
-        timeForCall: '12.30-PM',
-        otherDetails: '11-11-2018',
-        mobile: '9544529886',
+        startTime: 'Mon Sep 17 2018 15:00:00 GMT+0530 (India Standard Time)',
+        endTime: 'Mon Sep 17 2018 18:00:00 GMT+0530 (India Standard Time)',
+        hoursArray: ['hhh'],
+        offset: '+0200',
+        mobile: '00000009999',
+        projectName: 'dsfds',
+        typeOfCall: 'project',
       },
     })
-      .then(() => done())
+      // .then(() => done());
       .catch(err => {
-        throw err;
+        expect(err.response.statusCode).toBe(422);
+        done();
+      });
+  });
+
+  it('Call schedule for project - invalid value', done => {
+    got('http://localhost:7000/v1/project/set-call', {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
+        startTime: 'Mon Sep 17 2018 15:00:00 GMT+0530 (India Standard Time)',
+        endTime: 'Mon Sep 17 2018 18:00:00 GMT+0530 (India Standard Time)',
+        hoursArray: ['egferwgter'],
+        offset: '+0200',
+        typeOfCall: 'project',
+      },
+    })
+      // .then(() => done())
+      .catch(err => {
+        expect(err.response.statusCode).toBe(422);
+        done();
       });
   });
 });
