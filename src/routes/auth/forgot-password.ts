@@ -35,7 +35,7 @@ export const forgotPassword: RequestHandler = async (req, res, next) => {
     const mailOptions = {
       toAddresses: [req.body.email],
       template: EmailTemplates.FORGOT_PASSWORD,
-      fromName: 'Miwago Team',
+      fromName: 'Capricorns Team',
       subject: `Forgot Password`,
       fields: {
         url: verificationUrl,

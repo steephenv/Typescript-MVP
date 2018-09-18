@@ -86,7 +86,7 @@ export const scheduleCall: RequestHandler = async (req, res, next) => {
     const mailOptions = {
       toAddresses: [users[0].email],
       template: EmailTemplates.SET_CALL,
-      fromName: 'Miwago Team',
+      fromName: 'Capricorns Team',
       subject: `Set Admin Call`,
       fields: {
         user: users[1].firstName + ' ' + users[1].lastName,

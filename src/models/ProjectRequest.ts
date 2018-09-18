@@ -10,11 +10,9 @@ const projectRequestSchema = new Schema({
   projectId: {
     type: Schema.Types.ObjectId,
     ref: 'Project',
-    required: true,
   },
   projectName: {
     type: String,
-    required: true,
   },
   formType: {
     type: String,

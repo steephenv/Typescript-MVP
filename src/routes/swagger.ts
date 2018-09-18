@@ -8,7 +8,7 @@ if (process.env.TESTING !== 'true') {
   const options = {
     swaggerDefinition: {
       info: {
-        title: 'Miwago API Docs',
+        title: 'Capricorns API Docs',
         version: '1.0.0',
         description: '',
       },
