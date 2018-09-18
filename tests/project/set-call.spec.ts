@@ -15,7 +15,6 @@ beforeAll(done => {
     },
   })
     .then(res => {
-      newUserId = res.body.data._id;
       token = res.body.accessToken;
       return done();
     })
@@ -26,7 +25,7 @@ beforeAll(done => {
 
 describe('Test for schedule call functionality ===> ', () => {
   it('Call schedule for project ', done => {
-    got('http://localhost:7000/v1/utils/schedule-call', {
+    got('http://localhost:7000/v1/project/set-call', {
       method: 'POST',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
@@ -49,7 +48,7 @@ describe('Test for schedule call functionality ===> ', () => {
   });
 
   it('Call schedule for project - invalid value', done => {
-    got('http://localhost:7000/v1/utils/schedule-call', {
+    got('http://localhost:7000/v1/project/set-call', {
       method: 'POST',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',

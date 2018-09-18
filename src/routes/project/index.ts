@@ -12,7 +12,7 @@ import { createSubCatValidationChain } from './validators/save-proj-sub-category
 import { shareProjectRule } from '../share/validators/share-project-rule';
 import { setCallRule } from './validators/set-call-rules';
 import { projectViewDeleteRule } from './validators/project-view-delete-rule';
-// import { saveFavoriteRule } from '../favorites/validators/add-favorites-rules';
+import { saveFavoriteRule } from '../favorites/validators/add-favorites-rules';
 
 import { saveProjectRequest } from './project-request';
 import { saveProject } from './save-project';
