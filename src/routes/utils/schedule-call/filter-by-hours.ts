@@ -6,7 +6,6 @@ export const findCallTime = async (
   hourArray: number[],
   offset: string,
 ) => {
-  const newStart = new Date(startTime);
   const newEnd = new Date(endTime);
   const availabilities = await InterviewAvailabilityCalender.aggregate([
     { $match: { $and: [{ startTime: { $gt: newEnd } }, { booked: false }] } },

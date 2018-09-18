@@ -1,0 +1,41 @@
+/utils/schedule-call:
+  post:
+    security:
+    - Bearer: []
+    summary: api call schedule
+    tags:
+    - Utils
+    description: Schedule a call
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        - typeOfCall
+        - startTime
+        - endTime
+        properties:
+          typeOfCall:
+            type: string
+            example: 'project' or 'registration'
+          startTime:
+            type: date
+          endTime:
+            type: date
+          hoursArray:
+            type: array
+            description: Only for 'project' 
+            example: [2,3,4]
+          offset: 
+            type: string
+            example: '+0200'        
+    responses:
+      200:
+        description: "successful attempt, returns signed request"

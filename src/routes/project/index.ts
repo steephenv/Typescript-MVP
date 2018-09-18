@@ -35,7 +35,7 @@ import { deleteProjectById } from '../project/delete-view-project';
 import { updateProject } from '../project/save-project';
 import { shareProject } from '../share/share-project';
 import { saveProjectDraft } from '../project/add-project-draft';
-import { setCall } from '../project/set-call';
+import { scheduleCall } from '../project/set-call';
 import { generateProjectPdf } from '../project/generate-project-pdf';
 import { listShared } from '../project/list-shared';
 // import { saveProjectDraftRule } from '../project/validators/project-draft-rule';
@@ -91,5 +91,5 @@ project.get('/list-all-categories', queryIntParser(), listProjectCategories);
 
 project.post('/delete-category', deleteProjectCategoryRules, deleteCategory);
 project.post('/save-project-draft', saveProjectDraft);
-project.post('/set-call', setCallRule, setCall);
+project.post('/set-call', setCallRule, scheduleCall);
 project.get('/generate-project-pdf', generateProjectPdf);
