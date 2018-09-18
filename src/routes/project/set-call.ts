@@ -59,7 +59,9 @@ export const scheduleCall: RequestHandler = async (req, res, next) => {
       callEndTime: slot.endTime,
       typeOfCall: req.body.typeOfCall,
       callStatus: 'scheduled',
-      mobile: req.body.mobile,
+      mobile: req.body.mobile || '',
+      projectName: req.body.projectName || '',
+      otherDetails: req.body.otherDetails || '',
       callerId: req.body.userId || res.locals.user.userId,
     });
 

@@ -17,6 +17,7 @@ const callScheduleSchema: Schema = new Schema({
     enum: ['registration', 'project'],
   },
   projectName: String,
+  mobile: String,
   otherDetails: String,
   callStatus: {
     type: String,

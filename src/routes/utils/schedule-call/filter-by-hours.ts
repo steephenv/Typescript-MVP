@@ -20,6 +20,7 @@ export const findCallTime = async (
     { $match: { hour: { $in: hourArray } } },
     { $sort: { hour: 1 } },
   ]).exec();
+
   if (!availabilities.length) {
     return { success: false };
   } else {
