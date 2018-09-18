@@ -41,12 +41,11 @@ describe('Test for schedule call functionality ===> ', () => {
         projectName: 'dsfds',
         typeOfCall: 'project',
       },
-    })
-      .then(() => done())
-      .catch(err => {
-        expect(err.response.statusCode).toBe(400);
-        done();
-      });
+    }).then(() => done());
+    // .catch(err => {
+    //   expect(err.response.statusCode).toBe(400);
+    //   done();
+    // });
   });
 
   it('Call schedule for project - invalid value', done => {
