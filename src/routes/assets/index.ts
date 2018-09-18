@@ -17,6 +17,7 @@ import { upsertBusinessSubFunction } from './upsert-business-sub-fn';
 import { listBusinessSubFunction } from './list-business-sub-fn';
 import { deleteAssets } from './delete-asset';
 import { shareAsset } from '../share/share-asset';
+import { listDownloadedViewed } from './list-dashboard-assets';
 
 import { listBussSubFnRule } from './validators/list-buss-sub-fn.rule';
 import { upsertBusinessSubFnRule } from './validators/upsert-business-sub-fn.rule';
@@ -85,3 +86,4 @@ assets.get(
 );
 assets.delete('/', deleteAssets);
 assets.post('/share-asset', shareAssetRule, shareAsset);
+assets.get('/dashboard-assets', listDownloadedViewed);
