@@ -11,6 +11,9 @@ import {
 export const listDownloadedViewed: RequestHandler = async (req, res, next) => {
   try {
     let totalCount;
+    const { _limit = 50, _skip = 0 } = req.query;
+    delete req.query._limit;
+    delete req.query._skip;
     if (!req.query && req.query.modelType) {
       return res.status(400).send({
         success: false,
@@ -22,13 +25,15 @@ export const listDownloadedViewed: RequestHandler = async (req, res, next) => {
         userId: res.locals.user.userId,
         downloadedUserId: { $ne: res.locals.user.userId },
       })
-        .skip(req.query.skip)
-        .limit(req.query.limit)
         .distinct('assetId')
         .exec();
       totalCount = assetIds.length;
 
-      const assets = await Assets.find({ _id: { $in: assetIds } }).exec();
+      const assets = await Assets.find({ _id: { $in: assetIds } })
+        .skip(_skip)
+        .limit(_limit)
+        .lean()
+        .exec();
 
       return res.status(200).send({
         success: true,
@@ -40,13 +45,15 @@ export const listDownloadedViewed: RequestHandler = async (req, res, next) => {
         userId: res.locals.user.userId,
         viewedUserId: { $ne: res.locals.user.userId },
       })
-        .skip(req.query.skip)
-        .limit(req.query.limit)
         .distinct('assetId')
         .exec();
       totalCount = assetIds.length;
 
-      const assets = await Assets.find({ _id: { $in: assetIds } }).exec();
+      const assets = await Assets.find({ _id: { $in: assetIds } })
+        .skip(_skip)
+        .limit(_limit)
+        .lean()
+        .exec();
 
       return res.status(200).send({
         success: true,
