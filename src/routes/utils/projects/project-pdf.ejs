@@ -99,7 +99,7 @@
                 
                   
                   
-                  <% if(projectRequestDetailsData && projectRequestDetailsData.additionalLocations) { %>
+                  <% if(projectRequestDetailsData && projectRequestDetailsData.additionalLocations.length !== 0) { %>
                    <p><b> Additional Locations : </b></p>
                  <% projectRequestDetailsData.additionalLocations.forEach(function(item){ %>
                 <% if(item) { %>
@@ -108,9 +108,11 @@
                     <% }); %>
                   <% } %>  
                  <%if(projectRequestDetailsData.roleAndResponsibility && projectRequestDetailsData.roleAndResponsibility.length !== 0){%>
+               
+                <% projectRequestDetailsData.roleAndResponsibility.forEach(function(item){ %>
+                 <p> ************** </p>
                 <p><b>Role and Responsibilities : </b></p>
                 </br>
-                <% projectRequestDetailsData.roleAndResponsibility.forEach(function(item){ %>
                 <% if(item && item.consultant) { %>
                 <p><b> Consultant : </b><%= item.consultant%></p>
                         <% } %>
@@ -150,9 +152,9 @@
                 <p><b> Travelling Required : </b><%= item.travellingRequired%></p>
                         <% } %>
 
-                <% if(item && item.travellingToLocations) { %>
-                <p><b>Travelling To Locations : </b></p>
+                <% if(item && item.travellingToLocations !== 0 ) { %>
                  <% item.travellingToLocations.forEach(function(ttl){ %>
+                 <p><b>Travelling To Locations : </b></p>
                 <% if(ttl) { %>
                 <p>&nbsp&nbsp&nbsp&nbsp&nbsp<b>*</b>&nbsp&nbsp<%= ttl%></p>
                         <% } %>
@@ -161,7 +163,7 @@
                 <% if(item && item.travellingFrequency) { %>
                 <p><b> Travelling Frequency : </b><%= item.travellingFrequency%></p>
                         <% } %>
-                        <p> ************** </p>
+
                     <% }); %>
                  <%}%>
                 
@@ -259,21 +261,19 @@
                 <% if(item && item.expectedDueDateOfDeliverable) { %>
                  <% var dt = new Date(item.expectedDueDateOfDeliverable); expdue = dt.getDay() +  '-'  + dt.getMonth() + '-' + dt.getFullYear()%>              
                 <p>&nbsp&nbsp&nbsp&nbsp&nbsp <b> Expected Due Date Of deliverables </b>: <%= expdue%></p>
+                <% } %>
                 <% if(item && item.expectedPricePerDeliverable) { %>
                 <% if (typeof item.expectedPricePerDeliverable === "string") { %>
                 <p><b>Expected Price Per Deliverable </b> &nbsp:&nbsp <%= item.expectedPricePerDeliverable%></p>
                 <%}%>
                 <%}%>
-                        <% } %>            
+                                    
                     <% }); %>
                  <%}%>
 
                  <% if(projectRequestDetailsData && projectRequestDetailsData.expectedTotalPriceForValue) { %>
                  <p><b>Expected Total Price For value </b> : <%= projectRequestDetailsData.expectedTotalPriceForValue%></p>
                  <%}%>
-                //  <% if(projectRequestDetailsData && projectRequestDetailsData.expectedPricePerDeliverable) { %>
-                //  <p><b>Expected Price Per Deliverable </b> : <%= projectRequestDetailsData.expectedPricePerDeliverable%></p>
-                //  <%}%>
                  
                  <% if(projectRequestDetailsData && projectRequestDetailsData.travelExpPercentageOfTotalPriceForValue) { %>
                  <p><b>Travelling Percentage For Total Total Price For Value</b> : <%= projectRequestDetailsData.travelExpPercentageOfTotalPriceForValue%></p>
