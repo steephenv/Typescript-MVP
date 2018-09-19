@@ -30,8 +30,8 @@ export const listDownloadedViewed: RequestHandler = async (req, res, next) => {
       totalCount = assetIds.length;
 
       const assets = await Assets.find({ _id: { $in: assetIds } })
-        .skip(_skip)
-        .limit(_limit)
+        .skip(+_skip)
+        .limit(+_limit)
         .lean()
         .exec();
 
