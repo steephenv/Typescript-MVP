@@ -46,6 +46,8 @@ describe('Test for scheduling interview', () => {
         startTime: availableSlot[0].startTime,
         endTime: availableSlot[0].endTime,
         typeOfCall: 'Video',
+        platform: 'Skype',
+        platformId: 'qqqqqqqq',
       },
     })
       .then(() => done())
@@ -66,6 +68,8 @@ describe('Test for scheduling interview', () => {
         startTime: availableSlot[1].startTime,
         endTime: availableSlot[1].endTime,
         typeOfCall: 'Video',
+        platform: 'Skype',
+        platformId: 'qqqqqqqq',
       },
     })
       .then(() => done())

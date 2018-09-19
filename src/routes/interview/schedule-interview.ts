@@ -91,6 +91,8 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
       startTime: availableSlot.startTime,
       endTime: availableSlot.endTime,
       typeOfCall: req.body.typeOfCall,
+      platform: req.body.platform || '',
+      platformId: req.body.platformId || '',
       interviewStatus: 'Applied',
       createdAt: new Date(),
     });
