@@ -28,7 +28,12 @@
             type: date  
           typeOfCall:
             type: string
-            example: Video     
+            example: Video
+          platform:
+            type: string
+            description: Mandatory for video call
+          platformId: 
+            type: string         
     responses:
       201:
         description: "successful attempt, returns `success message`"

@@ -4,7 +4,17 @@ import { RequestHandler } from 'express';
 const scheduleInterviewSchema = Joi.object().keys({
   startTime: Joi.date().required(),
   endTime: Joi.date().required(),
-  typeOfCall: Joi.string().required(),
+  typeOfCall: Joi.string()
+    .required()
+    .valid('Video', 'Audio'),
+  platform: Joi.string().when('typeOfCall', {
+    is: 'Video',
+    then: Joi.required(),
+  }),
+  platformId: Joi.string().when('typeOfCall', {
+    is: 'Video',
+    then: Joi.required(),
+  }),
   userId: Joi.string()
     .length(24)
     .optional(),

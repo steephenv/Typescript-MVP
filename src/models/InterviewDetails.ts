@@ -12,6 +12,8 @@ const InterviewDetailsSchema = new Schema({
     enum: ['Video', 'Audio'],
     required: false,
   },
+  platform: String,
+  platformId: String,
   startTime: { type: Date },
   endTime: { type: Date },
   interviewStatus: {
