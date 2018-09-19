@@ -34,6 +34,10 @@ export class EmailTemplates {
     pathJoin(__dirname, 'interview-scheduled.ejs'),
   ).toString();
 
+  public static INTERVIEW_SCHEDULED_ADMIN = readFileSync(
+    pathJoin(__dirname, 'schedule-interview-admin.ejs'),
+  ).toString();
+
   public static SHARE_PROJECT = readFileSync(
     pathJoin(__dirname, 'share-project.ejs'),
   ).toString();
