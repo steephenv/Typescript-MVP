@@ -16,27 +16,29 @@ import { Share } from '../../models/share';
 
 export const listShared: RequestHandler = async (req, res, next) => {
   try {
-    const dataCount = await Share.count({
-      userId: res.locals.user.userId,
-    })
-      .distinct('projectId')
-      .exec();
+    const { _limit = 50, _skip = 0 } = req.query;
+    delete req.query._limit;
+    delete req.query._skip;
+
     const sharedIds = await Share.find({
       userId: res.locals.user.userId,
     })
       .distinct('projectId')
       .exec();
+    const tc = sharedIds.length;
     const projectDetails = await Project.find({
       _id: { $in: sharedIds },
     })
-      .limit(req.query.limit)
-      .skip(req.query.skip)
+      .limit(+_limit)
+      .skip(+_skip)
       .select('_id projectTitle picture currentSituation')
+      .lean()
       .exec();
+
     return res.status(200).send({
       success: true,
       projects: projectDetails,
-      count: dataCount,
+      count: tc,
     });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
