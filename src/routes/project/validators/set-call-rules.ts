@@ -5,7 +5,7 @@ import { RequestHandler } from 'express';
 const SetCallSchema = Joi.object().keys({
   typeOfCall: Joi.string()
     .required()
-    .valid('project', 'registration'),
+    .valid('project', 'registration', 'assistance'),
   startTime: Joi.date().required(),
   endTime: Joi.date().required(),
   otherDetails: Joi.string().optional(),

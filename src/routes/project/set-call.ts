@@ -16,7 +16,7 @@ import { findCallTime } from '../utils/schedule-call/filter-by-hours';
 export const scheduleCall: RequestHandler = async (req, res, next) => {
   let query: any = {};
   try {
-    if (req.body.typeOfCall === 'project') {
+    if (req.body.typeOfCall !== 'registration') {
       const getCallTime: any = await findCallTime(
         req.body.startTime,
         req.body.endTime,
