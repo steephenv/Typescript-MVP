@@ -103,6 +103,11 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
     availableSlot.interviewId = savedInterview._id;
     await availableSlot.save();
 
+    const admin = await User.findOne({ _id: availableSlot.userId })
+      .select('firstName lastName email profileDataVerified')
+      .lean()
+      .exec();
+
     const userDetails = await User.findOne({ _id: contestant })
       .select('firstName lastName email profileDataVerified')
       .lean()
@@ -128,7 +133,24 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
         },
       };
 
-      await sendEmail(mailOptions);
+      const adminMailOptions = {
+        toAddresses: [admin.email],
+        template: EmailTemplates.INTERVIEW_SCHEDULED_ADMIN,
+        fromName: 'Capricorns Team',
+        subject: `Interview Scheduled`,
+        fields: {
+          user: userDetails.firstName + ' ' + userDetails.lastName,
+          date: availableSlot.startTime,
+          typeOfCall: req.body.typeOfCall,
+          platform: req.body.platform || '',
+          platformId: req.body.platformId || '',
+        },
+      };
+
+      const userMail = sendEmail(mailOptions);
+      const adminMail = sendEmail(adminMailOptions);
+
+      await BluePromise.all([userMail, adminMail]);
     }
 
     return res.status(201).send({
