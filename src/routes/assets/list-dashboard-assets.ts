@@ -32,6 +32,7 @@ export const listDownloadedViewed: RequestHandler = async (req, res, next) => {
       const assets = await Assets.find({ _id: { $in: assetIds } })
         .skip(_skip)
         .limit(_limit)
+        .lean()
         .exec();
 
       return res.status(200).send({
@@ -51,6 +52,7 @@ export const listDownloadedViewed: RequestHandler = async (req, res, next) => {
       const assets = await Assets.find({ _id: { $in: assetIds } })
         .skip(_skip)
         .limit(_limit)
+        .lean()
         .exec();
 
       return res.status(200).send({
