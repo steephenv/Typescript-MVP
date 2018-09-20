@@ -21,12 +21,22 @@ export const listDownloadedViewed: RequestHandler = async (req, res, next) => {
       });
     }
     if (req.query.modelType === 'downloaded') {
-      const assetIds = await Downloaded.find({
-        userId: res.locals.user.userId,
-        downloadedUserId: { $ne: res.locals.user.userId },
-      })
-        .distinct('assetId')
-        .exec();
+      let assetIds;
+      if (res.locals.user.role === 'Admin') {
+        assetIds = await Downloaded.find({
+          downloadedUserId: { $ne: res.locals.user.userId },
+        })
+          .distinct('assetId')
+          .exec();
+      } else {
+        assetIds = await Downloaded.find({
+          userId: res.locals.user.userId,
+          downloadedUserId: { $ne: res.locals.user.userId },
+        })
+          .distinct('assetId')
+          .exec();
+      }
+
       totalCount = assetIds.length;
 
       const assets = await Assets.find({ _id: { $in: assetIds } })
@@ -41,17 +51,27 @@ export const listDownloadedViewed: RequestHandler = async (req, res, next) => {
         count: totalCount,
       });
     } else if (req.query.modelType === 'viewed') {
-      const assetIds = await Viewed.find({
-        userId: res.locals.user.userId,
-        viewedUserId: { $ne: res.locals.user.userId },
-      })
-        .distinct('assetId')
-        .exec();
+      let assetIds;
+      if (res.locals.user.role === 'Admin') {
+        assetIds = await Viewed.find({
+          viewedUserId: { $ne: res.locals.user.userId },
+        })
+          .distinct('assetId')
+          .exec();
+      } else {
+        assetIds = await Viewed.find({
+          userId: res.locals.user.userId,
+          viewedUserId: { $ne: res.locals.user.userId },
+        })
+          .distinct('assetId')
+          .exec();
+      }
+
       totalCount = assetIds.length;
 
       const assets = await Assets.find({ _id: { $in: assetIds } })
-        .skip(_skip)
-        .limit(_limit)
+        .skip(+_skip)
+        .limit(+_limit)
         .lean()
         .exec();
 
