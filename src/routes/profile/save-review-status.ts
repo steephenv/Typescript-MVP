@@ -90,21 +90,24 @@ export const saveReviewStatus: RequestHandler = async (req, res, next) => {
       const adminDetails: any = await InterviewAvailabilityCalender.findOne({
         interviewId: contestant._id,
       });
-      const admin: any = await User.findOne({ _id: adminDetails.userId });
-      const adminMailOptions = {
-        toAddresses: [admin.email],
-        template: EmailTemplates.INTERVIEW_SCHEDULED_ADMIN,
-        fromName: 'Capricorns Team',
-        subject: `Interview Scheduled`,
-        fields: {
-          user: userDetails.firstName + ' ' + userDetails.lastName,
-          date: contestant.startTime,
-          typeOfCall: contestant.typeOfCall,
-          platform: contestant.platform || '',
-          platformId: contestant.platformId || '',
-        },
-      };
-      await sendEmail(adminMailOptions);
+      if (adminDetails !== null) {
+        const admin: any = await User.findOne({ _id: adminDetails.userId });
+
+        const adminMailOptions = {
+          toAddresses: [admin.email],
+          template: EmailTemplates.INTERVIEW_SCHEDULED_ADMIN,
+          fromName: 'Capricorns Team',
+          subject: `Interview Scheduled`,
+          fields: {
+            user: userDetails.firstName + ' ' + userDetails.lastName,
+            date: contestant.startTime,
+            typeOfCall: contestant.typeOfCall,
+            platform: contestant.platform || '',
+            platformId: contestant.platformId || '',
+          },
+        };
+        await sendEmail(adminMailOptions);
+      }
     }
 
     return res.status(200).send({
