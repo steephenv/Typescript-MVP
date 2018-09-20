@@ -156,9 +156,9 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
     return res.status(201).send({
       success: true,
       msg: messages.interviewScheduled.ENG,
-      mailSentTo: `${admin ? admin.email : 'null'}, ${
+      details: `mail planned to send to ${admin ? admin.email : 'null'}, ${
         userDetails ? userDetails.email : 'null'
-      }`,
+      }. Will be sent if profile data is verified`,
     });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
