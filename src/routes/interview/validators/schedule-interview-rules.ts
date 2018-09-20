@@ -13,7 +13,7 @@ const scheduleInterviewSchema = Joi.object().keys({
   }),
   platformId: Joi.string().when('typeOfCall', {
     is: 'Video',
-    then: Joi.required(),
+    then: Joi.optional(),
   }),
   userId: Joi.string()
     .length(24)
