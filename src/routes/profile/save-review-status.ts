@@ -7,6 +7,7 @@ import {
   RequestError,
   RequestErrorType,
 } from '../../error-handler/RequestError';
+import { InterviewAvailabilityCalender } from '../../models/InterviewAvailabilityCalender';
 
 export const saveReviewStatus: RequestHandler = async (req, res, next) => {
   try {
@@ -83,6 +84,30 @@ export const saveReviewStatus: RequestHandler = async (req, res, next) => {
         },
       };
       await sendEmail(mailOptions);
+      const contestant: any = await InterviewDetails.findOne({
+        contestantId: res.locals.user.userId,
+      });
+      const adminDetails: any = await InterviewAvailabilityCalender.findOne({
+        interviewId: contestant._id,
+      });
+      if (adminDetails !== null) {
+        const admin: any = await User.findOne({ _id: adminDetails.userId });
+
+        const adminMailOptions = {
+          toAddresses: [admin.email],
+          template: EmailTemplates.INTERVIEW_SCHEDULED_ADMIN,
+          fromName: 'Capricorns Team',
+          subject: `Interview Scheduled`,
+          fields: {
+            user: userDetails.firstName + ' ' + userDetails.lastName,
+            date: contestant.startTime,
+            typeOfCall: contestant.typeOfCall,
+            platform: contestant.platform || '',
+            platformId: contestant.platformId || '',
+          },
+        };
+        await sendEmail(adminMailOptions);
+      }
     }
 
     return res.status(200).send({
