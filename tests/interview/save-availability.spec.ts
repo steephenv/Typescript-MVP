@@ -4,7 +4,7 @@ let token: string;
 // const bpmId = '5b6c04094d27ef4e82b47e6b';
 
 beforeAll(done => {
-  got('http://localhost:6533/v1/auth/login', {
+  got('http://localhost:7000/v1/auth/login', {
     method: 'POST',
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
@@ -28,7 +28,7 @@ describe('Test for availability save', () => {
   test(
     'creating slots',
     done => {
-      got('http://localhost:6533/v1/interview/save-availability-calender', {
+      got('http://localhost:7000/v1/interview/save-availability-calender', {
         method: 'POST',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
