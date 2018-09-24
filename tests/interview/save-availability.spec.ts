@@ -4,15 +4,15 @@ let token: string;
 // const bpmId = '5b6c04094d27ef4e82b47e6b';
 
 beforeAll(done => {
-  got('http://localhost:7000/v1/auth/login', {
+  got('http://localhost:6533/v1/auth/login', {
     method: 'POST',
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
     },
     json: true,
     body: {
-      username: 'stark@marvel.com',
-      password: 'password',
+      username: 'bpmb@yopmail.com',
+      password: 'A!2345',
     },
   })
     .then(({ body }: any) => {
@@ -28,7 +28,7 @@ describe('Test for availability save', () => {
   test(
     'creating slots',
     done => {
-      got('http://localhost:7000/v1/interview/save-availability-calender', {
+      got('http://localhost:6533/v1/interview/save-availability-calender', {
         method: 'POST',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
@@ -37,22 +37,18 @@ describe('Test for availability save', () => {
         json: true,
         body: {
           dateRange: {
-            startDate:
-              'Mon Aug 27 2018 05:30:00 GMT+0530 (India Standard Time)',
-            endDate: '2018-08-30',
+            startDate: 'Mon, 24 Sep 2018 00:00:00 GMT',
+            endDate: 'Mon, 22 Oct 2018 00:00:00 GMT',
           },
-          workingDays: ['Sunday', 'Monday', 'Tuesday', 'Thursday'],
-          workingTime: {
-            startTime:
-              'Mon Jul 30 2018 09:00:00 GMT+0530 (India Standard Time)',
-            endTime: 'Mon Jul 30 2018 18:00:00 GMT+0530 (India Standard Time)',
+          workingDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+          workingTimeNumber: {
+            startTime: 7,
+            endTime: 19,
           },
-          breakTime: {
-            startTime:
-              'Mon Jul 30 2018 13:00:00 GMT+0530 (India Standard Time)',
-            endTime: 'Mon Jul 30 2018 14:00:00 GMT+0530 (India Standard Time)',
+          breakTimeNumber: {
+            startTime: 12,
+            endTime: 13,
           },
-          userId: '5b5ed5287630af443bcf2878',
           annualAvailability: 20,
         },
       })
