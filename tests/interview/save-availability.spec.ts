@@ -11,8 +11,8 @@ beforeAll(done => {
     },
     json: true,
     body: {
-      username: 'bpmb@yopmail.com',
-      password: 'A!2345',
+      username: 'stark@marvel.com',
+      password: 'password',
     },
   })
     .then(({ body }: any) => {

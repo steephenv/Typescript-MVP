@@ -33,7 +33,6 @@ export const saveAvailabilityRules: RequestHandler = (req, res, next) => {
     saveAvailabilitySchema,
     { stripUnknown: true },
     (err: any) => {
-      console.log('m..........................................', err);
       if (err) {
         return res.status(422).send({
           success: false,
