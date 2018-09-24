@@ -11,16 +11,16 @@ const saveAvailabilitySchema = Joi.object().keys({
   workingDays: Joi.array()
     .items(Joi.string())
     .required(),
-  workingTime: Joi.object()
+  workingTimeNumber: Joi.object()
     .keys({
-      startTime: Joi.date().required(),
-      endTime: Joi.date().required(),
+      startTime: Joi.number().required(),
+      endTime: Joi.number().required(),
     })
     .required(),
-  breakTime: Joi.object()
+  breakTimeNumber: Joi.object()
     .keys({
-      startTime: Joi.date().required(),
-      endTime: Joi.date().required(),
+      startTime: Joi.number().required(),
+      endTime: Joi.number().required(),
     })
     .optional(),
   userId: Joi.string().optional(),
@@ -58,23 +58,23 @@ export const saveAvailabilityRules: RequestHandler = (req, res, next) => {
           return;
         }
       });
-      const workingTimeNumber = {
-        startTime: new Date(req.body.workingTime.startTime).getHours(),
-        endTime: new Date(req.body.workingTime.endTime).getHours(),
-      };
-      let breakTimeNumber = {
-        startTime: 13,
-        endTime: 14,
-      };
-      if (req.body.breakTime) {
-        breakTimeNumber = {
-          startTime: new Date(req.body.breakTime.startTime).getHours(),
-          endTime: new Date(req.body.breakTime.endTime).getHours(),
-        };
-      }
+      // const workingTimeNumber = {
+      //   startTime: new Date(req.body.workingTime.startTime).getHours(),
+      //   endTime: new Date(req.body.workingTime.endTime).getHours(),
+      // };
+      // let breakTimeNumber = {
+      //   startTime: 13,
+      //   endTime: 14,
+      // };
+      // if (req.body.breakTimeNumber) {
+      //   breakTimeNumber = {
+      //     startTime: new Date(req.body.breakTime.startTime).getHours(),
+      //     endTime: new Date(req.body.breakTime.endTime).getHours(),
+      //   };
+      // }
       req.body.workingDayNumber = workingDayNumber;
-      req.body.workingTimeNumber = workingTimeNumber;
-      req.body.breakTimeNumber = breakTimeNumber;
+      // req.body.workingTimeNumber = workingTimeNumber;
+      // req.body.breakTimeNumber = breakTimeNumber;
       next();
     },
   );

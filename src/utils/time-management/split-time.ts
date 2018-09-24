@@ -9,14 +9,17 @@ export const splitTime = (
   duration: number,
 ): ISplittedTime[] => {
   const startTimeMs = startDate.getTime();
-  let endTimeMs = endDate.getTime();
-  if (duration !== 3600000) {
-    endTimeMs = endDate.getTime() + 1;
-  }
+  const endTimeMs = endDate.getTime();
+
+  // console.log('.............!!!!!!!!!!!!!1111', startTimeMs, )
+
+  // if (duration !== 3600000) {
+  //   endTimeMs = endDate.getTime() + 1;
+  // }
 
   if (endTimeMs < startTimeMs || (endTimeMs - startTimeMs) % duration) {
     const err = new Error(`MOD_ERR`);
-    err.message = `(${endTimeMs}-${endTimeMs}%${duration})!=0 or endTime<startTime`;
+    err.message = `(${endTimeMs}-${startTimeMs}%${duration})!=0 or endTime<startTime`;
     throw err;
   }
 

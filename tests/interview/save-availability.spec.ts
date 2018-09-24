@@ -37,22 +37,18 @@ describe('Test for availability save', () => {
         json: true,
         body: {
           dateRange: {
-            startDate:
-              'Mon Aug 27 2018 05:30:00 GMT+0530 (India Standard Time)',
-            endDate: '2018-08-30',
+            startDate: 'Mon, 24 Sep 2018 00:00:00 GMT',
+            endDate: 'Mon, 22 Oct 2018 00:00:00 GMT',
           },
-          workingDays: ['Sunday', 'Monday', 'Tuesday', 'Thursday'],
-          workingTime: {
-            startTime:
-              'Mon Jul 30 2018 09:00:00 GMT+0530 (India Standard Time)',
-            endTime: 'Mon Jul 30 2018 18:00:00 GMT+0530 (India Standard Time)',
+          workingDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+          workingTimeNumber: {
+            startTime: 7,
+            endTime: 19,
           },
-          breakTime: {
-            startTime:
-              'Mon Jul 30 2018 13:00:00 GMT+0530 (India Standard Time)',
-            endTime: 'Mon Jul 30 2018 14:00:00 GMT+0530 (India Standard Time)',
+          breakTimeNumber: {
+            startTime: 12,
+            endTime: 13,
           },
-          userId: '5b5ed5287630af443bcf2878',
           annualAvailability: 20,
         },
       })
