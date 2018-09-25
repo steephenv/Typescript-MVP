@@ -12,6 +12,9 @@ import {
   ExpressRequestError,
   ExpressRequestErrorType,
 } from 'issue-maker';
+
+import { rootAccess } from './access-control/root-access';
+
 // import {RequestError, RequestErrorType} from 'issue-maker/dist/src/error-types/express-request-error';
 // init db
 import { mongooseConnectionPromise, mongoose } from './db.init';
@@ -65,6 +68,9 @@ app.use(
 
 // un-comment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+// root files. this need to set acl only for devs
+app.use('/root', rootAccess, express.static(path.join(__dirname, 'root')));
 
 if (morganEnabled) {
   app.use(logger('dev'));
