@@ -26,7 +26,7 @@ Build:
   script:
     - yarn install --prefer-offline
     # unit tests should reset test-db. cz, each version expects a new db schema
-    - yarn run test
+    - yarn run test-with-docs
   tags:
     - node
 

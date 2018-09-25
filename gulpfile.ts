@@ -215,6 +215,18 @@ gulp.task('logEnvs', () => {
 gulp.task('build', cb => {
   gulpRunSequence(
     'logEnvs',
+    ['clean-build'],
+    ['prettier-noFix', 'tslint-noFix'],
+    ['compile-code'],
+    'copy-assets',
+    'replace',
+    cb,
+  );
+});
+
+gulp.task('build-with-docs', cb => {
+  gulpRunSequence(
+    'logEnvs',
     ['clean-build', 'clean-schema-doc'],
     ['compile-schema-doc-generator', 'compile-schema', 'prettier-noFix'],
     ['generate-schema-docs', 'tslint-noFix', 'compile-code'],

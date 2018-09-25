@@ -2,7 +2,7 @@
 
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const description = `Stores availability of users`;
+export const description = `Stores availability of users`;
 
 export const definitions = {
   userId: [

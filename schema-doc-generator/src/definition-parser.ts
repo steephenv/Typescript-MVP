@@ -20,10 +20,6 @@ export function definitionParser(
         ? definition[column][0].type.name
         : 'COMPLEX_TYPE';
     }
-    if (!type && !definition[column].type) {
-      // tslint:disable-next-line
-      console.log(definition[column]);
-    }
 
     mdTable.push([
       `\`${column}\``, // column name
