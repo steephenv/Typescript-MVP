@@ -10,7 +10,7 @@ export const definitions = {
   },
 };
 
-const AssetCategorySchema: Schema = new Schema();
+const AssetCategorySchema: Schema = new Schema(definitions);
 
 export const AssetCategory = mongooseModel(
   'AssetCategory',
