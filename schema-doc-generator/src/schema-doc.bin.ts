@@ -23,7 +23,10 @@ const DOC_FILE = pathJoin(__dirname, '../schema-doc.md');
 async function generateDocs() {
   try {
     // import the file
-    const { definitions } = await import(file);
+    const {
+      definitions,
+      description = '_description not provided_',
+    } = await import(file);
 
     if (!definitions) {
       throw new Error(`no definition export found on file ${file}`);
@@ -33,7 +36,7 @@ async function generateDocs() {
     await initDocFile();
 
     // parse definition
-    const content = definitionParser(table, definitions);
+    const content = definitionParser(table, definitions, description);
 
     // append to file
     log(`......... ✓ docing '${table}' table`); // tslint:disable-line
