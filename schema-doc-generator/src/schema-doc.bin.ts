@@ -20,7 +20,7 @@ if (table === 'index') {
   process.exit(0);
 }
 
-const appendFile = promisify(appendFileCb);
+const appendFile: any = promisify(appendFileCb);
 
 const file = process.argv[2];
 
