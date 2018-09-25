@@ -14,6 +14,12 @@ import { getInitDocContent } from './init-doc-content';
 // file name is the table name
 const table = process.argv[2].split('schema-dist/')[1].split('.js')[0];
 
+// do not crunch index file
+if (table === 'index') {
+  console.log('......... ✓ skipping index file'); // tslint:disable-line:no-console
+  process.exit(0);
+}
+
 const appendFile = promisify(appendFileCb);
 
 const file = process.argv[2];
