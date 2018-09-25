@@ -1,7 +1,9 @@
 /* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const projectsSchema = new Schema({
+// export const description =
+
+export const definitions = {
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -98,7 +100,9 @@ const projectsSchema = new Schema({
   locationState: {
     type: String,
   },
-});
+};
+
+const projectsSchema = new Schema(definitions);
 
 export const EmployeeProjects = mongooseModel(
   'EmployeeProjects',

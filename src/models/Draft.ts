@@ -2,7 +2,8 @@
 import { model as mongooseModel, Schema } from 'mongoose';
 // import { date } from 'joi';
 
-const draftSchema = new Schema({
+export const description = 'stores draft info';
+export const definitions = {
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -18,6 +19,8 @@ const draftSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Project',
   },
-});
+};
+
+const draftSchema = new Schema(definitions);
 
 export const Draft = mongooseModel('Draft', draftSchema);

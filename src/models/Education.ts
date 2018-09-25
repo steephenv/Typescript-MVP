@@ -1,7 +1,8 @@
 /* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const educationDetailsSchema = new Schema({
+export const description = 'stores edu details';
+export const definitions = {
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -56,13 +57,19 @@ const educationDetailsSchema = new Schema({
   },
   mainSubjects: [
     {
-      subject: String,
-      grade: String,
+      subject: {
+        type: String,
+      },
+      grade: {
+        type: String,
+      },
     },
   ],
   activities: {
     type: String,
   },
-});
+};
+
+const educationDetailsSchema = new Schema(definitions);
 
 export const Education = mongooseModel('Education', educationDetailsSchema);
