@@ -16,7 +16,7 @@ const table = process.argv[2].split('schema-dist/')[1].split('.js')[0];
 
 // do not crunch index file
 if (table === 'index') {
-  console.log('......... ✓ skipping index file'); // tslint:disable-line:no-console
+  log('......... ✓ skipping index file');
   process.exit(0);
 }
 

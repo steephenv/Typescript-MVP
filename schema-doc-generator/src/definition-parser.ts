@@ -8,18 +8,29 @@ export function definitionParser(
 ) {
   const mdTable = [['**Field Name**', '**Type**', '**Description**']];
 
-  if (isArray(definition)) {
-    definition = definition[0];
-  }
-
   Object.keys(definition).forEach(column => {
     const comment = definition[column].comment
       ? definition[column].comment.replace(/\n/g, '<br>').replace(/\|/g, '/')
       : 'N/A';
 
+    let type: string;
+
+    if (isArray(definition[column])) {
+      type = definition[column][0].type
+        ? definition[column][0].type.name
+        : 'COMPLEX_TYPE';
+    }
+    if (!type && !definition[column].type) {
+      // tslint:disable-next-line
+      console.log(definition[column]);
+    }
+
     mdTable.push([
       `\`${column}\``, // column name
-      `\`${definition[column].type.name ||
+      `\`${type ||
+        (definition[column].type
+          ? definition[column].type.name
+          : 'COMPLEX_TYPE') ||
         definition[column].type.toString()}\``,
       comment,
     ]);

@@ -4,8 +4,8 @@
 
 import { RequestHandler } from 'express';
 
-const ROOTUNAME = 'stayhard';
-const ROOTPSW = 'stayharder';
+const ROOTUNAME = 'urfunny';
+const ROOTPSW = 'urfunny';
 
 const login = (auth: string) => {
   const encodedCredentials = auth.split(' ');
