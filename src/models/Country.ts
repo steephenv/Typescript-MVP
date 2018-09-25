@@ -1,14 +1,17 @@
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const countrySchema: Schema = new Schema({
-  id: String,
-  iso: String,
-  local_name: String,
-  type: String,
-  in_location: String,
-  geo_lat: String,
-  geo_lng: String,
-  db_id: String,
-});
+export const description = `stores country info`;
+export const definitions = {
+  id: { type: String },
+  iso: { type: String },
+  local_name: { type: String },
+  type: { type: String },
+  in_location: { type: String },
+  geo_lat: { type: String },
+  geo_lng: { type: String },
+  db_id: { type: String },
+};
+
+const countrySchema: Schema = new Schema(definitions);
 
 export const country = mongooseModel('Country', countrySchema);

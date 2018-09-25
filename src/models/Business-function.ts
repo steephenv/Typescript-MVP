@@ -2,9 +2,15 @@
 
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const BusinessFunctionSchema = new Schema({
-  name: String,
-});
+export const description = `stores business function`;
+
+export const definitions = {
+  name: {
+    type: String,
+  },
+};
+
+const BusinessFunctionSchema = new Schema(definitions);
 
 export const BusinessFunction = mongooseModel(
   'BusinessFunction',
