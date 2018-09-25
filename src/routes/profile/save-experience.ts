@@ -6,6 +6,7 @@ import { EmployeeProjects } from '../../models/EmployeeProjects';
 import { addNewCity } from '../../utils/add-new-city';
 import { addBusinessFun } from '../assets/upsert-business-fn';
 import { addIndLine } from '../assets/create-industries';
+import { User } from '../../models/User';
 
 import {
   RequestError,
@@ -48,6 +49,11 @@ export const saveExperience: RequestHandler = async (req, res, next) => {
       await addIndLine(project.companyIndustryLine);
       return;
     });
+    await User.findOneAndUpdate(
+      { _id: res.locals.user.userId },
+      { $set: { experienceStatus: true, employeeStatus: true } },
+    ).exec();
+
     return res.status(200).send({ success: true });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));

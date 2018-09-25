@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express';
 
 import { Wlb } from '../../models/WLB';
+import { User } from '../../models/User';
 
 import {
   RequestError,
@@ -22,6 +23,10 @@ export const saveWLB: RequestHandler = async (req, res, next) => {
     newData.createdBy = res.locals.user.userId;
     newData.submitted = true;
     await newData.save();
+    await User.findOneAndUpdate(
+      { _id: res.locals.user.userId },
+      { $set: { wlbStatus: true } },
+    ).exec();
     return res.status(200).send({ success: true });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));

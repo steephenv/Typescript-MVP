@@ -120,7 +120,7 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
       availableSlot.endTime,
     );
 
-    if (userDetails.profileDataVerified && admin) {
+    if (admin) {
       const mailOptions = {
         toAddresses: [userDetails.email],
         template: EmailTemplates.INTERVIEW_SCHEDULED,

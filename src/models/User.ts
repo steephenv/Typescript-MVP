@@ -84,6 +84,34 @@ export const definitions = {
     type: Boolean,
     default: false,
   },
+  personalStatus: {
+    type: Boolean,
+    default: false,
+  },
+  educationStatus: {
+    type: Boolean,
+    default: false,
+  },
+  experienceStatus: {
+    type: Boolean,
+    default: false,
+  },
+  employeeStatus: {
+    type: Boolean,
+    default: false,
+  },
+  goalsStatus: {
+    type: Boolean,
+    default: false,
+  },
+  skillsStatus: {
+    type: Boolean,
+    default: false,
+  },
+  wlbStatus: {
+    type: Boolean,
+    default: false,
+  },
 };
 
 const userSchema: Schema = new Schema(definitions);

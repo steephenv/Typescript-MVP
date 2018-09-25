@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import { Promise as BluePromise } from 'bluebird';
 import { Education } from '../../models/Education';
-
+import { User } from '../../models/User';
 import { addNewCity } from '../../utils/add-new-city';
 
 import {
@@ -33,6 +33,10 @@ export const saveEducation: RequestHandler = async (req, res, next) => {
       await BluePromise.all([eduSave, citySave]);
       return;
     });
+    await User.findOneAndUpdate(
+      { _id: res.locals.user.userId },
+      { $set: { educationStatus: true } },
+    ).exec();
     return res.status(200).send({ success: true });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));

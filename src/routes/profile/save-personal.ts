@@ -59,7 +59,11 @@ export const savePersonal: RequestHandler = async (req, res, next) => {
       const userUpdate = User.update(
         { _id: where.userId },
         {
-          $set: { firstName: req.body.firstName, lastName: req.body.lastName },
+          $set: {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            personalStatus: true,
+          },
         },
       );
       try {
