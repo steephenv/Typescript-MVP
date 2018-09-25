@@ -1,4 +1,5 @@
 import * as makeMdTable from 'markdown-table';
+import { isArray } from 'lodash';
 
 export function definitionParser(
   table: string,
@@ -6,6 +7,10 @@ export function definitionParser(
   description: string,
 ) {
   const mdTable = [['**Field Name**', '**Type**', '**Description**']];
+
+  if (isArray(definition)) {
+    definition = definition[0];
+  }
 
   Object.keys(definition).forEach(column => {
     const comment = definition[column].comment
