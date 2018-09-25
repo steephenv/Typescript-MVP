@@ -2,7 +2,9 @@
 
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const TempUserSchema: Schema = new Schema({
+export const description =
+  'Stores details of user temporarily before during registration';
+export const definitions = {
   firstName: {
     type: String,
     default: '',
@@ -51,6 +53,7 @@ const TempUserSchema: Schema = new Schema({
   createdAt: {
     type: Date,
   },
-});
+};
+const TempUserSchema: Schema = new Schema(definitions);
 
 export const TempUser = mongooseModel('TempUser', TempUserSchema);

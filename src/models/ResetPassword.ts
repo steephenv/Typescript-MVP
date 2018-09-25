@@ -2,7 +2,9 @@
 
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const ResetPasswordSchema: Schema = new Schema({
+export const description = 'Stores details of reset password info';
+
+export const definitions = {
   email: {
     type: String,
     require: true,
@@ -18,7 +20,8 @@ const ResetPasswordSchema: Schema = new Schema({
     type: Boolean,
     default: false,
   },
-});
+};
+const ResetPasswordSchema: Schema = new Schema(definitions);
 export const ResetPassword = mongooseModel(
   'ResetPassword',
   ResetPasswordSchema,

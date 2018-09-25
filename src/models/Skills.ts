@@ -1,7 +1,9 @@
 /* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const SkillsSchema: Schema = new Schema({
+export const description = 'Stores details of skills';
+
+export const definitions = {
   updatedAt: {
     type: Date,
   },
@@ -54,6 +56,7 @@ const SkillsSchema: Schema = new Schema({
     type: Boolean,
     default: false,
   },
-});
+};
+const SkillsSchema: Schema = new Schema(definitions);
 
 export const Skills = mongooseModel('Skills', SkillsSchema);

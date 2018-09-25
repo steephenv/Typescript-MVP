@@ -2,7 +2,9 @@
 
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const InterviewAvailabilityCalenderSchema = new Schema({
+export const description = 'Stores details interview availability info';
+
+export const definitions = {
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -45,7 +47,8 @@ const InterviewAvailabilityCalenderSchema = new Schema({
   createdAt: {
     type: Date,
   },
-});
+};
+const InterviewAvailabilityCalenderSchema: Schema = new Schema(definitions);
 
 export const InterviewAvailabilityCalender = mongooseModel(
   'InterviewAvailabilityCalender',

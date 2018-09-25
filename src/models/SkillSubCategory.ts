@@ -2,7 +2,9 @@
 
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const SkillSubCategorySchema: Schema = new Schema({
+export const description = 'Stores details of skill sub category';
+
+export const definitions = {
   categoryId: {
     type: Schema.Types.ObjectId,
     ref: 'SkillCategory',
@@ -14,7 +16,8 @@ const SkillSubCategorySchema: Schema = new Schema({
     type: Boolean,
     default: false,
   },
-});
+};
+const SkillSubCategorySchema: Schema = new Schema(definitions);
 export const SkillSubCategory = mongooseModel(
   'SkillSubCategory',
   SkillSubCategorySchema,
