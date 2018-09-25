@@ -1,7 +1,9 @@
 /* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const wlbSchema = new Schema({
+export const description = 'Stores work life balance info';
+
+export const definitions = {
   userId: {
     type: String,
     ref: 'User',
@@ -25,7 +27,11 @@ const wlbSchema = new Schema({
   frequencyHomeOfficeWork: {
     type: Number,
   },
-  location: [String],
+  location: [
+    {
+      type: String,
+    },
+  ],
   workPermit: {
     type: String,
   },
@@ -42,6 +48,8 @@ const wlbSchema = new Schema({
   fileName: {
     type: String,
   },
-});
+};
+
+const wlbSchema: Schema = new Schema(definitions);
 
 export const Wlb = mongooseModel('Wlb', wlbSchema);

@@ -1,8 +1,9 @@
 /* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
 // import { date } from 'joi';
+export const description = 'Stores details project (catalog) info';
 
-const projectSchema = new Schema({
+export const definitions = {
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -98,6 +99,7 @@ const projectSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
-});
+};
+const projectSchema: Schema = new Schema(definitions);
 
 export const Project = mongooseModel('Project', projectSchema);

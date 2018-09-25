@@ -2,7 +2,9 @@
 
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const ViewAnalysisSchema: Schema = new Schema({
+export const description = 'Stores view details of assets and projects info';
+
+export const definitions = {
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -23,5 +25,7 @@ const ViewAnalysisSchema: Schema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Assets',
   },
-});
+};
+
+const ViewAnalysisSchema: Schema = new Schema(definitions);
 export const Viewed = mongooseModel('ViewAnalysis', ViewAnalysisSchema);

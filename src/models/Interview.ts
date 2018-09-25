@@ -2,7 +2,9 @@
 
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const InterviewSchema = new Schema({
+export const description = 'Stores interview scheduling details';
+
+export const definitions = {
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -44,6 +46,7 @@ const InterviewSchema = new Schema({
   updatedAt: {
     type: Date,
   },
-});
+};
+const InterviewSchema: Schema = new Schema(definitions);
 
 export const Interview = mongooseModel('Interview', InterviewSchema);

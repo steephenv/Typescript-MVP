@@ -2,7 +2,9 @@
 
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const AssetSubCategorySchema: Schema = new Schema({
+export const description = `stores sub categories`;
+
+export const definitions = {
   subCategoryName: {
     type: String,
     require: true,
@@ -10,8 +12,11 @@ const AssetSubCategorySchema: Schema = new Schema({
   categoryId: {
     type: Schema.Types.ObjectId,
     ref: 'AssetCategory',
+    comment: 'taken from `AssetCategory` collection',
   },
-});
+};
+
+const AssetSubCategorySchema: Schema = new Schema(definitions);
 
 export const AssetSubCategory = mongooseModel(
   'AssetSubCategory',

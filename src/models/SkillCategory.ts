@@ -2,7 +2,9 @@
 
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const SkillCategorySchema: Schema = new Schema({
+export const description = 'Stores details skill category';
+
+export const definitions = {
   category: {
     type: String,
     require: true,
@@ -15,7 +17,8 @@ const SkillCategorySchema: Schema = new Schema({
     type: Boolean,
     default: false,
   },
-});
+};
+const SkillCategorySchema: Schema = new Schema(definitions);
 export const SkillCategory = mongooseModel(
   'SkillCategory',
   SkillCategorySchema,

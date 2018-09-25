@@ -2,7 +2,9 @@
 
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const AvailabilityCalenderSchema: Schema = new Schema({
+export const description = `Stores availability of users`;
+
+export const definitions = {
   userId: [
     {
       type: Schema.Types.ObjectId,
@@ -33,7 +35,9 @@ const AvailabilityCalenderSchema: Schema = new Schema({
   updatedAt: {
     type: Date,
   },
-});
+};
+
+const AvailabilityCalenderSchema: Schema = new Schema(definitions);
 
 export const AvailabilityCalender = mongooseModel(
   'AvailabilityCalender',

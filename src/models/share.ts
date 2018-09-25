@@ -1,7 +1,8 @@
 /* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const ShareSchema = new Schema({
+export const description = 'Stores details of shared assets and projects info';
+export const definitions = {
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -24,12 +25,15 @@ const ShareSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Assets',
   },
-  sharedLink: {
-    type: [String],
-  },
+  sharedLink: [
+    {
+      type: String,
+    },
+  ],
   sharedTo: {
     type: String,
   },
-});
+};
+const ShareSchema: Schema = new Schema(definitions);
 
 export const Share = mongooseModel('Share', ShareSchema);

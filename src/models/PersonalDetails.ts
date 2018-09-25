@@ -1,6 +1,8 @@
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const personalDetailsSchema = new Schema({
+export const description = 'Stores details personal details info';
+
+export const definitions = {
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -113,7 +115,9 @@ const personalDetailsSchema = new Schema({
   updatedAt: {
     type: Date,
   },
-});
+};
+
+const personalDetailsSchema: Schema = new Schema(definitions);
 
 // tslint:disable:variable-name
 export const PersonalDetails = mongooseModel(

@@ -92,7 +92,7 @@ gulp.task('replace', () => {
 
   gulp
     .src(['./dist/src/package.json'])
-    .pipe(replace('aumet-admin-app-development', 'aumet-admin-app-production'))
+    .pipe(replace('miwago-api-development', 'miwago-api-production'))
     .pipe(gulp.dest('./dist/src'));
 });
 
@@ -213,6 +213,18 @@ gulp.task('logEnvs', () => {
 });
 
 gulp.task('build', cb => {
+  gulpRunSequence(
+    'logEnvs',
+    ['clean-build'],
+    ['prettier-noFix', 'tslint-noFix'],
+    ['compile-code'],
+    'copy-assets',
+    'replace',
+    cb,
+  );
+});
+
+gulp.task('build-with-docs', cb => {
   gulpRunSequence(
     'logEnvs',
     ['clean-build', 'clean-schema-doc'],

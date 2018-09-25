@@ -2,7 +2,7 @@
 import { model as mongooseModel, Schema } from 'mongoose';
 // import { Project } from './Project';
 
-const favoritesSchema = new Schema({
+export const definitions = {
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -25,6 +25,8 @@ const favoritesSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Assets',
   },
-});
+};
+
+const favoritesSchema = new Schema(definitions);
 
 export const Favorites = mongooseModel('Favorites', favoritesSchema);

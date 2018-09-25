@@ -2,7 +2,9 @@
 
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const assetsSchema: Schema = new Schema({
+export const description = 'Stores assets info';
+
+export const definitions = {
   title: {
     type: String,
   },
@@ -12,10 +14,12 @@ const assetsSchema: Schema = new Schema({
   categoryId: {
     type: Schema.Types.ObjectId,
     ref: 'AssetCategory',
+    comment: 'taken from `AssetCategory` collection',
   },
   subCategoryId: {
     type: Schema.Types.ObjectId,
     ref: 'AssetSubCategory',
+    comment: 'taken from `AssetSubCategory` collection',
   },
   stage: {
     type: String,
@@ -26,14 +30,17 @@ const assetsSchema: Schema = new Schema({
   industryId: {
     type: Schema.Types.ObjectId,
     ref: 'Industry',
+    comment: 'taken from `Industry` collection',
   },
   businessFunctionId: {
     type: Schema.Types.ObjectId,
     ref: 'BusinessFunction',
+    comment: 'taken from `BusinessFunction` collection',
   },
   businessSubFunctionId: {
     type: Schema.Types.ObjectId,
     ref: 'BusinessSubFunction',
+    comment: 'taken from `BusinessSubFunction` collection',
   },
   imageAccessUrl: {
     type: String,
@@ -42,6 +49,7 @@ const assetsSchema: Schema = new Schema({
   fileAccessUrls: [
     {
       type: String,
+      comment: 'has the form `string[]`',
     },
   ],
   technologyPlatform: {
@@ -52,6 +60,7 @@ const assetsSchema: Schema = new Schema({
   },
   lang: {
     type: String,
+    comment: 'language',
   },
   format: {
     type: String,
@@ -61,21 +70,28 @@ const assetsSchema: Schema = new Schema({
   },
   coAuthor: {
     type: String,
+    comment: '(email)',
   },
   downloadedUsers: [
     {
       type: Schema.Types.ObjectId,
       ref: 'User',
+      comment:
+        'has the from `objectId[]`. objectId taken from `User` collection',
     },
   ],
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
+    comment: '`objectId` taken from `User` coll',
   },
   producerId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
+    comment: '`objectId` taken from `User` coll',
   },
-});
+};
+
+const assetsSchema: Schema = new Schema(definitions);
 
 export const Assets = mongooseModel('Assets', assetsSchema);

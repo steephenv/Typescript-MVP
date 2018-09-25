@@ -14,55 +14,68 @@ import { getInitDocContent } from './init-doc-content';
 // file name is the table name
 const table = process.argv[2].split('schema-dist/')[1].split('.js')[0];
 
-const appendFile = promisify(appendFileCb);
+// do not crunch index file
+if (table === 'index') {
+  log('......... ✓ skipping index file');
+  process.exit(0);
+}
+
+const appendFile: any = promisify(appendFileCb);
 
 const file = process.argv[2];
 
 const DOC_FILE = pathJoin(__dirname, '../schema-doc.md');
 
 async function generateDocs() {
-	try {
-		// import the file
-		const { definitions } = await import(file);
+  try {
+    // import the file
+    const {
+      definitions,
+      description = '_description not provided_',
+    } = await import(file);
 
-		// initialize doc file
-		await initDocFile();
+    if (!definitions) {
+      throw new Error(`no definition export found on file ${file}`);
+    }
 
-		// parse definition
-		const content = definitionParser(table, definitions);
+    // initialize doc file
+    await initDocFile();
 
-		// append to file
-		log(`......... ✓ docing '${table}' table`); // tslint:disable-line
-		await appendFile(DOC_FILE, content);
+    // parse definition
+    const content = definitionParser(table, definitions, description);
 
-		return;
-	} catch (err) {
-		console.error(err); // tslint:disable-line
-	}
+    // append to file
+    log(`......... ✓ docing '${table}' table`); // tslint:disable-line
+    await appendFile(DOC_FILE, content);
+
+    return;
+  } catch (err) {
+    console.error(err); // tslint:disable-line
+  }
 }
 
 async function initDocFile() {
-	try {
-		const fsStat = promisify(fsStatCb);
-		// check if the file exists
-		await fsStat(DOC_FILE);
+  try {
+    const fsStat = promisify(fsStatCb);
+    // check if the file exists
+    await fsStat(DOC_FILE);
 
-		return;
-	} catch (err) {
-		// fail for all other errs except
-		if (err.code !== 'ENOENT') {
-			console.error(err); // tslint:disable-line
-			return;
-		}
+    return;
+  } catch (err) {
+    // fail for all other errs except
+    if (err.code !== 'ENOENT') {
+      console.error(err); // tslint:disable-line
+      return;
+    }
 
-		const docContent = await getInitDocContent();
+    const docContent = await getInitDocContent();
 
-		await appendFile(DOC_FILE, docContent);
+    await appendFile(DOC_FILE, docContent);
 
-		log('......... ✓ doc file init'); // tslint:disable-line
+    log('......... ✓ doc file init'); // tslint:disable-line
 
-		return;
-	}
+    return;
+  }
 }
 
 generateDocs();

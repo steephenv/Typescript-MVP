@@ -2,7 +2,8 @@
 
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const DownloadedAnalysisSchema: Schema = new Schema({
+export const description = 'stores download info';
+export const definitions = {
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -30,7 +31,10 @@ const DownloadedAnalysisSchema: Schema = new Schema({
   name: {
     type: String,
   },
-});
+};
+
+const DownloadedAnalysisSchema: Schema = new Schema(definitions);
+
 export const Downloaded = mongooseModel(
   'DownloadedAnalysis',
   DownloadedAnalysisSchema,

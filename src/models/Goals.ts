@@ -1,7 +1,7 @@
 /* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const GoalSchema: Schema = new Schema({
+export const definitions = {
   clientRating: {
     type: String,
     required: true,
@@ -31,7 +31,7 @@ const GoalSchema: Schema = new Schema({
   skillTargets: [
     {
       skillId: { type: Schema.Types.ObjectId, ref: 'Skills' },
-      targetProficiency: String,
+      targetProficiency: { type: String },
     },
   ],
   educationalTargets: [
@@ -81,11 +81,13 @@ const GoalSchema: Schema = new Schema({
   capricornsAvailableCapacity: { type: Number },
   income: { type: Number },
   startDate: { type: String },
-  incomePerMonth: String,
-  incomePerDay: String,
-  remainingIncome: Number,
+  incomePerMonth: { type: String },
+  incomePerDay: { type: String },
+  remainingIncome: { type: Number },
   targetAnnualIncome: { type: Number },
   targetAnnualIncomeCapricorns: { type: Number },
-});
+};
+
+const GoalSchema: Schema = new Schema(definitions);
 
 export const Goals = mongooseModel('Goals', GoalSchema);

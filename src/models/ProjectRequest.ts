@@ -1,7 +1,10 @@
 /* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const projectRequestSchema = new Schema({
+export const description =
+  'Stores details of project request forms submission data';
+
+export const definitions = {
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -44,9 +47,15 @@ const projectRequestSchema = new Schema({
     ],
   },
   submittedSections: {
-    tab1: Boolean,
-    tab2: Boolean,
-    tab3: Boolean,
+    tab1: {
+      type: Boolean,
+    },
+    tab2: {
+      type: Boolean,
+    },
+    tab3: {
+      type: Boolean,
+    },
   },
   stakeHolders: [
     {
@@ -98,7 +107,11 @@ const projectRequestSchema = new Schema({
   mainLocation: {
     type: String,
   },
-  additionalLocations: [String],
+  additionalLocations: [
+    {
+      type: String,
+    },
+  ],
   communication: {
     type: String,
   },
@@ -140,7 +153,11 @@ const projectRequestSchema = new Schema({
       travellingRequired: {
         type: String,
       },
-      travellingToLocations: [String],
+      travellingToLocations: [
+        {
+          type: String,
+        },
+      ],
       travellingFrequency: {
         type: String,
       },
@@ -164,10 +181,27 @@ const projectRequestSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'BusinessFunction',
       },
-      functional: [String],
-      personal: [String],
-      leadership: [String],
-      entrepreneurship: [String],
+      functional: [
+        {
+          type: String,
+        },
+      ],
+      personal: [
+        {
+          type: String,
+        },
+      ],
+      leadership: [
+        {
+          type: String,
+        },
+      ],
+
+      entrepreneurship: [
+        {
+          type: String,
+        },
+      ],
       desiredDailyRate: {
         type: String,
       },
@@ -254,7 +288,8 @@ const projectRequestSchema = new Schema({
     type: Boolean,
     default: false,
   },
-});
+};
+const projectRequestSchema: Schema = new Schema(definitions);
 
 export const ProjectRequest = mongooseModel(
   'ProjectRequest',

@@ -2,7 +2,8 @@
 
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const companySchema: Schema = new Schema({
+export const description = 'stores basic company info';
+export const definitions = {
   description: {
     type: String,
   },
@@ -12,5 +13,7 @@ const companySchema: Schema = new Schema({
   subHeading: {
     type: String,
   },
-});
+};
+
+const companySchema: Schema = new Schema(definitions);
 export const Company = mongooseModel('Company', companySchema);

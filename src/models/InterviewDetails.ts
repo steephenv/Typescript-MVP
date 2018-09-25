@@ -2,7 +2,9 @@
 
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const InterviewDetailsSchema = new Schema({
+export const description = 'Stores interview details info';
+
+export const definitions = {
   contestantId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -12,8 +14,8 @@ const InterviewDetailsSchema = new Schema({
     enum: ['Video', 'Audio'],
     required: false,
   },
-  platform: String,
-  platformId: String,
+  platform: { type: String },
+  platformId: { type: String },
   startTime: { type: Date },
   endTime: { type: Date },
   interviewStatus: {
@@ -29,7 +31,8 @@ const InterviewDetailsSchema = new Schema({
   updatedAt: {
     type: Date,
   },
-});
+};
+const InterviewDetailsSchema: Schema = new Schema(definitions);
 
 export const InterviewDetails = mongooseModel(
   'InterviewDetails',

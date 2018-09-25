@@ -2,7 +2,7 @@
 
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const BusinessSubFunctionSchema: Schema = new Schema({
+export const definitions = {
   name: {
     type: String,
     require: true,
@@ -11,7 +11,9 @@ const BusinessSubFunctionSchema: Schema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'BusinessFunction',
   },
-});
+};
+
+const BusinessSubFunctionSchema: Schema = new Schema(definitions);
 
 export const BusinessSubFunction = mongooseModel(
   'BusinessSubFunction',

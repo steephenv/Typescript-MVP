@@ -4,7 +4,9 @@ import * as bcrypt from 'bcrypt';
 import { model as mongooseModel, Schema } from 'mongoose';
 import './Project';
 
-const userSchema = new Schema({
+export const description = 'Stores details of user info';
+
+export const definitions = {
   firstName: {
     type: String,
     default: '',
@@ -110,7 +112,9 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
-});
+};
+
+const userSchema: Schema = new Schema(definitions);
 
 // type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void;
 
