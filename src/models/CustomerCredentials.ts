@@ -1,7 +1,8 @@
 /* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
 
-const customerCredentialsSchema = new Schema({
+export const description = 'stores cust. credentials';
+export const definitions = {
   name: {
     type: String,
   },
@@ -30,7 +31,8 @@ const customerCredentialsSchema = new Schema({
   updatedAt: {
     type: Date,
   },
-});
+};
+const customerCredentialsSchema = new Schema(definitions);
 
 export const CustomerCredentials = mongooseModel(
   'CustomerCredentials',

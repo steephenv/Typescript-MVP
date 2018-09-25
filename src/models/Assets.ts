@@ -92,6 +92,6 @@ export const definitions = {
   },
 };
 
-const assetsSchema: Schema = new Schema();
+const assetsSchema: Schema = new Schema(definitions);
 
 export const Assets = mongooseModel('Assets', assetsSchema);
