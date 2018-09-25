@@ -10,5 +10,5 @@ export const definitions = {
     require: true,
   },
 };
-const IndustrySchema: Schema = new Schema();
+const IndustrySchema: Schema = new Schema(definitions);
 export const Industry = mongooseModel('Industry', IndustrySchema);

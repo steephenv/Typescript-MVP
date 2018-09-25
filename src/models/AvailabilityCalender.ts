@@ -4,7 +4,7 @@ import { model as mongooseModel, Schema } from 'mongoose';
 
 const description = `Stores availability of users`;
 
-const definitions = {
+export const definitions = {
   userId: [
     {
       type: Schema.Types.ObjectId,
