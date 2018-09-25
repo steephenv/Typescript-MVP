@@ -92,7 +92,7 @@ gulp.task('replace', () => {
 
   gulp
     .src(['./dist/src/package.json'])
-    .pipe(replace('aumet-admin-app-development', 'aumet-admin-app-production'))
+    .pipe(replace('miwago-api-development', 'miwago-api-production'))
     .pipe(gulp.dest('./dist/src'));
 });
 

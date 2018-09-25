@@ -1,11 +1,11 @@
 {
-  "name": "miwago-api",
+  "name": "miwago-api-development",
   "private": true,
   "version": "0.0.1",
   "description": "backend",
   "scripts": {
     "start-once": "cross-env NODE_CONFIG_DIR=./src/config ts-node ./src/bin/www.ts",
-    "start": "cross-env NODE_CONFIG_DIR=./src/config nodemon --exec ts-node ./src/bin/www.ts",
+    "start": "cross-env NODE_CONFIG_DIR=./src/config nodemon --config ./nodemon.json --exec ts-node ./src/bin/www.ts",
     "start-dist": "cd dist/src/public && yarn install && cd ../../.. && cross-env NODE_CONFIG_DIR=./dist/src/config node ./dist/src/bin/www",
     "build": "gulp build",
     "lint-noFix": "gulp lint-noFix",

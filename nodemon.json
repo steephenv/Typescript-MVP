@@ -1,4 +1,4 @@
 {
-  "watch": ["src/**/*.*"],
-  "ignore": ["src/public/**/*.*"]
+  "watch": ["src/**/*.ts"],
+  "ignore": ["src/public/**/*.*", "src/root/**/*.*", "src/**/*.sh"]
 }
