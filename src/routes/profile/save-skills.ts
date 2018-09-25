@@ -2,6 +2,7 @@ import { RequestHandler } from 'express';
 import { Promise as BluePromise } from 'bluebird';
 
 import { Skills } from '../../models/Skills';
+import { User } from '../../models/User';
 
 import {
   RequestError,
@@ -27,6 +28,10 @@ export const saveSkills: RequestHandler = async (req, res, next) => {
       const savableSkill = new Skills(skill);
       return savableSkill.save();
     });
+    await User.findOneAndUpdate(
+      { _id: res.locals.user.userId },
+      { $set: { skillsStatus: true } },
+    ).exec();
     return res.status(200).send({ success: true });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));

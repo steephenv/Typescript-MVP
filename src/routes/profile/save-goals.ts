@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express';
 
 import { Goals } from '../../models/Goals';
+import { User } from '../../models/User';
 
 import {
   RequestError,
@@ -31,6 +32,10 @@ export const saveGoals: RequestHandler = async (req, res, next) => {
       newGoal.submitted = true;
       await newGoal.save();
     }
+    await User.findOneAndUpdate(
+      { _id: res.locals.user.userId },
+      { $set: { goalsStatus: true } },
+    ).exec();
     return res.status(200).send({ success: true });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));

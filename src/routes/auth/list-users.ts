@@ -19,18 +19,18 @@ export const listUsers: RequestHandler = async (req, res, next) => {
     const totalNumUsersPromise = User.count(condition).exec();
 
     const usersListPromise = User.find(condition)
-      .select('firstName lastName appliedRole role profileDataVerified')
+      .select(
+        'firstName lastName appliedRole role profileDataVerified createdAt',
+      )
       .skip(+_skip)
       .limit(+_limit)
       .sort('-createdAt')
       .lean()
       .exec();
-
     const [totalNumUsers, usersList] = await BluePromise.all([
       totalNumUsersPromise,
       usersListPromise,
     ]);
-
     await BluePromise.map(usersList, async (user: any) => {
       const interviewDetails = await InterviewDetails.find({
         contestantId: user._id,
@@ -41,9 +41,19 @@ export const listUsers: RequestHandler = async (req, res, next) => {
       if (interviewDetails.length) {
         user.interviewDetails = interviewDetails[0];
       }
+      const statusDetails = await User.find({
+        _id: user._id,
+      })
+        .select(
+          'personalStatus educationStatus experienceStatus employeeStatus goalsStatus skillsStatus wlbStatus',
+        )
+        .lean()
+        .exec();
+      if (statusDetails.length) {
+        user.statusDetails = statusDetails[0];
+      }
       return;
     });
-
     return res.status(200).send({
       success: true,
       users: usersList,

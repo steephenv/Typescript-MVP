@@ -82,6 +82,34 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  personalStatus: {
+    type: Boolean,
+    default: false,
+  },
+  educationStatus: {
+    type: Boolean,
+    default: false,
+  },
+  experienceStatus: {
+    type: Boolean,
+    default: false,
+  },
+  employeeStatus: {
+    type: Boolean,
+    default: false,
+  },
+  goalsStatus: {
+    type: Boolean,
+    default: false,
+  },
+  skillsStatus: {
+    type: Boolean,
+    default: false,
+  },
+  wlbStatus: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 // type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void;
