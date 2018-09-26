@@ -23,7 +23,7 @@ if (existsSync(DB_STORE_LOC)) {
   log(`leveldb store (${DB_STORE_LOC}) couldn't be created !!!`);
 }
 
-const db = level(DB_STORE_LOC);
+export const db = level(DB_STORE_LOC);
 
 export function put(key: string, val: any) {
   return new BluePromise((resolve, reject) => {
