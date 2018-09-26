@@ -1,3 +1,4 @@
+import * as moment from 'moment-timezone';
 export interface IDayObject {
   startTime: Date;
   endTime: Date;
@@ -9,14 +10,22 @@ export interface ITimePeriod {
 
 export const getWorkingPeriods = (
   daysArray: IDayObject[],
-  workingDays: number[],
+  workingDays: string[],
   workingTime: ITimePeriod,
   breakTime: ITimePeriod,
+  timezone: string,
 ) => {
   const timePeriods: IDayObject[] = [];
+
   daysArray.forEach(eachDay => {
-    const dayInWeek = new Date(eachDay.startTime).getDay();
-    if (dayInWeek < 6 || dayInWeek > 0 || workingDays.indexOf(dayInWeek) > 0) {
+    // const dayInWeek = new Date(eachDay.startTime).getUTCDay();
+    const day = moment(eachDay.startTime).tz(timezone);
+    const dayInWeek = day.format('dddd');
+
+    if (dayInWeek === 'Sunday' || dayInWeek === 'Saturday') {
+      return;
+    }
+    if (workingDays.indexOf(dayInWeek) >= 0) {
       const periodStart1 = new Date(eachDay.startTime).setUTCHours(
         workingTime.startTime,
         0,

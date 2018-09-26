@@ -12,39 +12,47 @@ import { InterviewAvailabilityCalender } from '../../models/InterviewAvailabilit
 import { InterviewDetails } from '../../models/InterviewDetails';
 import { User } from '../../models/User';
 
-const getCalenderLink = (start: Date, end: Date) => {
+import * as moment from 'moment-timezone';
+
+const getCalenderLink = (start: Date, end: Date, timezone: string) => {
   // return 'ffff';
 
-  const year = new Date(start).getFullYear().toString();
+  // const year = new Date(start).getFullYear().toString();
 
-  let month = (new Date(start).getMonth() + 1).toString();
-  month = ('0' + month).slice(-2);
+  // let month = (new Date(start).getMonth() + 1).toString();
+  // month = ('0' + month).slice(-2);
 
-  let day = new Date(start).getDay().toString();
-  day = ('0' + day).slice(-2);
+  // let day = new Date(start).getDay().toString();
+  // day = ('0' + day).slice(-2);
 
-  let shrs = new Date(start).getHours().toString();
-  shrs = ('0' + shrs).slice(-2);
+  // let shrs = new Date(start).getHours().toString();
+  // shrs = ('0' + shrs).slice(-2);
 
-  let smns = new Date(start).getMinutes().toString();
-  smns = ('0' + smns).slice(-2);
+  // let smns = new Date(start).getMinutes().toString();
+  // smns = ('0' + smns).slice(-2);
 
-  let ssecs = new Date(start).getSeconds().toString();
-  ssecs = ('0' + ssecs).slice(-2);
+  // let ssecs = new Date(start).getSeconds().toString();
+  // ssecs = ('0' + ssecs).slice(-2);
 
-  let ehrs = new Date(end).getHours().toString();
-  ehrs = ('0' + ehrs).slice(-2);
+  // let ehrs = new Date(end).getHours().toString();
+  // ehrs = ('0' + ehrs).slice(-2);
 
-  let emns = new Date(end).getMinutes().toString();
-  emns = ('0' + emns).slice(-2);
+  // let emns = new Date(end).getMinutes().toString();
+  // emns = ('0' + emns).slice(-2);
 
-  let esecs = new Date(end).getSeconds().toString();
-  esecs = ('0' + esecs).slice(-2);
+  // let esecs = new Date(end).getSeconds().toString();
+  // esecs = ('0' + esecs).slice(-2);
 
-  const date1 = `${year}${month}${day}T${shrs}${smns}${ssecs}Z`;
-  const date2 = `${year}${month}${day}T${ehrs}${emns}${esecs}Z`;
+  // const date1 = `${year}${month}${day}T${shrs}${smns}${ssecs}Z`;
+  // const date2 = `${year}${month}${day}T${ehrs}${emns}${esecs}Z`;
 
-  const query = `${date1}%2F${date2}`;
+  // const startDate = moment(start).tz(timezone);
+  // const endDate = moment(end).tz(timezone);
+
+  const s = moment(start).format('YYYYMMDDTHH0000') + 'Z/';
+  const e = moment(end).format('YYYYMMDDTHH0000') + 'Z';
+
+  const query = s + e;
 
   return `http://www.google.com/calendar/event?action=TEMPLATE&dates=${query}&text=MiwagoInterview`;
 };
@@ -118,6 +126,7 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
     const googleCalenderLink = getCalenderLink(
       availableSlot.startTime,
       availableSlot.endTime,
+      req.body.timezone,
     );
 
     if (admin) {

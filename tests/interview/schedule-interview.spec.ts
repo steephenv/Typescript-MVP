@@ -3,12 +3,12 @@ import * as got from 'got';
 let token: string;
 const availableSlot = [
   {
-    startTime: '2018-08-27T05:30:00.000Z',
-    endTime: '2018-08-27T06:30:00.000Z',
+    startTime: '2018-12-10 06:30:00.000Z',
+    endTime: '2018-12-10 07:30:00.000Z',
   },
   {
-    startTime: '2018-08-27T03:30:00.000Z',
-    endTime: '2018-08-27T04:30:00.000Z',
+    startTime: '2018-08-27 05:30:00.000Z',
+    endTime: '2018-08-27 06:30:00.000Z',
   },
 ];
 
@@ -48,6 +48,7 @@ describe('Test for scheduling interview', () => {
         typeOfCall: 'Video',
         platform: 'Skype',
         platformId: 'qqqqqqqq',
+        timezone: 'Europe/Berlin',
       },
     })
       .then(() => done())
