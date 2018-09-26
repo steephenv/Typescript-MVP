@@ -129,8 +129,6 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
       req.body.timezone,
     );
 
-    console.log(googleCalenderLink);
-
     if (admin) {
       const mailOptions = {
         toAddresses: [userDetails.email],
