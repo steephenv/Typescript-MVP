@@ -7,7 +7,8 @@ import { InterviewAvailabilityCalender } from '../../models/InterviewAvailabilit
 
 export const listBPMAvailability: RequestHandler = async (req, res, next) => {
   try {
-    const gettingDate = req.query.date ? new Date(req.query.date) : new Date();
+    const dateInit = new Date(new Date().setDate(new Date().getDate() + 1));
+    const gettingDate = req.query.date ? new Date(req.query.date) : dateInit;
     const forward = req.query.forward ? req.query.forward : 'true';
     const givenStartTime = new Date(gettingDate.setHours(23, 59, 59, 999));
     const givenEndTime = new Date(gettingDate.setHours(0, 0, 0, 0));
