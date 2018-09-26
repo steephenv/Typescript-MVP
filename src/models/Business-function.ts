@@ -8,6 +8,9 @@ export const definitions = {
   name: {
     type: String,
   },
+  uniqueName: {
+    type: String,
+  },
 };
 
 const BusinessFunctionSchema = new Schema(definitions);

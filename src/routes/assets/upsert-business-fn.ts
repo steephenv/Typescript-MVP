@@ -27,7 +27,6 @@ export const upsertBusinessFunction: RequestHandler = async (
       }>;
     }> =
       req.body.content;
-
     const result = await BluePromise.map(contents, async content => {
       delete content.__v;
 
@@ -62,7 +61,23 @@ export const upsertBusinessFunction: RequestHandler = async (
         ]);
       } else {
         // create parent and keep _id
-        let businessFn = new BusinessFunction({ name: content.name });
+        const unique = content.name.trim().toLowerCase();
+
+        const isExist = await BusinessFunction.findOne({
+          uniqueName: unique,
+        });
+        if (isExist) {
+          return next(
+            new RequestError(
+              RequestErrorType.CONFLICT,
+              'Business Function Existing !!',
+            ),
+          );
+        }
+        let businessFn = new BusinessFunction({
+          name: content.name,
+          uniqueName: unique,
+        });
         businessFn = await businessFn.save();
         return BluePromise.map(content.subFunctions || [], sf => {
           delete sf.__v;
@@ -95,10 +110,12 @@ export async function addBusinessFun(busFn: string) {
   const extBusFn: any = await BusinessFunction.findOne({
     name: busFn,
   }).exec();
+  const unique = busFn.trim().toLowerCase();
 
   if (!extBusFn) {
     const newBusFn = new BusinessFunction({
       name: busFn,
+      uniqueName: unique,
     });
     await newBusFn.save();
     return;
