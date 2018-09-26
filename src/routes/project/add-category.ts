@@ -12,6 +12,7 @@ interface ISaveFields {
   subCategory?: string;
   category?: string;
   categoryId?: string;
+  uniqueName?: string;
 }
 
 export const saveCollection = async (model: any, fields: ISaveFields) => {
@@ -29,8 +30,10 @@ export const updateCollection = async (
 
 export const saveProjectCategory: RequestHandler = async (req, res, next) => {
   try {
+    const unique = req.body.category.trim().toLowerCase();
     const exsCategory = await ProjectCategory.find({
-      category: req.body.category,
+      uniqueName: unique,
+      isDelete: false,
     }).exec();
     if (exsCategory.length) {
       return next(
@@ -39,6 +42,7 @@ export const saveProjectCategory: RequestHandler = async (req, res, next) => {
     }
     const savedCategory = await saveCollection(ProjectCategory, {
       category: req.body.category,
+      uniqueName: unique,
     });
     if (req.body.subCategories.length) {
       await BluePromise.map(req.body.subCategories, (sub: any) => {

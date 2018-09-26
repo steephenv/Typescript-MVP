@@ -45,10 +45,10 @@ export const deleteProjectById: RequestHandler = async (req, res, next) => {
         msg: 'Project is actively used by a client',
       });
     }
-    const projectPromise = Project.findByIdAndRemove({
-      _id: req.query.projectId,
-    }).exec();
-
+    const projectPromise = Project.findByIdAndUpdate(
+      { _id: req.query.projectId },
+      { $set: { isDelete: true } },
+    );
     const favoritePromise = Favorites.remove({
       projectsId: req.query.projectId,
     });

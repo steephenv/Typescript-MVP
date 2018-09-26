@@ -10,6 +10,9 @@ export const definitions = {
     require: true,
   },
   isDelete: { type: Boolean, default: false },
+  uniqueName: {
+    type: String,
+  },
 };
 const ProjectCategorySchema: Schema = new Schema(definitions);
 export const ProjectCategory = mongooseModel(
