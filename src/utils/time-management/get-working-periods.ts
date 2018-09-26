@@ -16,6 +16,7 @@ export const getWorkingPeriods = (
   timezone: string,
 ) => {
   const timePeriods: IDayObject[] = [];
+
   daysArray.forEach(eachDay => {
     // const dayInWeek = new Date(eachDay.startTime).getUTCDay();
     const day = moment(eachDay.startTime).tz(timezone);
@@ -24,7 +25,7 @@ export const getWorkingPeriods = (
     if (dayInWeek === 'Sunday' || dayInWeek === 'Saturday') {
       return;
     }
-    if (workingDays.indexOf(dayInWeek) > 0) {
+    if (workingDays.indexOf(dayInWeek) >= 0) {
       const periodStart1 = new Date(eachDay.startTime).setUTCHours(
         workingTime.startTime,
         0,
