@@ -14,6 +14,7 @@ import {
 } from 'issue-maker';
 
 import { rootAccess } from './access-control/root-access';
+import { workerHandler } from './routes/background-worker-handling';
 
 // import {RequestError, RequestErrorType} from 'issue-maker/dist/src/error-types/express-request-error';
 // init db
@@ -83,6 +84,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/v1', attachTokenData, apis);
 app.use('/graph', (req, res) => res.redirect('/v1/graph'));
 app.use('/v1/graph', attachTokenData, buildGraphQLRoutesGateway());
+
+// worker status
+app.use('/bw', workerHandler);
 
 // test for err emails
 app.get('/send/cats/to/me/with/500', (req, res, next) =>
