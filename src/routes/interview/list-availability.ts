@@ -16,12 +16,11 @@ export const listBPMAvailability: RequestHandler = async (req, res, next) => {
     let timeQuery = {};
     let sortVariable = 1;
     if (forward === 'true') {
-      timeQuery = { slotDayStartingTime: { $gt: givenStartTime } };
+      timeQuery = { startTime: { $gt: givenStartTime } };
     } else {
       sortVariable = -1;
-      timeQuery = { slotDayStartingTime: { $lt: givenEndTime } };
+      timeQuery = { startTime: { $lt: givenEndTime } };
     }
-
     const dates = await InterviewAvailabilityCalender.aggregate([
       {
         $match: {
@@ -30,7 +29,7 @@ export const listBPMAvailability: RequestHandler = async (req, res, next) => {
       },
       {
         $group: {
-          _id: '$slotDayStartingTime',
+          _id: '$startTime',
           slots: {
             $addToSet: {
               startTime: '$startTime',
