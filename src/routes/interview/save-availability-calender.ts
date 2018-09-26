@@ -33,8 +33,8 @@ export const saveAvailability: RequestHandler = async (req, res, next) => {
     const flattened = [].concat(...slotsArray);
 
     await BluePromise.map(flattened, slot => {
-      const startDateString = `${slot.startTime.getFullYear()}-${slot.startTime.getMonth() +
-        1}-${slot.startTime.getDate()}`;
+      const startDateString = `${slot.startTime.getUTCFullYear()}-${slot.startTime.getUTCMonth() +
+        1}-${slot.startTime.getUTCDate()}`;
       const slotDayStarting = new Date(
         new Date(startDateString).setUTCHours(0, 0, 0, 0),
       );
