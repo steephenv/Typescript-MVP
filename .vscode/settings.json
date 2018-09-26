@@ -8,6 +8,7 @@
         "UNPROCESSABLE",
         "gitlab",
         "graphiql",
+        "leveldb",
         "upsert",
         "validators"
     ]
