@@ -20,10 +20,12 @@ export const saveAvailability: RequestHandler = async (req, res, next) => {
 
     const periodsArray = getWorkingPeriods(
       availableDays,
-      req.body.workingDayNumber,
+      req.body.workingDays,
       req.body.workingTimeNumber,
       req.body.breakTimeNumber,
+      req.body.timezone,
     );
+
     const slotsArray = periodsArray.map(period => {
       return splitTime(period.startTime, period.endTime, 60 * 60 * 1000);
     });
