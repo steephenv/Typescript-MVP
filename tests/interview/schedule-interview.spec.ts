@@ -57,25 +57,25 @@ describe('Test for scheduling interview', () => {
       });
   });
 
-  // it('re scheduling with correct data', done => {
-  //   got('http://localhost:7000/v1/interview/schedule-interview', {
-  //     method: 'POST',
-  //     headers: {
-  //       'X-Requested-With': 'XMLHttpRequest',
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //     json: true,
-  //     body: {
-  //       startTime: availableSlot[1].startTime,
-  //       endTime: availableSlot[1].endTime,
-  //       typeOfCall: 'Video',
-  //       platform: 'Skype',
-  //       platformId: 'qqqqqqqq',
-  //     },
-  //   })
-  //     .then(() => done())
-  //     .catch(err => {
-  //       throw err;
-  //     });
-  // });
+  it('re scheduling with correct data', done => {
+    got('http://localhost:7000/v1/interview/schedule-interview', {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Authorization: `Bearer ${token}`,
+      },
+      json: true,
+      body: {
+        startTime: availableSlot[1].startTime,
+        endTime: availableSlot[1].endTime,
+        typeOfCall: 'Video',
+        platform: 'Skype',
+        platformId: 'qqqqqqqq',
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
+      });
+  });
 });

@@ -56,7 +56,7 @@ const getCalenderLink = (start: Date, end: Date, timezone: string) => {
   // console.log('s , e', s, e);
   // const query = s + e;
 
-  return `http://www.google.com/calendar/event?action=TEMPLATE&dates=${query}&text=MiwagoInterview`;
+  return `http://www.google.com/calendar/event?action=TEMPLATE&dates=${query}&text=Capricorn Interview`;
 };
 
 export const scheduleInterview: RequestHandler = async (req, res, next) => {
@@ -130,7 +130,7 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
       availableSlot.endTime,
       req.body.timezone,
     );
-
+    console.log('cccc', googleCalenderLink);
     if (admin) {
       const mailOptions = {
         toAddresses: [userDetails.email],
