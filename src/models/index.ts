@@ -4,6 +4,7 @@ import { AssetSubCategory } from './Asset-sub-category';
 import { AssetCategory } from './AssetCategory';
 import { Assets } from './Assets';
 import { AvailabilityCalender } from './AvailabilityCalender';
+import { BackgroundTaskQueue } from './BackgroundTaskQueue';
 import { BusinessFunction } from './Business-function';
 import { BusinessSubFunction } from './Business-sub-function';
 import { Company } from './Company';
@@ -40,6 +41,7 @@ export const Models: { [key: string]: typeof AppData } = {
   AssetCategory,
   Assets,
   AvailabilityCalender,
+  BackgroundTaskQueue,
   BusinessFunction,
   BusinessSubFunction,
   Company,

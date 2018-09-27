@@ -1,1 +1,1 @@
-export async function skillUpload(file: string) {}
+// export async function skillUpload(file: string) {}

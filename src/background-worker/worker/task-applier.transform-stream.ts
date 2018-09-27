@@ -7,7 +7,7 @@ import { Tasks } from '../jobs/task-list';
 import { catTest } from '../jobs/cat-test';
 
 interface IDBTask {
-  functionName: Tasks;
+  functionName: string;
   file: string;
   _id: string;
 }
