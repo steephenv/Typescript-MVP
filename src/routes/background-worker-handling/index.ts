@@ -20,6 +20,8 @@ workerHandler.get('/is-running', async (req, res) => {
 
 workerHandler.get('/trigger', async (req, res) => {
   res.status(200).send({
-    result: await triggerBackgroundWorker(true),
+    result: await triggerBackgroundWorker(
+      req.query.withDummy === 'true' ? true : false,
+    ),
   });
 });
