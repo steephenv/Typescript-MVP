@@ -130,7 +130,7 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
       availableSlot.endTime,
       req.body.timezone,
     );
-    console.log('cccc', googleCalenderLink);
+
     if (admin) {
       const mailOptions = {
         toAddresses: [userDetails.email],
