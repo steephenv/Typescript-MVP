@@ -29,7 +29,7 @@ export const listBPMAvailability: RequestHandler = async (req, res, next) => {
       },
       {
         $group: {
-          _id: '$startTime',
+          _id: '$slotDayStartingTime',
           slots: {
             $addToSet: {
               startTime: '$startTime',
