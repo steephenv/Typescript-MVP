@@ -13,7 +13,7 @@ import {
   RequestErrorType,
 } from '../../error-handler/RequestError';
 import { Favorites } from '../../models/Favorites';
-import { ProjectRequest } from '../../models/ProjectRequest';
+// import { ProjectRequest } from '../../models/ProjectRequest';
 
 export const getProjectById: RequestHandler = async (req, res, next) => {
   try {
