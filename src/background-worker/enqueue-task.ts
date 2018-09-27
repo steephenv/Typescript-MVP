@@ -2,9 +2,10 @@ import * as userHome from 'user-home';
 
 import { BackgroundTaskQueue as BackgroundTask } from '../models/BackgroundTaskQueue';
 import { triggerBackgroundWorker } from './trigger';
+import { Tasks } from './jobs/task-list';
 
 interface IEnqueueTaskParams {
-  functionName: 'test-cat'; // name of the function to apply
+  functionName: Tasks; // name of the function to apply
   file: string; // other details
 }
 

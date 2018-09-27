@@ -9,6 +9,7 @@ import { join as pathJoin } from 'path';
 import { enqueueTask } from './enqueue-task';
 import { isWorkerRunning } from './is-worker-running';
 import { startListener } from './ipc-listener';
+import { Tasks } from './jobs/task-list';
 
 const WORKER_LOC = pathJoin(
   __dirname,
@@ -26,7 +27,7 @@ export async function triggerBackgroundWorker(withDummy = false) {
   if (withDummy) {
     log('adding dummy task');
     await enqueueTask(
-      { functionName: 'test-cat', file: 'cat' },
+      { functionName: Tasks.CAT_TEST, file: 'cat-file' },
       false, // must be false else this will be recursive
     );
   }
