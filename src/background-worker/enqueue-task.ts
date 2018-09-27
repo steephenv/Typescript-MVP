@@ -13,6 +13,8 @@ export async function enqueueTask(params: IEnqueueTaskParams, trigger = true) {
   const data = Object.assign({}, params, {
     createdAt: new Date(),
     machineId: userHome,
+    ran: false,
+    status: 'queued',
   });
 
   const newTask = new BackgroundTask(data);

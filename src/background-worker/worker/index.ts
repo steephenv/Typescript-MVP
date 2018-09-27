@@ -9,6 +9,7 @@ async function startWorker() {
 
   const taskStream = BackgroundTaskQueue.find({
     machineId: userHome,
+    ran: false,
   })
     .sort({ createdAt: 1 })
     .cursor();

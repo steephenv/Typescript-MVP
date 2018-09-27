@@ -14,6 +14,19 @@ export const definitions = {
   file: {
     type: String,
   },
+  status: {
+    type: String,
+  },
+  ran: {
+    type: Boolean,
+    default: false,
+  },
+  successLog: {
+    type: String,
+  },
+  errLog: {
+    type: String,
+  },
   createdAt: {
     type: Date,
   },

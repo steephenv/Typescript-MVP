@@ -1,1 +1,3 @@
-export type WorkerTask = (file: string) => Promise<any>;
+export type WorkerTask = (
+  file: string,
+) => Promise<{ successLog: string[]; errLog: string[] }>;
