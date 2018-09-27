@@ -9,7 +9,7 @@ const responder = () => {
     },
   };
 
-  ipc.config.id = 'USER_UPLOAD';
+  ipc.config.id = 'MIWAGO_WORKER';
   ipc.config.retry = 1500;
   ipc.config.silent = true;
 

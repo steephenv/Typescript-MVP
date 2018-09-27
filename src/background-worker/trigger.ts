@@ -6,7 +6,7 @@
 import { spawn } from 'child_process';
 import * as log from 'fancy-log';
 import { join as pathJoin } from 'path';
-
+import { enqueueTask } from './enqueue-task';
 import { isWorkerRunning } from './is-worker-running';
 import { startListener } from './ipc-listener';
 
@@ -20,9 +20,16 @@ const NODE_PROCESS = process.env.TESTING === 'true' ? 'ts-node' : 'node';
 // start ipc-listener
 startListener();
 
-export async function triggerBackgroundWorker() {
+export async function triggerBackgroundWorker(withDummy = false) {
   log('trigger for background worker found');
 
+  if (withDummy) {
+    log('adding dummy task');
+    await enqueueTask(
+      { functionName: 'test-cat', file: 'cat' },
+      false, // must be false else this will be recursive
+    );
+  }
   // check if worker already running
   if (await isWorkerRunning()) {
     log('worker already running');
@@ -34,6 +41,7 @@ export async function triggerBackgroundWorker() {
     detached: true,
     stdio: 'ignore',
     env: process.env,
+    cwd: process.cwd(),
   });
 
   // dispatch
