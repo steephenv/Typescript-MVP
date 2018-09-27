@@ -12,8 +12,6 @@ import { InterviewAvailabilityCalender } from '../../models/InterviewAvailabilit
 import { InterviewDetails } from '../../models/InterviewDetails';
 import { User } from '../../models/User';
 
-import * as moment from 'moment-timezone';
-
 const getCalenderLink = (start: Date, end: Date, timezone: string) => {
   // return 'ffff';
 
@@ -132,8 +130,6 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
       availableSlot.endTime,
       req.body.timezone,
     );
-
-    console.log('linkkk', googleCalenderLink);
 
     if (admin) {
       const mailOptions = {
