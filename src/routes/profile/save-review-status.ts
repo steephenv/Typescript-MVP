@@ -90,7 +90,7 @@ export const saveReviewStatus: RequestHandler = async (req, res, next) => {
       const adminDetails: any = await InterviewAvailabilityCalender.findOne({
         interviewId: contestant._id,
       });
-      if (adminDetails !== null) {
+      if (!adminDetails) {
         const admin: any = await User.findOne({ _id: adminDetails.userId });
 
         const adminMailOptions = {

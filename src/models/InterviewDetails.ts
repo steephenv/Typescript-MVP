@@ -25,7 +25,12 @@ export const definitions = {
   },
   comment: [
     {
-      type: String,
+      comment: {
+        type: String,
+      },
+      createdDate: {
+        type: String,
+      },
     },
   ],
   reason: { type: String },
