@@ -29,7 +29,7 @@ export const definitions = {
         type: String,
       },
       createdDate: {
-        type: Date(),
+        type: String,
       },
     },
   ],
