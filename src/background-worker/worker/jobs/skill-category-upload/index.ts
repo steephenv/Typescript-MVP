@@ -9,7 +9,7 @@ import { getFileToSystem } from '../../utils/download-file';
 import { csvMethodApplier } from '../../utils/csv-method-applier';
 
 import { headerValidator } from './header-validator';
-import { join } from 'path';
+import { rowApplier } from './row-applier';
 
 export const skillCategoryUpload: WorkerTask = async file => {
   logger('@skillCategoryUpload handling ' + file);
@@ -67,11 +67,6 @@ export const skillCategoryUpload: WorkerTask = async file => {
   logger('e > ' + errLog.toString());
   return { successLog, errLog };
 };
-
-async function rowApplier(row: string[]) {
-  logger(row.toString());
-  return {};
-}
 
 // skillCategoryUpload(
 //   // 'http://insight.dev.schoolwires.com/HelpAssets/C2Assets/C2Files/C2ImportUsersSample.csv',
