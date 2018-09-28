@@ -7,4 +7,5 @@ export abstract class Tasks implements ITasks {
 
   // function names
   public static CAT_TEST = 'CAT_TEST';
+  public static SKILL_CATEGORY_CSV = 'SKILL_CATEGORY_CSV';
 }

@@ -1,10 +1,11 @@
 import { obj as ThroughObjectStream } from 'through2';
 import { logger } from './ipc-interface';
 import { BackgroundTaskQueue } from '../../models/BackgroundTaskQueue';
-import { Tasks } from '../jobs/task-list';
+import { Tasks } from './jobs/task-list';
 
 // tasks
-import { catTest } from '../jobs/cat-test';
+import { catTest } from './jobs/cat-test';
+import { skillCategoryUpload } from './jobs/skill-category-upload';
 
 interface IDBTask {
   functionName: string;
@@ -24,6 +25,9 @@ export const functionApplier = ThroughObjectStream(async function(
   switch (chunk.functionName) {
     case Tasks.CAT_TEST:
       await taskLogHandler(await catTest(chunk.file));
+      break;
+    case Tasks.SKILL_CATEGORY_CSV:
+      await taskLogHandler(await skillCategoryUpload(chunk.file));
       break;
     default:
       logger(`unknown function ${chunk.functionName} found (${chunk._id})`);

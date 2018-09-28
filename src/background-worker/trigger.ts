@@ -9,7 +9,7 @@ import { join as pathJoin } from 'path';
 import { enqueueTask } from './enqueue-task';
 import { isWorkerRunning } from './is-worker-running';
 import { startListener } from './ipc-listener';
-import { Tasks } from './jobs/task-list';
+import { Tasks } from './worker/jobs/task-list';
 
 const WORKER_LOC = pathJoin(
   __dirname,
@@ -27,7 +27,12 @@ export async function triggerBackgroundWorker(withDummy = false) {
   if (withDummy) {
     log('adding dummy task');
     await enqueueTask(
-      { functionName: Tasks.CAT_TEST, file: 'cat-file' },
+      {
+        functionName: Tasks.SKILL_CATEGORY_CSV,
+        file:
+          'http://insight.dev.schoolwires.com/HelpAssets/C2Assets/C2Files/C2ImportUsersSample.csv',
+      },
+      // { functionName: Tasks.CAT_TEST, file: 'cat-file' },
       false, // must be false else this will be recursive
     );
   }
