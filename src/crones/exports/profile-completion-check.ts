@@ -4,19 +4,22 @@ import { User } from '../../models/User';
 import { EmailTemplates, sendEmail } from '../../email/send-email';
 
 export const dayCheck = async () => {
-  const thirdDay = new Date(new Date().setUTCDate(new Date().getUTCDate() + 3));
+  const thirdDay = new Date(
+    new Date('2018-09-25').setUTCDate(new Date('2018-09-25').getUTCDate() + 3),
+  );
   const secondDay = new Date(
-    new Date().setUTCDate(new Date().getUTCDate() + 2),
+    new Date('2018-09-25').setUTCDate(new Date('2018-09-25').getUTCDate() + 2),
   );
   const secondDayStarting = new Date(secondDay.setUTCHours(0, 0, 0, 0));
   const thirdDayEnding = new Date(thirdDay.setUTCHours(23, 59, 59, 999));
 
-  const userIds = await InterviewDetails.find({
+  const query = {
     startTime: { $gte: secondDayStarting },
     endTime: { $lte: thirdDayEnding },
     interviewStatus: 'Applied',
-  })
-    .distinct('userId')
+  };
+  const userIds = await InterviewDetails.find(query)
+    .distinct('contestantId')
     .exec();
 
   const userMails = await User.find({
@@ -36,5 +39,7 @@ export const dayCheck = async () => {
     },
   };
 
-  sendEmail(mailNotifier);
+  if (userMails && userMails.length) {
+    sendEmail(mailNotifier);
+  }
 };

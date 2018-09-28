@@ -53,4 +53,8 @@ export class EmailTemplates {
   public static PROJECT_REQUEST_EMAIL = readFileSync(
     pathJoin(__dirname, 'project-request-notification.ejs'),
   ).toString();
+
+  public static PROFILE_COMPLETION_NOTIFIER = readFileSync(
+    pathJoin(__dirname, 'profile-completion-notifier.ejs'),
+  ).toString();
 }
