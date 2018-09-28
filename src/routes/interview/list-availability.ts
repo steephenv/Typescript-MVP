@@ -21,6 +21,16 @@ export const listBPMAvailability: RequestHandler = async (req, res, next) => {
     const dateInit = new Date(
       new Date().setUTCDate(new Date().getUTCDate() + offset),
     );
+
+    const startLimit = new Date(
+      new Date().setUTCDate(new Date().getUTCDate() + offset),
+    );
+
+    const lastDay = new Date(
+      startLimit.setUTCDate(startLimit.getUTCDate() + 20),
+    );
+    const endTime = new Date(lastDay.setUTCHours(23, 59, 59, 999));
+
     const gettingDate = req.query.date ? new Date(req.query.date) : dateInit;
     const forward = req.query.forward ? req.query.forward : 'true';
     const givenStartTime = new Date(gettingDate.setUTCHours(23, 59, 59, 999));
@@ -29,11 +39,18 @@ export const listBPMAvailability: RequestHandler = async (req, res, next) => {
     let timeQuery = {};
     let sortVariable = 1;
     if (forward === 'true') {
-      timeQuery = { startTime: { $gt: givenStartTime } };
+      timeQuery = {
+        startTime: { $gt: givenStartTime },
+        endTime: { $lt: endTime },
+      };
     } else {
       sortVariable = -1;
-      timeQuery = { startTime: { $lt: givenEndTime } };
+      timeQuery = {
+        startTime: { $lt: givenEndTime },
+        endTime: { $lt: endTime },
+      };
     }
+
     const dates = await InterviewAvailabilityCalender.aggregate([
       {
         $match: {
