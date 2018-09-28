@@ -45,7 +45,7 @@ export const queryUsers = async (
       _id: user._id,
     })
       .select(
-        'personalStatus educationStatus experienceStatus employeeStatus goalsStatus skillsStatus wlbStatus',
+        'firstName lastName appliedRole role profileDataVerified createdAt mobile',
       )
       .lean()
       .exec();
