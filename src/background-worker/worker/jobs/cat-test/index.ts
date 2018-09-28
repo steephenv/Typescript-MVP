@@ -1,5 +1,5 @@
 import { WorkerTask } from '../worker-task.type';
-import { logger } from '../../worker/ipc-interface';
+import { logger } from '../../ipc-interface';
 
 export const catTest: WorkerTask = async file => {
   logger('@cat-test file ' + file);

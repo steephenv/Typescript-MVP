@@ -6,7 +6,7 @@ import { join as pathJoin } from 'path';
 import * as shortid from 'shortid';
 import { Promise as BluePromise } from 'bluebird';
 
-import { logger } from './ipc-interface';
+import { logger } from '../ipc-interface';
 
 const FILE_UPLOAD_PATH = pathJoin(userHome, '.miwago-temp');
 
