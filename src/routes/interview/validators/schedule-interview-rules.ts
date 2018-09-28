@@ -9,11 +9,11 @@ const scheduleInterviewSchema = Joi.object().keys({
     .valid('Video', 'Audio'),
   platform: Joi.string().when('typeOfCall', {
     is: 'Video',
-    then: Joi.required(),
+    then: Joi.optional().allow(''),
   }),
   platformId: Joi.string().when('typeOfCall', {
     is: 'Video',
-    then: Joi.optional(),
+    then: Joi.optional().allow(''),
   }),
   userId: Joi.string()
     .length(24)
