@@ -16,6 +16,9 @@ const scheduleInterviewSchema = Joi.object().keys({
   userId: Joi.string()
     .length(24)
     .optional(),
+  bpmId: Joi.string()
+    .length(24)
+    .optional(),
 });
 
 export const scheduleInterviewRules: RequestHandler = (req, res, next) => {
