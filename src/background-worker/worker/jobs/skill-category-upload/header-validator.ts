@@ -1,3 +1,6 @@
+/**
+ * header format: cluster,category,sub-category
+ */
 export async function headerValidator(chunk: string[]) {
   if (
     chunk[0].toLowerCase() === 'cluster' &&

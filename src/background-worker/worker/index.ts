@@ -21,9 +21,11 @@ async function startWorker() {
     })
     .on('error', (err: any) => {
       logger('[from on ] Oh my!' + err);
+      process.exit(0);
     })
     .on('close', () => {
       logger('[from on ] Stream closed');
+      process.exit(0);
     })
     .on('end', () => {
       logger('[from on ] Stream ended: EXITING');
