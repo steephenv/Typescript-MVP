@@ -21,6 +21,9 @@ backgroundJob.post('/', async (req, res, next) => {
     case Tasks.CAT_TEST:
       mappedFunctionName = Tasks.CAT_TEST;
       break;
+    case Tasks.SKILL_CATEGORY_CSV:
+      mappedFunctionName = Tasks.SKILL_CATEGORY_CSV;
+      break;
 
     default:
       return next(
