@@ -60,8 +60,6 @@ export const listBPMAvailability: RequestHandler = async (req, res, next) => {
         ]
       : [timeQuery, { booked: false }];
 
-    console.log('condition', condition);
-
     const dates = await InterviewAvailabilityCalender.aggregate([
       {
         $match: {
