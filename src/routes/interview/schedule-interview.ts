@@ -4,6 +4,7 @@ import {
   RequestErrorType,
 } from '../../error-handler/RequestError';
 import { Promise as BluePromise } from 'bluebird';
+import * as mongoose from 'mongoose';
 
 import { messages } from '../../config/app/messages';
 import { EmailTemplates, sendEmail } from '../../email/send-email';
@@ -84,11 +85,17 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
       await BluePromise.all([updateCalender, updateExistingInterview]);
     }
 
-    const availableSlot: any = await InterviewAvailabilityCalender.findOne({
+    const slotCondition: any = {
       startTime: givenStartTime,
       endTime: givenEndTime,
       booked: false,
-    }).exec();
+    };
+    if (req.body.bpmId) {
+      slotCondition.userId = mongoose.Types.ObjectId(req.body.bpmId);
+    }
+    const availableSlot: any = await InterviewAvailabilityCalender.findOne(
+      slotCondition,
+    ).exec();
 
     if (!availableSlot) {
       return next(
