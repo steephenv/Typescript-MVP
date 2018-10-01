@@ -11,7 +11,6 @@ import { InterviewAvailabilityCalender } from '../../models/InterviewAvailabilit
 export const listBPMAvailability: RequestHandler = async (req, res, next) => {
   try {
     const timezone = req.query.timezone || 'Europe/Berlin';
-    const userId = req.query.userId || '';
     const today = moment(new Date()).tz(timezone);
     const todayInWeek = today.format('dddd');
 
