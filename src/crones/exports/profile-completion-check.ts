@@ -33,7 +33,7 @@ export const dayCheck = async () => {
     fromName: 'Capricorns Team',
     subject: `Profile Completion`,
     fields: {
-      url: '',
+      url: 'https://dev-miwago.cubettech.in/#/interview',
     },
   };
 
