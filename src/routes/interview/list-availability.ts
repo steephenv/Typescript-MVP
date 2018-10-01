@@ -84,7 +84,6 @@ export const listBPMAvailability: RequestHandler = async (req, res, next) => {
       { $limit: 3 },
       { $sort: { _id: 1 } },
     ]).exec();
-    console.log('........', dates);
     return res.status(200).send({ success: true, data: dates });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
