@@ -51,10 +51,14 @@ export const listBPMAvailability: RequestHandler = async (req, res, next) => {
       };
     }
 
+    const condition = req.query.userId
+      ? [timeQuery, { booked: false }, { userId: req.query.userId }]
+      : [timeQuery, { booked: false }];
+
     const dates = await InterviewAvailabilityCalender.aggregate([
       {
         $match: {
-          $and: [timeQuery, { booked: false }],
+          $and: condition,
         },
       },
       {
