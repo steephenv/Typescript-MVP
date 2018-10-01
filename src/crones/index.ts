@@ -9,8 +9,13 @@ export class CronJobs {
       onTick: dayCheck,
     },
     // {
-    //   cronTime: '0 0 1 * * *', // Everyday at 1 AM
-    //   onTick: distCompleteQualification,
+    //   cronTime: '0 23 12 * * *', // Everyday at 1 AM
+    //   onTick: () => {
+    //     return new Promise(res => {
+    //       console.log('crrr'); // tslint:disable-line:no-console
+    //       res();
+    //     });
+    //   },
     // },
     // {
     //   cronTime: '0 0 2 * * *', // Everyday at 2 AM
@@ -36,3 +41,6 @@ export class CronJobs {
     });
   }
 }
+
+// const cronJ = new CronJobs();
+// cronJ.start(() => console.log('sdfds'));
