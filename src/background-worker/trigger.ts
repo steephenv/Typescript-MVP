@@ -27,12 +27,19 @@ export async function triggerBackgroundWorker(withDummy = false) {
   if (withDummy) {
     log('adding dummy task');
     await enqueueTask(
-      {
-        functionName: Tasks.SKILL_CATEGORY_CSV,
-        file:
-          'http://insight.dev.schoolwires.com/HelpAssets/C2Assets/C2Files/C2ImportUsersSample.csv',
-      },
-      // { functionName: Tasks.CAT_TEST, file: 'cat-file' },
+      // {
+      //   functionName: Tasks.SKILL_CATEGORY_CSV,
+      //   file:
+      //     'http://insight.dev.schoolwires.com/HelpAssets/C2Assets/C2Files/C2ImportUsersSample.csv',
+      // },
+      // {
+      //   functionName: Tasks.SKILL_CATEGORY_CSV,
+      //   file: pathJoin(
+      //     __dirname,
+      //     'worker/jobs/skill-category-upload/sample-csv',
+      //   ),
+      // },
+      { functionName: Tasks.CAT_TEST, file: 'cat-file' },
       false, // must be false else this will be recursive
     );
   }

@@ -33,6 +33,6 @@ async function startWorker() {
 
 startWorker();
 
-setInterval(() => logger('[pulse] <3'), 1000);
+setInterval(() => logger('[pulse] 💗'), 3000);
 
 // setTimeout(() => process.exit(0), 5000);

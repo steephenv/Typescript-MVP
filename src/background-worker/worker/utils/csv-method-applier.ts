@@ -1,9 +1,9 @@
-import { Readable, Transform } from 'stream';
+import { Transform } from 'stream';
 import { obj as Through2ObjStream } from 'through2';
 import { logger } from '../ipc-interface';
 
 export function csvMethodApplier(
-  fsReadStream: Readable,
+  csvParseStream: Transform,
   headerValidator: (
     csvHeader: string[],
   ) => Promise<{ successLog?: string; errLog?: string; push?: boolean }>,
@@ -53,7 +53,7 @@ export function csvMethodApplier(
         logError(errLog);
         logError(`>>> SINCE HEADER HAS ERROR, TERMINATING`);
 
-        fsReadStream.destroy();
+        csvParseStream.destroy();
         // logger('streams destroyed');
       }
       // logger('callback-1');

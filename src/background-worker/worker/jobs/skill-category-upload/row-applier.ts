@@ -31,6 +31,7 @@ export async function rowApplier(gottenRow: string[]) {
     successLog.push(
       `no category (${row[0]}) under cluster (${row[0]}), creating it`,
     );
+
     category = new SkillCategory({
       category: row[1],
       cluster: row[0],
@@ -65,30 +66,5 @@ export async function rowApplier(gottenRow: string[]) {
   });
   await subCat.save();
 
-  // if (cat && row[2]) {
-  //   const subCat = await SkillSubCategory.findOne({
-  //     categoryId: cat._id,
-  //     subCategory: row[2],
-  //   });
-  //   if (!subCat) {
-  //     const newSubCat = new SkillSubCategory({
-  //       categoryId: cat._id,
-  //       subCategory: row[2],
-  //     });
-  //     await newSubCat.save();
-  //   }
-  // } else {
-  //   const newCat = new SkillCategory({
-  //     category: row[1],
-  //     cluster: row[0],
-  //   });
-  //   const savedNewCat = await newCat.save();
-  //   if (row[2]) {
-  //     const newSubCat = new SkillSubCategory({
-  //       categoryId: savedNewCat._id,
-  //       subCategory: row[2],
-  //     });
-  //     await newSubCat.save();
-  //   }
-  // }
+  return { successLog: successLog.toString(), errLog: errLog.toString() };
 }

@@ -34,7 +34,7 @@ export const skillCategoryUpload: WorkerTask = async file => {
         .pipe(csvParserStream)
         .pipe(
           csvMethodApplier(
-            csvFileReadStream,
+            csvParserStream,
             headerValidator,
             rowApplier,
             logSuccess,
