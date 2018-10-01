@@ -45,7 +45,7 @@ export const queryUsers = async (
       _id: user._id,
     })
       .select(
-        'firstName lastName appliedRole role profileDataVerified createdAt mobile',
+        'firstName lastName appliedRole role profileDataVerified createdAt mobile companyName',
       )
       .lean()
       .exec();
