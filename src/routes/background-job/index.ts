@@ -2,7 +2,7 @@ import * as express from 'express';
 
 export const backgroundJob = express.Router();
 
-import { Tasks } from '../../background-worker/jobs/task-list';
+import { Tasks } from '../../background-worker/worker/jobs/task-list';
 import { enqueueTask } from '../../background-worker/enqueue-task';
 import {
   RequestError,
