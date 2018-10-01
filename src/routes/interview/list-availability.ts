@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
 import * as moment from 'moment-timezone';
+import * as mongoose from 'mongoose';
 
 import {
   RequestError,
@@ -52,8 +53,14 @@ export const listBPMAvailability: RequestHandler = async (req, res, next) => {
     }
 
     const condition = req.query.userId
-      ? [timeQuery, { booked: false }, { userId: req.query.userId }]
+      ? [
+          timeQuery,
+          { booked: false },
+          { userId: mongoose.Types.ObjectId(req.query.userId) },
+        ]
       : [timeQuery, { booked: false }];
+
+    console.log('condition', condition);
 
     const dates = await InterviewAvailabilityCalender.aggregate([
       {
@@ -79,6 +86,7 @@ export const listBPMAvailability: RequestHandler = async (req, res, next) => {
       { $limit: 3 },
       { $sort: { _id: 1 } },
     ]).exec();
+    console.log('........', dates);
     return res.status(200).send({ success: true, data: dates });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
