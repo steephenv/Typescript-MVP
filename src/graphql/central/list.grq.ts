@@ -13,7 +13,7 @@ export const otherSchema = `
 type Collection {
   collectionName: String
   fetch(query: Object, selectingFields: String, distinct: String, attachments:[String],
-     fields: String, populate: Object, limit:Int, skip:Int): Object,
+     fields: String, populate: Object, limit:Int, skip:Int, sort: Object): Object,
   count(query: Object, distinct: String): Int
   create(content: Object!): Object
   update(condition: Object!, content: Object!, options: Object): Object
@@ -135,6 +135,7 @@ class Collection {
     skip = 0,
     selectingFields = '',
     distinct = '',
+    sort = null,
   }: {
     query: string | { [key: string]: any };
     attachments: string[];
@@ -144,6 +145,7 @@ class Collection {
     skip: number;
     selectingFields: string;
     distinct: string;
+    sort: string | { [key: string]: number };
   }) {
     let preparedQuery: any;
     try {
@@ -175,6 +177,10 @@ class Collection {
           .limit(limit)
           .skip(skip)
           .select(selectingFields);
+      }
+
+      if (sort) {
+        prepareResult.sort(sort);
       }
 
       // lean last

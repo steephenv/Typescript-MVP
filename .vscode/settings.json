@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
         "Envs",
+        "Errored",
         "Kottayam",
         "Miwago",
         "Promisifying",
@@ -8,6 +9,7 @@
         "UNPROCESSABLE",
         "gitlab",
         "graphiql",
+        "leveldb",
         "upsert",
         "validators"
     ]

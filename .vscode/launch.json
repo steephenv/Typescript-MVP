@@ -40,10 +40,29 @@
       "runtimeArgs": ["--nolazy"]
     },
     {
-      "name": "App against local",
+      "name": "App against local (npm start)",
       "type": "node",
       "request": "launch",
       "args": ["${workspaceRoot}/src/bin/www.ts"],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}",
+      "console": "integratedTerminal",
+      "protocol": "inspector",
+      "env": {
+        "NODE_CONFIG_DIR": "./src/config",
+        "TESTING": "true",
+        "NODE_ENV": "development",
+        // "NODE_CONFIG":
+        //   "{\\\"database\\\":{\\\"url\\\":\\\"mongodb://localhost:27017/miwago_test\\\"}}",
+        "NODE_APP_INSTANCE": ""
+      }
+    },
+    {
+      "name": "Background-worker against local",
+      "type": "node",
+      "request": "launch",
+      "args": ["${workspaceRoot}/src/background-worker/worker/index.ts"],
       "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
       "sourceMaps": true,
       "cwd": "${workspaceRoot}",
