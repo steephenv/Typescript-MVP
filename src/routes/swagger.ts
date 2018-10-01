@@ -2,22 +2,22 @@
 
 let swaggerSpec: any = null;
 
-if (process.env.TESTING !== 'true') {
-  const swaggerJSDoc = require('swagger-jsdoc'); // tslint:disable-line
+// if (process.env.TESTING !== 'true') {
+const swaggerJSDoc = require('swagger-jsdoc'); // tslint:disable-line
 
-  const options = {
-    swaggerDefinition: {
-      info: {
-        title: 'Capricorns API Docs',
-        version: '1.0.0',
-        description: '',
-      },
-      // host: getConfig('docsUrl'),
-      basePath: '/v1',
+const options = {
+  swaggerDefinition: {
+    info: {
+      title: 'Capricorns API Docs',
+      version: '1.0.0',
+      description: '',
     },
-    apis: ['**/*.docs.yaml'],
-  };
-  swaggerSpec = swaggerJSDoc(options);
-}
+    // host: getConfig('docsUrl'),
+    basePath: '/v1',
+  },
+  apis: ['**/*.docs.yaml'],
+};
+swaggerSpec = swaggerJSDoc(options);
+// }
 
 export { swaggerSpec };
