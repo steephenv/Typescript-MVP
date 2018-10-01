@@ -20,10 +20,12 @@ export const saveAvailability: RequestHandler = async (req, res, next) => {
 
     const periodsArray = getWorkingPeriods(
       availableDays,
-      req.body.workingDayNumber,
+      req.body.workingDays,
       req.body.workingTimeNumber,
       req.body.breakTimeNumber,
+      req.body.timezone,
     );
+
     const slotsArray = periodsArray.map(period => {
       return splitTime(period.startTime, period.endTime, 60 * 60 * 1000);
     });
@@ -31,8 +33,8 @@ export const saveAvailability: RequestHandler = async (req, res, next) => {
     const flattened = [].concat(...slotsArray);
 
     await BluePromise.map(flattened, slot => {
-      const startDateString = `${slot.startTime.getFullYear()}-${slot.startTime.getMonth() +
-        1}-${slot.startTime.getDate()}`;
+      const startDateString = `${slot.startTime.getUTCFullYear()}-${slot.startTime.getUTCMonth() +
+        1}-${slot.startTime.getUTCDate()}`;
       const slotDayStarting = new Date(
         new Date(startDateString).setUTCHours(0, 0, 0, 0),
       );

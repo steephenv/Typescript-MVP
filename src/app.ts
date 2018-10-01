@@ -19,6 +19,10 @@ import { workerHandler } from './routes/background-worker-handling';
 // import {RequestError, RequestErrorType} from 'issue-maker/dist/src/error-types/express-request-error';
 // init db
 import { mongooseConnectionPromise, mongoose } from './db.init';
+import { CronJobs } from './crones/index';
+const croneObj = new CronJobs();
+croneObj.start(() => console.log('Crone started')); // tslint:disable-line:no-console
+
 export { mongoose, mongooseConnectionPromise }; // exporting for quick access in tests
 
 mongooseConnectionPromise

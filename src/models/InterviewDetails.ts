@@ -23,7 +23,16 @@ export const definitions = {
     enum: ['Applied', 'Completed', 'Cancelled', 'Passed', 'Failed'],
     default: 'Applied',
   },
-  comment: { type: String },
+  comment: [
+    {
+      comment: {
+        type: String,
+      },
+      createdDate: {
+        type: String,
+      },
+    },
+  ],
   reason: { type: String },
   createdAt: {
     type: Date,

@@ -91,7 +91,7 @@ export const saveRole: RequestHandler = async (req, res, next) => {
         fields: {
           user: user.firstName + ' ' + user.lastName,
           role: req.body.role,
-          comment: req.body.comment,
+          // comment: req.body.comment,
           loginUrl: req.body.loginUrl,
           homeUrl: req.body.homeUrl,
         },

@@ -17,6 +17,9 @@ export const definitions = {
     type: Boolean,
     default: false,
   },
+  uniqueName: {
+    type: String,
+  },
 };
 const SkillCategorySchema: Schema = new Schema(definitions);
 export const SkillCategory = mongooseModel(

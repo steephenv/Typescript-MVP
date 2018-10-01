@@ -9,6 +9,9 @@ export const definitions = {
     type: String,
     require: true,
   },
+  uniqueName: {
+    type: String,
+  },
 };
 const IndustrySchema: Schema = new Schema(definitions);
 export const Industry = mongooseModel('Industry', IndustrySchema);

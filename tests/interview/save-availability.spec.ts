@@ -37,18 +37,19 @@ describe('Test for availability save', () => {
         json: true,
         body: {
           dateRange: {
-            startDate: 'Mon, 24 Sep 2018 00:00:00 GMT',
+            startDate: 'Wed, 26 Sep 2018 00:00:00 GMT',
             endDate: 'Mon, 22 Oct 2018 00:00:00 GMT',
           },
           workingDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
           workingTimeNumber: {
-            startTime: 7,
-            endTime: 19,
+            startTime: 6,
+            endTime: 18,
           },
           breakTimeNumber: {
-            startTime: 12,
-            endTime: 13,
+            startTime: 11,
+            endTime: 12,
           },
+          timezone: 'Europe/Berlin',
           annualAvailability: 20,
         },
       })

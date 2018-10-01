@@ -27,6 +27,10 @@ const resetDatabase = async (MONGO_URI?: string) => {
 
   try {
     await BluePromise.all([
+      mongoose.connection.db
+        .dropCollection('businessfunctions')
+        .catch(errHandler),
+      mongoose.connection.db.dropCollection('industries').catch(errHandler),
       mongoose.connection.db.dropCollection('users').catch(errHandler),
       mongoose.connection.db.dropCollection('tempusers').catch(errHandler),
       mongoose.connection.db

@@ -6,7 +6,7 @@ const saveRoleSchema = Joi.object().keys({
   userId: Joi.string().required(),
   isApproved: Joi.boolean().required(),
   interviewId: Joi.string().required(),
-  comment: Joi.string().optional(),
+  comment: Joi.array().optional(),
   reason: Joi.string().optional(),
   loginUrl: Joi.string().required(),
   userRating: Joi.string().optional(),

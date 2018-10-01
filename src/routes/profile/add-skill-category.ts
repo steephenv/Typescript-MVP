@@ -13,6 +13,7 @@ interface ISaveFields {
   category?: string;
   categoryId?: string;
   cluster?: string;
+  uniqueName?: string;
 }
 
 export const saveCollection = async (model: any, fields: ISaveFields) => {
@@ -30,12 +31,13 @@ export const updateCollection = async (
 
 export const saveSkillCategory: RequestHandler = async (req, res, next) => {
   try {
-    const exsCategory = await SkillCategory.find({
-      category: req.body.category,
+    const unique = req.body.category.trim().toLowerCase();
+    const exsCategory = await SkillCategory.findOne({
+      uniqueName: unique,
       cluster: req.body.cluster,
       isDelete: false,
     }).exec();
-    if (exsCategory.length) {
+    if (exsCategory) {
       return next(
         new RequestError(RequestErrorType.CONFLICT, 'Category Existing !!'),
       );
@@ -43,6 +45,7 @@ export const saveSkillCategory: RequestHandler = async (req, res, next) => {
     const savedCategory = await saveCollection(SkillCategory, {
       category: req.body.category,
       cluster: req.body.cluster,
+      uniqueName: unique,
     });
     if (req.body.subCategories.length) {
       await BluePromise.map(req.body.subCategories, (sub: any) => {

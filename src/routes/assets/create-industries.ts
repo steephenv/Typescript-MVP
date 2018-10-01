@@ -8,6 +8,18 @@ import {
 
 export const createIndustries: RequestHandler = async (req, res, next) => {
   try {
+    const unique = req.body.name.trim().toLowerCase();
+
+    const exsIndustry: any = await Industry.findOne({
+      uniqueName: unique,
+      // isDelete: false,
+    }).exec();
+    if (exsIndustry) {
+      return next(
+        new RequestError(RequestErrorType.CONFLICT, 'Industry Existing !!'),
+      );
+    }
+    req.body.uniqueName = req.body.name.trim().toLowerCase();
     const indus = new Industry(req.body);
 
     await indus.save();
@@ -20,13 +32,16 @@ export const createIndustries: RequestHandler = async (req, res, next) => {
   }
 };
 export async function addIndLine(indLine: string) {
+  const unique = indLine.trim().toLowerCase();
+
   const extIndLine: any = await Industry.findOne({
-    name: indLine,
+    uniqueName: unique,
   }).exec();
 
   if (!extIndLine) {
     const newIndLine = new Industry({
       name: indLine,
+      uniqueName: unique,
     });
     await newIndLine.save();
     return;

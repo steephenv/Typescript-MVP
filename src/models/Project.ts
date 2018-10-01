@@ -65,9 +65,11 @@ export const definitions = {
   price: {
     type: Number,
   },
-  impact: {
-    type: [String],
-  },
+  impact: [
+    {
+      type: String,
+    },
+  ],
   impactLevel: {
     type: String,
   },
@@ -89,15 +91,21 @@ export const definitions = {
   referenceLanguage: {
     type: String,
   },
-  deliverables: {
-    type: [String],
-  },
+  deliverables: [
+    {
+      type: String,
+    },
+  ],
   duration: {
     type: String,
   },
   producerId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
+  },
+  isDelete: {
+    type: Boolean,
+    default: false,
   },
 };
 const projectSchema: Schema = new Schema(definitions);

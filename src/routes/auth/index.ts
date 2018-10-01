@@ -15,7 +15,10 @@ import { listUsersValidation } from './validators/list-users.rule';
 import { setRoleValidation } from './validators/role-setting-rules';
 import { userSuggestionRule } from './validators/user-suggestion.rule';
 import { deleteUsersValidation } from './validators/delete-user-rule';
+import { deleteApplicantRule } from './validators/delete-applicant-rule';
+import { directRegisterValidation } from './validators/direct-registration-rule';
 
+import { directRegistration } from './direct-registration';
 import { register } from './register';
 import { confirmUser } from './confirm-user';
 import { forgotPassword } from './forgot-password';
@@ -31,9 +34,11 @@ import { listUsers } from './list-users';
 import { saveRole } from './role-setting';
 import { suggestUsers } from './user-suggestions';
 import { deleteUser } from './delete-user';
+import { deleteApplicant } from './delete-applicant';
 
 export const auth = express.Router();
 
+auth.post('/direct-register', directRegisterValidation, directRegistration);
 auth.post('/register', registerValidation, register);
 auth.post('/confirm', confirmUserRule, errValidator, confirmUser);
 
@@ -62,3 +67,4 @@ auth.post('/role-setting', setRoleValidation, saveRole);
 auth.get('/suggest-users', userSuggestionRule, suggestUsers);
 
 auth.delete('/delete/user', deleteUsersValidation, deleteUser);
+auth.get('/delete-applicant', deleteApplicantRule, deleteApplicant);
