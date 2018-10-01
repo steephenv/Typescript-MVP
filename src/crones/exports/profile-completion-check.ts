@@ -38,6 +38,6 @@ export const dayCheck = async () => {
   };
 
   if (userMails && userMails.length) {
-    sendEmail(mailNotifier);
+    await sendEmail(mailNotifier);
   }
 };
