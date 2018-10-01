@@ -7,14 +7,12 @@ const scheduleInterviewSchema = Joi.object().keys({
   typeOfCall: Joi.string()
     .required()
     .valid('Video', 'Audio'),
-  platform: Joi.string().when('typeOfCall', {
-    is: 'Video',
-    then: Joi.optional().allow(''),
-  }),
-  platformId: Joi.string().when('typeOfCall', {
-    is: 'Video',
-    then: Joi.optional().allow(''),
-  }),
+  platform: Joi.string()
+    .optional()
+    .allow(''),
+  platformId: Joi.string()
+    .optional()
+    .allow(''),
   userId: Joi.string()
     .length(24)
     .optional(),
