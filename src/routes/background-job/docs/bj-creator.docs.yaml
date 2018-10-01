@@ -1,0 +1,36 @@
+/bj:
+  post:
+    security:
+    - Bearer: []
+    summary: api for creating background jobs.
+    tags:
+    - bj
+    description: api for creating background jobs.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest
+    # - name: userId
+    #   description: 'userId'
+    #   in: query
+    #   type: string
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        - file
+        - functionName
+        properties:
+          file:
+            type: string
+            description: file access url gotten from aws upload
+          functionName:
+            type: string
+            description: "type of function to apply (`CAT_TEST`, `SKILL_CATEGORY_CSV`)"
+    responses:
+      200:
+        description: "successful attempt, returns `success message`"
