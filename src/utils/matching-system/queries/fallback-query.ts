@@ -63,10 +63,9 @@ export async function fallbackQuery(
     usersWithSameIndustryPromise,
   ]);
 
-  const result = new Set([
-    ...usersWithSameTopic[0].ids,
-    ...usersWithSameIndustry[0].ids,
-  ]);
+  const r1 = usersWithSameTopic[0] ? usersWithSameTopic[0].ids : [];
+  const r2 = usersWithSameIndustry[0] ? usersWithSameIndustry[0].ids : [];
+  const result = new Set([...r1, ...r2]);
   // console.log('> running fallback-q', result);
   return result;
 }
