@@ -4,7 +4,10 @@ import { EmployeeProjects } from './../../../models/EmployeeProjects';
 
 import { IQueryParams } from './Query-params.interface';
 
-export async function firstQuery(params: IQueryParams) {
+export async function firstQuery(
+  params: IQueryParams,
+  role: 'PM' | 'Consultant',
+) {
   // console.log('> running f-q');
   const availabilityRespRaw = await InterviewAvailabilityCalender.aggregate([
     {
@@ -14,6 +17,21 @@ export async function firstQuery(params: IQueryParams) {
         booked: false,
       },
     },
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'userId',
+        foreignField: '_id',
+        as: 'userDetails',
+      },
+    },
+    {
+      $unwind: {
+        path: '$userDetails',
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    { $match: { 'userDetails.role': role } },
     {
       $group: { _id: '$userId', length: { $sum: 1 } },
     },
