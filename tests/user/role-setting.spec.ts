@@ -40,12 +40,11 @@ describe('Test for role set up functionality  ===> ', () => {
           userId: newUserId,
           role: 'Consultant',
           isApproved: true,
-          comment: [
-            {
-              comment: 'fdsgf',
-              createdDate: '20-4-2018',
-            },
-          ],
+          comment: {
+            comment: 'fdsgf',
+            createdDate: '20-4-2018',
+          },
+
           loginUrl: 'fdsfds',
           interviewId: '5b506d48e618c7361b6a3977',
         },
@@ -72,12 +71,11 @@ describe('Test for role set up functionality  ===> ', () => {
           userId: newUserId,
           role: 'Consultant',
           isApproved: false,
-          comment: [
-            {
-              comment: 'fdsgf',
-              createdDate: '20-4-2018',
-            },
-          ],
+          comment: {
+            comment: 'fdsgf',
+            createdDate: '20-4-2018',
+          },
+
           loginUrl: 'fdsfds',
           homeUrl: 'fdsfds',
           interviewId: '5b506d48e618c7361b6a3977',
