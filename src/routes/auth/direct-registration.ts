@@ -30,7 +30,14 @@ export const directRegistration: RequestHandler = async (req, res, next) => {
       req.body.role = 'Client';
     }
     req.body.token = token;
-
+    if (req.body.password !== req.body.confirmPassword) {
+      return next(
+        new RequestError(
+          RequestErrorType.BAD_REQUEST,
+          messages.passwordMismatch,
+        ),
+      );
+    }
     // const verificationUrl = req.body.url.replace(/{token}/g, token);
     const newUser: any = new User(req.body);
     await newUser.save();

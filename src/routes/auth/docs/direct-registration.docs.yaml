@@ -38,6 +38,7 @@
             example: fasdf
           confirmPassword:
             type: string
+            example: fasdf
           mobile:
             type: string
             example: 787787878
