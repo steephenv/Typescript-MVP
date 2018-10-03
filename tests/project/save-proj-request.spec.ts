@@ -48,8 +48,8 @@ describe('Test for saving project request data ', () => {
         goalValueAdd: 'ssdcvmnjas',
         projectName: 'Iron Man Series',
         desiredFutureSituation: 'sdjhysgdew',
-        targetStart: new Date('2018-09-02'),
-        expectedEnd: new Date('2018-09-06'),
+        targetStart: new Date('2018-12-10'),
+        expectedEnd: new Date('2018-12-11'),
         mainLocation: 'tehsdkvn',
         additionalLocations: ['location 1', ' location 2', 'location 3'],
 
@@ -156,7 +156,7 @@ describe('Test for saving project request data ', () => {
         throw err;
       });
   });
-  test('Saving project request details api with NeedExpertAdvisory', done => {
+  test.skip('Saving project request details api with NeedExpertAdvisory', done => {
     got(`http://localhost:7000/v1/project/save-project-request`, {
       method: 'POST',
       headers: {
