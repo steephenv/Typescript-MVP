@@ -149,7 +149,6 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
           date: availableSlot.startTime,
           timezone: req.body.timezone,
           calenderLink: googleCalenderLink,
-          timezone: req.body.timezone,
         },
       };
 
