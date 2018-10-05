@@ -148,6 +148,7 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
           user: userDetails.firstName + ' ' + userDetails.lastName,
           date: availableSlot.startTime,
           calenderLink: googleCalenderLink,
+          timezone: req.body.timezone,
         },
       };
 
