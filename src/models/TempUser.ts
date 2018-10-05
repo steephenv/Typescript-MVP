@@ -53,6 +53,13 @@ export const definitions = {
   createdAt: {
     type: Date,
   },
+  refererId: {
+    type: Schema.Types.ObjectId,
+  },
+  countableReferer: {
+    type: Boolean,
+    default: true,
+  },
 };
 const TempUserSchema: Schema = new Schema(definitions);
 
