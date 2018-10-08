@@ -9,7 +9,7 @@ import {
 
 export const getProjectCategory: RequestHandler = async (req, res, next) => {
   try {
-    const cats = await ProjectCategory.find({}).exec();
+    const cats = await ProjectCategory.find({ isDelete: false }).exec();
     return res.status(200).send({
       success: true,
       categories: cats,
@@ -23,6 +23,7 @@ export const getProjSubCategory: RequestHandler = async (req, res, next) => {
   try {
     const subCats = await ProjectSubCategory.find({
       categoryId: req.query.category,
+      isDelete: false,
     }).exec();
     return res.status(200).send({
       success: true,
