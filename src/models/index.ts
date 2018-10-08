@@ -33,6 +33,7 @@ import { User } from './User';
 import { Viewed } from './View';
 import { Downloaded } from './Downloads';
 import { Share } from './share';
+import { Questionnaire } from './Questionnaire';
 
 export const Models: { [key: string]: typeof AppData } = {
   Favorites,
@@ -58,6 +59,7 @@ export const Models: { [key: string]: typeof AppData } = {
   InterviewDetails,
   Project,
   ProjectCategory,
+  Questionnaire,
   Skills,
   SkillCategory,
   SkillSubCategory,
