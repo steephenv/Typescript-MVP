@@ -16,6 +16,7 @@ import { PersonalDetails } from '../../models/PersonalDetails';
 
 export const login: RequestHandler = async (req, res, next) => {
   try {
+    req.body.username = (req.body.username as string).toLowerCase();
     const user: any = await User.findOne({ email: req.body.username }).exec();
     if (!user) {
       const tempUser: any = await TempUser.findOne({

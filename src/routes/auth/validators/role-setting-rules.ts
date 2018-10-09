@@ -6,13 +6,13 @@ const saveRoleSchema = Joi.object().keys({
   userId: Joi.string().required(),
   isApproved: Joi.boolean().required(),
   interviewId: Joi.string().required(),
-  comment: Joi.array().optional(),
+  comment: Joi.object().optional(),
   reason: Joi.string().optional(),
   loginUrl: Joi.string().required(),
   userRating: Joi.string().optional(),
   homeUrl: Joi.string().when('isApproved', { is: false, then: Joi.required() }),
   role: Joi.string()
-    .valid('Consultant', 'Employee')
+    // .valid('Consultant', 'Employee')
     .required(),
 });
 

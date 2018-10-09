@@ -31,6 +31,10 @@ export const definitions = {
       createdDate: {
         type: String,
       },
+      finalComment: {
+        type: Boolean,
+        default: false,
+      },
     },
   ],
   reason: { type: String },

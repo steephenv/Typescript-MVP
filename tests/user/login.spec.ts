@@ -18,6 +18,23 @@ describe('Login functionality ==> ', () => {
         throw err;
       });
   });
+  it('Login with all credentials - case sensitive', done => {
+    got('http://localhost:7000/v1/auth/login', {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      json: true,
+      body: {
+        username: 'STARK@MARVEL.COM',
+        password: 'password',
+      },
+    })
+      .then(() => done())
+      .catch(err => {
+        throw err;
+      });
+  });
   it('Login with field missing', done => {
     got('http://localhost:7000/v1/auth/login', {
       method: 'POST',

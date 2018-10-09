@@ -52,7 +52,7 @@ export async function triggerBackgroundWorker(withDummy = false) {
   // no worker running. start it
   const worker = spawn(NODE_PROCESS, [WORKER_LOC], {
     detached: true,
-    stdio: 'ignore',
+    stdio: 'inherit',
     env: process.env,
     cwd: process.cwd(),
   });

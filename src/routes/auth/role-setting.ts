@@ -31,7 +31,8 @@ export const saveRole: RequestHandler = async (req, res, next) => {
         {
           _id: req.body.interviewId,
         },
-        { $set: { interviewStatus: 'Passed', comment: userComment } },
+        { $set: { interviewStatus: 'Passed' } },
+        { $push: { comment: userComment } },
       ).exec();
 
       await BluePromise.all([userUpdate, interviewUpdate]);
@@ -75,6 +76,7 @@ export const saveRole: RequestHandler = async (req, res, next) => {
             reason: userReason,
           },
         },
+        { $push: { comment: userComment } },
       ).exec();
 
       await BluePromise.all([userUpdate, interviewUpdate]);

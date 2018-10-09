@@ -6,6 +6,7 @@ console.log('=====SERVER-STARTING======ENVS================');
 console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
 console.log(`NODE_APP_INSTANCE: ${process.env.NODE_APP_INSTANCE}`);
 console.log('CWD: ', process.cwd());
+console.log('PID: ', process.pid);
 console.log('==============================================');
 
 import './unCaughtException';
