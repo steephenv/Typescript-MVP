@@ -81,6 +81,7 @@ export const saveReviewStatus: RequestHandler = async (req, res, next) => {
           user: userDetails.firstName + ' ' + userDetails.lastName,
           date: existingInterview.startTime,
           calenderLink: googleCalenderLink,
+          timezone: req.query.timezone || 'Europe/Berlin',
         },
       };
       await sendEmail(mailOptions);
