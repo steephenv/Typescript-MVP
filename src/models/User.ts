@@ -112,6 +112,13 @@ export const definitions = {
     type: Boolean,
     default: false,
   },
+  refererId: {
+    type: Schema.Types.ObjectId,
+  },
+  countableReferer: {
+    type: Boolean,
+    default: true,
+  },
 };
 
 const userSchema: Schema = new Schema(definitions);

@@ -31,7 +31,12 @@ export const commonRegistration: RequestHandler = async (req, res, next) => {
       req.body.role = 'Client';
     }
     req.body.token = token;
-
+    if (
+      req.body.appliedRole === 'Consultant' ||
+      req.body.appliedRole === 'Employee'
+    ) {
+      req.body.countableReferer = false;
+    }
     const verificationUrl = req.body.url.replace(/{token}/g, token);
     const tempUser: any = new TempUser(req.body);
     await tempUser.save();
