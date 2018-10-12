@@ -1,0 +1,51 @@
+/project/set-call:
+  post:
+    security:
+    - Bearer: []
+    summary: api for schedule call.
+    tags:
+    - projects
+    description: api for schedule call.
+    parameters:
+    - name: X-Requested-With
+      description: set value to XMLHttpRequest if you are making an xhr request
+      in: header
+      required: true
+      default: XMLHttpRequest 
+    - name: Body
+      in: body
+      required: true
+      schema:
+        type: object
+        required:
+        - typeOfCall
+        - startTime
+        - endTime
+        - mobile
+        properties:
+          typeOfCall:
+            type: string
+            description: call type, possible values `project`|`registration`|`assistance`
+          startTime: 
+            type: date
+          endTime: 
+            type: date
+          mobile: 
+            type: string
+          otherDetails: 
+            type: string
+          projectName:
+            type: string
+            description: required for 'project'
+          userId:
+            type: string
+          offset:
+            type: string
+            description: timezone offset, required for 'project'
+          hoursArray:
+            type: string[]
+            description: required for 'project'
+            example: [8, 9]
+    responses:
+      200:
+        description: "successful attempt, returns signed request"
