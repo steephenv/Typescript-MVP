@@ -53,6 +53,15 @@
           isDirectRegistration:
             type: boolean
             example: true
+          callStartTime:
+            type: date
+            example: '2018-12-10 06:30:00.000Z'  
+          callEndTime:
+            type: date
+            example: '2018-12-10 07:30:00.000Z'  
+          isAssisted:
+            type: boolean
+            description: true for assisted registration for client  
           companyName:
             type: string
             example: cubet
