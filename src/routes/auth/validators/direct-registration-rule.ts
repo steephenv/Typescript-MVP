@@ -31,6 +31,15 @@ const DirectRegSchema = Joi.object().keys({
     is: 'Client',
     then: Joi.required(),
   }),
+  isAssisted: Joi.boolean().required(),
+  callStartTime: Joi.date().when('isAssisted', {
+    is: 'true',
+    then: Joi.required(),
+  }),
+  callEndTime: Joi.date().when('isAssisted', {
+    is: 'true',
+    then: Joi.required(),
+  }),
   role: Joi.string().when('isDirectRegistration', {
     is: true,
     then: Joi.required(),
