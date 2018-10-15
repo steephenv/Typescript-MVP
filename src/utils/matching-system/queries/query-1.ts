@@ -12,8 +12,8 @@ export async function firstQuery(
   const availabilityRespRaw = await InterviewAvailabilityCalender.aggregate([
     {
       $match: {
-        startTime: { $gte: params.startTime },
-        endTime: { $lte: params.endTime },
+        startTime: { $gte: new Date(params.startTime) },
+        endTime: { $lte: new Date(params.endTime) },
         booked: false,
       },
     },
@@ -40,7 +40,6 @@ export async function firstQuery(
     { $skip: 0 },
     { $group: { _id: 'allIds', ids: { $push: '$_id' } } },
   ]);
-
   const availabilityResp = availabilityRespRaw[0]
     ? availabilityRespRaw[0].ids
     : [];
