@@ -2,8 +2,8 @@
 # This is given for client for their testing purposes
 
 app:
-  logging: false
-  morgan: false
+  logging: true
+  morgan: true
   port: 6233
   docs: false
 
