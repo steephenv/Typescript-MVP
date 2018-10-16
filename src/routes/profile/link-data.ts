@@ -184,6 +184,7 @@ export const linkData: RequestHandler = async (req, res, next) => {
               summary: dataobj[datakey[7]],
               maidenName: dataobj[datakey[2]],
               primaryEmail: primaryData.email,
+              submitted: false,
             };
             await PersonalDetails.update(
               { userId: res.locals.user.userId },
