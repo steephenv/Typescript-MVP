@@ -11,4 +11,4 @@ mails:
   enable: false
 
 database:
-  url: mongodb://192.168.1.247:27017/miwago_test
+  url: mongodb://192.168.1.70:27017/miwago_test_runner

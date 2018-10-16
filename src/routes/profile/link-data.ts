@@ -5,6 +5,9 @@ import * as csv from 'fast-csv';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
 import * as userHome from 'user-home';
+import { join as pathJoin } from 'path';
+import * as mkdirpCb from 'mkdirp';
+import { promisify } from 'bluebird';
 
 import { PersonalDetails } from '../../models/PersonalDetails';
 import { CustomerCredentials } from '../../models/CustomerCredentials';
@@ -18,18 +21,26 @@ import {
   RequestErrorType,
 } from '../../error-handler/RequestError';
 
+const mkdirp = promisify(mkdirpCb);
+const fsStatP = promisify(fs.stat);
+
 export const linkData: RequestHandler = async (req, res, next) => {
   try {
-    const userDir = res.locals.user.userId;
-    const dir = userHome + `/zipped + ${userDir} `;
+    const dir = pathJoin(userHome, 'zipped', res.locals.user.userId);
+
+    await mkdirp(dir);
+
+    // const userDir = res.locals.user.userId;
+    // const dir = userHome + `/zipped + ${userDir} `;
 
     const filename = req.file.filename;
 
-    const dir1 = userHome + `/zipped/${userDir}`;
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir);
-    }
-    // unzipping zip file....
+    const dir1 = dir;
+
+    // if (!fs.existsSync(dir)) {
+    //   fs.mkdirSync(dir);
+    // }
+    // // unzipping zip file....
 
     await new Promise((resolve, reject) => {
       extract(req.file.path, { dir: dir1 }, (err: any) => {
@@ -48,24 +59,42 @@ export const linkData: RequestHandler = async (req, res, next) => {
     let tempConnection;
     let tempSkills;
 
-    if (userHome + '/' + `zipped/${userDir}/Education.csv`) {
-      tempEducation = userHome + '/' + `zipped/${userDir}/Education.csv`;
+    if (await fsStatP(pathJoin(dir, 'Education.csv'))) {
+      tempEducation = pathJoin(dir, 'Education.csv');
     }
-    if (userHome + '/' + `zipped/${userDir}/Email Addresses.csv`) {
-      tempEmails = userHome + '/' + `zipped/${userDir}/Email Addresses.csv`;
+    if (await fsStatP(pathJoin(dir, 'Email Addresses.csv'))) {
+      tempEmails = pathJoin(dir, 'Email Addresses.csv');
     }
-    if (userHome + '/' + `zipped/${userDir}/Positions.csv`) {
-      tempPositions = userHome + '/' + `zipped/${userDir}/Positions.csv`;
+    if (await fsStatP(pathJoin(dir, 'Positions.csv'))) {
+      tempPositions = pathJoin(dir, 'Positions.csv');
     }
-    if (userHome + '/' + `zipped/${userDir}/Profile.csv`) {
-      tempProfiles = userHome + '/' + `zipped/${userDir}/Profile.csv`;
+    if (await fsStatP(pathJoin(dir, 'Profile.csv'))) {
+      tempProfiles = pathJoin(dir, 'Profile.csv');
     }
-    if (userHome + '/' + `zipped/${userDir}/Connections.csv`) {
-      tempConnection = userHome + '/' + `zipped/${userDir}/Connections.csv`;
+    if (await fsStatP(pathJoin(dir, 'Connections.csv'))) {
+      tempConnection = pathJoin(dir, 'Connections.csv');
     }
-    if (userHome + '/' + `zipped/${userDir}/Skills.csv`) {
-      tempSkills = userHome + '/' + `zipped/${userDir}/Skills.csv`;
+    if (await fsStatP(pathJoin(dir, 'Skills.csv'))) {
+      tempSkills = pathJoin(dir, 'Skills.csv');
     }
+    // if (  userHome + '/' + `zipped/${userDir}/Education.csv`) {
+    //   tempEducation = userHome + '/' + `zipped/${userDir}/Education.csv`;
+    // }
+    // if (userHome + '/' + `zipped/${userDir}/Email Addresses.csv`) {
+    //   tempEmails = userHome + '/' + `zipped/${userDir}/Email Addresses.csv`;
+    // }
+    // if (userHome + '/' + `zipped/${userDir}/Positions.csv`) {
+    //   tempPositions = userHome + '/' + `zipped/${userDir}/Positions.csv`;
+    // }
+    // if (userHome + '/' + `zipped/${userDir}/Profile.csv`) {
+    //   tempProfiles = userHome + '/' + `zipped/${userDir}/Profile.csv`;
+    // }
+    // if (userHome + '/' + `zipped/${userDir}/Connections.csv`) {
+    //   tempConnection = userHome + '/' + `zipped/${userDir}/Connections.csv`;
+    // }
+    // if (userHome + '/' + `zipped/${userDir}/Skills.csv`) {
+    //   tempSkills = userHome + '/' + `zipped/${userDir}/Skills.csv`;
+    // }
     // saving primary email
     const primaryData: any = await User.findOne({
       _id: res.locals.user.userId,
