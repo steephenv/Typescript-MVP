@@ -180,23 +180,28 @@ export const linkData: RequestHandler = async (req, res, next) => {
             const currentStatus: any = await PersonalDetails.findOne({
               userId: res.locals.user.userId,
             });
-            let subStat;
-            if (currentStatus.submitted === true) {
-              subStat = true;
+            if (currentStatus && currentStatus.submitted === true) {
+              profData = {
+                country: dataobj[datakey[9]],
+                zipCode: dataobj[datakey[10]],
+                personalStatement: dataobj[datakey[6]],
+                summary: dataobj[datakey[7]],
+                maidenName: dataobj[datakey[2]],
+                primaryEmail: primaryData.email,
+                submitted: true,
+              };
             } else {
-              subStat = false;
+              profData = {
+                country: dataobj[datakey[9]],
+                zipCode: dataobj[datakey[10]],
+                personalStatement: dataobj[datakey[6]],
+                summary: dataobj[datakey[7]],
+                maidenName: dataobj[datakey[2]],
+                primaryEmail: primaryData.email,
+                submitted: false,
+              };
             }
-            profData = {
-              country: dataobj[datakey[9]],
-              zipCode: dataobj[datakey[10]],
-              personalStatement: dataobj[datakey[6]],
-              summary: dataobj[datakey[7]],
-              maidenName: dataobj[datakey[2]],
-              primaryEmail: primaryData.email,
-              submitted: subStat,
-            };
-
-            await PersonalDetails.update(
+            const ddd = await PersonalDetails.update(
               { userId: res.locals.user.userId },
               { $set: profData },
               { upsert: true },
