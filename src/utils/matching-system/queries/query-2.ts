@@ -14,13 +14,17 @@ export async function secondQuery(
   const usersWithSameTopicPromise = EmployeeProjects.find({
     userId: { $in: availabilityResp },
     topic: params.topic,
-  }).distinct('userId');
+  })
+    .distinct('userId')
+    .exec();
 
   // search extended to availabilityResp
   const usersWithSameIndustryPromise = Experience.find({
     userId: { $in: availabilityResp },
     companyIndustryLine: params.industry,
-  }).distinct('userId');
+  })
+    .distinct('userId')
+    .exec();
 
   const [usersWithSameTopic, usersWithSameIndustry] = await BluePromise.all([
     usersWithSameTopicPromise,
