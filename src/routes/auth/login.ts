@@ -8,6 +8,8 @@ import { Jwt } from './utils/Jwt';
 
 import { messages } from '../../config/app/messages';
 
+import { getRoleIconData } from '../../../src/routes/utils/assets/role-icons';
+
 import {
   RequestError,
   RequestErrorType,
@@ -55,6 +57,9 @@ export const login: RequestHandler = async (req, res, next) => {
     if (personalDetail && personalDetail.middleName) {
       middleName = personalDetail.middleName;
     }
+
+    const roleData = getRoleIconData(user.role);
+
     const accessToken = await Jwt.sign({
       userId: user._id,
       role: user.role,
@@ -62,7 +67,14 @@ export const login: RequestHandler = async (req, res, next) => {
     });
     return res
       .status(200)
-      .send({ success: true, data: user, accessToken, userImage, middleName });
+      .send({
+        success: true,
+        data: user,
+        accessToken,
+        userImage,
+        middleName,
+        roleData,
+      });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }
