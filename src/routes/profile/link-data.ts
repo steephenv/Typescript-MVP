@@ -201,7 +201,7 @@ export const linkData: RequestHandler = async (req, res, next) => {
                 submitted: false,
               };
             }
-            const ddd = await PersonalDetails.update(
+            await PersonalDetails.update(
               { userId: res.locals.user.userId },
               { $set: profData },
               { upsert: true },
