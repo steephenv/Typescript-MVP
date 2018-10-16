@@ -177,6 +177,15 @@ export const linkData: RequestHandler = async (req, res, next) => {
               const newDateObj = new Date(dataobj[datakey[4]]); //tslint:disable-line
               birthD = dataobj[datakey[4]];
             } catch (err) {} //tslint:disable-line
+            const currentStatus: any = await PersonalDetails.findOne({
+              userId: res.locals.user.userId,
+            });
+            let subStat;
+            if (currentStatus.submitted === true) {
+              subStat = true;
+            } else {
+              subStat = false;
+            }
             profData = {
               country: dataobj[datakey[9]],
               zipCode: dataobj[datakey[10]],
@@ -184,8 +193,9 @@ export const linkData: RequestHandler = async (req, res, next) => {
               summary: dataobj[datakey[7]],
               maidenName: dataobj[datakey[2]],
               primaryEmail: primaryData.email,
-              submitted: false,
+              submitted: subStat,
             };
+
             await PersonalDetails.update(
               { userId: res.locals.user.userId },
               { $set: profData },
