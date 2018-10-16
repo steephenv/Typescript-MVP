@@ -177,20 +177,35 @@ export const linkData: RequestHandler = async (req, res, next) => {
               const newDateObj = new Date(dataobj[datakey[4]]); //tslint:disable-line
               birthD = dataobj[datakey[4]];
             } catch (err) {} //tslint:disable-line
-            profData = {
-              country: dataobj[datakey[9]],
-              zipCode: dataobj[datakey[10]],
-              personalStatement: dataobj[datakey[6]],
-              summary: dataobj[datakey[7]],
-              maidenName: dataobj[datakey[2]],
-              primaryEmail: primaryData.email,
-              submitted: false,
-            };
+            const currentStatus: any = await PersonalDetails.findOne({
+              userId: res.locals.user.userId,
+            }).exec();
+            if (currentStatus && currentStatus.submitted === true) {
+              profData = {
+                country: dataobj[datakey[9]],
+                zipCode: dataobj[datakey[10]],
+                personalStatement: dataobj[datakey[6]],
+                summary: dataobj[datakey[7]],
+                maidenName: dataobj[datakey[2]],
+                primaryEmail: primaryData.email,
+                submitted: true,
+              };
+            } else {
+              profData = {
+                country: dataobj[datakey[9]],
+                zipCode: dataobj[datakey[10]],
+                personalStatement: dataobj[datakey[6]],
+                summary: dataobj[datakey[7]],
+                maidenName: dataobj[datakey[2]],
+                primaryEmail: primaryData.email,
+                submitted: false,
+              };
+            }
             await PersonalDetails.update(
               { userId: res.locals.user.userId },
               { $set: profData },
               { upsert: true },
-            );
+            ).exec();
             // await BluePromise.all([updateUser, personalUpdate]);
           });
           objArray.forEach(async (dataobj: any) => {
@@ -331,7 +346,7 @@ export const linkData: RequestHandler = async (req, res, next) => {
             await PersonalDetails.findOneAndUpdate(
               { userId: res.locals.user.userId },
               { $push: { criteria } },
-            );
+            ).exec();
           });
         });
     }
