@@ -179,7 +179,7 @@ export const linkData: RequestHandler = async (req, res, next) => {
             } catch (err) {} //tslint:disable-line
             const currentStatus: any = await PersonalDetails.findOne({
               userId: res.locals.user.userId,
-            });
+            }).exec();
             if (currentStatus && currentStatus.submitted === true) {
               profData = {
                 country: dataobj[datakey[9]],
@@ -205,7 +205,7 @@ export const linkData: RequestHandler = async (req, res, next) => {
               { userId: res.locals.user.userId },
               { $set: profData },
               { upsert: true },
-            );
+            ).exec();
             // await BluePromise.all([updateUser, personalUpdate]);
           });
           objArray.forEach(async (dataobj: any) => {
@@ -346,7 +346,7 @@ export const linkData: RequestHandler = async (req, res, next) => {
             await PersonalDetails.findOneAndUpdate(
               { userId: res.locals.user.userId },
               { $push: { criteria } },
-            );
+            ).exec();
           });
         });
     }
