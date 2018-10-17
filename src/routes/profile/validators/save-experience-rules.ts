@@ -59,7 +59,7 @@ const expSchema = Joi.object().keys({
     .required(),
 });
 export const saveExperienceRule: RequestHandler = (req, res, next) => {
-  Joi.validate(req.body, expSchema, err => {
+  Joi.validate(req.body, expSchema, { stripUnknown: true }, err => {
     if (err) {
       return res.status(422).send({
         success: false,

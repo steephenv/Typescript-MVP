@@ -30,7 +30,7 @@ const SkillSchema = Joi.object().keys({
 });
 
 export const skillValidation: RequestHandler = (req, res, next) => {
-  Joi.validate(req.body, SkillSchema, (err: any) => {
+  Joi.validate(req.body, SkillSchema, { stripUnknown: true }, (err: any) => {
     if (err) {
       return res.status(422).send({
         success: false,
