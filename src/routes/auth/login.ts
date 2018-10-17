@@ -65,16 +65,14 @@ export const login: RequestHandler = async (req, res, next) => {
       role: user.role,
       appliedRole: user.appliedRole,
     });
-    return res
-      .status(200)
-      .send({
-        success: true,
-        data: user,
-        accessToken,
-        userImage,
-        middleName,
-        roleData,
-      });
+    return res.status(200).send({
+      success: true,
+      data: user,
+      accessToken,
+      userImage,
+      middleName,
+      roleData,
+    });
   } catch (err) {
     return next(new RequestError(RequestErrorType.INTERNAL_SERVER_ERROR, err));
   }
