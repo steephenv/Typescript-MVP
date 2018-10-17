@@ -7,29 +7,28 @@ const FRONT_END_BASE_URL: string = configGet('frontEnd.web.baseUrl');
 const roleIcons: any = {
   UserEmployeeConsultant: [
     {
+      name: 'Home',
+      redirectUrl: `${FRONT_END_BASE_URL}/#/home`,
+      iconUrl:
+        'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/home.svg',
+    },
+    {
       name: 'Dashboard',
       redirectUrl: `${FRONT_END_BASE_URL}/#/interview/dashboard`,
-      iconUrl: 'http://example.img',
+      iconUrl:
+        'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/dashboard.svg',
     },
     {
-      name: 'Schedule-Interview',
-      redirectUrl: `${FRONT_END_BASE_URL}/#/interview/dashboard`,
-      iconUrl: 'http://example.img',
-    },
-    {
-      name: 'Import-profile',
+      name: 'Application',
       redirectUrl: `${FRONT_END_BASE_URL}/#/interview/import-profile`,
-      iconUrl: 'http://example.img',
+      iconUrl:
+        'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/my-application.svg',
     },
     {
-      name: 'Complete-profile',
-      redirectUrl: `${FRONT_END_BASE_URL}/#/interview/complete-profile`,
-      iconUrl: 'http://example.img',
-    },
-    {
-      name: 'Review&Submit',
-      redirectUrl: `${FRONT_END_BASE_URL}/#/interview/review`,
-      iconUrl: 'http://example.img',
+      name: 'Interview',
+      redirectUrl: `${FRONT_END_BASE_URL}/#/interview/schedule`,
+      iconUrl:
+        'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/videocall.svg',
     },
   ],
   Client: [
@@ -51,7 +50,8 @@ const roleIcons: any = {
     {
       name: 'Dashboard',
       redirectUrl: `${FRONT_END_BASE_URL}/#/client/dashboard`,
-      iconUrl: 'http://example.img',
+      iconUrl:
+        'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/dashboard.svg',
     },
   ],
   PM: [],
@@ -60,16 +60,18 @@ const roleIcons: any = {
     {
       name: 'Home',
       redirectUrl: `${FRONT_END_BASE_URL}/#/home`,
-      iconUrl: 'http://example.img',
+      iconUrl:
+        'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/home.svg',
     },
     {
       name: 'Dashboard',
       redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/dashboard`,
-      iconUrl: 'http://example.img',
+      iconUrl:
+        'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/dashboard.svg',
     },
     {
       name: 'Main Menu',
-      redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/proposa`,
+      redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/proposal`,
       iconUrl: 'http://example.img',
     },
     {
@@ -82,12 +84,14 @@ const roleIcons: any = {
     {
       name: 'Home',
       redirectUrl: `${FRONT_END_BASE_URL}/#/home`,
-      iconUrl: 'http://example.img',
+      iconUrl:
+        'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/home.svg',
     },
     {
       name: 'Dashboard',
       redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/dashboard`,
-      iconUrl: 'http://example.img',
+      iconUrl:
+        'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/dashboard.svg',
     },
     {
       name: 'Main Menu',
@@ -109,7 +113,8 @@ const roleIcons: any = {
     {
       name: 'Dashboard',
       redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/dashboard`,
-      iconUrl: 'http://example.img',
+      iconUrl:
+        'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/dashboard.svg',
     },
     {
       name: 'Main Menu',
