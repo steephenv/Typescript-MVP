@@ -26,6 +26,6 @@ issue-maker:
 
 frontEnd:
   web:
-    baseUrl: 'http://localhost:4200'
+    baseUrl: http://localhost:4200
 
 AWS_BUCKET_NAME: miwagoassets
