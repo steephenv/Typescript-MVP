@@ -6,6 +6,8 @@ const ProjectSchema = Joi.object().keys({
   engagementFrom: Joi.string().required(),
   engagementTo: Joi.string().required(),
   engagementAs: Joi.string().required(),
+  from: Joi.date().optional(),
+  to: Joi.date().optional(),
   projectName: Joi.string().required(),
   clientsCompanyName: Joi.string().required(),
   companyIndustryLine: Joi.string().required(),
@@ -28,7 +30,11 @@ const ProjectSchema = Joi.object().keys({
 const ExperienceDataSchema = Joi.object().keys({
   durationFrom: Joi.string().required(),
   durationTo: Joi.string().required(),
-  typeOfEngagement: Joi.string().optional(),
+  from: Joi.date().optional(),
+  to: Joi.date().optional(),
+  typeOfEngagement: Joi.string()
+    .optional()
+    .allow(''),
   jobTitle: Joi.string().required(),
   businessFunction: Joi.string().required(),
   companyName: Joi.string().required(),
@@ -37,7 +43,7 @@ const ExperienceDataSchema = Joi.object().keys({
   locationCountry: Joi.string().required(),
   locationCity: Joi.string().required(),
   mainResponsibility: Joi.string().required(),
-  peopleManagementResponsibility: Joi.string().required(),
+  peopleManagementResponsibility: Joi.string().optional(),
   managedTeamSize: Joi.number().required(),
   budgetResponsibility: Joi.number().required(),
   locationState: Joi.string().optional(),
