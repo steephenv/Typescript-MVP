@@ -8,7 +8,7 @@ import { Jwt } from './utils/Jwt';
 
 import { messages } from '../../config/app/messages';
 
-import { getRoleIconData } from '../../../src/routes/utils/assets/role-icons';
+import { getRoleIconData } from '../utils/assets/role-icons';
 
 import {
   RequestError,
