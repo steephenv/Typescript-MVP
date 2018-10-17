@@ -5,7 +5,7 @@ import { RequestHandler } from 'express';
 const ProjectSchema = Joi.object().keys({
   engagementFrom: Joi.string().required(),
   engagementTo: Joi.string().required(),
-  engagementAs: Joi.string().required(),
+  engagementAs: Joi.string().optional(),
   from: Joi.date().optional(),
   to: Joi.date().optional(),
   projectName: Joi.string().required(),
