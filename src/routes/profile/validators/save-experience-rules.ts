@@ -41,12 +41,7 @@ const ExperienceDataSchema = Joi.object().keys({
   managedTeamSize: Joi.number().required(),
   budgetResponsibility: Joi.number().required(),
   locationState: Joi.string().optional(),
-  managementType: Joi.object().keys({
-    disciplinaryManager: Joi.string(),
-    functionalSupervisor: Joi.string(),
-    coach: Joi.boolean(),
-    none: Joi.boolean(),
-  }),
+  managementType: Joi.string().optional(),
 });
 
 const expSchema = Joi.object().keys({
@@ -58,14 +53,14 @@ const expSchema = Joi.object().keys({
     .required(),
 });
 export const saveExperienceRule: RequestHandler = (req, res, next) => {
-  Joi.validate(req.body, expSchema, { stripUnknown: true }, err => {
-    // console.log();
+  Joi.validate(req.body, expSchema, err => {
     if (err) {
       return res.status(422).send({
         success: false,
         msg: err,
       });
     }
+
     next();
   });
 };

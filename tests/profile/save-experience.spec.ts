@@ -1,4 +1,32 @@
 import * as got from 'got';
+// import * as Joi from 'joi';
+
+// const testData = [
+//   {
+//     name: 'hello',
+//     hello: 'hai',
+//   },
+//   {
+//     hello: 'hai',
+//     name: 'hell',
+//   },
+// ];
+
+// const objSchema: any = Joi.object().keys({
+//   name: Joi.string().required(),
+// });
+
+// const objArraySchema = Joi.array().items(objSchema);
+
+// Joi.validate(testData, objArraySchema, {}, err => {
+//   console.log(err);
+//   console.log('.............', testData);
+//   if (err) {
+//     console.log(err);
+//   }
+//   return;
+//   // next();
+// });
 
 let token = '';
 let newUserId: string;
@@ -47,13 +75,12 @@ describe('Test for saving experience data ', () => {
             locationCountry: 'ddd',
             locationCity: 'esdftg',
             jobTitle: 'esdftg',
-            stateIso: 'yuuyuy',
             mainResponsibility: 'sfs',
             peopleManagementResponsibility: 'fsdf',
             managedTeamSize: 100,
             budgetResponsibility: 152,
             locationState: 'sdfbsh',
-            managementType: 'dsfsdgfs',
+            managementType: '5bc08938ac096344d60a9e6c',
           },
         ],
         projects: [
@@ -63,11 +90,10 @@ describe('Test for saving experience data ', () => {
             engagementAs: 'sdf',
             clientsCompanyName: 'feew',
             companyIndustryLine: 'sdfs',
+            businessFunction: 'sdefg',
             clientsCompanySize: '222',
             locationCountry: 'fsedf',
             locationCity: 'qqqq',
-            stateIso: 'yuuyuy',
-            businessFunction: 'fsdefs',
             projectGoal: 'sdgfsd',
             projectName: 'sdgfsd',
             projectDuration: 'sedftge',

@@ -37,11 +37,14 @@ describe('Test for skills ', () => {
       body: {
         skills: [
           {
-            cluster: 'Personal',
+            cluster: 'Functional',
             category: '5b4f0845b48361468f85033c',
             subCategory: '5b4f0845b48361468f85033c',
             proficiency: 'Excellent',
             skillTitle: 'assasasa',
+            description: 'cccc',
+            certificates: 'rerwtyetry',
+            lastApplied: 2005,
           },
         ],
       },
@@ -62,11 +65,14 @@ describe('Test for skills ', () => {
       body: {
         skills: [
           {
-            cluster: 'Personal',
+            cluster: 'Functional',
             category: '5b4f0845b48361468f85033c',
             subCategory: '5b4f0845b48361468f85033c',
             proficiency: 'Excellent',
             skillTitle: 'assasasa',
+            description: 'cccc',
+            certificates: 'rerwtyetry',
+            lastApplied: 2005,
           },
           {
             cluster: 'Functional',
@@ -75,7 +81,7 @@ describe('Test for skills ', () => {
             proficiency: 'Excellent',
             skillTitle: 'assasasa',
             description: 'cccc',
-            certificate: 'rerwtyetry',
+            certificates: 'rerwtyetry',
             lastApplied: 2005,
           },
         ],
