@@ -28,7 +28,7 @@ const ProjectSchema = Joi.object().keys({
 const ExperienceDataSchema = Joi.object().keys({
   durationFrom: Joi.string().required(),
   durationTo: Joi.string().required(),
-  typeOfEngagement: Joi.string().required(),
+  typeOfEngagement: Joi.string().optional(),
   jobTitle: Joi.string().required(),
   businessFunction: Joi.string().required(),
   companyName: Joi.string().required(),
