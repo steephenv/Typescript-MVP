@@ -58,8 +58,16 @@ export const login: RequestHandler = async (req, res, next) => {
       middleName = personalDetail.middleName;
     }
 
-    const roleData = getRoleIconData(user.role);
+    let roleData: any = [];
 
+    if (
+      user.role === 'User' &&
+      (user.appliedRole === 'Employee' || user.appliedRole === 'Consultant')
+    ) {
+      roleData = getRoleIconData('UserEmployeeConsultant');
+    } else {
+      roleData = getRoleIconData(user.role);
+    }
     const accessToken = await Jwt.sign({
       userId: user._id,
       role: user.role,
