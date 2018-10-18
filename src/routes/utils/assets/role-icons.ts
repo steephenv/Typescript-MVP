@@ -35,17 +35,18 @@ const roleIcons: any = {
     {
       name: 'Project-catalogs',
       redirectUrl: `${FRONT_END_BASE_URL}/#/project-catalogs`,
-      iconUrl: 'http://example.img',
+      // iconUrl: 'http://example.img',
     },
     {
       name: 'Drafts',
       redirectUrl: `${FRONT_END_BASE_URL}/#/client/draft`,
-      iconUrl: 'http://example.img',
+      iconUrl:
+        'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/menu.svg',
     },
     {
       name: 'Proposal-request',
       redirectUrl: `${FRONT_END_BASE_URL}/#/client/proposal-request`,
-      iconUrl: 'http://example.img',
+      // iconUrl: 'http://example.img',
     },
     {
       name: 'Dashboard',
@@ -65,22 +66,46 @@ const roleIcons: any = {
     },
     {
       name: 'Dashboard',
-      redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/dashboard`,
+      redirectUrl: `${FRONT_END_BASE_URL}/#/admin/dashboard`,
       iconUrl:
         'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/dashboard.svg',
     },
-    {
-      name: 'Main Menu',
-      redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/proposal`,
-      iconUrl: 'http://example.img',
-    },
-    {
-      name: 'Me',
-      redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/my-profile`,
-      iconUrl: 'http://example.img',
-    },
+    // {
+    //   name: 'Main Menu',
+    //   redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/proposal`,
+    // iconUrl: 'http://example.img',
+    // },
+    // {
+    //   name: 'Me',
+    //   redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/my-profile`,
+    //   iconUrl: 'http://example.img',
+    // },
   ],
   Admin: [
+    {
+      name: 'Home',
+      redirectUrl: `${FRONT_END_BASE_URL}/#/home`,
+      iconUrl:
+        'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/home.svg',
+    },
+    {
+      name: 'Dashboard',
+      redirectUrl: `${FRONT_END_BASE_URL}/#/admin/dashboard`,
+      iconUrl:
+        'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/dashboard.svg',
+    },
+    // {
+    //   name: 'Main Menu',
+    //   redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/proposa`,
+    //   iconUrl: 'http://example.img',
+    // },
+    // {
+    //   name: 'Me',
+    //   redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/my-profile`,
+    //   iconUrl: 'http://example.img',
+    // },
+  ],
+  Consultant: [
     {
       name: 'Home',
       redirectUrl: `${FRONT_END_BASE_URL}/#/home`,
@@ -95,20 +120,24 @@ const roleIcons: any = {
     },
     {
       name: 'Main Menu',
-      redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/proposa`,
-      iconUrl: 'http://example.img',
+      redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/proposal`,
+      iconUrl:
+        'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/menu.svg',
     },
     {
       name: 'Me',
       redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/my-profile`,
-      iconUrl: 'http://example.img',
+      iconUrl:
+        'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/me.svg',
     },
   ],
-  Consultant: [
+
+  Employee: [
     {
       name: 'Home',
       redirectUrl: `${FRONT_END_BASE_URL}/#/home`,
-      iconUrl: 'http://example.img',
+      iconUrl:
+        'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/home.svg',
     },
     {
       name: 'Dashboard',
@@ -118,17 +147,17 @@ const roleIcons: any = {
     },
     {
       name: 'Main Menu',
-      redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/proposa`,
-      iconUrl: 'http://example.img',
+      redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/proposal`,
+      iconUrl:
+        'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/menu.svg',
     },
     {
       name: 'Me',
       redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/my-profile`,
-      iconUrl: 'http://example.img',
+      iconUrl:
+        'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/me.svg',
     },
   ],
-
-  Employee: [],
   User: [],
 };
 
