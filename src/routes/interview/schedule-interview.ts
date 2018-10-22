@@ -138,7 +138,7 @@ export const scheduleInterview: RequestHandler = async (req, res, next) => {
       req.body.timezone,
     );
 
-    if (admin && userDetails.profileDataVerified) {
+    if (admin) {
       const mailOptions = {
         toAddresses: [userDetails.email],
         template: EmailTemplates.INTERVIEW_SCHEDULED,
