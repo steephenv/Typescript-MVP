@@ -14,7 +14,7 @@ export const saveReviewStatus: RequestHandler = async (req, res, next) => {
     await User.update(
       { _id: res.locals.user.userId },
       { $set: { profileDataVerified: true } },
-    );
+    ).exec();
     // const getCalenderLink = (start: Date, end: Date) => {
     //   // return 'ffff';
 
