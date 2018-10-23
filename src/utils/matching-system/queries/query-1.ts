@@ -4,16 +4,34 @@ import { EmployeeProjects } from './../../../models/EmployeeProjects';
 
 import { IQueryParams } from './Query-params.interface';
 
-export async function firstQuery(params: IQueryParams) {
+export async function firstQuery(
+  params: IQueryParams,
+  role: 'PM' | 'Consultant',
+) {
   // console.log('> running f-q');
   const availabilityRespRaw = await InterviewAvailabilityCalender.aggregate([
     {
       $match: {
-        startTime: { $gte: params.startTime },
-        endTime: { $lte: params.endTime },
+        startTime: { $gte: new Date(params.startTime) },
+        endTime: { $lte: new Date(params.endTime) },
         booked: false,
       },
     },
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'userId',
+        foreignField: '_id',
+        as: 'userDetails',
+      },
+    },
+    {
+      $unwind: {
+        path: '$userDetails',
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    { $match: { 'userDetails.role': role } },
     {
       $group: { _id: '$userId', length: { $sum: 1 } },
     },
@@ -22,7 +40,6 @@ export async function firstQuery(params: IQueryParams) {
     { $skip: 0 },
     { $group: { _id: 'allIds', ids: { $push: '$_id' } } },
   ]);
-
   const availabilityResp = availabilityRespRaw[0]
     ? availabilityRespRaw[0].ids
     : [];

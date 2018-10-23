@@ -27,6 +27,12 @@ export const definitions = {
       ref: 'User',
     },
   ],
+  pmIds: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
   updatedAt: {
     type: Date,
   },
@@ -287,6 +293,29 @@ export const definitions = {
   isDirect: {
     type: Boolean,
     default: false,
+  },
+
+  totalPriceInEUR: {
+    type: Number,
+  },
+  travellingExpense: {
+    type: String,
+  },
+  expectedDeliveryDate: {
+    type: Date,
+  },
+  teamExperience: {
+    type: String,
+  },
+  pdfUpload: {
+    type: String,
+  },
+
+  category: {
+    type: String,
+  },
+  lessonsLearned: {
+    type: String,
   },
 };
 const projectRequestSchema: Schema = new Schema(definitions);

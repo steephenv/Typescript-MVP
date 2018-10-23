@@ -80,8 +80,6 @@ export const saveProjectRequest: RequestHandler = async (req, res, next) => {
 
     const userIds = await getMatchingResult(matchingParams, 3);
 
-    console.log('userId::', userIds); // tslint:disable-line
-
     if (!userIds.length) {
       return res.status(200).send({ success: true });
     }
