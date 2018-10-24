@@ -17,7 +17,6 @@ export const queryUsers = async (
   // const { _limit = 50, _skip = 0 } = condition;
   // delete req.query._limit;
   // delete req.query._skip;
-  console.log('condition', condition);
   const totalNumUsersPromise = User.count(condition).exec();
 
   const usersListPromise = User.find(condition)
