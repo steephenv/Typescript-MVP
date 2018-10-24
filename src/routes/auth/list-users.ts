@@ -86,7 +86,7 @@ export const listUsers: RequestHandler = async (req, res, next) => {
         .distinct('contestantId')
         .exec();
 
-      condition = { _id: { $in: users } };
+      condition = { _id: { $in: users }, profileDataVerified: true };
     }
 
     const [totalNumUsers, usersList] = await queryUsers(condition, limit, skip);
