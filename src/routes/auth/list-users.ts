@@ -17,6 +17,7 @@ export const queryUsers = async (
   // const { _limit = 50, _skip = 0 } = condition;
   // delete req.query._limit;
   // delete req.query._skip;
+  console.log('condition', condition);
   const totalNumUsersPromise = User.count(condition).exec();
 
   const usersListPromise = User.find(condition)
@@ -86,7 +87,7 @@ export const listUsers: RequestHandler = async (req, res, next) => {
         .distinct('contestantId')
         .exec();
 
-      condition = { _id: { $in: users } };
+      condition = { _id: { $in: users }, profileDataVerified: true };
     }
 
     const [totalNumUsers, usersList] = await queryUsers(condition, limit, skip);
