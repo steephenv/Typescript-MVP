@@ -28,7 +28,9 @@ const PersonalDataSchema = Joi.object().keys({
   zipCode: Joi.string()
     .optional()
     .allow(''),
-  fixedLinePhone: Joi.string().optional(),
+  fixedLinePhone: Joi.string()
+    .optional()
+    .allow(''),
   mobilePhone: Joi.string().required(),
   primaryEmail: Joi.string().required(),
   secondaryEmail: Joi.string().required(),
