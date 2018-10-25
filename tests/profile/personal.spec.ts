@@ -49,7 +49,7 @@ describe('Test for personal data', () => {
         city: 'Kottayam',
         street: 'kammalam',
         stateIso: 'yuuyuy',
-        fixedLinePhone: '45212',
+        fixedLinePhone: '',
         mobilePhone: '9544529886',
         primaryEmail: 'steephenvrs3@gmail.com---',
         secondaryEmail: 'steefanvrs 3@gmail.com----',
