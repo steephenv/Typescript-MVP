@@ -2,7 +2,7 @@ import * as Joi from 'joi';
 import { RequestHandler } from 'express';
 
 const subObjectSchema = Joi.object({
-  Subject: Joi.string().required(),
+  subject: Joi.string().required(),
   grade: Joi.string().required(),
 });
 const objectSchema = Joi.object({
@@ -16,7 +16,9 @@ const objectSchema = Joi.object({
   major: Joi.string().required(),
   degree: Joi.string().required(),
   grade: Joi.string().required(),
-  mainSubjects: Joi.array().items(subObjectSchema),
+  mainSubjects: Joi.array()
+    .items(subObjectSchema)
+    .required(),
   activities: Joi.string().allow(''),
 }).required();
 
@@ -38,7 +40,7 @@ export const educationValidation: RequestHandler = (req, res, next) => {
   Joi.validate(
     req.body,
     EducationSchema,
-    { stripUnknown: true },
+    { allowUnknown: true },
     (err: any) => {
       if (err) {
         return res.status(422).send({
