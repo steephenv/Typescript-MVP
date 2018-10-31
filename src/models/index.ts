@@ -35,6 +35,7 @@ import { Viewed } from './View';
 import { Downloaded } from './Downloads';
 import { Share } from './share';
 import { Questionnaire } from './Questionnaire';
+import { ProposalOpportunity } from './ProposalOpportunity';
 
 export const Models: { [key: string]: typeof AppData } = {
   Favorites,
@@ -73,4 +74,5 @@ export const Models: { [key: string]: typeof AppData } = {
   Viewed,
   Downloaded,
   Share,
+  ProposalOpportunity,
 };
