@@ -295,22 +295,6 @@ export const definitions = {
     default: false,
   },
 
-  totalPriceInEUR: {
-    type: Number,
-  },
-  travellingExpense: {
-    type: String,
-  },
-  expectedDeliveryDate: {
-    type: Date,
-  },
-  teamExperience: {
-    type: String,
-  },
-  pdfUpload: {
-    type: String,
-  },
-
   category: {
     type: String,
   },
