@@ -41,12 +41,18 @@ export const queryUsers = async (
     if (interviewDetails.length) {
       user.interviewDetails = interviewDetails[0];
     }
+    const refererCount = await User.count({
+      refererId: user._id,
+      countableReferer: true,
+    }).exec();
+    user.refererCount = refererCount;
     const statusDetails = await User.find({
       _id: user._id,
     })
       .select(
-        'firstName lastName appliedRole role profileDataVerified createdAt mobile companyName',
+        'firstName lastName appliedRole role profileDataVerified createdAt mobile companyName countableReferer',
       )
+      .populate('refererId')
       .lean()
       .exec();
     if (statusDetails.length) {
