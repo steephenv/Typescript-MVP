@@ -23,6 +23,9 @@ export const definitions = {
   question: {
     type: String,
   },
+  askedByName: {
+    type: String,
+  },
   answer: [
     {
       text: { type: String },
@@ -32,6 +35,9 @@ export const definitions = {
       },
       answeredAt: {
         type: Date,
+      },
+      answeredByName: {
+        type: String,
       },
     },
   ],
