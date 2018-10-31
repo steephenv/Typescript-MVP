@@ -98,7 +98,8 @@ class Collection {
       const resp = await this.collection
         .update(preparedCondition, preparedContent, preparedOptions)
         .exec();
-      return resp;
+      const respData = await this.collection.findOne(preparedCondition);
+      return [resp, respData];
     } catch (err) {
       throw new GQLErr(GQLErrType.INTERNAL_SERVER_ERROR, err);
     }
