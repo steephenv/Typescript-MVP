@@ -36,6 +36,7 @@ const RegSchema = Joi.object().keys({
     then: Joi.required(),
   }),
   url: Joi.string().required(),
+  refererId: Joi.string().optional(),
 });
 
 export const registerValidation: RequestHandler = (req, res, next) => {
