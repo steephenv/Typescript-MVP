@@ -37,6 +37,10 @@ export const definitions = {
   pdfUpload: {
     type: String,
   },
+  accepted: {
+    type: Boolean,
+    default: false,
+  },
 };
 const ProposalOpportunitySchema: Schema = new Schema(definitions);
 
