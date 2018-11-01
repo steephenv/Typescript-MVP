@@ -1,6 +1,5 @@
 /* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
-import { User } from './User';
 
 export const description =
   'Stores details of project request forms submission data';
@@ -304,7 +303,7 @@ export const definitions = {
   AssignedConsultants: [
     {
       type: Schema.Types.ObjectId,
-      ref: User,
+      ref: 'User',
     },
   ],
 };
