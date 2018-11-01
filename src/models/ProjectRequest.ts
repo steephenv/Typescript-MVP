@@ -1,5 +1,6 @@
 /* tslint:disable:variable-name */
 import { model as mongooseModel, Schema } from 'mongoose';
+import { User } from './User';
 
 export const description =
   'Stores details of project request forms submission data';
@@ -294,13 +295,18 @@ export const definitions = {
     type: Boolean,
     default: false,
   },
-
   category: {
     type: String,
   },
   lessonsLearned: {
     type: String,
   },
+  AssignedConsultants: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: User,
+    },
+  ],
 };
 const projectRequestSchema: Schema = new Schema(definitions);
 
