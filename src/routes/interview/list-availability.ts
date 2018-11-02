@@ -78,7 +78,7 @@ export const listBPMAvailability: RequestHandler = async (req, res, next) => {
         },
       },
       { $unwind: '$slots' },
-      { $sort: { 'slots.startTime': -1 } },
+      { $sort: { 'slots.startTime': 1 } },
       { $group: { _id: '$_id', slotData: { $push: '$slots' } } },
       { $sort: { _id: sortVariable } },
       { $limit: 3 },
