@@ -95,13 +95,20 @@ export const saveProjectRequest: RequestHandler = async (req, res, next) => {
     const userMailIds = await User.find({ _id: { $in: userIds } })
       .distinct('email')
       .exec();
-
-    const requestUpdate = await ProjectRequest.findOneAndUpdate(
-      { _id: req.body._id },
-      { $set: { consultantIds: userIds } },
-      { new: true },
-    ).exec();
-
+    let requestUpdate;
+    if (req.body.runnerType === 'Consultant') {
+      requestUpdate = await ProjectRequest.findOneAndUpdate(
+        { _id: req.body._id },
+        { $set: { consultantIds: userIds } },
+        { new: true },
+      ).exec();
+    } else if (req.body.runnerType === 'PM') {
+      requestUpdate = await ProjectRequest.findOneAndUpdate(
+        { _id: req.body._id },
+        { $set: { pmIds: userIds } },
+        { new: true },
+      ).exec();
+    }
     const mailOptions: any = {
       toAddresses: userMailIds,
       template: EmailTemplates.PROJECT_REQUEST_EMAIL,
