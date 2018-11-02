@@ -41,6 +41,13 @@ export const definitions = {
     type: Boolean,
     default: false,
   },
+  rejected: {
+    type: Boolean,
+    default: false,
+  },
+  consultantName: {
+    type: String,
+  },
 };
 const ProposalOpportunitySchema: Schema = new Schema(definitions);
 
