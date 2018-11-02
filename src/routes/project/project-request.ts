@@ -77,8 +77,16 @@ export const saveProjectRequest: RequestHandler = async (req, res, next) => {
       // industry: null,
       // clientName: null,
     };
-
-    const userIds = await getMatchingResult(matchingParams, 3);
+    let userIds: string[];
+    // let role;
+    let role: 'PM' | 'Consultant' = 'Consultant';
+    if (req.body.runnerType && req.body.runnerType === 'Consultant') {
+      role = 'Consultant';
+      userIds = await getMatchingResult(matchingParams, 3, 100, role);
+    } else if (req.body.runnerType && req.body.runnerType === 'PM') {
+      role = 'PM';
+      userIds = await getMatchingResult(matchingParams, 1, 100, role);
+    }
 
     if (!userIds.length) {
       return res.status(200).send({ success: true });
