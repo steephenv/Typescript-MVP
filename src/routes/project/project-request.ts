@@ -77,7 +77,7 @@ export const saveProjectRequest: RequestHandler = async (req, res, next) => {
       // industry: null,
       // clientName: null,
     };
-    let userIds;
+    let userIds: string[];
     // let role;
     let role: 'PM' | 'Consultant' = 'Consultant';
     if (req.body.runnerType && req.body.runnerType === 'Consultant') {
