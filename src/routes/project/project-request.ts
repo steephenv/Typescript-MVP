@@ -97,13 +97,13 @@ export const saveProjectRequest: RequestHandler = async (req, res, next) => {
       .exec();
     let requestUpdate;
     if (req.body.runnerType === 'Consultant') {
-      requestUpdate = await ProjectRequest.findOneAndUpdate(
+      requestUpdate = ProjectRequest.findOneAndUpdate(
         { _id: req.body._id },
         { $set: { consultantIds: userIds } },
         { new: true },
       ).exec();
     } else if (req.body.runnerType === 'PM') {
-      requestUpdate = await ProjectRequest.findOneAndUpdate(
+      requestUpdate = ProjectRequest.findOneAndUpdate(
         { _id: req.body._id },
         { $set: { pmIds: userIds } },
         { new: true },
