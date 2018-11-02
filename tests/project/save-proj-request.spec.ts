@@ -35,6 +35,7 @@ describe('Test for saving project request data ', () => {
       },
       json: true,
       body: {
+        runnerType: 'PM',
         formType: 'tab1',
         status: 'Request',
         consultantIds: [],

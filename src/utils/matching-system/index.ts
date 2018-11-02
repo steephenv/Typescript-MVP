@@ -6,9 +6,10 @@ export async function getMatchingResult(
   params: IQueryParams,
   numberOfUsersToSelect: number,
   shortListSize = 100,
+  role: 'PM' | 'Consultant' = 'Consultant',
 ) {
   // run matching system
-  const shortListedUserIds = await shortList(params, shortListSize);
+  const shortListedUserIds = await shortList(params, shortListSize, role);
   const correspondingMarks = await getMarks(params, shortListedUserIds);
 
   // console.log('> shortListedUserIds:', shortListedUserIds);
