@@ -45,7 +45,7 @@ export const definitions = {
     type: Boolean,
     default: false,
   },
-  consultantName: {
+  name: {
     type: String,
   },
 };
