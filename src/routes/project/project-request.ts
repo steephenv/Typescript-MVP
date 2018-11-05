@@ -49,7 +49,7 @@ export const saveProjectRequest: RequestHandler = async (req, res, next) => {
       .exec();
 
     let skillTitles: any = [];
-    if (req.body.skillsAndExperience.length) {
+    if (req.body.skillsAndExperience && req.body.skillsAndExperience.length) {
       req.body.skillsAndExperience.forEach((skillData: any) => {
         if (skillData.functional.length) {
           skillTitles = skillTitles.concat(skillData.functional);
