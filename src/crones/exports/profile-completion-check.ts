@@ -20,15 +20,17 @@ export const dayCheck = async () => {
     .distinct('contestantId')
     .exec();
 
-  const userMails = await User.find({
+  let userMails = await User.find({
     _id: { $in: userIds },
     profileDataVerified: false,
   })
     .distinct('email')
     .exec();
-
+  const firstUserMail = userMails[0];
+  userMails = userMails.splice(0);
   const mailNotifier = {
-    toAddresses: userMails,
+    toAddresses: firstUserMail,
+    bccAddresses: userMails,
     template: EmailTemplates.PROFILE_COMPLETION_NOTIFIER,
     fromName: 'Capricorns Team',
     subject: `Profile Completion`,
