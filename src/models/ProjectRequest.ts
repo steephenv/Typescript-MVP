@@ -310,6 +310,9 @@ export const definitions = {
     type: String,
     enum: ['Approved', 'Rejected', 'Pending'],
   },
+  pmRejectMessage: {
+    type: String,
+  },
 };
 const projectRequestSchema: Schema = new Schema(definitions);
 

@@ -9,7 +9,7 @@ export const definitions = {
   createdAt: {
     type: Date,
   },
-  projectId: {
+  projectRequestId: {
     type: Schema.Types.ObjectId,
     ref: 'ProjectRequest',
   },
