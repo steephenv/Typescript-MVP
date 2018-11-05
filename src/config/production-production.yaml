@@ -12,4 +12,4 @@ database:
 
 frontEnd:
   web:
-    baseUrl: 'https://app.capricorns.io'
+    baseUrl: 'https://app.miwago.de'
