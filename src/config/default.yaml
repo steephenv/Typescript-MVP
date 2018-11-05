@@ -14,7 +14,7 @@ docsUrl: "localhost:7000"
 
 mails:
   enable: true
-  defaultFrom: miwago@cubettech.com # this is the source email that is used to send emails(from address)
+  defaultFrom: admin@capricorns.io # this is the source email that is used to send emails(from address)
   admin: 'aumadmin@yopmail.com'
   errMails: miwago-bug-report@cubettech.com
 
