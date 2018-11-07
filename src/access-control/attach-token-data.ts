@@ -25,5 +25,6 @@ export const attachTokenData: RequestHandler = async (req, res, next) => {
     // return next(
     //   new RequestError(RequestErrorType.LOGIN_FAILED, 'login failed' + error),
     // );
+    next();
   }
 };
