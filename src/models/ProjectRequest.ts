@@ -41,7 +41,7 @@ export const definitions = {
   },
   status: {
     type: String,
-    enum: ['Draft', 'Request'],
+    enum: ['Draft', 'Request', 'Ordered'],
   },
   templateType: {
     type: String,

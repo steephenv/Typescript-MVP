@@ -17,8 +17,9 @@ export const saveProjectRequest: RequestHandler = async (req, res, next) => {
   try {
     // const consNo = await User.count({ role: 'Consultant' }).exec();
     // req.body.bestFitNo = consNo;
-    req.body.userId = req.query.userId
-      ? req.query.userId
+
+    req.body.userId = req.body.userId
+      ? req.body.userId
       : res.locals.user.userId;
     req.body.updatedAt = new Date();
 
@@ -89,6 +90,46 @@ export const saveProjectRequest: RequestHandler = async (req, res, next) => {
     }
 
     if (!userIds.length) {
+      // if (req.body.runnerType === 'Consultant') {
+      //   await ProjectRequest.findOneAndUpdate(
+      //     { _id: req.body._id },
+      //     {
+      //       $set: {
+      //         consultantIds: [
+      //           '5b87b2da4d36dd7a2c2214ef',
+      //           '5b924589b8a45351013f0215',
+      //           '5b925b7cc0624033703c2c89',
+      //         ],
+      //       },
+      //     },
+      //     { new: true },
+      //   ).exec();
+      //   const mailOptions1: any = {
+      //     toAddresses: [
+      //       'paul@yopmail.com',
+      //       'adam@yopmail.com',
+      //       'gal@yopmail.com',
+      //     ],
+      //     template: EmailTemplates.PROJECT_REQUEST_EMAIL,
+      //     fromName: 'Capricorns Team',
+      //     subject: `New Project Request`,
+      //   };
+      //   await sendEmail(mailOptions1);
+      // } else if (req.body.runnerType === 'PM') {
+      //   await ProjectRequest.findOneAndUpdate(
+      //     { _id: req.body._id },
+      //     { $set: { pmIds: ['5bc03b731270bb34b65e9124'] } },
+      //     { new: true },
+      //   ).exec();
+      //   const mailOptions1: any = {
+      //     toAddresses: ['pma@yopmail.com'],
+      //     template: EmailTemplates.PROJECT_REQUEST_EMAIL,
+      //     fromName: 'Capricorns Team',
+      //     subject: `New Project Request`,
+      //   };
+      //   await sendEmail(mailOptions1);
+      // }
+
       return res.status(200).send({ success: true });
     }
 
