@@ -17,8 +17,9 @@ export const saveProjectRequest: RequestHandler = async (req, res, next) => {
   try {
     // const consNo = await User.count({ role: 'Consultant' }).exec();
     // req.body.bestFitNo = consNo;
-    req.body.userId = req.query.userId
-      ? req.query.userId
+
+    req.body.userId = req.body.userId
+      ? req.body.userId
       : res.locals.user.userId;
     req.body.updatedAt = new Date();
 
@@ -72,11 +73,13 @@ export const saveProjectRequest: RequestHandler = async (req, res, next) => {
       // topic: null,
       topic: req.body.projectName || null,
       industry: industryLineName || null,
-      clientName: clientDetails.companyName || null,
       skills: skillTitles || null,
       // industry: null,
       // clientName: null,
     };
+    if (clientDetails && clientDetails.companyName) {
+      matchingParams.clientName = clientDetails.companyName || null;
+    }
     let userIds: string[];
     // let role;
     let role: 'PM' | 'Consultant' = 'Consultant';
