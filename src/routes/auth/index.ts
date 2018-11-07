@@ -35,7 +35,7 @@ import { saveRole } from './role-setting';
 import { suggestUsers } from './user-suggestions';
 import { deleteUser } from './delete-user';
 import { deleteApplicant } from './delete-applicant';
-
+import { decodeToken } from './token-decode';
 export const auth = express.Router();
 
 auth.post('/direct-register', directRegisterValidation, directRegistration);
@@ -68,3 +68,4 @@ auth.get('/suggest-users', userSuggestionRule, suggestUsers);
 
 auth.delete('/delete/user', deleteUsersValidation, deleteUser);
 auth.get('/delete-applicant', deleteApplicantRule, deleteApplicant);
+auth.post('/token-decode', decodeToken);
