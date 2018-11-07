@@ -48,6 +48,7 @@ export const saveProjectRequest: RequestHandler = async (req, res, next) => {
     const clientDetails = await User.findOne({ _id: req.body.userId })
       .lean()
       .exec();
+    console.log('client dreatils...............', clientDetails);
 
     let skillTitles: any = [];
     if (req.body.skillsAndExperience && req.body.skillsAndExperience.length) {
@@ -73,11 +74,13 @@ export const saveProjectRequest: RequestHandler = async (req, res, next) => {
       // topic: null,
       topic: req.body.projectName || null,
       industry: industryLineName || null,
-      clientName: clientDetails.companyName || null,
       skills: skillTitles || null,
       // industry: null,
       // clientName: null,
     };
+    if (clientDetails && clientDetails.companyName) {
+      matchingParams.clientName = clientDetails.companyName || null;
+    }
     let userIds: string[];
     // let role;
     let role: 'PM' | 'Consultant' = 'Consultant';
