@@ -4,6 +4,7 @@
  *
  * This middleware DOES NOT return any error.
  */
+import { RequestError, RequestErrorType } from '../error-handler/RequestError';
 
 import { RequestHandler } from 'express';
 
@@ -21,6 +22,8 @@ export const attachTokenData: RequestHandler = async (req, res, next) => {
     }
     return next();
   } catch (error) {
-    return next();
+    return next(
+      new RequestError(RequestErrorType.LOGIN_FAILED, 'login failed' + error),
+    );
   }
 };
