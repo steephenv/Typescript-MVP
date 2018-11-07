@@ -4,7 +4,7 @@
  *
  * This middleware DOES NOT return any error.
  */
-import { RequestError, RequestErrorType } from '../error-handler/RequestError';
+// import { RequestError, RequestErrorType } from '../error-handler/RequestError';
 
 import { RequestHandler } from 'express';
 
