@@ -8,6 +8,10 @@ export const definitions = {
     ref: 'User',
     required: true,
   },
+  userRole: {
+    type: String,
+    enum: ['PM', 'Consultant'],
+  },
   updatedAt: {
     type: Date,
   },
@@ -44,6 +48,11 @@ export const definitions = {
   rejected: {
     type: Boolean,
     default: false,
+  },
+  clientStatus: {
+    type: String,
+    enum: ['Approved', 'Rejected', 'Pending'],
+    default: 'Pending',
   },
   name: {
     type: String,

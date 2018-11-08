@@ -26,7 +26,7 @@ export const getLinkedData: RequestHandler = async (req, res, next) => {
 
     if (!comingUserId) {
       return next(
-        new RequestError(RequestErrorType.FORBIDDEN, 'not logged in'),
+        new RequestError(RequestErrorType.LOGIN_FAILED, 'not logged in'),
       );
     }
 
