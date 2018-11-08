@@ -39,6 +39,7 @@ import { deleteSkillCategory } from './delete-skill-categories';
 import { searchSkills } from './search-skills';
 import { generatePdf } from './generate-profile-pdf';
 import { getAdminSkills } from './list-admin-skills';
+import { deleteAdminSkills } from './delete-admin-skills';
 
 const upload = multer({ dest: userHome + '/uploads/' });
 
@@ -96,3 +97,4 @@ profile.get(
 profile.get('/search-skills', searchSkills);
 profile.get('/gen-pdf', generatePdf);
 profile.get('/get-admin-skills', getAdminSkillsRule, getAdminSkills);
+profile.post('/delete-admin-skill', deleteAdminSkills);
