@@ -118,12 +118,12 @@ const roleIcons: any = {
       iconUrl:
         'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/dashboard.svg',
     },
-    {
-      name: 'Main Menu',
-      redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/proposal`,
-      iconUrl:
-        'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/menu.svg',
-    },
+    // {
+    //   name: 'Main Menu',
+    //   redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/proposal`,
+    //   iconUrl:
+    //     'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/menu.svg',
+    // },
     {
       name: 'Me',
       redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/my-profile`,
@@ -145,12 +145,12 @@ const roleIcons: any = {
       iconUrl:
         'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/dashboard.svg',
     },
-    {
-      name: 'Main Menu',
-      redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/proposal`,
-      iconUrl:
-        'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/menu.svg',
-    },
+    // {
+    //   name: 'Main Menu',
+    //   redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/proposal`,
+    //   iconUrl:
+    //     'https://s3.eu-central-1.amazonaws.com/miwagoassets/icons/menu.svg',
+    // },
     {
       name: 'Me',
       redirectUrl: `${FRONT_END_BASE_URL}/#/consultant/my-profile`,

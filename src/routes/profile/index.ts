@@ -17,6 +17,7 @@ import { getSkillsRules } from './validators/skill-suggestions-rule';
 import { updateSkillCategoryRules } from './validators/add-update-skill-category-rules';
 import { saveSkillCategoryRules } from './validators/add-update-skill-category-rules';
 import { deleteSkillCategoryRules } from './validators/delete-skill-category-rules';
+import { getAdminSkillsRule } from './validators/search-admin-skills-rules';
 
 import { savePersonal } from './save-personal';
 import { saveWLB } from './save-wlb';
@@ -37,6 +38,8 @@ import { listAllSkillCategories } from './list-all-skill-categories';
 import { deleteSkillCategory } from './delete-skill-categories';
 import { searchSkills } from './search-skills';
 import { generatePdf } from './generate-profile-pdf';
+import { getAdminSkills } from './list-admin-skills';
+import { deleteAdminSkills } from './delete-admin-skills';
 
 const upload = multer({ dest: userHome + '/uploads/' });
 
@@ -93,3 +96,5 @@ profile.get(
 
 profile.get('/search-skills', searchSkills);
 profile.get('/gen-pdf', generatePdf);
+profile.get('/get-admin-skills', getAdminSkillsRule, getAdminSkills);
+profile.post('/delete-admin-skill', deleteAdminSkills);
