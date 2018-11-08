@@ -30,7 +30,7 @@ describe('Generate pdf of user details', () => {
       got(
         'http://localhost:7000/v1/profile/delete-admin-skill?skillId=5bce0a6fde79c44c369da3cf',
         {
-          method: 'GET',
+          method: 'POST',
           headers: {
             'X-Requested-With': 'XMLHttpRequest',
             Authorization: `Bearer ${token}`,
