@@ -1,7 +1,6 @@
 import { RequestHandler } from 'express';
 import * as moment from 'moment-timezone';
 import * as mongoose from 'mongoose';
-
 import {
   RequestError,
   RequestErrorType,
@@ -38,7 +37,7 @@ export const listBPMAvailability: RequestHandler = async (req, res, next) => {
     const givenEndTime = new Date(gettingDate.setUTCHours(0, 0, 0, 0));
 
     let timeQuery = {};
-    let sortVariable = -1;
+    let sortVariable = 1;
     if (forward === 'true') {
       timeQuery = {
         startTime: { $gt: givenStartTime },
