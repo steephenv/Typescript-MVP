@@ -313,6 +313,10 @@ export const definitions = {
   pmRejectMessage: {
     type: String,
   },
+  pmProposalSubmitted: {
+    type: Boolean,
+    default: false,
+  },
 };
 const projectRequestSchema: Schema = new Schema(definitions);
 
