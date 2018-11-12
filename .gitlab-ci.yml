@@ -11,6 +11,8 @@ before_script:
   - nvm use v8.11.2
   - node --version
   - yarn --version
+  - wget www.google.com # verify internet connection
+
 
 Build:
   variables:
