@@ -134,10 +134,11 @@ export const linkData: RequestHandler = async (req, res, next) => {
             const eduData = new Education({
               userId: res.locals.user.userId,
               nameOfInstitution: dataobj[datakey[0]],
-              // durationFrom: dataobj[datakey[1]],
-              // durationTo: dataobj[datakey[2]],
+              durationFrom: dataobj[datakey[1]],
+              durationTo: dataobj[datakey[2]],
               major: dataobj[datakey[3]],
               degree: dataobj[datakey[4]],
+              grade: dataobj[datakey[3]],
               activities: dataobj[datakey[5]],
             });
             await eduData.save();
@@ -183,21 +184,26 @@ export const linkData: RequestHandler = async (req, res, next) => {
             if (currentStatus && currentStatus.submitted === true) {
               profData = {
                 country: dataobj[datakey[9]],
+                city: dataobj[datakey[11]],
                 zipCode: dataobj[datakey[10]],
                 personalStatement: dataobj[datakey[6]],
                 summary: dataobj[datakey[7]],
                 maidenName: dataobj[datakey[2]],
                 primaryEmail: primaryData.email,
+                secondaryEmail: dataobj[datakey[2]],
+                birthDate: dataobj[datakey[4]],
                 submitted: true,
               };
             } else {
               profData = {
                 country: dataobj[datakey[9]],
+                city: dataobj[datakey[11]],
                 zipCode: dataobj[datakey[10]],
                 personalStatement: dataobj[datakey[6]],
                 summary: dataobj[datakey[7]],
                 maidenName: dataobj[datakey[2]],
                 primaryEmail: primaryData.email,
+                birthDate: dataobj[datakey[4]],
                 submitted: false,
               };
             }
@@ -310,6 +316,16 @@ export const linkData: RequestHandler = async (req, res, next) => {
               role: dataobj[datakey[1]],
             });
             await projdata.save();
+            const expData = new Experience({
+              durationFrom: dataobj[datakey[4]],
+              durationTo: dataobj[datakey[5]],
+              jobTitle: dataobj[datakey[1]],
+              companyName: dataobj[datakey[0]],
+              locationCountry: dataobj[datakey[3]],
+              locationCity: dataobj[datakey[3]],
+              mainResponsibility: dataobj[datakey[2]],
+            });
+            await expData.save();
           });
         });
     }
