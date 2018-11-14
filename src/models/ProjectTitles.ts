@@ -10,7 +10,7 @@ export const definitions = {
     type: Date,
   },
   projectTitle: {
-    type: String
+    type: String,
   },
 };
 const ProjectTitleSchema: Schema = new Schema(definitions);

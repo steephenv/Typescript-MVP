@@ -4,13 +4,13 @@ import {
   RequestErrorType,
 } from '../../error-handler/RequestError';
 
-import { ProjectTitle } from '../../models/ProjectTitles'
+import { ProjectTitle } from '../../models/ProjectTitles';
 
 export const searchTitles: RequestHandler = async (req, res, next) => {
   try {
     const condition: any = {};
-    let titleSearched: any; 
-    if(req.query && req.query.text){
+    let titleSearched;
+    if (req.query && req.query.text) {
       const projectText = req.query.text ? req.query.text : '';
       const regexp = new RegExp(`${projectText}`, 'i');
       condition.projectTitle = regexp;
@@ -19,10 +19,9 @@ export const searchTitles: RequestHandler = async (req, res, next) => {
         .exec();
     } else {
       titleSearched = await ProjectTitle.find({})
-      .select('projectTitle')
-      .exec();
-    } 
-  
+        .select('projectTitle')
+        .exec();
+    }
     return res.status(200).send({
       success: true,
       title: titleSearched,
