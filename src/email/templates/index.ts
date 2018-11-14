@@ -57,4 +57,8 @@ export class EmailTemplates {
   public static PROFILE_COMPLETION_NOTIFIER = readFileSync(
     pathJoin(__dirname, 'profile-completion-notifier.ejs'),
   ).toString();
+
+  public static GIVEAWAY_EMAIL = readFileSync(
+    pathJoin(__dirname, 'give-away-email.ejs'),
+  ).toString();
 }
