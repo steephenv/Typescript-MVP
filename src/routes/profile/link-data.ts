@@ -135,8 +135,8 @@ export const linkData: RequestHandler = async (req, res, next) => {
             const eduData = new Education({
               userId: res.locals.user.userId,
               nameOfInstitution: dataobj[datakey[0]],
-              durationFrom: dataobj[datakey[1]],
-              durationTo: dataobj[datakey[2]],
+              // durationFrom: dataobj[datakey[1]],
+              // durationTo: dataobj[datakey[2]],
               major: dataobj[datakey[3]],
               degree: dataobj[datakey[4]],
               grade: dataobj[datakey[3]],
@@ -192,7 +192,7 @@ export const linkData: RequestHandler = async (req, res, next) => {
                 maidenName: dataobj[datakey[2]],
                 primaryEmail: primaryData.email,
                 secondaryEmail: dataobj[datakey[2]],
-                birthDate: dataobj[datakey[4]],
+                // birthDate: dataobj[datakey[4]],
                 submitted: true,
               };
             } else {
@@ -204,7 +204,7 @@ export const linkData: RequestHandler = async (req, res, next) => {
                 summary: dataobj[datakey[7]],
                 maidenName: dataobj[datakey[2]],
                 primaryEmail: primaryData.email,
-                birthDate: dataobj[datakey[4]],
+                // birthDate: dataobj[datakey[4]],
                 submitted: false,
               };
             }
@@ -318,8 +318,8 @@ export const linkData: RequestHandler = async (req, res, next) => {
             });
             await projdata.save();
             const expData = new Experience({
-              durationFrom: dataobj[datakey[4]],
-              durationTo: dataobj[datakey[5]],
+              // durationFrom: dataobj[datakey[4]],
+              // durationTo: dataobj[datakey[5]],
               jobTitle: dataobj[datakey[1]],
               companyName: dataobj[datakey[0]],
               locationCountry: dataobj[datakey[3]],
