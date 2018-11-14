@@ -15,6 +15,7 @@ import { Education } from '../../models/Education';
 import { Experience } from '../../models/Experience';
 import { EmployeeProjects } from '../../models/EmployeeProjects';
 import { User } from '../../models/User';
+import { Skills } from '../../models/Skills'
 
 import {
   RequestError,
@@ -177,7 +178,7 @@ export const linkData: RequestHandler = async (req, res, next) => {
             try {
               const newDateObj = new Date(dataobj[datakey[4]]); //tslint:disable-line
               birthD = dataobj[datakey[4]];
-            } catch (err) {} //tslint:disable-line
+            } catch (err) { } //tslint:disable-line
             const currentStatus: any = await PersonalDetails.findOne({
               userId: res.locals.user.userId,
             }).exec();
@@ -207,7 +208,7 @@ export const linkData: RequestHandler = async (req, res, next) => {
                 submitted: false,
               };
             }
-            await PersonalDetails.update(
+            const saved = await PersonalDetails.update(
               { userId: res.locals.user.userId },
               { $set: profData },
               { upsert: true },
@@ -335,7 +336,6 @@ export const linkData: RequestHandler = async (req, res, next) => {
       csv
         .fromPath(tempSkills)
         .on('data', data => {
-          // console.log(data);
           column.push(data);
         })
         .on('end', () => {
@@ -355,6 +355,27 @@ export const linkData: RequestHandler = async (req, res, next) => {
           });
           objArray.forEach(async (dataobj: any) => {
             const datakey: any = Object.keys(dataobj);
+            if (dataobj && dataobj.Name !== 'Name') {
+              const unqskill = dataobj.Name.trim().toLowerCase();
+              const skillData = await Skills.findOne({
+                uniqueTitle: unqskill,
+                category: '5bebe7395a97de3797039220',
+                subCategory: '5bebe7395a97de3797039221',
+                cluster: 'Personal'
+              }).exec();
+              if (!skillData) {
+                const newSkill = new Skills({
+                  uniqueTitle: unqskill,
+                  skillTitle: dataobj.Name,
+                  category: '5bebe7395a97de3797039220',
+                  subCategory: '5bebe7395a97de3797039221',
+                  cluster: 'Personal',
+                  proficiency: 'Basic',
+                  userId: res.locals.user.userId
+                });
+                await newSkill.save();
+              }
+            }
             const criteria = {
               subCategory: dataobj[datakey[0]],
             };
