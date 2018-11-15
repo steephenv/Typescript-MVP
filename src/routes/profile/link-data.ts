@@ -362,6 +362,7 @@ export const linkData: RequestHandler = async (req, res, next) => {
                 category: '5bebe7395a97de3797039220',
                 subCategory: '5bebe7395a97de3797039221',
                 cluster: 'Personal',
+                userId: res.locals.user.userId,
               }).exec();
               if (!skillData) {
                 const newSkill = new Skills({
