@@ -1,10 +1,10 @@
-# configuration for production server
-# used as middle layer
+# # configuration for production server
+# # used as middle layer
 
-database:
-  url: mongodb://miwago_user:B34M6544VfsD4355sdftsdf54sdfgGChjuuhmjvhmr423574rcvc@192.168.200.10:27017/miwago_db
+# database:
+#   url: mongodb://miwago_user:B34M6544VfsD4355sdftsdf54sdfgGChjuuhmjvhmr423574rcvc@192.168.200.10:27017/miwago_db
 
-app:
-  docs: false
-  logging: true
-  morgan: true
+# app:
+#   docs: false
+#   logging: true
+#   morgan: true

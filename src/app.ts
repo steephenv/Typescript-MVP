@@ -8,20 +8,20 @@ import * as path from 'path';
 import * as lme from 'lme';
 import * as favicon from 'serve-favicon';
 import {
-  IssueMaker,
+  // IssueMaker,
   ExpressRequestError,
-  ExpressRequestErrorType,
+  // ExpressRequestErrorType,
 } from 'issue-maker';
 
 import { rootAccess } from './access-control/root-access';
-import { workerHandler } from './routes/background-worker-handling';
+// import { workerHandler } from './routes/background-worker-handling';
 
 // import {RequestError, RequestErrorType} from 'issue-maker/dist/src/error-types/express-request-error';
 // init db
 import { mongooseConnectionPromise, mongoose } from './db.init';
-import { CronJobs } from './crones/index';
-const croneObj = new CronJobs();
-croneObj.start(() => console.log('Crone started')); // tslint:disable-line:no-console
+// import { CronJobs } from './crones/index';
+// const croneObj = new CronJobs();
+// croneObj.start(() => console.log('Crone started')); // tslint:disable-line:no-console
 
 export { mongoose, mongooseConnectionPromise }; // exporting for quick access in tests
 
@@ -90,30 +90,30 @@ app.use('/graph', (req, res) => res.redirect('/v1/graph'));
 app.use('/v1/graph', attachTokenData, buildGraphQLRoutesGateway());
 
 // worker status
-app.use('/bw', workerHandler);
+// app.use('/bw', workerHandler);
 
 // test for err emails
-app.get('/send/cats/to/me/with/500', (req, res, next) =>
-  next(
-    new ExpressRequestError(
-      ExpressRequestErrorType.INTERNAL_SERVER_ERROR,
-      new Error('testing 500 with cats api'),
-    ),
-  ),
-);
+// app.get('/send/cats/to/me/with/500', (req, res, next) =>
+//   next(
+//     new ExpressRequestError(
+//       ExpressRequestErrorType.INTERNAL_SERVER_ERROR,
+//       new Error('testing 500 with cats api'),
+//     ),
+//   ),
+// );
 
 // catch 404 and forward to error handler
-app.use((req, res, next) => {
-  const err = new ExpressRequestError(ExpressRequestErrorType.NOT_FOUND);
-  next(err);
-});
+// app.use((req, res, next) => {
+//   const err = new ExpressRequestError(ExpressRequestErrorType.NOT_FOUND);
+//   next(err);
+// });
 
-const gitlabIssue = new IssueMaker({
-  service: getConfig('issue-maker.service'),
-  endPoint: getConfig('issue-maker.endPoint'),
-  privateToken: getConfig('issue-maker.privateToken'),
-  projectId: getConfig('issue-maker.projectId'),
-});
+// const gitlabIssue = new IssueMaker({
+//   service: getConfig('issue-maker.service'),
+//   endPoint: getConfig('issue-maker.endPoint'),
+//   privateToken: getConfig('issue-maker.privateToken'),
+//   projectId: getConfig('issue-maker.projectId'),
+// });
 
 // error handler
 const requestErrHandler: express.ErrorRequestHandler = async (
@@ -134,12 +134,12 @@ const requestErrHandler: express.ErrorRequestHandler = async (
     process.env.TESTING !== 'true'
   ) {
     try {
-      await gitlabIssue.expressReportError(req, err, {
-        labels: 'by-issue-maker',
-        resLocals: res.locals,
-        databaseHost: getConfig('database.url'),
-        databaseName: '',
-      });
+      // await gitlabIssue.expressReportError(req, err, {
+      //   labels: 'by-issue-maker',
+      //   resLocals: res.locals,
+      //   databaseHost: getConfig('database.url'),
+      //   databaseName: '',
+      // });
     } catch (err) {
       console.log('ERR: some error occurred while reporting issue', err); //tslint:disable-line
     }

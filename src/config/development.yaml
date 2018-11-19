@@ -8,4 +8,4 @@ app:
 docsUrl: "localhost:7000"
 
 database:
-  url: mongodb://localhost:27017/miwago_test
+  url: mongodb://localhost:27017/node_test

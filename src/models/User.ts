@@ -2,7 +2,6 @@
 
 import * as bcrypt from 'bcrypt';
 import { model as mongooseModel, Schema } from 'mongoose';
-import './Project';
 
 export const description = 'Stores details of user info';
 
@@ -15,32 +14,10 @@ export const definitions = {
     type: String,
     default: '',
   },
-  appliedRole: {
-    type: String,
-    enum: ['User', 'Consultant', 'BPM', 'Admin', 'Client', 'Employee'],
-  },
-  companyName: {
-    type: String,
-  },
-  callTime: {
-    type: String,
-  },
   email: {
     type: String,
     required: true,
     unique: true,
-  },
-  secondaryEmail: {
-    type: String,
-  },
-  isDirectRegistration: {
-    type: Boolean,
-    default: false,
-  },
-  role: {
-    type: String,
-    enum: ['User', 'Consultant', 'BPM', 'Admin', 'Client', 'Employee'],
-    required: true,
   },
   password: {
     type: String,
@@ -48,76 +25,11 @@ export const definitions = {
   mobile: {
     type: String,
   },
-  devices: [
-    {
-      deviceToken: { type: String },
-      device: { type: String },
-    },
-  ],
-  profileDataVerified: {
-    type: Boolean,
-    default: false,
-  },
-  isLinkedinProfileFetched: {
-    type: Boolean,
-    default: false,
-  },
-  interviewStatus: {
-    type: String,
-    enum: ['Applied', 'Completed', 'Cancelled', 'Passed', 'Failed'],
-  },
   createdAt: {
     type: Date,
   },
   updatedAt: {
     type: Date,
-  },
-  createdBy: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-  },
-  userRating: {
-    type: String,
-  },
-  recentlyViewed: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
-  welcomeTour: {
-    type: Boolean,
-    default: false,
-  },
-  personalStatus: {
-    type: Boolean,
-    default: false,
-  },
-  educationStatus: {
-    type: Boolean,
-    default: false,
-  },
-  experienceStatus: {
-    type: Boolean,
-    default: false,
-  },
-  employeeStatus: {
-    type: Boolean,
-    default: false,
-  },
-  goalsStatus: {
-    type: Boolean,
-    default: false,
-  },
-  skillsStatus: {
-    type: Boolean,
-    default: false,
-  },
-  wlbStatus: {
-    type: Boolean,
-    default: false,
-  },
-  refererId: {
-    type: Schema.Types.ObjectId,
-  },
-  countableReferer: {
-    type: Boolean,
-    default: true,
   },
 };
 

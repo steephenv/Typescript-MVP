@@ -1,15 +1,15 @@
-# ORIGINAL PRODUCTION
-# configuration for production server (live)
+# # ORIGINAL PRODUCTION
+# # configuration for production server (live)
 
-app:
-  logging: true
-  morgan: true
-  port: 3000
-  docs: false
+# app:
+#   logging: true
+#   morgan: true
+#   port: 3000
+#   docs: false
 
-database:
-  url: 'mongodb://capricorns-db-user:Capricorns-DB-pwd-56%24@capricons-cl1-shard-00-00-jngps.mongodb.net:27017,capricons-cl1-shard-00-01-jngps.mongodb.net:27017,capricons-cl1-shard-00-02-jngps.mongodb.net:27017/miwago_db?authSource=admin&replicaSet=Capricons-CL1-shard-0&ssl=true'
+# database:
+#   url: 'mongodb://capricorns-db-user:Capricorns-DB-pwd-56%24@capricons-cl1-shard-00-00-jngps.mongodb.net:27017,capricons-cl1-shard-00-01-jngps.mongodb.net:27017,capricons-cl1-shard-00-02-jngps.mongodb.net:27017/miwago_db?authSource=admin&replicaSet=Capricons-CL1-shard-0&ssl=true'
 
-frontEnd:
-  web:
-    baseUrl: 'https://app.miwago.de'
+# frontEnd:
+#   web:
+#     baseUrl: 'https://app.miwago.de'

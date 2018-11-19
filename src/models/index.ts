@@ -1,78 +1,8 @@
 /* tslint:disable:variable-name */
 import { AppData } from './AppData';
-import { AssetSubCategory } from './Asset-sub-category';
-import { AssetCategory } from './AssetCategory';
-import { Assets } from './Assets';
-import { AvailabilityCalender } from './AvailabilityCalender';
-import { BackgroundTaskQueue } from './BackgroundTaskQueue';
-import { BusinessFunction } from './Business-function';
-import { BusinessSubFunction } from './Business-sub-function';
-import { Company } from './Company';
-import { country } from './Country';
-import { PersonalDetails } from './PersonalDetails';
-import { Education } from './Education';
-import { EmployeeProjects } from './EmployeeProjects';
-import { Experience } from './Experience';
-import { Goals } from './Goals';
-import { Holiday } from './Holidays';
-import { Industry } from './Industries';
-import { Interview } from './Interview';
-import { InterviewAvailabilityCalender } from './InterviewAvailabilityCalender';
-import { InterviewDetails } from './InterviewDetails';
-import { Project } from './Project';
-import { ProjectCategory } from './ProjectCategory';
-import { Skills } from './Skills';
-import { SkillCategory } from './SkillCategory';
-import { SkillSubCategory } from './SkillSubCategory';
-import { TempUser } from './TempUser';
-import { TimeSlot } from './TimeSlots';
-import { Wlb } from './WLB';
-import { Favorites } from './Favorites';
-import { Draft } from './Draft';
-import { ProjectRequest } from './ProjectRequest';
 import { User } from './User';
-import { Viewed } from './View';
-import { Downloaded } from './Downloads';
-import { Share } from './share';
-import { Questionnaire } from './Questionnaire';
-import { ProposalOpportunity } from './ProposalOpportunity';
 
 export const Models: { [key: string]: typeof AppData } = {
-  Favorites,
   AppData,
-  AssetSubCategory,
-  AssetCategory,
-  Assets,
-  AvailabilityCalender,
-  BackgroundTaskQueue,
-  BusinessFunction,
-  BusinessSubFunction,
-  Company,
-  country,
-  Draft,
-  PersonalDetails,
-  Education,
-  EmployeeProjects,
-  Experience,
-  Goals,
-  Holiday,
-  Industry,
-  Interview,
-  InterviewAvailabilityCalender,
-  InterviewDetails,
-  Project,
-  ProjectCategory,
-  Questionnaire,
-  Skills,
-  SkillCategory,
-  SkillSubCategory,
-  TempUser,
-  TimeSlot,
-  Wlb,
-  ProjectRequest,
   User,
-  Viewed,
-  Downloaded,
-  Share,
-  ProposalOpportunity,
 };

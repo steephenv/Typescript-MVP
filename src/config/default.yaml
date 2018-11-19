@@ -8,24 +8,24 @@ app:
     accessTokenExpiryTime: 7d
 
 database:
-  url: mongodb://localhost:27017/miwago_test
+  url: mongodb://localhost:27017/node_test
 
 docsUrl: "localhost:7000"
 
-mails:
-  enable: true
-  defaultFrom: admin@capricorns.io # this is the source email that is used to send emails(from address)
-  admin: 'aumadmin@yopmail.com'
-  errMails: miwago-bug-report@cubettech.com
+# mails:
+#   enable: true
+#   defaultFrom: admin@capricorns.io # this is the source email that is used to send emails(from address)
+#   admin: 'aumadmin@yopmail.com'
+#   errMails: miwago-bug-report@cubettech.com
 
-issue-maker:
-  service: gitlab
-  projectId: 938
-  endPoint: http://117.247.186.100:9898
-  privateToken: 2zVNcSxwXsLWzHzDudQ1
+# issue-maker:
+#   service: gitlab
+#   projectId: 938
+#   endPoint: http://117.247.186.100:9898
+#   privateToken: 2zVNcSxwXsLWzHzDudQ1
 
-frontEnd:
-  web:
-    baseUrl: http://localhost:4200
+# frontEnd:
+#   web:
+#     baseUrl: http://localhost:4200
 
-AWS_BUCKET_NAME: miwagoassets
+# AWS_BUCKET_NAME: miwagoassets
