@@ -1,4 +1,4 @@
-app: 
+app:
   port: 6233
   docs: true
   logging: true # for logging stuffs out
@@ -8,10 +8,10 @@ app:
     accessTokenExpiryTime: 7d
 
 database:
-  url: mongodb://localhost:27017/node_test
+  # url: mongodb://localhost:27017/node_test
+  url: mongodb://steephen:A!2345@ds237363.mlab.com:37363/htmlnode
 
-docsUrl: "localhost:7000"
-
+docsUrl: 'localhost:7000'
 # mails:
 #   enable: true
 #   defaultFrom: admin@capricorns.io # this is the source email that is used to send emails(from address)

@@ -83,8 +83,7 @@ if (morganEnabled) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(express.static(path.join(__dirname, './public/frondend')));
 app.use('/v1', attachTokenData, apis);
 app.use('/graph', (req, res) => res.redirect('/v1/graph'));
 app.use('/v1/graph', attachTokenData, buildGraphQLRoutesGateway());

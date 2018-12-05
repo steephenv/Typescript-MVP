@@ -5,7 +5,7 @@ app:
   morgan: true
   port: 7000
 
-docsUrl: "localhost:7000"
+docsUrl: 'localhost:7000'
 
 database:
-  url: mongodb://localhost:27017/node_test
+  url: mongodb://steephen:A!2345@ds237363.mlab.com:37363/htmlnode

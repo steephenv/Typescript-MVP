@@ -6,12 +6,14 @@ import { swaggerSpec } from './swagger';
 
 // route imports
 import { auth } from './auth';
+import { general } from './general';
 
 // create router
 export const apis = express.Router();
 
 // define route navigation
 apis.use('/auth', auth);
+apis.use('/general', general);
 
 // load docs if requested
 if (getConfig('app.docs')) {
