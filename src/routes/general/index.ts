@@ -3,7 +3,7 @@ import * as express from 'express';
 // import * as queryBoolParser from 'express-query-boolean';
 // import * as queryIntParser from 'express-query-int';
 
-import { errValidator } from '../../error-handler/error-validator';
+// import { errValidator } from '../../error-handler/error-validator';
 
 import { getInTouchValidation } from './validators/get-in-touch-rule';
 import { getInTouch } from './get-in-touch';
