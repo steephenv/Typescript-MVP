@@ -6,7 +6,7 @@
   "main": "dist/src/app.js",
   "scripts": {
     "start-once": "cross-env NODE_CONFIG_DIR=./src/config ts-node ./src/bin/www.ts",
-    "start": "cross-env NODE_CONFIG_DIR=./src/config cross-env TESTING=true node --exec node ./dist/src/bin/www.js",
+    "start": "node ./dist/src/bin/www.js",
     "start-dist": "cd dist/src/public && yarn install && cd ../../.. && cross-env NODE_CONFIG_DIR=./dist/src/config node ./dist/src/bin/www",
     "build": "gulp build",
     "build-with-docs": "gulp build-with-docs",
