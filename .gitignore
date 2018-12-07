@@ -1,7 +1,5 @@
 mocha-insights/
 # credentials/
-dist
-schema-dist
 src/config/private
 schema-doc.md
 schema-doc.html

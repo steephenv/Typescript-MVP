@@ -1,0 +1,14 @@
+# # development beta in cloud
+# # used for internal use
+# app: 
+#   port: 6533
+#   docs: true
+#   morgan: true
+# database:
+#   url: mongodb://miwago_user:NBGVJHgjhg67uhgvjuuy5hjnv98jkhbBGbkjbhfgjhbkmjhb76hjv98bkjbnjmn@192.168.200.20:27017/miwago_db
+
+# docsUrl: "devapi-miwago.cubettech.in"
+
+# frontEnd:
+#   web:
+#     baseUrl: 'https://dev-miwago.cubettech.in'

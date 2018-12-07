@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express = require("express");
+// import * as queryBoolParser from 'express-query-boolean';
+// import * as queryIntParser from 'express-query-int';
+const error_validator_1 = require("../../error-handler/error-validator");
+const register_rules_1 = require("./validators/register-rules");
+const login_rule_1 = require("./validators/login.rule");
+const register_1 = require("./register");
+const login_1 = require("./login");
+exports.auth = express.Router();
+exports.auth.post('/register', register_rules_1.registerValidation, register_1.registration);
+exports.auth.post('/login', login_rule_1.loginRule, error_validator_1.errValidator, login_1.login);

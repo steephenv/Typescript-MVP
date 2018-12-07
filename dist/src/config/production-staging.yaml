@@ -1,0 +1,15 @@
+# # STAGING
+# # This is given for client for their testing purposes
+
+# app:
+#   logging: true
+#   morgan: true
+#   port: 6233
+#   docs: false
+
+# database:
+#   url: mongodb://miwago:JNH76Gh4jglh6H7UT8G0hlf3fkh86524rfd543trs2fdxdnvfBDGFVS2u@192.168.200.20:27017/miwago_db_staging
+
+# frontEnd:
+#   web:
+#     baseUrl: 'https://demo.capricorns.io'

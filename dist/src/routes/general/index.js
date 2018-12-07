@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express = require("express");
+// import * as queryBoolParser from 'express-query-boolean';
+// import * as queryIntParser from 'express-query-int';
+// import { errValidator } from '../../error-handler/error-validator';
+const get_in_touch_rule_1 = require("./validators/get-in-touch-rule");
+const get_in_touch_1 = require("./get-in-touch");
+exports.general = express.Router();
+exports.general.post('/get-in-touch', get_in_touch_rule_1.getInTouchValidation, get_in_touch_1.getInTouch);

@@ -1,0 +1,31 @@
+app:
+  port: 6233
+  docs: true
+  logging: true # for logging stuffs out
+  morgan: false # for request logging
+  jwt:
+    SecretKey: lovemelikeyoudo
+    accessTokenExpiryTime: 7d
+
+database:
+  # url: mongodb://localhost:27017/node_test
+  url: mongodb://steephen:A!2345@ds237363.mlab.com:37363/htmlnode
+
+docsUrl: 'localhost:7000'
+# mails:
+#   enable: true
+#   defaultFrom: admin@capricorns.io # this is the source email that is used to send emails(from address)
+#   admin: 'aumadmin@yopmail.com'
+#   errMails: miwago-bug-report@cubettech.com
+
+# issue-maker:
+#   service: gitlab
+#   projectId: 938
+#   endPoint: http://117.247.186.100:9898
+#   privateToken: 2zVNcSxwXsLWzHzDudQ1
+
+# frontEnd:
+#   web:
+#     baseUrl: http://localhost:4200
+
+# AWS_BUCKET_NAME: miwagoassets
